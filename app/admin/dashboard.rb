@@ -25,7 +25,13 @@ ActiveAdmin.register_page "Dashboard" do
   end
 
   page_action :enable_speed, :method => :post do
-    flash[:notice] = params[:enable_speed][:file]
-    redirect_to admin_dashboard_path
+    urls = []
+    File.open(params[:enable_speed][:file].tempfile).each do |line|
+      urls.append(line.first(line.size-1))
+    end
+    id = Url.import_urls(urls)
+    puts "from admin "
+    puts id
+    #Scrape.new(urls)
   end
 end
