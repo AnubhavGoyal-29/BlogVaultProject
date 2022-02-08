@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_04_064259) do
+ActiveRecord::Schema.define(version: 2022_02_07_112540) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -36,6 +36,64 @@ ActiveRecord::Schema.define(version: 2022_02_04_064259) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  end
+
+  create_table "plugins", force: :cascade do |t|
+    t.string "plugin_name"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "url_id"
+    t.index ["url_id"], name: "index_plugins_on_url_id"
+  end
+
+  create_table "site_data", force: :cascade do |t|
+    t.string "cms_type"
+    t.string "cms_version"
+    t.string "js"
+    t.string "cloudflare"
+    t.string "login_url"
+    t.string "hosting"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "plugin_id"
+    t.integer "theme_id"
+    t.index ["plugin_id"], name: "index_site_data_on_plugin_id"
+    t.index ["theme_id"], name: "index_site_data_on_theme_id"
+  end
+
+  create_table "tests", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "url_id"
+    t.integer "site_data_id"
+    t.integer "t_no"
+    t.index ["site_data_id"], name: "index_tests_on_site_data_id"
+    t.index ["url_id"], name: "index_tests_on_url_id"
+  end
+
+  create_table "tests_urls", id: false, force: :cascade do |t|
+    t.integer "test_id"
+    t.integer "url_id"
+    t.index ["test_id"], name: "index_tests_urls_on_test_id"
+    t.index ["url_id"], name: "index_tests_urls_on_url_id"
+  end
+
+  create_table "themes", force: :cascade do |t|
+    t.string "theme_name"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "url_id"
+    t.index ["url_id"], name: "index_themes_on_url_id"
+  end
+
+  create_table "urls", force: :cascade do |t|
+    t.string "url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "test_id"
+    t.index ["test_id"], name: "index_urls_on_test_id"
   end
 
 end

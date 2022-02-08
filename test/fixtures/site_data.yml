@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cms_type: MyString
+  cms_version: MyString
+  js: MyString
+  cloudflare: MyString
+  login_url: MyString
+  hosting: MyString
+
+two:
+  cms_type: MyString
+  cms_version: MyString
+  js: MyString
+  cloudflare: MyString
+  login_url: MyString
+  hosting: MyString
