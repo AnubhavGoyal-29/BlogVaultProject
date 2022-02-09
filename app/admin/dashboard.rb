@@ -26,12 +26,14 @@ ActiveAdmin.register_page "Dashboard" do
 
   page_action :enable_speed, :method => :post do
     urls = []
-    File.open(params[:enable_speed][:file].tempfile).each do |line|
-      urls.append(line.first(line.size-1))
+    if params[:enable_speed][:file]
+      File.open(params[:enable_speed][:file].tempfile).each do |line|
+        urls.append(line.first(line.size-1))
     end
-    id = Url.import_urls(urls)
-    puts "from admin "
-    puts id
-    #Scrape.new(urls)
+    end
+    if params[:enable_speed][:text]
+      #some code here 
+    end
+    BlogVaultScrape(urls)
   end
 end

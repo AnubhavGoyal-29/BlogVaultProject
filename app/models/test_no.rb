@@ -1,0 +1,2 @@
+class TestNo < ApplicationRecord
+end
