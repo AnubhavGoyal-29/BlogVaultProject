@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2022_02_09_073531) do
+=======
+ActiveRecord::Schema.define(version: 2022_02_09_095111) do
+>>>>>>> ddb24d981762089819ed0dea88b332cd2f70c33f
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -36,6 +40,21 @@ ActiveRecord::Schema.define(version: 2022_02_09_073531) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  end
+
+  create_table "data", force: :cascade do |t|
+    t.string "cms_type"
+    t.string "cms_version"
+    t.string "js"
+    t.string "cloudflare"
+    t.string "login_url"
+    t.string "hosting"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "plugins_id"
+    t.integer "themes_id"
+    t.index ["plugins_id"], name: "index_data_on_plugins_id"
+    t.index ["themes_id"], name: "index_data_on_themes_id"
   end
 
   create_table "plugins", force: :cascade do |t|
@@ -70,12 +89,16 @@ ActiveRecord::Schema.define(version: 2022_02_09_073531) do
   create_table "tests", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "data_id"
+    t.integer "urls_id"
     t.integer "site_data_id"
     t.integer "t_no"
     t.integer "url_id"
+    t.index ["data_id"], name: "index_tests_on_data_id"
     t.index ["site_data_id"], name: "index_tests_on_site_data_id"
     t.index ["t_no", "url_id"], name: "index_tests_on_t_no_and_url_id", unique: true
     t.index ["url_id"], name: "index_tests_on_url_id"
+    t.index ["urls_id"], name: "index_tests_on_urls_id"
   end
 
   create_table "tests_urls", id: false, force: :cascade do |t|
@@ -98,8 +121,10 @@ ActiveRecord::Schema.define(version: 2022_02_09_073531) do
     t.string "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "tests_id"
     t.integer "test_id"
     t.index ["test_id"], name: "index_urls_on_test_id"
+    t.index ["tests_id"], name: "index_urls_on_tests_id"
   end
 
 end

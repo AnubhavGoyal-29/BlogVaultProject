@@ -1,8 +1,6 @@
 class BlogvaultScrapingJob < ApplicationJob
-  queue_as :default
-
-  def perform(*args)
-    # Do something later
-    puts 'yo bro something is done with jobs'
+  @queue = :my_worker_queue
+  def perform(urls)
+    BlogvaultScrape.new(urls)
   end
 end
