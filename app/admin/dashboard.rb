@@ -34,6 +34,6 @@ ActiveAdmin.register_page "Dashboard" do
     if params[:start_test][:text]
       #some code here 
     end
-    BlogvaultScrape.new(urls)
+      BlogvaultScrape.new(urls) 
   end
 end

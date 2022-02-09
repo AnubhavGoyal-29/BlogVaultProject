@@ -1,44 +1,43 @@
 class FilterCms
   def initialize(urls)
+    puts 'hi i am filter cms'
     @urls = urls
-    return filter_cms
   end
-
-
-  def filter_cms
+  def start_filter
     urls = []
+    data  = []
     @urls.each do |row|
       begin
+        puts row
         html = Nokogiri::HTML.parse( RestClient.get row)
-        if(html.at('meta[name="generator"]'))
-          cm_s = html.at('meta[name="generator"]')['content']
-          if(cm_s['ord'] and cm_s['ress'])
+        found = false
+        html.search("meta[name='generator']").map { |n|
+          cms = n['content']
+          if( cms['ord'] and cms['ress'])
+            puts 'found'
             urls << row
-            Url.create(url:row,test_id:nil)
+            data << html
+            found = true
+            break;
           end
-        elsif(html.at('meta[name="Generator"]'))
-          cm_s = html.at('meta[name="Generator"]')['content']
-          if(cm_s['ord'] and cm_s['ress'])
-            urls << row
-            Url.create(url:row,test_id:nil)
-          end
+        }
+        if(found)
+          next
         else
           links = html.css('link')
           links.map do |link|
             if(link['href']['wp-content'])
               urls << row
-              Url.create(url:row,test_id:nil)
+              data << html
               break
             end
           end
         end
-        puts "checked #{row}"
       rescue => e
-        puts e
-        puts "some error occuured in #{row}"
       end
     end
-    return urls
+    puts urls
+    return [urls,data]
   end
 
 end

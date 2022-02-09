@@ -7,7 +7,8 @@ class CreateSiteData < ActiveRecord::Migration[5.2]
       t.string :cloudflare
       t.string :login_url
       t.string :hosting
-
+      t.string :plugins
+      t.string :themes
       t.timestamps
     end
   end

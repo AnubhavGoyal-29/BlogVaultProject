@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_08_102827) do
+ActiveRecord::Schema.define(version: 2022_02_09_073531) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 2022_02_08_102827) do
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "version"
   end
 
   create_table "site_data", force: :cascade do |t|
@@ -53,12 +54,10 @@ ActiveRecord::Schema.define(version: 2022_02_08_102827) do
     t.string "cloudflare"
     t.string "login_url"
     t.string "hosting"
+    t.string "plugins"
+    t.string "themes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "plugin_id"
-    t.integer "theme_id"
-    t.index ["plugin_id"], name: "index_site_data_on_plugin_id"
-    t.index ["theme_id"], name: "index_site_data_on_theme_id"
   end
 
   create_table "test_nos", force: :cascade do |t|
@@ -92,6 +91,7 @@ ActiveRecord::Schema.define(version: 2022_02_08_102827) do
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "version"
   end
 
   create_table "urls", force: :cascade do |t|
