@@ -21,19 +21,19 @@ ActiveAdmin.register_page "Dashboard" do
   controller do
   end
   action_item :view do
-    link_to 'Enable Speed', admin_dashboard_enable_speed_path, data: {:confirm => "Are you sure?"}
+    link_to 'Start test', admin_dashboard_start_test_path
   end
 
-  page_action :enable_speed, :method => :post do
+  page_action :start_test, :method => [:post,:get] do
     urls = []
-    if params[:enable_speed][:file]
-      File.open(params[:enable_speed][:file].tempfile).each do |line|
+    if params[:start_test][:file]
+      File.open(params[:start_test][:file].tempfile).each do |line|
         urls.append(line.first(line.size-1))
     end
     end
-    if params[:enable_speed][:text]
+    if params[:start_test][:text]
       #some code here 
     end
-    BlogVaultScrape(urls)
+    BlogvaultScrape.new(urls)
   end
 end

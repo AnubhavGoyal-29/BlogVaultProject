@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_08_123937) do
+ActiveRecord::Schema.define(version: 2022_02_08_102827) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -40,11 +40,10 @@ ActiveRecord::Schema.define(version: 2022_02_08_123937) do
 
   create_table "plugins", force: :cascade do |t|
     t.string "plugin_name"
+    t.string "url_id"
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "url_id"
-    t.index ["url_id"], name: "index_plugins_on_url_id"
   end
 
   create_table "site_data", force: :cascade do |t|
@@ -72,11 +71,11 @@ ActiveRecord::Schema.define(version: 2022_02_08_123937) do
   create_table "tests", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "url_id"
     t.integer "site_data_id"
     t.integer "t_no"
+    t.integer "url_id"
     t.index ["site_data_id"], name: "index_tests_on_site_data_id"
-    t.index ["t_no", "site_data_id"], name: "index_tests_on_t_no_and_site_data_id", unique: true
+    t.index ["t_no", "url_id"], name: "index_tests_on_t_no_and_url_id", unique: true
     t.index ["url_id"], name: "index_tests_on_url_id"
   end
 
@@ -89,11 +88,10 @@ ActiveRecord::Schema.define(version: 2022_02_08_123937) do
 
   create_table "themes", force: :cascade do |t|
     t.string "theme_name"
+    t.string "url_id"
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "url_id"
-    t.index ["url_id"], name: "index_themes_on_url_id"
   end
 
   create_table "urls", force: :cascade do |t|
