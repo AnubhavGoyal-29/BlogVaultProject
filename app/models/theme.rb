@@ -17,5 +17,4 @@ belongs_to :url , default: nil
       end
     end
   end
-
 end

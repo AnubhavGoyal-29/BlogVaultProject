@@ -35,7 +35,7 @@ gem 'composite_primary_keys'
 gem 'rest-client'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-
+gem 'resque'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
