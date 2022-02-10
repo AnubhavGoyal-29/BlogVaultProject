@@ -34,6 +34,8 @@ ActiveAdmin.register_page "Dashboard" do
     if params[:start_test][:text]
       #some code here 
     end
-    BlogvaultScrapingJob.perform_later(urls)
+    testNo = TestNo.create(number_of_urls: urls.size,status:0)
+    puts "test #{testNo.id} started"
+    BlogvaultScrapingJob.perform_later(urls,testNo.id)
   end
 end
