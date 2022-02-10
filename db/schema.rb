@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_09_073531) do
+ActiveRecord::Schema.define(version: 2022_02_10_074613) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -38,13 +38,25 @@ ActiveRecord::Schema.define(version: 2022_02_09_073531) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
+  create_table "js_infos", force: :cascade do |t|
+    t.string "js_name"
+    t.string "url_id"
+    t.string "status"
+    t.string "version"
+    t.string "other_data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "plugins", force: :cascade do |t|
     t.string "plugin_name"
     t.string "url_id"
     t.string "status"
+    t.string "type"
+    t.string "version"
+    t.string "other_data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "version"
   end
 
   create_table "site_data", force: :cascade do |t|
@@ -53,53 +65,47 @@ ActiveRecord::Schema.define(version: 2022_02_09_073531) do
     t.string "js"
     t.string "cloudflare"
     t.string "login_url"
-    t.string "hosting"
+    t.string "host_name"
     t.string "plugins"
     t.string "themes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "test_nos", force: :cascade do |t|
+  create_table "test_data_infos", force: :cascade do |t|
+    t.integer "url_id"
+    t.integer "site_data_id"
+    t.integer "t_no"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["site_data_id"], name: "index_test_data_infos_on_site_data_id"
+    t.index ["t_no", "url_id"], name: "index_test_data_infos_on_t_no_and_url_id", unique: true
+    t.index ["url_id"], name: "index_test_data_infos_on_url_id"
+  end
+
+  create_table "tests", force: :cascade do |t|
     t.integer "status"
     t.integer "number_of_urls"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "tests", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "site_data_id"
-    t.integer "t_no"
-    t.integer "url_id"
-    t.index ["site_data_id"], name: "index_tests_on_site_data_id"
-    t.index ["t_no", "url_id"], name: "index_tests_on_t_no_and_url_id", unique: true
-    t.index ["url_id"], name: "index_tests_on_url_id"
-  end
-
-  create_table "tests_urls", id: false, force: :cascade do |t|
-    t.integer "test_id"
-    t.integer "url_id"
-    t.index ["test_id"], name: "index_tests_urls_on_test_id"
-    t.index ["url_id"], name: "index_tests_urls_on_url_id"
-  end
-
   create_table "themes", force: :cascade do |t|
     t.string "theme_name"
     t.string "url_id"
     t.string "status"
+    t.string "version"
+    t.string "other_data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "version"
   end
 
   create_table "urls", force: :cascade do |t|
     t.string "url"
+    t.integer "test_data_info_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "test_id"
-    t.index ["test_id"], name: "index_urls_on_test_id"
+    t.index ["test_data_info_id"], name: "index_urls_on_test_data_info_id"
   end
 
 end

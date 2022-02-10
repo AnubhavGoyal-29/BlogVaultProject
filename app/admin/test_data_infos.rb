@@ -1,16 +1,16 @@
-ActiveAdmin.register Test do
+ActiveAdmin.register TestDataInfo do
 
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  # permit_params :status, :number_of_urls
+  permit_params :data_id, :urls_id
   #
   # or
   #
   # permit_params do
-  #   permitted = [:status, :number_of_urls]
+  #   permitted = [:data_id, :urls_id]
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end

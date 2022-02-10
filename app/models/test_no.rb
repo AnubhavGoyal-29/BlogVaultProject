@@ -1,2 +1,0 @@
-class TestNo < ApplicationRecord
-end

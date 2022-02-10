@@ -16,6 +16,8 @@ class BlogvaultScrape
   def start_scrape(data)
     getSiteData = GetSiteData.new(data)
     final_data = getSiteData.start_scrape
+    puts final_data
+    UpdateDatabase.new.update_data(@testNo,final_data)
     puts "Test #{@testNo} completed"
     puts final_data
   end
