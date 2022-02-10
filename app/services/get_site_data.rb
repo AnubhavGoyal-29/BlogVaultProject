@@ -8,21 +8,28 @@ class GetSiteData
     for i in @data[1] do
       html = i
       plugins = html.css('script')
-      barr = []
+      barr = Hash.new{|h,k| h[k] = [] }
       plugins.each do |plugin|
         if plugin['src']
           arr = plugin['src'].split('/')
           if arr[5]
-            barr << [arr[4],arr[5]]
+             barr[arr[4]].push(arr[5])
           end
         end
       end
+      data = barr.each { |key,arr|
+        puts key
+        puts arr.uniq
+        puts 
+      }
+=begin
       barr = barr.uniq
       barr.sort_by{|a,b| a[0] <=> b[0]}
       barr.each { |arr|
         print arr[0],"   ",arr[1]
         puts
       }
+=end
     end
   end
 end
