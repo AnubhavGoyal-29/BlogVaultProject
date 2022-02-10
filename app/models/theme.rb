@@ -2,7 +2,7 @@ class Theme < ApplicationRecord
 belongs_to :url , default: nil
 
   def self.import_themes(theme,_url)
-
+    id = []
     theme.each do |i|
       _theme = Theme.where(theme_name:i[0],url_id:_url,status:1).first
       if _theme
@@ -10,11 +10,15 @@ belongs_to :url , default: nil
         if  _version != i[1]
           _theme.status = 0
           _theme.save
-          Theme.create(theme_name:i[0],url_id:_url,status:1,version:i[1])
+          theme = Theme.create(theme_name:i[0],url_id:_url,status:1,version:i[1])
+          id << theme.id
+        else
+          id << _theme.id
         end
       else
-        Theme.create(theme_name:i[0],url_id:_url,status:1,version:i[1])
+       theme = Theme.create(theme_name:i[0],url_id:_url,status:1,version:i[1])
       end
     end
+    return id
   end
 end
