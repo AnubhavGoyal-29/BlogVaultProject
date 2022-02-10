@@ -1,9 +1,10 @@
 class BlogvaultScrape
-  def initialize(urls)
-    puts 'from blogvault scrape'
+  def initialize(urls,testNo)
+    @testNo = testNo
+    puts "test #{testNo} started"
     data = filter_cms(urls)
-    #ids  =  Url.import_urls(data[0])
-    start_scrape(data)
+    ids  =  Url.import_urls(data)
+    start_scrape(ids)
   end
   
   def filter_cms(urls)
@@ -14,6 +15,8 @@ class BlogvaultScrape
 
   def start_scrape(data)
     getSiteData = GetSiteData.new(data)
-    getSiteData.start_scrape
+    final_data = getSiteData.start_scrape
+    puts "Test #{@testNo} completed"
+    puts final_data
   end
 end
