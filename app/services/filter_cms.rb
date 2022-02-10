@@ -6,6 +6,7 @@ class FilterCms
   def start_filter
     urls = []
     data  = []
+    cms_a = []
     @urls.each do |row|
       begin
         puts row
@@ -18,6 +19,7 @@ class FilterCms
             urls << row
             data << html
             found = true
+            cms_a << cms.split(' ')
             break;
           end
         }
@@ -29,6 +31,7 @@ class FilterCms
             if(link['href']['wp-content'])
               urls << row
               data << html
+              cms_a << cms.split(' ')
               break
             end
           end
@@ -37,7 +40,7 @@ class FilterCms
       end
     end
     puts urls
-    return [urls,data]
+    return [urls,data,cm_a]
   end
 
 end

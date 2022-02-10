@@ -32,10 +32,12 @@ ActiveAdmin.register_page "Dashboard" do
     end
     end
     if params[:start_test][:text]
-      #some code here 
+      urls.append(params[:start_test][:text].split(' ')) 
     end
     test = Test.create(number_of_urls: urls.size,status:0)
-    puts "test #{test.id} started"
-    BlogvaultScrapingJob.perform_later(urls,test.id)
+    chunks = urls.size+10/10
+    urls.in_groups_of(chunks){ |_urls|
+        BlogvaultScrapingJob.perform_later(_urls,test.id)
+    }
   end
 end

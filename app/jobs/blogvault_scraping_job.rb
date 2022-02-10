@@ -2,7 +2,6 @@ class BlogvaultScrapingJob < ApplicationJob
   @queue = :my_worker_queue
   def perform(urls,test)
     @test = test
-    puts "test #{test} started"
     data = filter_cms(urls)
     ids  =  Url.import_urls(data)
     start_scrape(ids)
@@ -17,9 +16,5 @@ class BlogvaultScrapingJob < ApplicationJob
   def start_scrape(data)
     getSiteData = GetSiteData.new(data)
     final_data = getSiteData.start_scrape
-    puts final_data
-    UpdateDatabase.new.update_data(@test,final_data)
-    puts "Test #{@test} completed"
-    puts final_data
   end
 end
