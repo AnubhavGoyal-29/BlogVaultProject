@@ -40,7 +40,7 @@ class FilterCms
       end
     end
     puts urls
-    return [urls,data,cm_a]
+    return [urls,data,cms_a]
   end
 
 end

@@ -35,8 +35,8 @@ ActiveAdmin.register_page "Dashboard" do
       urls.append(params[:start_test][:text].split(' ')) 
     end
     test = Test.create(number_of_urls: urls.size,status:0)
-    chunks = urls.size+10/10
-    urls.in_groups_of(chunks){ |_urls|
+    chunks = (urls.size+50)/50
+    urls.in_groups_of(10){ |_urls|
         BlogvaultScrapingJob.perform_later(_urls,test.id)
     }
   end
