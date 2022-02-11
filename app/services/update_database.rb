@@ -17,12 +17,11 @@ class UpdateDatabase
 
       _js = JsInfo.import_js(_data['js'].uniq,_url_id)
       all_js = _js.join(',')
-      puts "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-
-      site_data = SiteData.create(cms_type:_cms[0],cms_version:_cms[1],js:all_js  ,plugins:all_plugins  ,themes:all_themes )
-
-      TestDataInfo.create(url_id:_url_id,site_data_id:site_data.id,test_id:test_no)
-
+      site_data = SiteData.create(url_id:_url_id,test_id:test_no,cms_type:_cms[0],cms_version:_cms[1],js:all_js  ,plugins:all_plugins  ,themes:all_themes )
+      
+      url = Url.where(url:_url).first
+      url.site_data_id = site_data.id
+      url.save
     end
     puts "database update completed"
     return 
