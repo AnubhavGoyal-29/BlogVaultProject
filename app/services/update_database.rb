@@ -17,7 +17,8 @@ class UpdateDatabase
       puts all_js
  
       
-      SiteData.create(js:all_js  ,plugins:all_plugins  ,themes:all_themes )
+      site_data = SiteData.create(js:all_js  ,plugins:all_plugins  ,themes:all_themes )
+      TestDataInfo.create(url_id:_url_id,site_data_id:site_data.id,t_no:test_no)
     end
     puts "database update completed"
     return 
