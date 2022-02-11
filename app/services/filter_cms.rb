@@ -15,7 +15,6 @@ class FilterCms
         html.search("meta[name='generator']").map { |n|
           cms = n['content']
           if( cms['ord'] and cms['ress'])
-            puts 'found'
             urls << row
             data << html
             found = true
@@ -31,7 +30,7 @@ class FilterCms
             if(link['href']['wp-content'])
               urls << row
               data << html
-              cms_a << cms.split(' ')
+              cms_a << [cms.split(' ')]
               break
             end
           end
@@ -39,7 +38,10 @@ class FilterCms
       rescue => e
       end
     end
-    puts urls
+    cms_a.each do |cms|
+      puts cms
+      puts
+    end
     return [urls,data,cms_a]
   end
 

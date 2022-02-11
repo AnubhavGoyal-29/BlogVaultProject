@@ -60,6 +60,8 @@ ActiveRecord::Schema.define(version: 2022_02_10_074613) do
   end
 
   create_table "site_data", force: :cascade do |t|
+    t.integer "url_id"
+    t.integer "test_id"
     t.string "cms_type"
     t.string "cms_version"
     t.string "js"
@@ -70,17 +72,8 @@ ActiveRecord::Schema.define(version: 2022_02_10_074613) do
     t.string "themes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "test_data_infos", force: :cascade do |t|
-    t.integer "url_id"
-    t.integer "site_data_id"
-    t.integer "t_no"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["site_data_id"], name: "index_test_data_infos_on_site_data_id"
-    t.index ["t_no", "url_id"], name: "index_test_data_infos_on_t_no_and_url_id", unique: true
-    t.index ["url_id"], name: "index_test_data_infos_on_url_id"
+    t.index ["test_id"], name: "index_site_data_on_test_id"
+    t.index ["url_id"], name: "index_site_data_on_url_id"
   end
 
   create_table "tests", force: :cascade do |t|
@@ -102,10 +95,10 @@ ActiveRecord::Schema.define(version: 2022_02_10_074613) do
 
   create_table "urls", force: :cascade do |t|
     t.string "url"
-    t.integer "test_data_info_id"
+    t.integer "site_data_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["test_data_info_id"], name: "index_urls_on_test_data_info_id"
+    t.index ["site_data_id"], name: "index_urls_on_site_data_id"
   end
 
 end

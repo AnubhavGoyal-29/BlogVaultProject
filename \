@@ -2,7 +2,7 @@ class BlogvaultScrapingJob < ApplicationJob
   @queue = :my_worker_queue
   def perform(urls,test)
     @test = test
-    data = filter_cms(urls)
+    data = filter_cms(url)
     ids  =  Url.import_urls(data)
     start_scrape(ids)
   end
@@ -16,9 +16,5 @@ class BlogvaultScrapingJob < ApplicationJob
   def start_scrape(data)
     getSiteData = GetSiteData.new(data)
     final_data = getSiteData.start_scrape
-    puts final_data
-    puts "calling update database"
-    UpdateDatabase.new.update_data(@test,final_data)
-    puts "update_database called"
   end
 end
