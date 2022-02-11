@@ -9,27 +9,21 @@ class GetSiteData
     puts @data[1].size
     puts @data[2].size
     for i in 0..@data[1].size-1 do
-      puts "running for url #{@data[0][i]}"
       html =@data[1][i]
       scripts = html.css('script')
       barr = Hash.new{|h,k| h[k] = [] }
       scripts.each do |script|
-        if script['src']
-          if script['src']['wp-content']
-            arr = script['src'].split('/')
-            arr = arr.reverse()
-            i = arr.find_index('wp-content')
-            word = arr[i-1]
-            value = arr[i-2]
-            barr[arr[i-1]].push(arr[i-2])
+        if script['src'] and script['src']['wp-content']
+          arr = script['src'].split('/')
+          arr = arr.reverse
+          j = arr.index('wp-content')
+          if arr[j-2]
+             barr[arr[j-1]].push(arr[j-2])
           end
         end
-      end
-      n_arr = barr.each { |key,arr|
-        key
-        arr.uniq
-      }
-      data << [@data[0][i],n_arr,@data[2][i]]
+      end 
+      puts barr
+      data << [@data[0][i],barr,@data[2][i]]
     end
     return data
   end
