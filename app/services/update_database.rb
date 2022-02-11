@@ -5,6 +5,8 @@ class UpdateDatabase
     data.each do |i| 
       _url = i[0]
       _data = i[1]
+      puts "data from update database service"
+      puts _data
       _cms = i[2]
       puts _cms
       _url_id=Url.where(url:_url).first.id

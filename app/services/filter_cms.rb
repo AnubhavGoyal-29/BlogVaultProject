@@ -8,39 +8,35 @@ class FilterCms
     data  = []
     cms_a = []
     @urls.each do |row|
-      begin
-        puts row
-        html = Nokogiri::HTML.parse( RestClient.get row)
-        found = false
-        html.search("meta[name='generator']").map { |n|
-          cms = n['content']
-          if( cms['ord'] and cms['ress'])
-            urls << row
-            data << html
-            found = true
-            cms_a << cms.split(' ')
-            break;
-          end
-        }
-        if(found)
-          next
-        else
-          links = html.css('link')
-          links.map do |link|
-            if(link['href']['wp-content'])
+        begin
+          puts row
+          html = Nokogiri::HTML.parse( RestClient.get row)
+          found = false
+          html.search("meta[name='generator']").map { |n|
+            cms = n['content']
+            if( cms['ord'] and cms['ress'])
               urls << row
               data << html
-              cms_a << [cms.split(' ')]
-              break
+              found = true
+              cms_a << cms.split(' ')
+              break;
+            end
+          }
+          if(found)
+            next
+          else
+            links = html.css('link')
+            links.map do |link|
+              if(link['href']['wp-content'])
+                urls << row
+                data << html
+                cms_a << [cms.split(' ')]
+                break
+              end
             end
           end
+        rescue => e
         end
-      rescue => e
-      end
-    end
-    cms_a.each do |cms|
-      puts cms
-      puts
     end
     return [urls,data,cms_a]
   end

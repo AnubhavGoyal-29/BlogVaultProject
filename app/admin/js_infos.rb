@@ -5,12 +5,12 @@ ActiveAdmin.register JsInfo do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  # permit_params :js_name, :status, :url_id
+  # permit_params :js_name, :url_id, :status, :version, :other_data
   #
   # or
   #
   # permit_params do
-  #   permitted = [:js_name, :status, :url_id]
+  #   permitted = [:js_name, :url_id, :status, :version, :other_data]
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end

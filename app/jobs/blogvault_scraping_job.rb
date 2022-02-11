@@ -16,9 +16,6 @@ class BlogvaultScrapingJob < ApplicationJob
   def start_scrape(data)
     getSiteData = GetSiteData.new(data)
     final_data = getSiteData.start_scrape
-    puts final_data
-    puts "calling update database"
     UpdateDatabase.new.update_data(@test,final_data)
-    puts "update_database called"
   end
 end
