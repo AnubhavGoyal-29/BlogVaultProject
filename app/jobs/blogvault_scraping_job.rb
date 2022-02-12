@@ -1,22 +1,22 @@
 class BlogvaultScrapingJob < ApplicationJob
-  @queue = :my_worker_queue
+  QUEUE = :my_worker_queue
+
   def perform(urls,test)
     @test = test
-    data = filter_cms(urls)
-    ids  =  Url.import_urls(data)
-    start_scrape(ids)
+    data = filter_wordpress_sites(urls)
+    data =  Url.import_urls(data)
+    start_scrape(data)
   end
 
-  def filter_cms(urls)
-    filterCms = FilterCms.new(urls)
-    data = filterCms.start_filter
+  def filter_wordpress_sites(urls)
+    data = FilterCms::start_filter_wordpress_sites(urls)             # here we get three things [[url,html,[wordpress,version]]]
     return data
   end
 
+  # scraping site data here 
+  # updating the data in database
   def start_scrape(data)
-    puts "called start scrape"
-    getSiteData = GetSiteData.new(data)
-    final_data = getSiteData.start_scrape
-    UpdateDatabase.new.update_data(@test,final_data)
+    finalData = GetSiteData::start_scraping_html(data)
+    UpdateDatabase::update_data(@test,finalData)
   end
 end

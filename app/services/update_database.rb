@@ -1,28 +1,28 @@
 class UpdateDatabase
+  class << self
+    def update_data(test_no,urls_data)
+      urls_data.each do |data| 
+        url = data[0]
+        hashed_data = data[1]
+        cms_version = data[2]
 
-  def update_data(test_no,data)
-    puts "called update database"
-    data.each do |i| 
-      _url = i[0]
-      _data = i[1]
-      _cms = i[2]
-      _url_id=Url.where(url:_url).first.id
+        url_id=Url.where(url:url).first.id
 
-      _plugins = Plugin.import_plugins(_data["plugins"].uniq,_url_id)
-      all_plugins = _plugins.join(',')
-      puts "till plugin it is working"
-      _themes = Theme.import_themes(_data["themes"].uniq,_url_id)
-      all_themes = _themes.join(',')
+        _plugins = Plugin.import_plugins(hashed_data["plugins"].uniq, url_id)
+        plugins_string = _plugins.join(',')
 
-      _js = JsInfo.import_js(_data["js"].uniq,_url_id)
-      all_js = _js.join(',')
-      site_data = SiteData.create(url_id:_url_id,test_id:test_no,cms_type:_cms[0],cms_version:_cms[1],js:all_js  ,plugins:all_plugins  ,themes:all_themes )
-      
-      url = Url.where(url:_url).first
-      url.site_data_id = site_data.id
-      url.save
+        _themes = Theme.import_themes(hashed_data["themes"].uniq, url_id)
+        themes_string = _themes.join(',')
+
+        _js = JsInfo.import_js(hashed_data["js"].uniq, url_id)
+        js_string = _js.join(',')
+
+        site_data = SiteData.create(url_id:url_id,test_id:test_no,cms_type:'wordpress',cms_version:cms_version,js:js_string,plugins:plugins_string,themes:themes_string)
+
+        url = Url.where(url:url).first
+        url.site_data_id = site_data.id
+        url.save
+      end 
     end
-    puts "database update completed"
-    return 
   end
 end
