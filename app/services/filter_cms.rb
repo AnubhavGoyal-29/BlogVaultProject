@@ -1,58 +1,39 @@
 class FilterCms
-  @version = [] # to save wordpress version
+  @version = "" # to store version of a url
   class << self
 
-    # will return sites with cms wordpress 
-    #their html and wordpress version 
     def start_filter_wordpress_sites(urls_data)
-      urls = [] # to save urls
-      htmls = [] # to save html of url
+      url_html_version_map = Hash.new{|h,k| h[k] = [] }
       urls_data.each do |url|
         begin
-          html = Nokogiri::HTML.parse( RestClient.get url)
-          if find_wordpress_from_meta_or_Meta(html)
-            urls << url
-            htmls << html
-          else
+          html = Nokogiri::HTML.parse(RestClient.get url)
+          if check_wordpress_in_meta(html)
+            url_html_version_map[url] = [html,@version]
           end
         rescue => e
+          puts e
         end
       end
-      return [urls, htmls, @version]
+      return url_html_version_map
     end
-    
-    # find wordpress from meta or Meta name
-    def find_wordpress_from_meta_or_Meta(html)
-      # checking from meta name generator
-      html.search("meta[name='generator']").map do |line|
-        if line['content']
-          cms = line['content']
-          if check_wordpress_name(cms)
-            return true
-          end
-        end
-      end
-      # checking from meta name Generator
-      html.search("meta[name='Generator']").map do |line|
-        if line['content']
-          cms = line['content']
-          if check_wordpress_name(cms)
-            return true
+
+    def check_wordpress_in_meta(html)
+      metaName = ['generator', 'Generator']
+      metaName.each do |name|
+        html.search("meta[name='#{name}']").map do |line|
+          if line['content']
+            cms = line['content']
+            return true if check_wordpress_name(cms)
           end
         end
       end
       return false
     end
-
-    # to check different naming of wordpress
+    
     def check_wordpress_name(cms)
       if cms && cms['Wordpress'] || cms['wordpress'] || cms['WordPress']
         wordpressAndVersion = cms.split(' ')
-        if wordpressAndVersion[1]
-          @version << wordpressAndVersion[1]
-        else
-          @version << "version not found"
-        end
+        @version = wordpressAndVersion[1] ? wordpressAndVersion[1] : "version not found"
         return true
       end
       return false;

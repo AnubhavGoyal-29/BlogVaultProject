@@ -1,38 +1,37 @@
 class GetSiteData
   class<<self
     def start_scraping_html(urls_data)
-      data = []
-      for index in 0..urls_data[1].size-1 do
-        html = urls_data[1][index]
-        hashedData = Hash.new{|h,k| h[k] = []}
-
-        get_data_from_resource(html,'script','plugins',hashedData)
-        get_data_from_resource(html,'script','themes',hashedData)
-        get_data_from_resource(html,'script','js',hashedData)
-        get_data_from_resource(html,'link','js',hashedData)
-
-        data << [urls_data[0][index],hashedData,urls_data[2][index]]
+      data = Hash.new{|h,k| h[k] = [] }
+      urls_data.each do |key,value|
+        puts key
+        html = value[0]
+        mapedData = Hash.new{|h,k| h[k] = [] }
+        get_data_from_resource(html,'script','plugins',mapedData)
+        get_data_from_resource(html,'script','themes',mapedData)
+        get_data_from_resource(html,'script','js',mapedData)
+        get_data_from_resource(html,'link','js',mapedData)
+        data[key] = [mapedData, value[1]]
       end
       return data
     end
 
 
 
-    def get_data_from_resource(html,resource,dataType,hashedData)
+    def get_data_from_resource(html,resource,dataType,mapedData)
       resource_data = html.css(resource)
       resource_data.each do |line|
-        get_data_from_sub_source(line,dataType,'src',hashedData)
-        get_data_from_sub_source(line,dataType,'href',hashedData)
+        get_data_from_sub_source(line,dataType,'src',mapedData)
+        get_data_from_sub_source(line,dataType,'href',mapedData)
       end
     end
 
-    def get_data_from_sub_source(line,dataType,subResource,hashedData)
+    def get_data_from_sub_source(line,dataType,subResource,mapedData)
       if line[subResource] and line[subResource][dataType]
         tempArr = line[subResource].split('/')          #tempArr stores string values spllitted by '/' sign in order to obtain resource and its next value
         tempArr = tempArr.reverse
         dataTypeIndex = tempArr.index(dataType)
         if dataTypeIndex and tempArr[dataTypeIndex-1]
-          hashedData[dataType].push(tempArr[dataTypeIndex-1])
+          mapedData[dataType].push(tempArr[dataTypeIndex-1])
         end
       end
     end
