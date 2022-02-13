@@ -4,7 +4,7 @@ class BlogvaultScrapingJob < ApplicationJob
   def perform(urls,test)
     @test = test
     data = filter_wordpress_sites(urls)
-    data =  Url.import_urls(data)
+    Url.import_urls(data)
     start_scrape(data)
   end
 

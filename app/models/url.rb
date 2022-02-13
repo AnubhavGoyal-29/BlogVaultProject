@@ -4,19 +4,12 @@ class Url < ApplicationRecord
   belongs_to :site_data,required: false
 
   def self.import_urls(data)
-    puts "called"
-    urls = []
-    html = []
-    for i in 0..data[0].size-1
-      _url = Url.where(url:data[0][i]).first
+    data.each do |key,value|
+      _url = Url.where(url:key).first
       if !_url
-        _url = Url.create(url:data[0][i],site_data_id: nil)
+        _url = Url.create(url:key,site_data_id: nil)
       end
-      urls << data[0][i]
-      html << data[1][i]
     end
-    puts "data from urls"
-    return [ urls, html, data[2] ] 
   end
 
 end
