@@ -1,20 +1,18 @@
 ActiveAdmin.register Url do
-  actions :all, except: [:update, :destroy]
-  permit_params :url
-  form do |f|
-    f.inputs 'Details' do
-      f.input :url
-    end
-    end
-  preserve_default_filters!
-  filter :plugin
-  index do
-    selectable_column
-    column :id
-    column "Url" do |url|
-      link_to url.url,'./'+url.url
-    end
-    column :test_id
-  end
 
+  # See permitted parameters documentation:
+  # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
+  #
+  # Uncomment all parameters which should be permitted for assignment
+  #
+  # permit_params :url, :site_data_id
+  #
+  # or
+  #
+  # permit_params do
+  #   permitted = [:url, :site_data_id]
+  #   permitted << :other if params[:action] == 'create' && current_user.admin?
+  #   permitted
+  # end
+  
 end

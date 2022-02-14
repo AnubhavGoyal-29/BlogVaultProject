@@ -1,19 +1,15 @@
 class Url < ApplicationRecord
-  has_and_belongs_to_many :test, required: false
   has_many :plugins
   has_many :themes
+  belongs_to :site_data,required: false
 
-  def self.import_urls(urls)
-    puts "called"
-    ids = []
-    urls.each do |i|
-      _url = Url.where(url:i).first
+  def self.import_urls(data)
+    data.each do |key,value|
+      _url = Url.where(url:key).first
       if !_url
-        _url = Url.create(url:i,test_id: nil)
-        ids << _url.id
+        _url = Url.create(url:key,site_data_id: nil)
       end
     end
-    return ids
   end
 
 end

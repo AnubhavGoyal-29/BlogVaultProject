@@ -5,12 +5,12 @@ ActiveAdmin.register Theme do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :theme_name, :status, :urls_id
+  # permit_params :theme_name, :url_id, :status, :version, :other_data
   #
   # or
   #
   # permit_params do
-  #   permitted = [:theme_name, :status, :urls_id]
+  #   permitted = [:theme_name, :url_id, :status, :version, :other_data]
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end

@@ -15,23 +15,34 @@ ActiveAdmin.register_page "Dashboard" do
       end
     end
   end
-  # action_item :view, :only =>[:show] do
-  #  link_to 'Modify_Table', modify_data_admin_dashboard_path(resource)
-  #end
-  controller do
-  end
+
+
+
   action_item :view do
-    link_to 'Enable Speed', admin_dashboard_enable_speed_path, data: {:confirm => "Are you sure?"}
+    link_to 'Start test', admin_dashboard_start_test_path
   end
 
-  page_action :enable_speed, :method => :post do
+
+  # only configured for csv file
+  # first it will add new wordpress site to database 
+  # then run the test for all urls
+  page_action :start_test, :method => [:post,:get] do
+
     urls = []
-    File.open(params[:enable_speed][:file].tempfile).each do |line|
-      urls.append(line.first(line.size-1))
+    if params[:start_test][:file]
+      File.open(params[:start_test][:file].tempfile).each do |line|
+        urls.append(line.first(line.size-1))
+      end
     end
-    id = Url.import_urls(urls)
-    puts "from admin "
-    puts id
-    #Scrape.new(urls)
+
+    test = Test.create(number_of_urls: urls.size,status:0)
+
+    # to run 10 workers dividing the files in size of 10
+    chunk_size = (urls.size + (urls.size % 10) )/ 10
+    urls.in_groups_of(chunk_size+1){ |_urls|
+        BlogvaultScrapingJob.perform_later(_urls,test.id)
+    }
+
+    redirect_to admin_dashboard_path
   end
 end

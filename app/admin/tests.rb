@@ -5,12 +5,12 @@ ActiveAdmin.register Test do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :data_id, :urls_id
+  # permit_params :status, :number_of_urls
   #
   # or
   #
   # permit_params do
-  #   permitted = [:data_id, :urls_id]
+  #   permitted = [:status, :number_of_urls]
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
