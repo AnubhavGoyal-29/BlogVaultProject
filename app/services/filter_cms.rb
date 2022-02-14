@@ -2,30 +2,24 @@ class FilterCms
   @version = "" # to store version of a url
   class << self
 
-    def logger
-      @logger ||= Logger.new("log/testing.log")
-    end
-
-
     def start_filter_wordpress_sites(urls_data)
-      logger.info "START_FILTER_WP_WORDPRESS_SITES_IS_CALLED_FROM_FILTER_CMS"
-      url_html_version_map = Hash.new{|h,k| h[k] = [] }
-      multi_thread = []
+      url_html_version_map = Hash.new{ |h,k| h[k] = [] }
+      multi_threads = []
       urls_data.each do |url|
-  
-        begin
-          html = Nokogiri::HTML.parse(RestClient.get url)
-          if check_wordpress_in_meta(html)
-            url_html_version_map[url] = [html,@version]
-            puts url
+        multi_threads <<  Thread.new() {
+          begin
+            html = Nokogiri::HTML.parse(RestClient.get url)
+            if check_wordpress_in_meta(html)
+              url_html_version_map[url] = [html, @version]
+              puts url
+            end
+          rescue => e
+            puts "#{url}...#{e}"
           end
-        rescue => e
-          puts "#{url}...#{e}"
+        }
+        multi_threads.each do |thread|
+          thread.join
         end
- 
-    
-      
-
       end
       return url_html_version_map
     end
