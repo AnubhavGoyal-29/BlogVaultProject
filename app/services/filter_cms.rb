@@ -4,15 +4,22 @@ class FilterCms
 
     def start_filter_wordpress_sites(urls_data)
       url_html_version_map = Hash.new{|h,k| h[k] = [] }
+      multi_thread = []
       urls_data.each do |url|
+  
         begin
           html = Nokogiri::HTML.parse(RestClient.get url)
           if check_wordpress_in_meta(html)
             url_html_version_map[url] = [html,@version]
+            puts url
           end
         rescue => e
-          puts e
+          puts "#{url}...#{e}"
         end
+ 
+    
+      
+
       end
       return url_html_version_map
     end
