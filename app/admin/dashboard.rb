@@ -23,26 +23,22 @@ ActiveAdmin.register_page "Dashboard" do
   end
 
 
-  # only configured for csv file
   # first it will add new wordpress site to database 
   # then run the test for all urls
   page_action :start_test, :method => [:post,:get] do
-
     urls = []
     if params[:start_test][:file]
       File.open(params[:start_test][:file].tempfile).each do |line|
+        # to remove last character '/n'
         urls.append(line.first(line.size-1))
       end
     end
-
     test = Test.create(number_of_urls: urls.size,status:0)
-
     # to run 10 workers dividing the files in size of 10
     chunk_size = (urls.size + (urls.size % 10) )/ 10
-    urls.in_groups_of(chunk_size+1){ |_urls|
+    urls.in_groups_of(chunk_size){ |_urls|
         BlogvaultScrapingJob.perform_later(_urls,test.id)
     }
-
     redirect_to admin_dashboard_path
   end
 end

@@ -14,7 +14,7 @@ class BlogvaultScrapingJob < ApplicationJob
   end
 
   def filter_wordpress_sites(urls)
-    data = FilterCms::start_filter_wordpress_sites(urls)             # here we get three things [[url,html,[wordpress,version]]]
+    data = FilterCms::start_filter_wordpress_sites(urls)             # here data is a map and contains html and version again wordpress site url
     return data
   end
 
