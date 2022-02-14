@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(version: 2022_02_10_074613) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "site_data", force: :cascade do |t|
+  create_table "site_data_infos", force: :cascade do |t|
     t.integer "url_id"
     t.integer "test_id"
     t.string "cms_type"
@@ -72,8 +72,8 @@ ActiveRecord::Schema.define(version: 2022_02_10_074613) do
     t.string "themes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["test_id"], name: "index_site_data_on_test_id"
-    t.index ["url_id"], name: "index_site_data_on_url_id"
+    t.index ["test_id"], name: "index_site_data_infos_on_test_id"
+    t.index ["url_id"], name: "index_site_data_infos_on_url_id"
   end
 
   create_table "tests", force: :cascade do |t|
@@ -95,10 +95,10 @@ ActiveRecord::Schema.define(version: 2022_02_10_074613) do
 
   create_table "urls", force: :cascade do |t|
     t.string "url"
-    t.integer "site_data_id"
+    t.integer "site_data_info_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["site_data_id"], name: "index_urls_on_site_data_id"
+    t.index ["site_data_info_id"], name: "index_urls_on_site_data_info_id"
   end
 
 end

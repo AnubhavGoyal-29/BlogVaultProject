@@ -22,7 +22,7 @@ class UpdateDatabase
         _js = JsInfo.import_js(maped_data["js"].uniq, url_id)
         js_string = _js.join(',')
 
-        site_data = SiteData.create(
+        site_data_info = SiteDataInfo.create(
           url_id: url_id, 
           test_id: test_no, 
           cloudflare: cloudflare, 
@@ -33,7 +33,7 @@ class UpdateDatabase
           themes: themes_string 
         )
         url = Url.where(url: key).first
-        url.site_data_id = site_data.id
+        url.site_data_info_id = site_data_info.id
         url.save
       end 
     end

@@ -1,6 +1,6 @@
-class CreateSiteData < ActiveRecord::Migration[5.2]
+class CreateSiteDataInfos < ActiveRecord::Migration[5.2]
   def change
-    create_table :site_data do |t|
+    create_table :site_data_infos do |t|
       t.references:url,index: true,foreign_key: true
       t.references:test,index: true,foreign_key: true
       t.string :cms_type
