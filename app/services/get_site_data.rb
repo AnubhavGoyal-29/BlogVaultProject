@@ -1,9 +1,16 @@
 class GetSiteData
   class<<self
+
+      def logger
+      @logger ||= Logger.new("log/testing.log")
+    end
+
+
     def start_scraping_html(urls_data)
+    logger.info "HTML_SCRAPING_IS_STARTED_FROM_GET_SITE_DATA"
       data = Hash.new{|h,k| h[k] = [] }
       urls_data.each do |key,value|
-        puts key
+        logger.info key
         html = value[0]
         mapedData = Hash.new{|h,k| h[k] = [] }
         get_data_from_resource(html,'script','plugins',mapedData)
@@ -14,6 +21,7 @@ class GetSiteData
         get_data_from_resource(html,'script','js',mapedData)
         data[key] = [mapedData, value[1]]
       end
+      logger.info data
       return data
     end
 

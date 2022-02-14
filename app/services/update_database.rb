@@ -1,6 +1,13 @@
 class UpdateDatabase
   class << self
+
+    def logger
+      @logger ||= Logger.new("log/testing.log")
+    end
+
     def update_data(test_no,urls_data)
+
+      logger.info "SERVICE_OBJECT_UPDATE_DATABASE_IS_CALLED"
       urls_data.each do |key,value| 
         maped_data = value[0]
         cms_version = value[1]

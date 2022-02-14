@@ -4,10 +4,10 @@ class Url < ApplicationRecord
   belongs_to :site_data,required: false
 
   def self.import_urls(data)
-    data.each do |key,value|
+    data.each do |key, value|
       _url = Url.where(url:key).first
       if !_url
-        _url = Url.create(url:key,site_data_id: nil)
+        _url = Url.create(url: key, site_data_id: nil)
       end
     end
   end

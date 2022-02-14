@@ -1,7 +1,12 @@
 class BlogvaultScrapingJob < ApplicationJob
   QUEUE = :my_worker_queue
 
+  def logger
+      @logger ||= Logger.new("log/testing.log")
+  end
+
   def perform(urls,test)
+    logger.info "FILTERING_OF_URLS_IS_STARTING"
     @test = test
     data = filter_wordpress_sites(urls)
     Url.import_urls(data)
