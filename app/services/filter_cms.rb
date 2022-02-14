@@ -2,7 +2,13 @@ class FilterCms
   @version = "" # to store version of a url
   class << self
 
+    def logger
+      @logger ||= Logger.new("log/testing.log")
+    end
+
+
     def start_filter_wordpress_sites(urls_data)
+      logger.info "START_FILTER_WP_WORDPRESS_SITES_IS_CALLED_FROM_FILTER_CMS"
       url_html_version_map = Hash.new{|h,k| h[k] = [] }
       urls_data.each do |url|
         begin
@@ -29,7 +35,7 @@ class FilterCms
       end
       return false
     end
-    
+
     def check_wordpress_name(cms)
       if cms && cms['Wordpress'] || cms['wordpress'] || cms['WordPress']
         wordpressAndVersion = cms.split(' ')
