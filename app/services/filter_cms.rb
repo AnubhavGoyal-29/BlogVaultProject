@@ -6,15 +6,14 @@ class FilterCms
       @logger ||= Logger.new("log/testing.log")
     end
 
-
     def start_filter_wordpress_sites(urls_data)
       logger.info "START_FILTER_WP_WORDPRESS_SITES_IS_CALLED_FROM_FILTER_CMS"
-      url_html_version_map = Hash.new{|h,k| h[k] = [] }
+      url_html_version_map = Hash.new{|h, k| h[k] = [] }
       urls_data.each do |url|
         begin
           html = Nokogiri::HTML.parse(RestClient.get url)
           if check_wordpress_in_meta(html)
-            url_html_version_map[url] = [html,@version]
+            url_html_version_map[url] = [html, @version]
           end
         rescue => e
           puts e

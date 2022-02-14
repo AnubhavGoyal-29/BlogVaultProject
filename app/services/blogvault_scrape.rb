@@ -1,7 +1,12 @@
 class BlogvaultScrape
-  def initialize(urls,testNo)
+  
+  def logger
+      @logger ||= Logger.new("log/testing.log")
+  end
+  
+  def initialize(urls, testNo)
     @testNo = testNo
-    puts "test #{testNo} started"
+    logger.info "Test #{@testNo} started"
     data = filter_cms(urls)
     ids  =  Url.import_urls(data)
     start_scrape(ids)
@@ -16,9 +21,9 @@ class BlogvaultScrape
   def start_scrape(data)
     getSiteData = GetSiteData.new(data)
     final_data = getSiteData.start_scrape
-    puts final_data
-    UpdateDatabase.new.update_data(@testNo,final_data)
-    puts "Test #{@testNo} completed"
-    puts final_data
+    logger.info "final_data"
+    UpdateDatabase.new.update_data(@testNo, final_data)
+    logger.info "Test #{@testNo} completed"
+    logger.info final_data
   end
 end
