@@ -6,11 +6,9 @@ class BlogvaultScrapingJob < ApplicationJob
   end
 
   def perform(urls,test)
-    logger.info "FILTERING_OF_URLS_IS_STARTING"
-    @test = test
-    data = filter_wordpress_sites(urls)
-    Url.import_urls(data)
-    start_scrape(data)
+    logger.info "Blogvault Scraping Job Started"
+    data = FilterCms::start_filter_wordpress_sites(urls)
+    start_scrape(data,test)
   end
 
   def filter_wordpress_sites(urls)
@@ -20,8 +18,8 @@ class BlogvaultScrapingJob < ApplicationJob
 
   # scraping site data here 
   # updating the data in database
-  def start_scrape(data)
+  def start_scrape(data,test)
     finalData = GetSiteData::start_scraping_html(data)
-    UpdateDatabase::update_data(@test,finalData)
+    UpdateDatabase::update_data(test,finalData)
   end
 end

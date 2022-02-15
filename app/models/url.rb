@@ -1,7 +1,8 @@
 class Url < ApplicationRecord
   has_many :plugins
   has_many :themes
-  belongs_to :site_data_info,required: false
+  belongs_to :site_data_info, required: false
+  has_many :site_data_infos
 
   def self.import_urls(data)
     data.each do |key, value|
