@@ -22,7 +22,6 @@ class SiteDataInfo < ApplicationRecord
         :plugins => _plugins,
         :themes => _themes
       }
-      puts data_map
       site_data_object_id = create_from_maped_data(data_map)
       url = Url.find(key)
       url.site_data_info_id = site_data_object_id
@@ -31,11 +30,15 @@ class SiteDataInfo < ApplicationRecord
   end
 
   def self.create_from_maped_data(data)
-    puts "called"
-    puts data
     site_data_info = self.create(
       url_id: data[:url_id], 
       test_id: data[:test_id]
+      cloudflare: data[:cloudflare]
+      cms_type: data[:cms_type]
+      cms_version: data[:cms_version]
+      plugins: data[:plugins]
+      themes: data[:themes]
+      js: data[:js]
     )
     return site_data_info.id
   end
