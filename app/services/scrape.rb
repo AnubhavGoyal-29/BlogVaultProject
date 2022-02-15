@@ -37,9 +37,10 @@ class Scrape
         _url_id = _url.id
         url_html_version_map[_url_id] = {:html => html, :version => _url.site_data_info.cms_version}
       else
-        if check_wordpress_in_meta(html)
+        _version = check_wordpress_in_meta(html)
+        if _version
           _url_id =  Url.import_urls([url])[0]
-          url_html_version_map[_url_id] = {:html => html, :version => @version}
+          url_html_version_map[_url_id] = {:html => html, :version => _version}
         end
       end
     rescue => e
@@ -53,7 +54,8 @@ class Scrape
       html.search("meta[name='#{name}']").map do |line|
         if line['content']
           cms = line['content']
-          return true if check_wordpress_name(cms)
+          version = check_wordpress_name(cms)
+          return version if version
         end
       end
     end
@@ -63,10 +65,9 @@ class Scrape
   def self.check_wordpress_name(cms)
     if cms && cms['Wordpress'] || cms['wordpress'] || cms['WordPress']
       wordpressAndVersion = cms.split(' ')
-      @version = wordpressAndVersion[1] ? wordpressAndVersion[1] : "version not found"
-      return true
+      return wordpressAndVersion[1] ? wordpressAndVersion[1] : "version not found"
     end
-    return false;
+    return nil;
   end
 
   def self.scrape_html(urls_data, logger)

@@ -32,12 +32,12 @@ class SiteDataInfo < ApplicationRecord
   def self.create_from_maped_data(data)
     site_data_info = self.create(
       url_id: data[:url_id], 
-      test_id: data[:test_id]
-      cloudflare: data[:cloudflare]
-      cms_type: data[:cms_type]
-      cms_version: data[:cms_version]
-      plugins: data[:plugins]
-      themes: data[:themes]
+      test_id: data[:test_id],
+      cloudflare: data[:cloudflare],
+      cms_type: data[:cms_type],
+      cms_version: data[:cms_version],
+      plugins: data[:plugins],
+      themes: data[:themes],
       js: data[:js]
     )
     return site_data_info.id
