@@ -4,15 +4,19 @@ class Url < ApplicationRecord
   belongs_to :site_data_info, required: false
   has_many :site_data_infos
 
-  def self.import_urls(data)
-    data.each do |key, value|
-      _url = Url.where(url: key).first
-      if !_url
-        _url = Url.create(url: key, site_data_info_id: nil)
+
+  def self.import_urls(urls)
+    urls_id = []
+    urls.each do |url|
+      _url = Url.where(url: url).first
+      if _url
+        urls_id << url_id
+      else
+        _url = Url.create(url: url, site_data_info_id: nil)
+        urls_id << _url.id
       end
-      # later need to add some code
-      # _url will be used here
     end
+    return urls_id
   end
 
 end

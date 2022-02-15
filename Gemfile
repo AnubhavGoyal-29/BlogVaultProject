@@ -30,8 +30,6 @@ gem 'activeadmin'
 gem 'devise'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
-gem 'watir'
-gem 'composite_primary_keys'
 gem 'rest-client'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
