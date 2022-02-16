@@ -1,5 +1,5 @@
 class Scrape
-  @version = "" # to store version of a url
+  
   module Tags
     SCRIPT = 'script'
     LINK = 'links'
@@ -19,7 +19,7 @@ class Scrape
     url_html_version_map = Hash.new{ |h,k| h[k] = Hash.new }
     threads = []
     urls.each do |url|
-      threads <<  Thread.new() {
+      threads << Thread.new(){
         thread_block(url,url_html_version_map)
       }
       threads.each do |thread|
@@ -33,7 +33,7 @@ class Scrape
     begin
       html = Nokogiri::HTML.parse(RestClient.get url)
       _url = Url.where(url: url).first
-      if _url
+      if _url 
         _url_id = _url.id
         url_html_version_map[_url_id] = {:html => html, :version => _url.site_data_info.cms_version}
       else

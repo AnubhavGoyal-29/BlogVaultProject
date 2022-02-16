@@ -33,7 +33,7 @@ ActiveAdmin.register_page "Dashboard" do
         urls.append(line)
       end
     end
-    test = Test.create(number_of_urls: urls.size,total_jobs: 3, completed_jobs: 0, status:0)
+    test = Test.create(number_of_urls: urls.size, status:0)
     # to run 10 workers dividing the files in size of 10
     chunk_size = (urls.size + (urls.size % 10)) / 10
     urls.in_groups_of(1){ |_urls|

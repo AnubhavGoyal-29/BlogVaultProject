@@ -79,8 +79,6 @@ ActiveRecord::Schema.define(version: 2022_02_10_074613) do
   create_table "tests", force: :cascade do |t|
     t.integer "status"
     t.integer "number_of_urls"
-    t.integer "total_jobs"
-    t.integer "completed_jobs"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
