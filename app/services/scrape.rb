@@ -18,19 +18,24 @@ class Scrape
   def self.filter_wp_urls(urls, logger)
     url_html_version_map = Hash.new{ |h,k| h[k] = Hash.new }
     threads = []
-    urls.each do |url|
-      threads <<  Thread.new() {
-        thread_block(url,url_html_version_map)
-      }
-      threads.each do |thread|
-        thread.join
+    file = File.open("proxy.txt")
+    file_data = file.readlines.map(&:chomp)
+  #  for i in 0..10
+      urls.each do |url|
+        threads <<  Thread.new() {
+          thread_block(url,url_html_version_map,)
+        }
       end
+   # end
+    threads.each do |thread|
+      thread.join
     end
     return url_html_version_map
   end
 
   def self.thread_block(url, url_html_version_map)
     begin
+    #  RestClient.proxy = "http://" + proxy_ip
       html = Nokogiri::HTML.parse(RestClient.get url)
       _url = Url.where(url: url).first
       if _url
