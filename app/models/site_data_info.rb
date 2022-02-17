@@ -30,7 +30,7 @@ class SiteDataInfo < ApplicationRecord
 
   def self.create_from_maped_data(data, logger, id)
       begin
-        site_data_info = self.create!(
+        site_data_info = self.new(
           url_id: data[:url_id], 
           test_id: data[:test_id],
           cloudflare: data[:cloudflare],

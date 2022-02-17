@@ -12,21 +12,9 @@ class BlogvaultScrapingJob < ApplicationJob
     data = Scrape::scrape_html(data, logger)
     logger.info "scraping complete"
     site_data_objects = SiteDataInfo.import_data(test, data, logger, id)
-    puts site_data_objects
     SiteDataInfo.import site_data_objects
-
-    Url.all.each do |url|
-      begin
-        url.site_data_info_id = SiteDataInfo.where(test_id: test, url_id: url.id).first.id
-        url.save!
-      rescue => e
-        logger.info e
-      end
-    end
-
-    logger.info "database update completed for #{id} "
-
-
+    logger.info "url update started"
+=begin
     if Resque.redis.lrange("queue:#{'default'}",0,-1).count == 0 && Resque.info[:working] == 1
         test = Test.find(test)
         test.status = 1
@@ -36,6 +24,7 @@ class BlogvaultScrapingJob < ApplicationJob
       puts Resque.redis.lrange("queue:#{'default'}",0,-1).count
       puts Resque.info[:working]
     end
+=end
   end
 
 end
