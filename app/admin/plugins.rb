@@ -14,5 +14,6 @@ ActiveAdmin.register Plugin do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
-  
+ filter :url_id 
+ filter :status
 end

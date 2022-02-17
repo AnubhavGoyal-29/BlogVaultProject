@@ -10,8 +10,11 @@ class BlogvaultScrapingJob < ApplicationJob
     data = Scrape::filter_wp_urls(urls, logger)             # here data will be maped agains url id from our database tables
     data = Scrape::scrape_html(data, logger)
     logger.info "scraping completed for #{id}"
-    SiteDataInfo.import_data(test, data, logger, id)
+    site_data_objects = SiteDataInfo.import_data(test, data, logger, id)
+    SiteDataInfo.import site_data_objects
     logger.info "database update completed for #{id} "
+
+
     if Resque.redis.lrange("queue:#{'default'}",0,-1).count == 0 && Resque.info[:working] == 1
         test = Test.find(test)
         test.status = 1
