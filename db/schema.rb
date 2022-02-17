@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_10_074613) do
+ActiveRecord::Schema.define(version: 2022_02_17_052649) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -55,6 +55,12 @@ ActiveRecord::Schema.define(version: 2022_02_10_074613) do
     t.string "type"
     t.string "version"
     t.string "other_data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "proxy_data", force: :cascade do |t|
+    t.string "host"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

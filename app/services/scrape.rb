@@ -18,17 +18,11 @@ class Scrape
   def self.filter_wp_urls(urls, logger)
     url_html_version_map = Hash.new{ |h,k| h[k] = Hash.new }
     threads = []
-    logger.info "fetching file"
-    file_data = File.readlines(File.join(__dir__,'proxy.txt'), chomp: true)
-    puts file_data.count
-    for i in 0..5 do
-      puts file_data[i]
+    _proxy = ProxyDatum.order('RANDOM()').first
       urls.each do |url|
-        puts url
         threads << Thread.new(){
-          thread_block(url,url_html_version_map,file_data[i])
+          thread_block(url,url_html_version_map)
         }
-      end
     end
     threads.each do |thread|
       thread.join
@@ -36,7 +30,7 @@ class Scrape
     return url_html_version_map
   end
 
-  def self.thread_block(url, url_html_version_map,proxy_ip)
+  def self.thread_block(url, url_html_version_map)
     begin
       puts url + "    " + proxy_ip
       RestClient.proxy = "http://" + proxy_ip
@@ -53,7 +47,7 @@ class Scrape
         end
       end
     rescue => e
-      puts "#{url}...#{e}"
+      puts "#{url}..#{proxy_ip}...#{e}"
     end
   end
 

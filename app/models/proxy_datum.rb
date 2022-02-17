@@ -1,0 +1,2 @@
+class ProxyDatum < ApplicationRecord
+end
