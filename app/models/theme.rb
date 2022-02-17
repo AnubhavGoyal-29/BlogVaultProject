@@ -1,6 +1,16 @@
 class Theme < ApplicationRecord
   belongs_to :url , default: nil
 
+  module Status
+    ACTIVE = "1"
+    INACTIVE = "0"
+  end
+
+  STATUS = {}
+  Status.constants.each { |type|
+    STATUS[Status.class_eval(type.to_s)] = type
+  }
+
   def self.import_themes(themes, _url)
     themes_id = []
     themes.each do |theme|

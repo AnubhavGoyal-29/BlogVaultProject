@@ -1,28 +1,18 @@
 ActiveAdmin.register Plugin do
-    
-    actions :index  
 
-    filter :status , :as => :select, :collection => Plugin::STATUS.invert
-    
-    index do 
-      column :id
-      column :Url
-      column :Status
-      column :version
+  actions :index  
+
+  filter :url_id
+  filter :status , :as => :select, :collection => Plugin::STATUS.invert
+
+  index do 
+    column :id
+    column :plugin_name
+    column 'Url' do |plugin|
+      link_to "#{plugin.url.id} ::  #{plugin.url.url}", admin_url_path(plugin.url)
     end
-  # See permitted parameters documentation:
-  # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-  #
-  # Uncomment all parameters which should be permitted for assignment
-  #
-  # permit_params :plugin_name, :url_id, :status, :type, :version, :other_data
-  #
-  # or
-  #
-  # permit_params do
-  #   permitted = [:plugin_name, :url_id, :status, :type, :version, :other_data]
-  #   permitted << :other if params[:action] == 'create' && current_user.admin?
-  #   permitted
-  # end
-  
+    column 'Status' do |plugin_status|
+      div (Plugin::STATUS[plugin_status.status])
+    end
+  end
 end

@@ -1,18 +1,19 @@
 ActiveAdmin.register Theme do
 
-  # See permitted parameters documentation:
-  # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-  #
-  # Uncomment all parameters which should be permitted for assignment
-  #
-  # permit_params :theme_name, :url_id, :status, :version, :other_data
-  #
-  # or
-  #
-  # permit_params do
-  #   permitted = [:theme_name, :url_id, :status, :version, :other_data]
-  #   permitted << :other if params[:action] == 'create' && current_user.admin?
-  #   permitted
-  # end
-  
+  actions :index  
+
+  filter :url_id
+  filter :status , :as => :select, :collection => Theme::STATUS.invert
+
+  index do 
+    column :id
+    column :theme_name
+    column 'Url' do |theme|
+      link_to "#{theme.url.id} ::  #{theme.url.url}", admin_url_path(theme.url)
+    end
+    column 'Status' do |theme_status|
+      div (Theme::STATUS[theme_status.status])
+    end
+  end
+
 end

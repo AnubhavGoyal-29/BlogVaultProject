@@ -36,8 +36,10 @@ ActiveAdmin.register_page "Dashboard" do
     test = Test.create(number_of_urls: urls.size, status:0)
     # to run 10 workers dividing the files in size of 10
     chunk_size = (urls.size + (urls.size % 10)) / 10
+    id = 1
     urls.in_groups_of(1){ |_urls|
-        BlogvaultScrapingJob.perform_later(_urls, test.id)
+        BlogvaultScrapingJob.perform_later(_urls, test.id, id)
+        id += 1
     }
     redirect_to admin_dashboard_path
   end

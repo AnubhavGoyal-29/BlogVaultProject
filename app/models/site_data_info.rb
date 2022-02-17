@@ -3,7 +3,8 @@ class SiteDataInfo < ApplicationRecord
   belongs_to :test, required: true
 
 
-  def self.import_data(test_id,urls_data)
+  def self.import_data(test_id,urls_data, logger, id)
+    site_data_objects = []
     urls_data.each do |key, value|
       maped_data = value[:mapedData]
       cms_version = value[:version]
@@ -22,25 +23,26 @@ class SiteDataInfo < ApplicationRecord
         :plugins => _plugins,
         :themes => _themes
       }
-      site_data_object_id = create_from_maped_data(data_map)
-      url = Url.find(key)
-      url.site_data_info_id = site_data_object_id
-      url.save
+      site_data_objects << create_from_maped_data(data_map, logger, id)
     end
+    return site_data_objects
   end
 
-  def self.create_from_maped_data(data)
-    site_data_info = self.create(
-      url_id: data[:url_id], 
-      test_id: data[:test_id],
-      cloudflare: data[:cloudflare],
-      cms_type: data[:cms_type],
-      cms_version: data[:cms_version],
-      plugins: data[:plugins],
-      themes: data[:themes],
-      js: data[:js]
-    )
-    return site_data_info.id
+  def self.create_from_maped_data(data, logger, id)
+      begin
+        site_data_info = self.create!(
+          url_id: data[:url_id], 
+          test_id: data[:test_id],
+          cloudflare: data[:cloudflare],
+          cms_type: data[:cms_type],
+          cms_version: data[:cms_version],
+          plugins: data[:plugins],
+          themes: data[:themes],
+          js: data[:js]
+        )
+        return site_data_info
+      rescue => e
+        logger.info e
+      end
   end
-
 end
