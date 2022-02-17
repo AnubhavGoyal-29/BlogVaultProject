@@ -16,4 +16,10 @@ ActiveAdmin.register Plugin do
   # end
  filter :url_id 
  filter :status
+ index do 
+   column :plugin_name
+   column 'Url' do |plugin|
+     link_to "#{plugin.url.id} ::  #{plugin.url.url}", admin_url_path(plugin.url)
+   end
+ end
 end

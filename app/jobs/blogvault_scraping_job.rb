@@ -8,10 +8,22 @@ class BlogvaultScrapingJob < ApplicationJob
   def perform(urls, test, id)
     logger.info "Blogvault Scraping Job #{id} Started"
     data = Scrape::filter_wp_urls(urls, logger)             # here data will be maped agains url id from our database tables
+    logger.info "filter complete"
     data = Scrape::scrape_html(data, logger)
-    logger.info "scraping completed for #{id}"
+    logger.info "scraping complete"
     site_data_objects = SiteDataInfo.import_data(test, data, logger, id)
+    puts site_data_objects
     SiteDataInfo.import site_data_objects
+
+    Url.all.each do |url|
+      begin
+        url.site_data_info_id = SiteDataInfo.where(test_id: test, url_id: url.id).first.id
+        url.save!
+      rescue => e
+        logger.info e
+      end
+    end
+
     logger.info "database update completed for #{id} "
 
 

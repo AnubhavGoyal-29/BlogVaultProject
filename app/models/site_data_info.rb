@@ -24,18 +24,13 @@ class SiteDataInfo < ApplicationRecord
         :themes => _themes
       }
       site_data_objects << create_from_maped_data(data_map, logger, id)
-=begin
-      url = Url.find(key)
-      url.site_data_info_id = site_data_object_id
-      url.save
-=end
-      return site_data_objects
     end
+    return site_data_objects
   end
 
   def self.create_from_maped_data(data, logger, id)
       begin
-        site_data_info = self.new!(
+        site_data_info = self.create!(
           url_id: data[:url_id], 
           test_id: data[:test_id],
           cloudflare: data[:cloudflare],
