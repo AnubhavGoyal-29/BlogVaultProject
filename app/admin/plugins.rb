@@ -1,5 +1,15 @@
 ActiveAdmin.register Plugin do
+    
+    actions :index  
 
+    filter :status , :as => :select, :collection => Plugin::STATUS.invert
+    
+    index do 
+      column :id
+      column :Url
+      column :Status
+      column :version
+    end
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #

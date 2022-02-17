@@ -1,6 +1,16 @@
 class Plugin < ApplicationRecord
   belongs_to :url , default: nil
 
+  module Status 
+    ACTIVE = 1
+    INACTIVE = 0
+  end
+
+  STATUS = {}
+  Status.constants.each { |type|
+    STATUS[Status.class_eval(type.to_s)] = type
+  }
+
   def self.import_plugins(plugins, _url)
    plugins_id = []
     plugins.each do |plugin|
