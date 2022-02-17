@@ -2,29 +2,25 @@ class BlogvaultScrapingJob < ApplicationJob
   QUEUE = :my_worker_queue
 
   def logger
-    @logger ||= Logger.new("log/testing.log")
+    @logger ||= Logger.new("testing.log")
   end
 
-  def perform(urls, test, id)
-    logger.info "Blogvault Scraping Job #{id} Started"
+  def perform(urls, test_id, step_id)
+    logger.info "Blogvault Scraping Job #{step_id} Started"
+    Step.find(step_id).update(:status => 1)
+    #each url in urls will store [url, id]
+
     data = Scrape::filter_wp_urls(urls, logger)             # here data will be maped agains url id from our database tables
     logger.info "filter complete"
     data = Scrape::scrape_html(data, logger)
     logger.info "scraping complete"
-    site_data_objects = SiteDataInfo.import_data(test, data, logger, id)
-    SiteDataInfo.import site_data_objects
+    site_data_objects = SiteDataInfo.import_data(test_id, data, logger)
     logger.info "url update started"
-=begin
-    if Resque.redis.lrange("queue:#{'default'}",0,-1).count == 0 && Resque.info[:working] == 1
-        test = Test.find(test)
-        test.status = 1
-        test.save!
-        puts "completed"
-    else 
-      puts Resque.redis.lrange("queue:#{'default'}",0,-1).count
-      puts Resque.info[:working]
+
+    urls.each do |url|
+      Url.find(url[1]).update(:site_data_info_id => ( SiteDataInfo.where(:url_id => url[1], :test_id => test_id).first.id ))
     end
-=end
+    TestCompletionJob.perform_now(logger, test_id, step_id)
   end
 
 end
