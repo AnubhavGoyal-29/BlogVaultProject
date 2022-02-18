@@ -17,5 +17,6 @@ class BlogvaultScrapingJob < ApplicationJob
     site_data_objects = SiteDataInfo.import_data(test_id, data, logger)
     logger.info "url update started"
     TestCompletionJob.perform_now(logger, test_id, step_id)
+ 
   end
 end

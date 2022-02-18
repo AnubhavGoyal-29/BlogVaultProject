@@ -3958,3 +3958,764 @@ I, [2022-02-18T15:30:26.871449 #41924]  INFO -- : 2
 I, [2022-02-18T15:30:26.876326 #41924]  INFO -- : {4=>{:mapedData=>{"themes"=>["jquery", "jquery", "jquery"], "js"=>["modernizr.custom.2.8.3.min.js", "plugins.js", "main.js", "comment-reply.min.js?ver=4.5.2", "wp-embed.min.js?ver=4.5.2"]}, :version=>"4.5.2"}, 1=>{:mapedData=>{"plugins"=>["wp_script_loader", "wp_script_loader", "wp_script_loader", "mystickysidebar", "mystickysidebar", "wp-rocket"], "themes"=>["Divi", "Divi"], "js"=>["jquery", "jquery", "amplitude.js?ver=1637314404", "pricing.js?ver=1637314404", "affpix.js?ver=1637314404", "custom.unified.js?ver=1637314404", "common.js?ver=1637314404", "detectmobilebrowser.js?ver=1637314404", "theia-sticky-sidebar.js?ver=1637314404", "lazyload"]}, :version=>"5.6"}, 2=>{:mapedData=>{"plugins"=>["umg-grand-royal-theme-plugin", "umg-analytics", "appreciation-engine-social-follow", "appreciation-engine-social-follow", "push-global", "push-global", "umg-grand-royal-theme-plugin", "ScrollToPlugin.min.js?ver=1.9.0", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "appreciation-engine-social-sign-in", "appreciation-engine-social-sign-in", "appreciation-engine-social-sign-in", "appreciation-engine-social-sign-in", "appreciation-engine-social-sign-in", "appreciation-engine-social-sign-in", "umg-aal", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-ecrm", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin"], "themes"=>["umg-grand-royal-theme", "umg-grand-royal-theme", "umg-grand-royal-theme", "umg-grand-royal-theme", "umg-grand-royal-theme", "umg-grand-royal-theme", "umg-grand-royal-theme", "umg-grand-royal-theme"], "js"=>["shortcodes", "umg-analytics.min.js?ver=1.0.0", "jquery", "jquery", "ae_follow.js?ver=5.8.1", "client.js?ver=5.8.1", "ae_follow_facebook.js?ver=5.8.1", "push-global-public.js?ver=1.2.18", "autocolor", "libs", "libs", "modules", "modules", "libs", "libs", "shortcodes", "shortcodes", "libs", "libs", "libs", "int-tel-input", "int-tel-input", "ae_wp_frontend.js?ver=2.12.0", "min", "parsley.min.js?ver=2.12.0", "umg-aal-wp.js?ver=1.0", "umggr-main.js?ver=2.8.0", "global", "global", "libs", "shortcodes", "footer.js?ver=2.8.0", "home.js?ver=2.8.0", "main.js?ver=2.8.0", "cookie-styles.js?ver=2.8.0", "umg-ecrm-frontend.js?ver=0.7.12", "wp-embed.min.js?ver=5.8.1", "underscore.min.js?ver=1.13.1", "backbone.min.js?ver=1.4.0", "api-request.min.js?ver=5.8.1", "wp-api.min.js?ver=5.8.1", "shortcodes", "libs", "shortcodes"], "cloudflare"=>[1]}, :version=>"5.8.1"}}
 I, [2022-02-18T15:30:26.877236 #41924]  INFO -- : scraping complete
 I, [2022-02-18T15:30:27.175682 #41924]  INFO -- : url update started
+I, [2022-02-18T15:37:17.313347 #42323]  INFO -- : Blogvault Scraping Job 3 Started
+I, [2022-02-18T15:37:22.769897 #42323]  INFO -- : filter complete
+I, [2022-02-18T15:37:22.770039 #42323]  INFO -- : 3
+I, [2022-02-18T15:37:22.773251 #42323]  INFO -- : 1
+I, [2022-02-18T15:37:22.775003 #42323]  INFO -- : 2
+I, [2022-02-18T15:37:22.780348 #42323]  INFO -- : {3=>{:mapedData=>{"plugins"=>["jetpack"], "themes"=>["pub"], "js"=>["skip-link-focus-fix.min.js?ver=20151215", "wporg-global-header-script.js?ver=1643748587"]}, :version=>"6.0-alpha-52768"}, 1=>{:mapedData=>{"plugins"=>["wp_script_loader", "wp_script_loader", "wp_script_loader", "mystickysidebar", "mystickysidebar", "wp-rocket"], "themes"=>["Divi", "Divi"], "js"=>["jquery", "jquery", "amplitude.js?ver=1637314404", "pricing.js?ver=1637314404", "affpix.js?ver=1637314404", "custom.unified.js?ver=1637314404", "common.js?ver=1637314404", "detectmobilebrowser.js?ver=1637314404", "theia-sticky-sidebar.js?ver=1637314404", "lazyload"]}, :version=>"5.6"}, 2=>{:mapedData=>{"plugins"=>["umg-grand-royal-theme-plugin", "umg-analytics", "appreciation-engine-social-follow", "appreciation-engine-social-follow", "push-global", "push-global", "umg-grand-royal-theme-plugin", "ScrollToPlugin.min.js?ver=1.9.0", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "appreciation-engine-social-sign-in", "appreciation-engine-social-sign-in", "appreciation-engine-social-sign-in", "appreciation-engine-social-sign-in", "appreciation-engine-social-sign-in", "appreciation-engine-social-sign-in", "umg-aal", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-ecrm", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin"], "themes"=>["umg-grand-royal-theme", "umg-grand-royal-theme", "umg-grand-royal-theme", "umg-grand-royal-theme", "umg-grand-royal-theme", "umg-grand-royal-theme", "umg-grand-royal-theme", "umg-grand-royal-theme"], "js"=>["shortcodes", "umg-analytics.min.js?ver=1.0.0", "jquery", "jquery", "ae_follow.js?ver=5.8.1", "client.js?ver=5.8.1", "ae_follow_facebook.js?ver=5.8.1", "push-global-public.js?ver=1.2.18", "autocolor", "libs", "libs", "modules", "modules", "libs", "libs", "shortcodes", "shortcodes", "libs", "libs", "libs", "int-tel-input", "int-tel-input", "ae_wp_frontend.js?ver=2.12.0", "min", "parsley.min.js?ver=2.12.0", "umg-aal-wp.js?ver=1.0", "umggr-main.js?ver=2.8.0", "global", "global", "libs", "shortcodes", "footer.js?ver=2.8.0", "home.js?ver=2.8.0", "main.js?ver=2.8.0", "cookie-styles.js?ver=2.8.0", "umg-ecrm-frontend.js?ver=0.7.12", "wp-embed.min.js?ver=5.8.1", "underscore.min.js?ver=1.13.1", "backbone.min.js?ver=1.4.0", "api-request.min.js?ver=5.8.1", "wp-api.min.js?ver=5.8.1", "shortcodes", "libs", "shortcodes"], "cloudflare"=>[1]}, :version=>"5.8.1"}}
+I, [2022-02-18T15:37:22.781034 #42323]  INFO -- : scraping complete
+I, [2022-02-18T15:37:22.925176 #42323]  INFO -- : url update started
+I, [2022-02-18T15:38:12.392057 #42396]  INFO -- : Blogvault Scraping Job 4 Started
+I, [2022-02-18T15:38:17.423820 #42396]  INFO -- : filter complete
+I, [2022-02-18T15:38:17.424032 #42396]  INFO -- : 4
+I, [2022-02-18T15:38:17.426116 #42396]  INFO -- : 1
+I, [2022-02-18T15:38:17.428714 #42396]  INFO -- : 2
+I, [2022-02-18T15:38:17.432622 #42396]  INFO -- : {4=>{:mapedData=>{"themes"=>["jquery", "jquery", "jquery"], "js"=>["modernizr.custom.2.8.3.min.js", "plugins.js", "main.js", "comment-reply.min.js?ver=4.5.2", "wp-embed.min.js?ver=4.5.2"]}, :version=>"4.5.2"}, 1=>{:mapedData=>{"plugins"=>["wp_script_loader", "wp_script_loader", "wp_script_loader", "mystickysidebar", "mystickysidebar", "wp-rocket"], "themes"=>["Divi", "Divi"], "js"=>["jquery", "jquery", "amplitude.js?ver=1637314404", "pricing.js?ver=1637314404", "affpix.js?ver=1637314404", "custom.unified.js?ver=1637314404", "common.js?ver=1637314404", "detectmobilebrowser.js?ver=1637314404", "theia-sticky-sidebar.js?ver=1637314404", "lazyload"]}, :version=>"5.6"}, 2=>{:mapedData=>{"plugins"=>["umg-grand-royal-theme-plugin", "umg-analytics", "appreciation-engine-social-follow", "appreciation-engine-social-follow", "push-global", "push-global", "umg-grand-royal-theme-plugin", "ScrollToPlugin.min.js?ver=1.9.0", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "appreciation-engine-social-sign-in", "appreciation-engine-social-sign-in", "appreciation-engine-social-sign-in", "appreciation-engine-social-sign-in", "appreciation-engine-social-sign-in", "appreciation-engine-social-sign-in", "umg-aal", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-ecrm", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin"], "themes"=>["umg-grand-royal-theme", "umg-grand-royal-theme", "umg-grand-royal-theme", "umg-grand-royal-theme", "umg-grand-royal-theme", "umg-grand-royal-theme", "umg-grand-royal-theme", "umg-grand-royal-theme"], "js"=>["shortcodes", "umg-analytics.min.js?ver=1.0.0", "jquery", "jquery", "ae_follow.js?ver=5.8.1", "client.js?ver=5.8.1", "ae_follow_facebook.js?ver=5.8.1", "push-global-public.js?ver=1.2.18", "autocolor", "libs", "libs", "modules", "modules", "libs", "libs", "shortcodes", "shortcodes", "libs", "libs", "libs", "int-tel-input", "int-tel-input", "ae_wp_frontend.js?ver=2.12.0", "min", "parsley.min.js?ver=2.12.0", "umg-aal-wp.js?ver=1.0", "umggr-main.js?ver=2.8.0", "global", "global", "libs", "shortcodes", "footer.js?ver=2.8.0", "home.js?ver=2.8.0", "main.js?ver=2.8.0", "cookie-styles.js?ver=2.8.0", "umg-ecrm-frontend.js?ver=0.7.12", "wp-embed.min.js?ver=5.8.1", "underscore.min.js?ver=1.13.1", "backbone.min.js?ver=1.4.0", "api-request.min.js?ver=5.8.1", "wp-api.min.js?ver=5.8.1", "shortcodes", "libs", "shortcodes"], "cloudflare"=>[1]}, :version=>"5.8.1"}}
+I, [2022-02-18T15:38:17.433058 #42396]  INFO -- : scraping complete
+I, [2022-02-18T15:38:17.526333 #42396]  INFO -- : url update started
+I, [2022-02-18T15:38:17.536600 #42396]  INFO -- : url site info called
+I, [2022-02-18T15:38:17.549398 #42396]  INFO -- : undefined method `id' for nil:NilClass (NoMethodError)
+/home/anubhav/BlogvaultProject1/blogVaultProject/app/models/url.rb:25:in `block in url_site_data_info_update'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activerecord-5.2.6/lib/active_record/relation/delegation.rb:71:in `each'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activerecord-5.2.6/lib/active_record/relation/delegation.rb:71:in `each'
+/home/anubhav/BlogvaultProject1/blogVaultProject/app/models/url.rb:23:in `url_site_data_info_update'
+/home/anubhav/BlogvaultProject1/blogVaultProject/app/jobs/test_completion_job.rb:9:in `perform'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activejob-5.2.6/lib/active_job/execution.rb:39:in `block in perform_now'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/callbacks.rb:109:in `block in run_callbacks'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/i18n-1.9.1/lib/i18n.rb:323:in `with_locale'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activejob-5.2.6/lib/active_job/translation.rb:9:in `block (2 levels) in <module:Translation>'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/callbacks.rb:118:in `instance_exec'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/callbacks.rb:118:in `block in run_callbacks'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activejob-5.2.6/lib/active_job/logging.rb:26:in `block (4 levels) in <module:Logging>'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/notifications.rb:168:in `block in instrument'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/notifications/instrumenter.rb:23:in `instrument'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/notifications.rb:168:in `instrument'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activejob-5.2.6/lib/active_job/logging.rb:25:in `block (3 levels) in <module:Logging>'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activejob-5.2.6/lib/active_job/logging.rb:46:in `block in tag_logger'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/tagged_logging.rb:71:in `block in tagged'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/tagged_logging.rb:28:in `tagged'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/tagged_logging.rb:71:in `tagged'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activejob-5.2.6/lib/active_job/logging.rb:46:in `tag_logger'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activejob-5.2.6/lib/active_job/logging.rb:22:in `block (2 levels) in <module:Logging>'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/callbacks.rb:118:in `instance_exec'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/callbacks.rb:118:in `block in run_callbacks'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/callbacks.rb:136:in `run_callbacks'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activejob-5.2.6/lib/active_job/execution.rb:38:in `perform_now'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activejob-5.2.6/lib/active_job/execution.rb:18:in `perform_now'
+/home/anubhav/BlogvaultProject1/blogVaultProject/app/jobs/blogvault_scraping_job.rb:19:in `perform'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activejob-5.2.6/lib/active_job/execution.rb:39:in `block in perform_now'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/callbacks.rb:109:in `block in run_callbacks'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/i18n-1.9.1/lib/i18n.rb:328:in `with_locale'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activejob-5.2.6/lib/active_job/translation.rb:9:in `block (2 levels) in <module:Translation>'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/callbacks.rb:118:in `instance_exec'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/callbacks.rb:118:in `block in run_callbacks'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activejob-5.2.6/lib/active_job/logging.rb:26:in `block (4 levels) in <module:Logging>'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/notifications.rb:168:in `block in instrument'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/notifications/instrumenter.rb:23:in `instrument'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/notifications.rb:168:in `instrument'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activejob-5.2.6/lib/active_job/logging.rb:25:in `block (3 levels) in <module:Logging>'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activejob-5.2.6/lib/active_job/logging.rb:48:in `tag_logger'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activejob-5.2.6/lib/active_job/logging.rb:22:in `block (2 levels) in <module:Logging>'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/callbacks.rb:118:in `instance_exec'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/callbacks.rb:118:in `block in run_callbacks'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/callbacks.rb:136:in `run_callbacks'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activejob-5.2.6/lib/active_job/execution.rb:38:in `perform_now'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activejob-5.2.6/lib/active_job/execution.rb:24:in `block in execute'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/callbacks.rb:109:in `block in run_callbacks'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activejob-5.2.6/lib/active_job/railtie.rb:28:in `block (4 levels) in <class:Railtie>'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/execution_wrapper.rb:87:in `wrap'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/reloader.rb:73:in `block in wrap'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/execution_wrapper.rb:87:in `wrap'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/reloader.rb:72:in `wrap'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activejob-5.2.6/lib/active_job/railtie.rb:27:in `block (3 levels) in <class:Railtie>'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/callbacks.rb:118:in `instance_exec'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/callbacks.rb:118:in `block in run_callbacks'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/callbacks.rb:136:in `run_callbacks'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activejob-5.2.6/lib/active_job/execution.rb:22:in `execute'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activejob-5.2.6/lib/active_job/queue_adapters/resque_adapter.rb:47:in `perform'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/resque-2.2.0/lib/resque/job.rb:168:in `perform'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/resque-2.2.0/lib/resque/worker.rb:313:in `perform'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/resque-2.2.0/lib/resque/worker.rb:913:in `block in perform_with_fork'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/resque-2.2.0/lib/resque/worker.rb:911:in `fork'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/resque-2.2.0/lib/resque/worker.rb:911:in `perform_with_fork'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/resque-2.2.0/lib/resque/worker.rb:269:in `work_one_job'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/resque-2.2.0/lib/resque/worker.rb:240:in `block in work'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/resque-2.2.0/lib/resque/worker.rb:237:in `loop'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/resque-2.2.0/lib/resque/worker.rb:237:in `work'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/resque-2.2.0/lib/resque/tasks.rb:20:in `block (2 levels) in <main>'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/rake-13.0.6/lib/rake/task.rb:281:in `block in execute'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/rake-13.0.6/lib/rake/task.rb:281:in `each'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/rake-13.0.6/lib/rake/task.rb:281:in `execute'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/rake-13.0.6/lib/rake/task.rb:219:in `block in invoke_with_call_chain'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/rake-13.0.6/lib/rake/task.rb:199:in `synchronize'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/rake-13.0.6/lib/rake/task.rb:199:in `invoke_with_call_chain'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/rake-13.0.6/lib/rake/task.rb:188:in `invoke'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/rake-13.0.6/lib/rake/application.rb:160:in `invoke_task'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/rake-13.0.6/lib/rake/application.rb:116:in `block (2 levels) in top_level'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/rake-13.0.6/lib/rake/application.rb:116:in `each'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/rake-13.0.6/lib/rake/application.rb:116:in `block in top_level'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/rake-13.0.6/lib/rake/application.rb:125:in `run_with_threads'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/rake-13.0.6/lib/rake/application.rb:110:in `top_level'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/rake-13.0.6/lib/rake/application.rb:83:in `block in run'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/rake-13.0.6/lib/rake/application.rb:186:in `standard_exception_handling'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/rake-13.0.6/lib/rake/application.rb:80:in `run'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/rake-13.0.6/exe/rake:27:in `<top (required)>'
+/home/anubhav/.rvm/gems/ruby-2.7.4/bin/rake:23:in `load'
+/home/anubhav/.rvm/gems/ruby-2.7.4/bin/rake:23:in `<main>'
+/home/anubhav/.rvm/gems/ruby-2.7.4/bin/ruby_executable_hooks:22:in `eval'
+/home/anubhav/.rvm/gems/ruby-2.7.4/bin/ruby_executable_hooks:22:in `<main>'
+I, [2022-02-18T15:38:17.555236 #42396]  INFO -- : undefined method `id' for nil:NilClass (NoMethodError)
+/home/anubhav/BlogvaultProject1/blogVaultProject/app/models/url.rb:25:in `block in url_site_data_info_update'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activerecord-5.2.6/lib/active_record/relation/delegation.rb:71:in `each'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activerecord-5.2.6/lib/active_record/relation/delegation.rb:71:in `each'
+/home/anubhav/BlogvaultProject1/blogVaultProject/app/models/url.rb:23:in `url_site_data_info_update'
+/home/anubhav/BlogvaultProject1/blogVaultProject/app/jobs/test_completion_job.rb:9:in `perform'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activejob-5.2.6/lib/active_job/execution.rb:39:in `block in perform_now'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/callbacks.rb:109:in `block in run_callbacks'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/i18n-1.9.1/lib/i18n.rb:323:in `with_locale'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activejob-5.2.6/lib/active_job/translation.rb:9:in `block (2 levels) in <module:Translation>'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/callbacks.rb:118:in `instance_exec'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/callbacks.rb:118:in `block in run_callbacks'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activejob-5.2.6/lib/active_job/logging.rb:26:in `block (4 levels) in <module:Logging>'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/notifications.rb:168:in `block in instrument'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/notifications/instrumenter.rb:23:in `instrument'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/notifications.rb:168:in `instrument'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activejob-5.2.6/lib/active_job/logging.rb:25:in `block (3 levels) in <module:Logging>'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activejob-5.2.6/lib/active_job/logging.rb:46:in `block in tag_logger'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/tagged_logging.rb:71:in `block in tagged'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/tagged_logging.rb:28:in `tagged'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/tagged_logging.rb:71:in `tagged'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activejob-5.2.6/lib/active_job/logging.rb:46:in `tag_logger'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activejob-5.2.6/lib/active_job/logging.rb:22:in `block (2 levels) in <module:Logging>'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/callbacks.rb:118:in `instance_exec'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/callbacks.rb:118:in `block in run_callbacks'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/callbacks.rb:136:in `run_callbacks'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activejob-5.2.6/lib/active_job/execution.rb:38:in `perform_now'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activejob-5.2.6/lib/active_job/execution.rb:18:in `perform_now'
+/home/anubhav/BlogvaultProject1/blogVaultProject/app/jobs/blogvault_scraping_job.rb:19:in `perform'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activejob-5.2.6/lib/active_job/execution.rb:39:in `block in perform_now'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/callbacks.rb:109:in `block in run_callbacks'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/i18n-1.9.1/lib/i18n.rb:328:in `with_locale'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activejob-5.2.6/lib/active_job/translation.rb:9:in `block (2 levels) in <module:Translation>'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/callbacks.rb:118:in `instance_exec'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/callbacks.rb:118:in `block in run_callbacks'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activejob-5.2.6/lib/active_job/logging.rb:26:in `block (4 levels) in <module:Logging>'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/notifications.rb:168:in `block in instrument'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/notifications/instrumenter.rb:23:in `instrument'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/notifications.rb:168:in `instrument'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activejob-5.2.6/lib/active_job/logging.rb:25:in `block (3 levels) in <module:Logging>'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activejob-5.2.6/lib/active_job/logging.rb:48:in `tag_logger'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activejob-5.2.6/lib/active_job/logging.rb:22:in `block (2 levels) in <module:Logging>'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/callbacks.rb:118:in `instance_exec'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/callbacks.rb:118:in `block in run_callbacks'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/callbacks.rb:136:in `run_callbacks'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activejob-5.2.6/lib/active_job/execution.rb:38:in `perform_now'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activejob-5.2.6/lib/active_job/execution.rb:24:in `block in execute'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/callbacks.rb:109:in `block in run_callbacks'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activejob-5.2.6/lib/active_job/railtie.rb:28:in `block (4 levels) in <class:Railtie>'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/execution_wrapper.rb:87:in `wrap'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/reloader.rb:73:in `block in wrap'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/execution_wrapper.rb:87:in `wrap'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/reloader.rb:72:in `wrap'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activejob-5.2.6/lib/active_job/railtie.rb:27:in `block (3 levels) in <class:Railtie>'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/callbacks.rb:118:in `instance_exec'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/callbacks.rb:118:in `block in run_callbacks'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activesupport-5.2.6/lib/active_support/callbacks.rb:136:in `run_callbacks'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activejob-5.2.6/lib/active_job/execution.rb:22:in `execute'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/activejob-5.2.6/lib/active_job/queue_adapters/resque_adapter.rb:47:in `perform'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/resque-2.2.0/lib/resque/job.rb:168:in `perform'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/resque-2.2.0/lib/resque/worker.rb:313:in `perform'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/resque-2.2.0/lib/resque/worker.rb:913:in `block in perform_with_fork'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/resque-2.2.0/lib/resque/worker.rb:911:in `fork'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/resque-2.2.0/lib/resque/worker.rb:911:in `perform_with_fork'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/resque-2.2.0/lib/resque/worker.rb:269:in `work_one_job'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/resque-2.2.0/lib/resque/worker.rb:240:in `block in work'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/resque-2.2.0/lib/resque/worker.rb:237:in `loop'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/resque-2.2.0/lib/resque/worker.rb:237:in `work'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/resque-2.2.0/lib/resque/tasks.rb:20:in `block (2 levels) in <main>'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/rake-13.0.6/lib/rake/task.rb:281:in `block in execute'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/rake-13.0.6/lib/rake/task.rb:281:in `each'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/rake-13.0.6/lib/rake/task.rb:281:in `execute'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/rake-13.0.6/lib/rake/task.rb:219:in `block in invoke_with_call_chain'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/rake-13.0.6/lib/rake/task.rb:199:in `synchronize'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/rake-13.0.6/lib/rake/task.rb:199:in `invoke_with_call_chain'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/rake-13.0.6/lib/rake/task.rb:188:in `invoke'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/rake-13.0.6/lib/rake/application.rb:160:in `invoke_task'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/rake-13.0.6/lib/rake/application.rb:116:in `block (2 levels) in top_level'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/rake-13.0.6/lib/rake/application.rb:116:in `each'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/rake-13.0.6/lib/rake/application.rb:116:in `block in top_level'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/rake-13.0.6/lib/rake/application.rb:125:in `run_with_threads'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/rake-13.0.6/lib/rake/application.rb:110:in `top_level'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/rake-13.0.6/lib/rake/application.rb:83:in `block in run'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/rake-13.0.6/lib/rake/application.rb:186:in `standard_exception_handling'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/rake-13.0.6/lib/rake/application.rb:80:in `run'
+/home/anubhav/.rvm/gems/ruby-2.7.4/gems/rake-13.0.6/exe/rake:27:in `<top (required)>'
+/home/anubhav/.rvm/gems/ruby-2.7.4/bin/rake:23:in `load'
+/home/anubhav/.rvm/gems/ruby-2.7.4/bin/rake:23:in `<main>'
+/home/anubhav/.rvm/gems/ruby-2.7.4/bin/ruby_executable_hooks:22:in `eval'
+/home/anubhav/.rvm/gems/ruby-2.7.4/bin/ruby_executable_hooks:22:in `<main>'
+I, [2022-02-18T15:45:10.500261 #42891]  INFO -- : Blogvault Scraping Job 5 Started
+I, [2022-02-18T15:45:15.549981 #42891]  INFO -- : filter complete
+I, [2022-02-18T15:45:15.550155 #42891]  INFO -- : 3
+I, [2022-02-18T15:45:15.553041 #42891]  INFO -- : 1
+I, [2022-02-18T15:45:15.557822 #42891]  INFO -- : 2
+I, [2022-02-18T15:45:15.563908 #42891]  INFO -- : {3=>{:mapedData=>{"plugins"=>["jetpack"], "themes"=>["pub"], "js"=>["skip-link-focus-fix.min.js?ver=20151215", "wporg-global-header-script.js?ver=1643748634"]}, :version=>"6.0-alpha-52768"}, 1=>{:mapedData=>{"plugins"=>["wp_script_loader", "wp_script_loader", "wp_script_loader", "mystickysidebar", "mystickysidebar", "wp-rocket"], "themes"=>["Divi", "Divi"], "js"=>["jquery", "jquery", "amplitude.js?ver=1637314404", "pricing.js?ver=1637314404", "affpix.js?ver=1637314404", "custom.unified.js?ver=1637314404", "common.js?ver=1637314404", "detectmobilebrowser.js?ver=1637314404", "theia-sticky-sidebar.js?ver=1637314404", "lazyload"]}, :version=>"5.6"}, 2=>{:mapedData=>{"plugins"=>["umg-grand-royal-theme-plugin", "umg-analytics", "appreciation-engine-social-follow", "appreciation-engine-social-follow", "push-global", "push-global", "umg-grand-royal-theme-plugin", "ScrollToPlugin.min.js?ver=1.9.0", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "appreciation-engine-social-sign-in", "appreciation-engine-social-sign-in", "appreciation-engine-social-sign-in", "appreciation-engine-social-sign-in", "appreciation-engine-social-sign-in", "appreciation-engine-social-sign-in", "umg-aal", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-ecrm", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin"], "themes"=>["umg-grand-royal-theme", "umg-grand-royal-theme", "umg-grand-royal-theme", "umg-grand-royal-theme", "umg-grand-royal-theme", "umg-grand-royal-theme", "umg-grand-royal-theme", "umg-grand-royal-theme"], "js"=>["shortcodes", "umg-analytics.min.js?ver=1.0.0", "jquery", "jquery", "ae_follow.js?ver=5.8.1", "client.js?ver=5.8.1", "ae_follow_facebook.js?ver=5.8.1", "push-global-public.js?ver=1.2.18", "autocolor", "libs", "libs", "modules", "modules", "libs", "libs", "shortcodes", "shortcodes", "libs", "libs", "libs", "int-tel-input", "int-tel-input", "ae_wp_frontend.js?ver=2.12.0", "min", "parsley.min.js?ver=2.12.0", "umg-aal-wp.js?ver=1.0", "umggr-main.js?ver=2.8.0", "global", "global", "libs", "shortcodes", "footer.js?ver=2.8.0", "home.js?ver=2.8.0", "main.js?ver=2.8.0", "cookie-styles.js?ver=2.8.0", "umg-ecrm-frontend.js?ver=0.7.12", "wp-embed.min.js?ver=5.8.1", "underscore.min.js?ver=1.13.1", "backbone.min.js?ver=1.4.0", "api-request.min.js?ver=5.8.1", "wp-api.min.js?ver=5.8.1", "shortcodes", "libs", "shortcodes"], "cloudflare"=>[1]}, :version=>"5.8.1"}}
+I, [2022-02-18T15:45:15.564109 #42891]  INFO -- : scraping complete
+I, [2022-02-18T15:45:15.683781 #42891]  INFO -- : url update started
+I, [2022-02-18T15:45:15.694701 #42891]  INFO -- : url site info called
+I, [2022-02-18T15:45:31.179879 #42955]  INFO -- : Blogvault Scraping Job 6 Started
+I, [2022-02-18T15:45:36.236347 #42955]  INFO -- : filter complete
+I, [2022-02-18T15:45:36.236466 #42955]  INFO -- : 1
+I, [2022-02-18T15:45:36.240207 #42955]  INFO -- : 3
+I, [2022-02-18T15:45:36.242364 #42955]  INFO -- : 2
+I, [2022-02-18T15:45:36.244561 #42955]  INFO -- : {1=>{:mapedData=>{"plugins"=>["wp_script_loader", "wp_script_loader", "wp_script_loader", "mystickysidebar", "mystickysidebar", "wp-rocket"], "themes"=>["Divi", "Divi"], "js"=>["jquery", "jquery", "amplitude.js?ver=1637314404", "pricing.js?ver=1637314404", "affpix.js?ver=1637314404", "custom.unified.js?ver=1637314404", "common.js?ver=1637314404", "detectmobilebrowser.js?ver=1637314404", "theia-sticky-sidebar.js?ver=1637314404", "lazyload"]}, :version=>"5.6"}, 3=>{:mapedData=>{"plugins"=>["jetpack"], "themes"=>["pub"], "js"=>["skip-link-focus-fix.min.js?ver=20151215", "wporg-global-header-script.js?ver=1643748684"]}, :version=>"6.0-alpha-52768"}, 2=>{:mapedData=>{"plugins"=>["umg-grand-royal-theme-plugin", "umg-analytics", "appreciation-engine-social-follow", "appreciation-engine-social-follow", "push-global", "push-global", "umg-grand-royal-theme-plugin", "ScrollToPlugin.min.js?ver=1.9.0", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "appreciation-engine-social-sign-in", "appreciation-engine-social-sign-in", "appreciation-engine-social-sign-in", "appreciation-engine-social-sign-in", "appreciation-engine-social-sign-in", "appreciation-engine-social-sign-in", "umg-aal", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-ecrm", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin"], "themes"=>["umg-grand-royal-theme", "umg-grand-royal-theme", "umg-grand-royal-theme", "umg-grand-royal-theme", "umg-grand-royal-theme", "umg-grand-royal-theme", "umg-grand-royal-theme", "umg-grand-royal-theme"], "js"=>["shortcodes", "umg-analytics.min.js?ver=1.0.0", "jquery", "jquery", "ae_follow.js?ver=5.8.1", "client.js?ver=5.8.1", "ae_follow_facebook.js?ver=5.8.1", "push-global-public.js?ver=1.2.18", "autocolor", "libs", "libs", "modules", "modules", "libs", "libs", "shortcodes", "shortcodes", "libs", "libs", "libs", "int-tel-input", "int-tel-input", "ae_wp_frontend.js?ver=2.12.0", "min", "parsley.min.js?ver=2.12.0", "umg-aal-wp.js?ver=1.0", "umggr-main.js?ver=2.8.0", "global", "global", "libs", "shortcodes", "footer.js?ver=2.8.0", "home.js?ver=2.8.0", "main.js?ver=2.8.0", "cookie-styles.js?ver=2.8.0", "umg-ecrm-frontend.js?ver=0.7.12", "wp-embed.min.js?ver=5.8.1", "underscore.min.js?ver=1.13.1", "backbone.min.js?ver=1.4.0", "api-request.min.js?ver=5.8.1", "wp-api.min.js?ver=5.8.1", "shortcodes", "libs", "shortcodes"], "cloudflare"=>[1]}, :version=>"5.8.1"}}
+I, [2022-02-18T15:45:36.244698 #42955]  INFO -- : scraping complete
+I, [2022-02-18T15:45:36.377545 #42955]  INFO -- : url update started
+I, [2022-02-18T15:45:36.391028 #42955]  INFO -- : url site info called
+I, [2022-02-18T15:46:12.418570 #43007]  INFO -- : Blogvault Scraping Job 7 Started
+I, [2022-02-18T15:46:12.914469 #43031]  INFO -- : Blogvault Scraping Job 8 Started
+I, [2022-02-18T15:46:13.192017 #43058]  INFO -- : Blogvault Scraping Job 9 Started
+I, [2022-02-18T15:46:13.480644 #43085]  INFO -- : Blogvault Scraping Job 10 Started
+I, [2022-02-18T15:46:13.663925 #43094]  INFO -- : Blogvault Scraping Job 11 Started
+I, [2022-02-18T15:46:13.749895 #43122]  INFO -- : Blogvault Scraping Job 13 Started
+I, [2022-02-18T15:46:13.780069 #43121]  INFO -- : Blogvault Scraping Job 12 Started
+I, [2022-02-18T15:46:13.943399 #43141]  INFO -- : Blogvault Scraping Job 16 Started
+I, [2022-02-18T15:46:13.964140 #43140]  INFO -- : Blogvault Scraping Job 14 Started
+I, [2022-02-18T15:46:13.970871 #43142]  INFO -- : Blogvault Scraping Job 15 Started
+I, [2022-02-18T15:46:17.473180 #43007]  INFO -- : filter complete
+I, [2022-02-18T15:46:17.473353 #43007]  INFO -- : {}
+I, [2022-02-18T15:46:17.473390 #43007]  INFO -- : scraping complete
+I, [2022-02-18T15:46:17.477714 #43007]  INFO -- : url update started
+I, [2022-02-18T15:46:17.693399 #43274]  INFO -- : Blogvault Scraping Job 17 Started
+I, [2022-02-18T15:46:17.949967 #43031]  INFO -- : filter complete
+I, [2022-02-18T15:46:17.950126 #43031]  INFO -- : {}
+I, [2022-02-18T15:46:17.950175 #43031]  INFO -- : scraping complete
+I, [2022-02-18T15:46:17.954412 #43031]  INFO -- : url update started
+I, [2022-02-18T15:46:18.151304 #43296]  INFO -- : Blogvault Scraping Job 18 Started
+I, [2022-02-18T15:46:18.231263 #43058]  INFO -- : filter complete
+I, [2022-02-18T15:46:18.231488 #43058]  INFO -- : {}
+I, [2022-02-18T15:46:18.231527 #43058]  INFO -- : scraping complete
+I, [2022-02-18T15:46:18.243124 #43058]  INFO -- : url update started
+I, [2022-02-18T15:46:18.405779 #43318]  INFO -- : Blogvault Scraping Job 19 Started
+I, [2022-02-18T15:46:18.518003 #43085]  INFO -- : filter complete
+I, [2022-02-18T15:46:18.518173 #43085]  INFO -- : {}
+I, [2022-02-18T15:46:18.518251 #43085]  INFO -- : scraping complete
+I, [2022-02-18T15:46:18.521544 #43085]  INFO -- : url update started
+I, [2022-02-18T15:46:18.720617 #43340]  INFO -- : Blogvault Scraping Job 20 Started
+I, [2022-02-18T15:46:18.730081 #43094]  INFO -- : filter complete
+I, [2022-02-18T15:46:18.730292 #43094]  INFO -- : {}
+I, [2022-02-18T15:46:18.730316 #43094]  INFO -- : scraping complete
+I, [2022-02-18T15:46:18.734060 #43094]  INFO -- : url update started
+I, [2022-02-18T15:46:18.797051 #43122]  INFO -- : filter complete
+I, [2022-02-18T15:46:18.797187 #43122]  INFO -- : 68
+I, [2022-02-18T15:46:18.798371 #43122]  INFO -- : {68=>{:mapedData=>{"plugins"=>["woocommerce", "woocommerce", "woocommerce", "woothemes-tracks", "dist", "woocommerce-product-vendors", "woo-gutenberg-products-block", "woo-gutenberg-products-block", "woo-gutenberg-products-block", "dist", "coblocks", "coblocks", "woocommerce", "woocommerce", "woocommerce-product-recommendations"], "themes"=>["woo", "woo", "woo", "woo", "refer-wordpress"], "js"=>["dist", "dist", "dist", "dist", "dist", "dist", "dist", "dist", "dist", "dist", "dist", "dist", "dist", "dist", "dist", "dist", "dist", "dist", "dist", "jquery", "jquery", "jquery-blockui", "js-cookie", "frontend", "underscore.min.js?ver=1.13.1", "tracks-events.js?ver=2022-02-17_13:55", "wcpv-frontend-scripts.min.js?ver=2.1.18", "dist", "dist", "dist", "dist", "dist", "dist", "dist", "dist", "coblocks-animation.js?ver=2.16.0", "coblocks-lightbox.js?ver=2.16.0", "frontend", "frontend", "frontend", "referrals.min.js", "bilmur.min.js?m=202207"]}, :version=>"5.9"}}
+I, [2022-02-18T15:46:18.798450 #43122]  INFO -- : scraping complete
+I, [2022-02-18T15:46:18.851485 #43121]  INFO -- : filter complete
+I, [2022-02-18T15:46:18.851614 #43121]  INFO -- : {}
+I, [2022-02-18T15:46:18.851629 #43121]  INFO -- : scraping complete
+I, [2022-02-18T15:46:18.855228 #43121]  INFO -- : url update started
+I, [2022-02-18T15:46:18.978705 #43122]  INFO -- : url update started
+I, [2022-02-18T15:46:18.982731 #43358]  INFO -- : Blogvault Scraping Job 21 Started
+I, [2022-02-18T15:46:18.986412 #43141]  INFO -- : filter complete
+I, [2022-02-18T15:46:18.986540 #43141]  INFO -- : {}
+I, [2022-02-18T15:46:18.986612 #43141]  INFO -- : scraping complete
+I, [2022-02-18T15:46:18.989627 #43141]  INFO -- : url update started
+I, [2022-02-18T15:46:19.039221 #43142]  INFO -- : filter complete
+I, [2022-02-18T15:46:19.039381 #43142]  INFO -- : {}
+I, [2022-02-18T15:46:19.039412 #43142]  INFO -- : scraping complete
+I, [2022-02-18T15:46:19.045435 #43142]  INFO -- : url update started
+I, [2022-02-18T15:46:19.131537 #43371]  INFO -- : Blogvault Scraping Job 22 Started
+I, [2022-02-18T15:46:19.264229 #43380]  INFO -- : Blogvault Scraping Job 23 Started
+I, [2022-02-18T15:46:19.297691 #43382]  INFO -- : Blogvault Scraping Job 24 Started
+I, [2022-02-18T15:46:19.389943 #43409]  INFO -- : Blogvault Scraping Job 25 Started
+I, [2022-02-18T15:46:20.519777 #43140]  INFO -- : filter complete
+I, [2022-02-18T15:46:20.519926 #43140]  INFO -- : {}
+I, [2022-02-18T15:46:20.519960 #43140]  INFO -- : scraping complete
+I, [2022-02-18T15:46:20.525421 #43140]  INFO -- : url update started
+I, [2022-02-18T15:46:20.727072 #43472]  INFO -- : Blogvault Scraping Job 26 Started
+I, [2022-02-18T15:46:22.741700 #43274]  INFO -- : filter complete
+I, [2022-02-18T15:46:22.741820 #43274]  INFO -- : {}
+I, [2022-02-18T15:46:22.741844 #43274]  INFO -- : scraping complete
+I, [2022-02-18T15:46:22.745063 #43274]  INFO -- : url update started
+I, [2022-02-18T15:46:22.975707 #43494]  INFO -- : Blogvault Scraping Job 27 Started
+I, [2022-02-18T15:46:23.436237 #43318]  INFO -- : filter complete
+I, [2022-02-18T15:46:23.436391 #43318]  INFO -- : {}
+I, [2022-02-18T15:46:23.436425 #43318]  INFO -- : scraping complete
+I, [2022-02-18T15:46:23.441456 #43318]  INFO -- : url update started
+I, [2022-02-18T15:46:23.459514 #43296]  INFO -- : filter complete
+I, [2022-02-18T15:46:23.459665 #43296]  INFO -- : {}
+I, [2022-02-18T15:46:23.459753 #43296]  INFO -- : scraping complete
+I, [2022-02-18T15:46:23.463537 #43296]  INFO -- : url update started
+I, [2022-02-18T15:46:23.629299 #43520]  INFO -- : Blogvault Scraping Job 28 Started
+I, [2022-02-18T15:46:23.657883 #43529]  INFO -- : Blogvault Scraping Job 29 Started
+I, [2022-02-18T15:46:23.756628 #43340]  INFO -- : filter complete
+I, [2022-02-18T15:46:23.756851 #43340]  INFO -- : {}
+I, [2022-02-18T15:46:23.756911 #43340]  INFO -- : scraping complete
+I, [2022-02-18T15:46:23.759769 #43340]  INFO -- : url update started
+I, [2022-02-18T15:46:23.945916 #43564]  INFO -- : Blogvault Scraping Job 30 Started
+I, [2022-02-18T15:46:24.210669 #43371]  INFO -- : filter complete
+I, [2022-02-18T15:46:24.210823 #43371]  INFO -- : {}
+I, [2022-02-18T15:46:24.210856 #43371]  INFO -- : scraping complete
+I, [2022-02-18T15:46:24.215964 #43371]  INFO -- : url update started
+I, [2022-02-18T15:46:24.311972 #43380]  INFO -- : filter complete
+I, [2022-02-18T15:46:24.312084 #43380]  INFO -- : {}
+I, [2022-02-18T15:46:24.312107 #43380]  INFO -- : scraping complete
+I, [2022-02-18T15:46:24.315226 #43380]  INFO -- : url update started
+I, [2022-02-18T15:46:24.339366 #43382]  INFO -- : filter complete
+I, [2022-02-18T15:46:24.339470 #43382]  INFO -- : {}
+I, [2022-02-18T15:46:24.339484 #43382]  INFO -- : scraping complete
+I, [2022-02-18T15:46:24.342035 #43382]  INFO -- : url update started
+I, [2022-02-18T15:46:24.438012 #43586]  INFO -- : Blogvault Scraping Job 31 Started
+I, [2022-02-18T15:46:24.447420 #43409]  INFO -- : filter complete
+I, [2022-02-18T15:46:24.447559 #43409]  INFO -- : {}
+I, [2022-02-18T15:46:24.447598 #43409]  INFO -- : scraping complete
+I, [2022-02-18T15:46:24.451452 #43409]  INFO -- : url update started
+I, [2022-02-18T15:46:24.550068 #43596]  INFO -- : Blogvault Scraping Job 32 Started
+I, [2022-02-18T15:46:24.570266 #43598]  INFO -- : Blogvault Scraping Job 33 Started
+I, [2022-02-18T15:46:24.690980 #43614]  INFO -- : Blogvault Scraping Job 34 Started
+I, [2022-02-18T15:46:25.782565 #43472]  INFO -- : filter complete
+I, [2022-02-18T15:46:25.782690 #43472]  INFO -- : 197
+I, [2022-02-18T15:46:25.798350 #43472]  INFO -- : {197=>{:mapedData=>{"plugins"=>["mailchimp", "mailchimp", "mailchimp", "apollo-bar", "smart-logo-showcase-lite", "smart-logo-showcase-lite", "smart-logo-showcase-lite", "apollo-bar", "contact-form-7", "theme-my-login", "divi-builder", "page-links-to", "divi-builder"], "themes"=>["bowtie", "bowtie", "bowtie", "bowtie", "bowtie", "bowtie", "bowtie", "bowtie", "bowtie", "bowtie"], "js"=>["scrollTo.js?ver=1.5.7", "jquery", "mailchimp.js?ver=1.5.7", "jquery", "datepicker.js?ver=5.9", "jquery-ui-1.10.4.custom.min.js?ver=5.9", "jquery.fancybox-1.3.4.js?ver=5.9", "hoverIntent.js?ver=5.9", "superfish.js?ver=5.9", "link_nudge.js?ver=5.9", "mosaic.1.0.1.min.js?ver=5.9", "mosaic_function.js?ver=5.9", "portfolio.js?ver=5.9", "jquery.cookie.js?ver=1.0.2", "owl.carousel.js?ver=1.1.6", "tooltipster.bundle.js?ver=1.1.6", "smls-frontend-script.js?ver=1.1.6", "300", "scripts.js?ver=1.0", "comment-reply.min.js?ver=5.9", "apollo-bar-core.js?ver=1.0.2", "dist", "dist", "index.js?ver=5.5.5", "divi-builder.min.js?ver=4.7.1", "common.js?ver=4.7.1"]}, :version=>"5.9"}}
+I, [2022-02-18T15:46:25.798531 #43472]  INFO -- : scraping complete
+I, [2022-02-18T15:46:26.004686 #43472]  INFO -- : url update started
+I, [2022-02-18T15:46:26.204274 #43676]  INFO -- : Blogvault Scraping Job 35 Started
+I, [2022-02-18T15:46:28.036480 #43494]  INFO -- : filter complete
+I, [2022-02-18T15:46:28.036946 #43494]  INFO -- : {}
+I, [2022-02-18T15:46:28.039617 #43494]  INFO -- : scraping complete
+I, [2022-02-18T15:46:28.044323 #43494]  INFO -- : url update started
+I, [2022-02-18T15:46:28.264715 #43698]  INFO -- : Blogvault Scraping Job 36 Started
+I, [2022-02-18T15:46:28.666503 #43520]  INFO -- : filter complete
+I, [2022-02-18T15:46:28.666609 #43520]  INFO -- : {}
+I, [2022-02-18T15:46:28.666694 #43520]  INFO -- : scraping complete
+I, [2022-02-18T15:46:28.669846 #43520]  INFO -- : url update started
+I, [2022-02-18T15:46:28.688547 #43529]  INFO -- : filter complete
+I, [2022-02-18T15:46:28.688623 #43529]  INFO -- : 225
+I, [2022-02-18T15:46:28.689628 #43529]  INFO -- : {225=>{:mapedData=>{"plugins"=>["sitepress-multilingual-cms", "hs-content-upgrades", "hs-marketo-forms", "custom-facebook-feed", "slickquiz"], "themes"=>["hootsuite-2020", "hootsuite-2020", "hootsuite-2020"], "js"=>["jquery", "jquery", "dist", "ga-tracking.js?ver=1.0", "dist", "navigation.js?ver=20151215", "skip-link-focus-fix.js?ver=20151215", "cff-scripts.js?ver=4.0.3", "wp-embed.min.js?ver=5.8.3", "slickQuiz.js?ver=5.8.3"]}, :version=>"5.8.3"}}
+I, [2022-02-18T15:46:28.689745 #43529]  INFO -- : scraping complete
+I, [2022-02-18T15:46:28.790559 #43529]  INFO -- : url update started
+I, [2022-02-18T15:46:28.874922 #43720]  INFO -- : Blogvault Scraping Job 37 Started
+I, [2022-02-18T15:46:28.968044 #43729]  INFO -- : Blogvault Scraping Job 38 Started
+I, [2022-02-18T15:46:28.978149 #43564]  INFO -- : filter complete
+I, [2022-02-18T15:46:28.978294 #43564]  INFO -- : {}
+I, [2022-02-18T15:46:28.978321 #43564]  INFO -- : scraping complete
+I, [2022-02-18T15:46:28.981315 #43564]  INFO -- : url update started
+I, [2022-02-18T15:46:29.186347 #43760]  INFO -- : Blogvault Scraping Job 39 Started
+I, [2022-02-18T15:46:29.510844 #43586]  INFO -- : filter complete
+I, [2022-02-18T15:46:29.510962 #43586]  INFO -- : {}
+I, [2022-02-18T15:46:29.510986 #43586]  INFO -- : scraping complete
+I, [2022-02-18T15:46:29.513528 #43586]  INFO -- : url update started
+I, [2022-02-18T15:46:29.586210 #43596]  INFO -- : filter complete
+I, [2022-02-18T15:46:29.586343 #43596]  INFO -- : {}
+I, [2022-02-18T15:46:29.586356 #43596]  INFO -- : scraping complete
+I, [2022-02-18T15:46:29.589213 #43596]  INFO -- : url update started
+I, [2022-02-18T15:46:29.607983 #43598]  INFO -- : filter complete
+I, [2022-02-18T15:46:29.608084 #43598]  INFO -- : {}
+I, [2022-02-18T15:46:29.608108 #43598]  INFO -- : scraping complete
+I, [2022-02-18T15:46:29.610839 #43598]  INFO -- : url update started
+I, [2022-02-18T15:46:29.744306 #43614]  INFO -- : filter complete
+I, [2022-02-18T15:46:29.744405 #43614]  INFO -- : 278
+I, [2022-02-18T15:46:29.747265 #43614]  INFO -- : {278=>{:mapedData=>{"plugins"=>["stop-user-enumeration", "wp-captcha", "td-cloud-library", "td-composer", "td-cloud-library", "wp-rocket"], "js"=>["frontend.js?ver=1645011698", "jquery", "jquery", "c4wp-public.js?ver=1645011698", "underscore.min.js?ver=1.13.1", "js_posts_autoload.min.js?ver=ecd3ae9d894693e4aa2a268d920aa306", "tagdiv_theme.min.js?ver=11.4.1", "js_files_for_front.min.js?ver=ecd3ae9d894693e4aa2a268d920aa306", "lazyload"], "cloudflare"=>[1]}, :version=>"5.9"}}
+I, [2022-02-18T15:46:29.747382 #43614]  INFO -- : scraping complete
+I, [2022-02-18T15:46:29.760827 #43786]  INFO -- : Blogvault Scraping Job 40 Started
+I, [2022-02-18T15:46:29.837181 #43795]  INFO -- : Blogvault Scraping Job 41 Started
+I, [2022-02-18T15:46:29.843649 #43797]  INFO -- : Blogvault Scraping Job 42 Started
+I, [2022-02-18T15:46:29.921316 #43614]  INFO -- : url update started
+I, [2022-02-18T15:46:30.202576 #43852]  INFO -- : Blogvault Scraping Job 43 Started
+I, [2022-02-18T15:46:31.262521 #43676]  INFO -- : filter complete
+I, [2022-02-18T15:46:31.262672 #43676]  INFO -- : 284
+I, [2022-02-18T15:46:31.272954 #43676]  INFO -- : {284=>{:mapedData=>{"plugins"=>["pmc-plugins", "pmc-plugins", "pmc-plugins", "pmc-plugins", "pmc-plugins", "pmc-plugins", "pmc-plugins", "pmc-plugins", "pmc-plugins", "pmc-plugins", "pmc-plugins", "pmc-plugins", "streamingtag_plugin_jwplayer.js?ver=5.9", "pmc-plugins", "pmc-plugins", "pmc-plugins", "pmc-plugins", "pmc-plugins", "pmc-plugins", "pmc-plugins", "pmc-plugins", "pmc-plugins", "pmc-plugins", "pmc-plugins", "pmc-plugins", "pmc-plugins", "lazy-load-0.7", "lazy-load-0.7", "pmc-plugins", "charts", "pmc-plugins"], "themes"=>["vip", "vip", "vip"], "js"=>["pmc-utils.js?ver=2021.4", "pmc-cxense.js?ver=1.9", "jquery", "jquery-migrate.min.js?ver=1.4.1-wp", "pmc-remove-tracking.js?ver=5.9", "pmc-global.min.js?ver=5.9", "pmc-fastly-geo-data.js?ver=1.0", "pmc-hooks.js?ver=5.9", "pmc-comscore.js?ver=1.1", "frisbee.min.js?ver=0.2.0", "sourcebuster", "polyfill", "pmc-jwplayer.min.js?ver=2022-2", "vendor", "main.js?ver=2022.1", "underscore.min.js?ver=1.13.1", "video-ads.min.js?ver=2022-2", "event-tracking.min.js?ver=2.4", "overlay.js?ver=1.0", "sticky-sidebar.min.js?ver=1.1", "scroll-scripts.js?ver=2021.1", "frontend.js?ver=1.0", "tracking.js?ver=1.0", "SwiftypeComponents.min.js?ver=2.0", "configuration.min.js?ver=2.0", "contextual-player.min.js?ver=2021.9", "jquery.sonar.min.js?ver=0.7", "lazy-load.js?ver=0.7", "boomerang", "charts.bundle.js?ver=2022.1", "scroll.js", "rollingstonecom", "87443X1590823.skimlinks.js"]}, :version=>"5.9"}}
+I, [2022-02-18T15:46:31.273113 #43676]  INFO -- : scraping complete
+I, [2022-02-18T15:46:31.539317 #43676]  INFO -- : url update started
+I, [2022-02-18T15:46:31.731959 #43874]  INFO -- : Blogvault Scraping Job 44 Started
+I, [2022-02-18T15:46:33.310017 #43698]  INFO -- : filter complete
+I, [2022-02-18T15:46:33.310173 #43698]  INFO -- : 301
+I, [2022-02-18T15:46:33.312011 #43698]  INFO -- : 294
+I, [2022-02-18T15:46:33.327688 #43698]  INFO -- : {301=>{:mapedData=>{"plugins"=>["linkfire"], "themes"=>["linkfire", "linkfire", "linkfire", "linkfire"], "js"=>["app.js?ver=1645028164", "wp-embed.min.js?ver=5.6.2"]}, :version=>"5.6.2"}, 294=>{:mapedData=>{"js"=>["autoptimize_883b823662514f56aaf6d3b4692d78c3.js"]}, :version=>"5.9"}}
+I, [2022-02-18T15:46:33.327774 #43698]  INFO -- : scraping complete
+I, [2022-02-18T15:46:33.396366 #43698]  INFO -- : url update started
+I, [2022-02-18T15:46:33.603747 #43896]  INFO -- : Blogvault Scraping Job 45 Started
+I, [2022-02-18T15:46:33.915344 #43720]  INFO -- : filter complete
+I, [2022-02-18T15:46:33.915453 #43720]  INFO -- : 306
+I, [2022-02-18T15:46:33.916115 #43720]  INFO -- : {306=>{:mapedData=>{"plugins"=>["duracelltomi-google-tag-manager"], "themes"=>["uw-2014", "boundless", "boundless"], "js"=>["underscore.min.js?2f2358e", "jquery", "jquery", "backbone.min.js?2f2358e", "site.js?ver=3.0.0", "homepage.js?2f2358e", "gtm4wp-form-move-tracker.js?2f2358e", "homepage-event-tracking.js?2f2358e"]}, :version=>"5.9"}}
+I, [2022-02-18T15:46:33.916154 #43720]  INFO -- : scraping complete
+I, [2022-02-18T15:46:34.003839 #43729]  INFO -- : filter complete
+I, [2022-02-18T15:46:34.004057 #43729]  INFO -- : {}
+I, [2022-02-18T15:46:34.004118 #43729]  INFO -- : scraping complete
+I, [2022-02-18T15:46:34.007791 #43729]  INFO -- : url update started
+I, [2022-02-18T15:46:34.010369 #43720]  INFO -- : url update started
+I, [2022-02-18T15:46:34.187076 #43920]  INFO -- : Blogvault Scraping Job 47 Started
+I, [2022-02-18T15:46:34.193745 #43918]  INFO -- : Blogvault Scraping Job 46 Started
+I, [2022-02-18T15:46:34.220982 #43760]  INFO -- : filter complete
+I, [2022-02-18T15:46:34.221112 #43760]  INFO -- : 328
+I, [2022-02-18T15:46:34.223513 #43760]  INFO -- : {328=>{:mapedData=>{"plugins"=>["duracelltomi-google-tag-manager", "wp-modal-popup-with-cookie-integration"], "themes"=>["state"], "js"=>["gtm4wp-form-move-tracker.js?ver=1.14.2", "underscore.min.js?ver=1.13.1", "backbone.min.js?ver=1.4.0", "api-request.min.js?ver=5.8.3", "wp-api.min.js?ver=5.8.3", "wp-util.min.js?ver=5.8.3", "state.min.js?ver=1642788827", "wmpci-popup.js?ver=2.2", "wp-embed.min.js?ver=5.8.3"]}, :version=>"5.8.3"}}
+I, [2022-02-18T15:46:34.223680 #43760]  INFO -- : scraping complete
+I, [2022-02-18T15:46:34.318905 #43760]  INFO -- : url update started
+I, [2022-02-18T15:46:34.485714 #43962]  INFO -- : Blogvault Scraping Job 48 Started
+I, [2022-02-18T15:46:34.876386 #43795]  INFO -- : filter complete
+I, [2022-02-18T15:46:34.876505 #43795]  INFO -- : {}
+I, [2022-02-18T15:46:34.876527 #43795]  INFO -- : scraping complete
+I, [2022-02-18T15:46:34.879265 #43795]  INFO -- : url update started
+I, [2022-02-18T15:46:35.076484 #43985]  INFO -- : Blogvault Scraping Job 49 Started
+I, [2022-02-18T15:46:35.257875 #43852]  INFO -- : filter complete
+I, [2022-02-18T15:46:35.257989 #43852]  INFO -- : 364
+I, [2022-02-18T15:46:35.259107 #43852]  INFO -- : {364=>{:mapedData=>{"plugins"=>["search-filter-pro", "search-filter-pro", "wp-media-folder", "mailchimp-for-wp"], "themes"=>["Divi", "Divi"], "js"=>["jquery", "jquery", "search-filter-build.min.js?ver=2.5.11", "chosen.jquery.min.js?ver=2.5.11", "mc-validate.js", "mc-validate.js", "jquery", "jquery", "custom.unified.js?ver=4.9.10", "300", "common.js?ver=4.9.10", "mediaelement", "mediaelement", "mediaelement", "forms.js?ver=4.8.6"]}, :version=>"5.9"}}
+I, [2022-02-18T15:46:35.259182 #43852]  INFO -- : scraping complete
+I, [2022-02-18T15:46:35.387973 #43852]  INFO -- : url update started
+I, [2022-02-18T15:46:35.586336 #44007]  INFO -- : Blogvault Scraping Job 50 Started
+I, [2022-02-18T15:46:36.787262 #43874]  INFO -- : filter complete
+I, [2022-02-18T15:46:36.787475 #43874]  INFO -- : 373
+I, [2022-02-18T15:46:36.790574 #43874]  INFO -- : 375
+I, [2022-02-18T15:46:36.792402 #43874]  INFO -- : {373=>{:mapedData=>{"plugins"=>["jquery-lightbox-for-native-galleries", "jspullquotes"], "themes"=>["kos-mar2021"], "js"=>["jquery", "jquery", "slicknav.js?ver=5.8.3", "wp-embed.min.js?ver=5.8.3"]}, :version=>"5.8.3"}, 375=>{:mapedData=>{"plugins"=>["speak-api", "wp-user-avatar", "wp-user-avatar", "ubermenu", "link-whisper-premium", "wp-user-avatar"], "themes"=>["spk-lawyers", "spk-lawyers", "spk-lawyers", "spk-lawyers"], "js"=>["jquery", "jquery", "speak-api-js-frontend.js?ver=5.9", "jquery.gmap.min.js", "funcations.js", "hoverIntent.min.js?ver=1.10.1", "ubermenu.min.js?ver=5.9", "frontend.js?ver=1643219785", "frontend.min.js?ver=3.2.7", "bootstrap.min.js?ver=20140318", "jquery.compresed.min.js?ver=20140318"]}, :version=>"5.9"}}
+I, [2022-02-18T15:46:36.792553 #43874]  INFO -- : scraping complete
+I, [2022-02-18T15:46:36.937947 #43874]  INFO -- : url update started
+I, [2022-02-18T15:46:37.129159 #44030]  INFO -- : Blogvault Scraping Job 51 Started
+I, [2022-02-18T15:46:38.651219 #43896]  INFO -- : filter complete
+I, [2022-02-18T15:46:38.651379 #43896]  INFO -- : {}
+I, [2022-02-18T15:46:38.651424 #43896]  INFO -- : scraping complete
+I, [2022-02-18T15:46:38.655675 #43896]  INFO -- : url update started
+I, [2022-02-18T15:46:38.891302 #44054]  INFO -- : Blogvault Scraping Job 52 Started
+I, [2022-02-18T15:46:39.223599 #43920]  INFO -- : filter complete
+I, [2022-02-18T15:46:39.223749 #43920]  INFO -- : {}
+I, [2022-02-18T15:46:39.223788 #43920]  INFO -- : scraping complete
+I, [2022-02-18T15:46:39.229471 #43918]  INFO -- : filter complete
+I, [2022-02-18T15:46:39.229588 #43918]  INFO -- : 396
+I, [2022-02-18T15:46:39.230532 #43918]  INFO -- : {396=>{:mapedData=>{}, :version=>"5.9"}}
+I, [2022-02-18T15:46:39.230594 #43918]  INFO -- : scraping complete
+I, [2022-02-18T15:46:39.235603 #43920]  INFO -- : url update started
+I, [2022-02-18T15:46:39.248617 #43918]  INFO -- : url update started
+I, [2022-02-18T15:46:39.415279 #44076]  INFO -- : Blogvault Scraping Job 53 Started
+I, [2022-02-18T15:46:39.439268 #44083]  INFO -- : Blogvault Scraping Job 54 Started
+I, [2022-02-18T15:46:39.516294 #43962]  INFO -- : filter complete
+I, [2022-02-18T15:46:39.516381 #43962]  INFO -- : 413
+I, [2022-02-18T15:46:39.517112 #43962]  INFO -- : 418
+I, [2022-02-18T15:46:39.518117 #43962]  INFO -- : {413=>{:mapedData=>{"plugins"=>["contact-form-7"], "themes"=>["maker-child", "maker", "maker", "maker"], "js"=>["project.js?ver=0.1.2", "jquery", "jquery", "dist", "dist", "index.js?ver=5.5.2", "src", "src", "src", "wp-embed.min.js?ver=5.8.3"]}, :version=>"5.8.3"}, 418=>{:mapedData=>{"plugins"=>["wp-smushit"], "themes"=>["Divi", "Divi", "Divi"], "js"=>["jquery", "jquery", "adsbygoogle.js?client=ca-pub-5878046506349106", "adsbygoogle.js?client=ca-pub-5878046506349106", "adsbygoogle.js?client=ca-pub-5878046506349106", "adsbygoogle.js?client=ca-pub-5878046506349106", "scripts.min.js?ver=4.14.7", "jquery.fitvids.js?ver=1644605091", "common.js?ver=1644605091", "smush-lazy-load.min.js?ver=3.9.5"], "cloudflare"=>[1]}, :version=>"5.9"}}
+I, [2022-02-18T15:46:39.518209 #43962]  INFO -- : scraping complete
+I, [2022-02-18T15:46:39.535517 #43358]  INFO -- : filter complete
+I, [2022-02-18T15:46:39.535624 #43358]  INFO -- : {}
+I, [2022-02-18T15:46:39.535652 #43358]  INFO -- : scraping complete
+I, [2022-02-18T15:46:39.540347 #43358]  INFO -- : url update started
+I, [2022-02-18T15:46:39.650908 #43962]  INFO -- : url update started
+I, [2022-02-18T15:46:39.781304 #44120]  INFO -- : Blogvault Scraping Job 55 Started
+I, [2022-02-18T15:46:39.883667 #44129]  INFO -- : Blogvault Scraping Job 56 Started
+I, [2022-02-18T15:46:40.113077 #43985]  INFO -- : filter complete
+I, [2022-02-18T15:46:40.113218 #43985]  INFO -- : {}
+I, [2022-02-18T15:46:40.113249 #43985]  INFO -- : scraping complete
+I, [2022-02-18T15:46:40.117673 #43985]  INFO -- : url update started
+I, [2022-02-18T15:46:40.641828 #44007]  INFO -- : filter complete
+I, [2022-02-18T15:46:40.641990 #44007]  INFO -- : 440
+I, [2022-02-18T15:46:40.643758 #44007]  INFO -- : {440=>{:mapedData=>{"plugins"=>["jetpack"], "themes"=>["iss2013"], "js"=>["jquery", "jquery", "functions.js?ver=2013-07-18"], "cloudflare"=>[1]}, :version=>"5.9"}}
+I, [2022-02-18T15:46:40.643886 #44007]  INFO -- : scraping complete
+I, [2022-02-18T15:46:40.717498 #44007]  INFO -- : url update started
+I, [2022-02-18T15:46:42.891311 #44030]  INFO -- : filter complete
+I, [2022-02-18T15:46:42.892011 #44030]  INFO -- : 447
+I, [2022-02-18T15:46:42.894643 #44030]  INFO -- : {447=>{:mapedData=>{"plugins"=>["sticky-menu-or-anything-on-scroll", "wp-hide-post", "contact-form-7", "sticky-menu-or-anything-on-scroll", "youtube-channel", "wp-review", "wp-review", "yeloni-free-exit-popup", "yeloni-free-exit-popup", "yeloni-free-exit-popup"], "themes"=>["voice"], "js"=>["jquery", "jquery", "jq-sticky-anything.min.js?ver=2.1.1", "wp-hide-post-public.js?ver=2.0.10", "dist", "dist", "index.js?ver=5.5.3", "stickThis.js?ver=2.1.1", "min.js?ver=2.8.4", "js.cookie.min.js?ver=2.1.4", "underscore.min.js?ver=1.13.1", "wp-util.min.js?ver=5.8.3", "main.js?ver=5.3.5", "wp-embed.min.js?ver=5.8.3"]}, :version=>"5.8.3"}}
+I, [2022-02-18T15:46:42.894733 #44030]  INFO -- : scraping complete
+I, [2022-02-18T15:46:43.073912 #44030]  INFO -- : url update started
+I, [2022-02-18T15:46:43.942325 #44054]  INFO -- : filter complete
+I, [2022-02-18T15:46:43.942465 #44054]  INFO -- : {}
+I, [2022-02-18T15:46:43.942483 #44054]  INFO -- : scraping complete
+I, [2022-02-18T15:46:43.947219 #44054]  INFO -- : url update started
+I, [2022-02-18T15:46:44.454468 #44076]  INFO -- : filter complete
+I, [2022-02-18T15:46:44.454579 #44076]  INFO -- : 463
+I, [2022-02-18T15:46:44.456140 #44076]  INFO -- : {463=>{:mapedData=>{"plugins"=>["krokotak", "krokotak", "uk-cookie-consent"], "themes"=>["plo", "plo", "plo", "plo", "plo", "plo", "plo", "plo", "plo", "plo", "plo", "plo", "plo", "plo", "plo"], "js"=>["jquery", "jquery", "adsbygoogle.js", "adsbygoogle.js", "pinit.js", "uk-cookie-consent-js.js?ver=2.3.0", "jquery.flexslider.min.js?ver=3.2.1", "back-to-top.js?ver=3.2.1", "jquery.magnific-popup.min.js?ver=3.2.1", "init-lightbox.js?ver=3.2.1", "jquery.ba-throttle-debounce.min.js?ver=3.2.1", "infinite-scroll.js?ver=3.2.1", "imagesloaded.pkgd.min.js?ver=3.2.1", "isotope.pkgd.min.js?ver=3.2.1", "jquery.mousewheel.js?ver=3.2.1", "perfect-scrollbar.jquery.min.js?ver=3.2.1", "osetin-feature-post-lightbox.js?ver=3.2.1", "osetin-feature-like.js?ver=3.2.1", "osetin-feature-autosuggest.js?ver=3.2.1", "owl.carousel.min.js?ver=3.2.1", "functions.js?ver=3.2.1", "wp-embed.min.js?ver=4.7.22"]}, :version=>"4.7.22"}}
+I, [2022-02-18T15:46:44.456253 #44076]  INFO -- : scraping complete
+I, [2022-02-18T15:46:44.473577 #44083]  INFO -- : filter complete
+I, [2022-02-18T15:46:44.473724 #44083]  INFO -- : {}
+I, [2022-02-18T15:46:44.473758 #44083]  INFO -- : scraping complete
+I, [2022-02-18T15:46:44.477552 #44083]  INFO -- : url update started
+I, [2022-02-18T15:46:44.617583 #44076]  INFO -- : url update started
+I, [2022-02-18T15:46:44.857766 #44120]  INFO -- : filter complete
+I, [2022-02-18T15:46:44.857916 #44120]  INFO -- : 488
+I, [2022-02-18T15:46:44.861399 #44120]  INFO -- : {488=>{:mapedData=>{"plugins"=>["geodirectory", "geodirectory", "geodirectory", "elementor-pro", "elementor-pro", "elementor", "elementor", "elementor-pro", "elementor", "elementor", "elementor-pro", "elementor-pro", "wp-rocket"], "themes"=>["Acute-SEO-Custom-Wordpress", "Acute-SEO-Custom-Wordpress"], "js"=>["jquery", "jquery", "select2.min.js?ver=4.0.11", "bootstrap.bundle.min.js?ver=4.5.3", "geodirectory.min.js?ver=2.1.1.13", "min", "min", "comment-reply.min.js?ver=5.9", "webpack-pro.runtime.min.js?ver=3.6.2", "webpack.runtime.min.js?ver=3.5.5", "frontend-modules.min.js?ver=3.5.5", "dist", "dist", "dist", "dist", "frontend.min.js?ver=3.6.2", "jquery", "frontend.min.js?ver=3.5.5", "elements-handlers.min.js?ver=3.6.2", "lazyload"]}, :version=>"5.9"}}
+I, [2022-02-18T15:46:44.861526 #44120]  INFO -- : scraping complete
+I, [2022-02-18T15:46:44.914048 #44129]  INFO -- : filter complete
+I, [2022-02-18T15:46:44.914216 #44129]  INFO -- : 498
+I, [2022-02-18T15:46:44.915548 #44129]  INFO -- : {498=>{:mapedData=>{"js"=>["jquery", "autoptimize_5af66c27f6e480882f527cda6e2063ad.js"]}, :version=>"5.9"}}
+I, [2022-02-18T15:46:44.915671 #44129]  INFO -- : scraping complete
+I, [2022-02-18T15:46:44.949769 #44129]  INFO -- : url update started
+I, [2022-02-18T15:46:45.028575 #44120]  INFO -- : url update started
+I, [2022-02-18T15:47:40.338882 #43786]  INFO -- : filter complete
+I, [2022-02-18T15:47:40.339006 #43786]  INFO -- : {}
+I, [2022-02-18T15:47:40.339031 #43786]  INFO -- : scraping complete
+I, [2022-02-18T15:47:40.342579 #43786]  INFO -- : url update started
+I, [2022-02-18T15:48:30.269055 #43797]  INFO -- : filter complete
+I, [2022-02-18T15:48:30.269217 #43797]  INFO -- : {}
+I, [2022-02-18T15:48:30.269259 #43797]  INFO -- : scraping complete
+I, [2022-02-18T15:48:30.273572 #43797]  INFO -- : url update started
+I, [2022-02-18T15:48:30.294389 #43797]  INFO -- : url site info called
+I, [2022-02-18T15:50:26.899488 #44338]  INFO -- : Blogvault Scraping Job 1 Started
+I, [2022-02-18T15:50:26.901884 #44347]  INFO -- : Blogvault Scraping Job 2 Started
+I, [2022-02-18T15:50:28.643271 #44382]  INFO -- : Blogvault Scraping Job 3 Started
+I, [2022-02-18T15:50:29.511689 #44404]  INFO -- : Blogvault Scraping Job 4 Started
+I, [2022-02-18T15:50:30.012015 #44426]  INFO -- : Blogvault Scraping Job 5 Started
+I, [2022-02-18T15:50:30.161837 #44435]  INFO -- : Blogvault Scraping Job 6 Started
+I, [2022-02-18T15:50:30.491189 #44470]  INFO -- : Blogvault Scraping Job 7 Started
+I, [2022-02-18T15:50:30.618461 #44479]  INFO -- : Blogvault Scraping Job 8 Started
+I, [2022-02-18T15:50:30.655616 #44488]  INFO -- : Blogvault Scraping Job 9 Started
+I, [2022-02-18T15:50:30.857880 #44510]  INFO -- : Blogvault Scraping Job 10 Started
+I, [2022-02-18T15:50:31.936392 #44347]  INFO -- : filter complete
+I, [2022-02-18T15:50:31.936521 #44347]  INFO -- : {}
+I, [2022-02-18T15:50:31.936568 #44347]  INFO -- : scraping complete
+I, [2022-02-18T15:50:31.940097 #44347]  INFO -- : url update started
+I, [2022-02-18T15:50:31.960982 #44338]  INFO -- : filter complete
+I, [2022-02-18T15:50:31.961193 #44338]  INFO -- : {}
+I, [2022-02-18T15:50:31.961238 #44338]  INFO -- : scraping complete
+I, [2022-02-18T15:50:31.964672 #44338]  INFO -- : url update started
+I, [2022-02-18T15:50:32.129359 #44558]  INFO -- : Blogvault Scraping Job 11 Started
+I, [2022-02-18T15:50:32.217209 #44560]  INFO -- : Blogvault Scraping Job 12 Started
+I, [2022-02-18T15:50:33.692600 #44382]  INFO -- : filter complete
+I, [2022-02-18T15:50:33.692770 #44382]  INFO -- : {}
+I, [2022-02-18T15:50:33.692824 #44382]  INFO -- : scraping complete
+I, [2022-02-18T15:50:33.698650 #44382]  INFO -- : url update started
+I, [2022-02-18T15:50:33.935798 #44602]  INFO -- : Blogvault Scraping Job 13 Started
+I, [2022-02-18T15:50:34.561537 #44404]  INFO -- : filter complete
+I, [2022-02-18T15:50:34.561692 #44404]  INFO -- : {}
+I, [2022-02-18T15:50:34.561727 #44404]  INFO -- : scraping complete
+I, [2022-02-18T15:50:34.567094 #44404]  INFO -- : url update started
+I, [2022-02-18T15:50:34.813069 #44626]  INFO -- : Blogvault Scraping Job 14 Started
+I, [2022-02-18T15:50:35.049531 #44426]  INFO -- : filter complete
+I, [2022-02-18T15:50:35.049852 #44426]  INFO -- : {}
+I, [2022-02-18T15:50:35.049886 #44426]  INFO -- : scraping complete
+I, [2022-02-18T15:50:35.052918 #44426]  INFO -- : url update started
+I, [2022-02-18T15:50:35.203939 #44435]  INFO -- : filter complete
+I, [2022-02-18T15:50:35.204067 #44435]  INFO -- : {}
+I, [2022-02-18T15:50:35.204092 #44435]  INFO -- : scraping complete
+I, [2022-02-18T15:50:35.206848 #44435]  INFO -- : url update started
+I, [2022-02-18T15:50:35.251703 #44648]  INFO -- : Blogvault Scraping Job 15 Started
+I, [2022-02-18T15:50:35.422383 #44657]  INFO -- : Blogvault Scraping Job 16 Started
+I, [2022-02-18T15:50:35.524612 #44470]  INFO -- : filter complete
+I, [2022-02-18T15:50:35.524704 #44470]  INFO -- : 63
+I, [2022-02-18T15:50:35.527988 #44470]  INFO -- : {63=>{:mapedData=>{"plugins"=>["woocommerce", "woocommerce", "woocommerce", "woothemes-tracks", "dist", "woocommerce-product-vendors", "woo-gutenberg-products-block", "woo-gutenberg-products-block", "woo-gutenberg-products-block", "dist", "coblocks", "coblocks", "woocommerce", "woocommerce", "woocommerce-product-recommendations"], "themes"=>["woo", "woo", "woo", "woo", "refer-wordpress"], "js"=>["dist", "dist", "dist", "dist", "dist", "dist", "dist", "dist", "dist", "dist", "dist", "dist", "dist", "dist", "dist", "dist", "dist", "dist", "dist", "jquery", "jquery", "jquery-blockui", "js-cookie", "frontend", "underscore.min.js?ver=1.13.1", "tracks-events.js?ver=2022-02-17_13:55", "wcpv-frontend-scripts.min.js?ver=2.1.18", "dist", "dist", "dist", "dist", "dist", "dist", "dist", "dist", "coblocks-animation.js?ver=2.16.0", "coblocks-lightbox.js?ver=2.16.0", "frontend", "frontend", "frontend", "referrals.min.js", "bilmur.min.js?m=202207"]}, :version=>"5.9"}}
+I, [2022-02-18T15:50:35.528562 #44470]  INFO -- : scraping complete
+I, [2022-02-18T15:50:35.666000 #44479]  INFO -- : filter complete
+I, [2022-02-18T15:50:35.666094 #44479]  INFO -- : {}
+I, [2022-02-18T15:50:35.666110 #44479]  INFO -- : scraping complete
+I, [2022-02-18T15:50:35.669511 #44479]  INFO -- : url update started
+I, [2022-02-18T15:50:35.719240 #44470]  INFO -- : url update started
+I, [2022-02-18T15:50:35.903842 #44510]  INFO -- : filter complete
+I, [2022-02-18T15:50:35.904010 #44510]  INFO -- : {}
+I, [2022-02-18T15:50:35.904050 #44510]  INFO -- : scraping complete
+I, [2022-02-18T15:50:35.907587 #44510]  INFO -- : url update started
+I, [2022-02-18T15:50:35.939128 #44703]  INFO -- : Blogvault Scraping Job 18 Started
+I, [2022-02-18T15:50:35.953778 #44694]  INFO -- : Blogvault Scraping Job 17 Started
+I, [2022-02-18T15:50:36.170017 #44712]  INFO -- : Blogvault Scraping Job 19 Started
+I, [2022-02-18T15:50:37.165197 #44558]  INFO -- : filter complete
+I, [2022-02-18T15:50:37.165301 #44558]  INFO -- : 109
+I, [2022-02-18T15:50:37.166546 #44558]  INFO -- : {109=>{:mapedData=>{"plugins"=>["pushup"], "themes"=>["9to5-2015", "9to5-2015", "9to5-2015"], "js"=>["adsbygoogle.js", "vendor", "adapter.js", "gpt.js", "vendor", "pushup.min.js?m=1643661925g", "adsbygoogle.js?ver=1.1.2", "mediaelement"]}, :version=>"5.9"}}
+I, [2022-02-18T15:50:37.166631 #44558]  INFO -- : scraping complete
+I, [2022-02-18T15:50:37.270244 #44558]  INFO -- : url update started
+I, [2022-02-18T15:50:37.454968 #44760]  INFO -- : Blogvault Scraping Job 20 Started
+I, [2022-02-18T15:50:38.144799 #44560]  INFO -- : filter complete
+I, [2022-02-18T15:50:38.144923 #44560]  INFO -- : {}
+I, [2022-02-18T15:50:38.144947 #44560]  INFO -- : scraping complete
+I, [2022-02-18T15:50:38.147711 #44560]  INFO -- : url update started
+I, [2022-02-18T15:50:38.370869 #44782]  INFO -- : Blogvault Scraping Job 21 Started
+I, [2022-02-18T15:50:38.979604 #44602]  INFO -- : filter complete
+I, [2022-02-18T15:50:38.979732 #44602]  INFO -- : 121
+I, [2022-02-18T15:50:38.980697 #44602]  INFO -- : {121=>{:mapedData=>{"plugins"=>["orcid-master", "snazzy-maps", "plos-google-tag-manager", "plos-elementor-widgets", "plos-elementor-widgets", "share-this-image-pro", "elementor-pro", "elementor", "elementor", "elementor-pro", "elementor", "elementor", "elementor", "elementor", "elementor", "elementor-pro", "elementor", "elementor-pro"], "themes"=>["plos", "plos"], "js"=>["jquery", "gtm4wp-form-move-tracker.js?ver=0.0.1", "widgets.js?ver=0.0.1", "sti.js?ver=1.80", "wp-embed.min.js?ver=5.8.3", "webpack-pro.runtime.min.js?ver=3.4.2", "webpack.runtime.min.js?ver=3.4.6", "frontend-modules.min.js?ver=3.4.6", "frontend.min.js?ver=3.4.2", "jquery", "frontend.min.js?ver=3.4.6", "preloaded-elements-handlers.min.js?ver=3.4.2", "preloaded-modules.min.js?ver=3.4.6"]}, :version=>"5.8.3"}}
+I, [2022-02-18T15:50:38.980962 #44602]  INFO -- : scraping complete
+I, [2022-02-18T15:50:39.118286 #44602]  INFO -- : url update started
+I, [2022-02-18T15:50:39.343747 #44804]  INFO -- : Blogvault Scraping Job 22 Started
+I, [2022-02-18T15:50:39.861606 #44626]  INFO -- : filter complete
+I, [2022-02-18T15:50:39.861758 #44626]  INFO -- : {}
+I, [2022-02-18T15:50:39.861791 #44626]  INFO -- : scraping complete
+I, [2022-02-18T15:50:39.865971 #44626]  INFO -- : url update started
+I, [2022-02-18T15:50:40.146950 #44826]  INFO -- : Blogvault Scraping Job 23 Started
+I, [2022-02-18T15:50:40.468767 #44657]  INFO -- : filter complete
+I, [2022-02-18T15:50:40.468944 #44657]  INFO -- : 154
+I, [2022-02-18T15:50:40.471901 #44657]  INFO -- : {154=>{:mapedData=>{"plugins"=>["gutenberg", "gutenberg", "gutenberg", "gutenberg", "gutenberg", "gutenberg", "gutenberg", "gutenberg", "gutenberg", "gutenberg", "gutenberg", "gutenberg", "gutenberg", "gutenberg", "gutenberg", "gutenberg", "gutenberg", "gutenberg"], "js"=>["dist"]}, :version=>"5.9"}}
+I, [2022-02-18T15:50:40.472095 #44657]  INFO -- : scraping complete
+I, [2022-02-18T15:50:40.512393 #44657]  INFO -- : url update started
+I, [2022-02-18T15:50:40.677219 #44848]  INFO -- : Blogvault Scraping Job 24 Started
+I, [2022-02-18T15:50:40.977111 #44703]  INFO -- : filter complete
+I, [2022-02-18T15:50:40.977228 #44703]  INFO -- : 172
+I, [2022-02-18T15:50:40.979367 #44703]  INFO -- : {172=>{:mapedData=>{"plugins"=>["gutenberg", "gutenberg", "gutenberg", "gutenberg", "gutenberg", "gutenberg", "gutenberg", "gutenberg"], "js"=>["dist"]}, :version=>"5.9"}}
+I, [2022-02-18T15:50:40.979492 #44703]  INFO -- : scraping complete
+I, [2022-02-18T15:50:41.016580 #44694]  INFO -- : filter complete
+I, [2022-02-18T15:50:41.016669 #44694]  INFO -- : {}
+I, [2022-02-18T15:50:41.016682 #44694]  INFO -- : scraping complete
+I, [2022-02-18T15:50:41.019431 #44694]  INFO -- : url update started
+I, [2022-02-18T15:50:41.024170 #44703]  INFO -- : url update started
+I, [2022-02-18T15:50:41.213965 #44712]  INFO -- : filter complete
+I, [2022-02-18T15:50:41.214086 #44712]  INFO -- : 182
+I, [2022-02-18T15:50:41.217907 #44712]  INFO -- : {182=>{:mapedData=>{"plugins"=>["podcasting", "disqus-comment-system", "disqus-comment-system", "disqus-comment-system", "disqus-comment-system"], "themes"=>["touch-arcade", "touch-arcade", "xpress", "xpress", "xpress", "touch-arcade", "touch-arcade", "xpress", "xpress", "xpress", "touch-arcade", "touch-arcade", "xpress", "xpress", "xpress", "touch-arcade", "touch-arcade", "xpress", "xpress", "xpress"], "js"=>["jquery", "jquery", "swfobject.js?ver=2.2-20120417", "comment_count.js?ver=3.0.16", "skip-link-focus-fix.js?ver=1.0", "global.js?ver=1.0", "jquery.scrollTo.js?ver=2.1.2", "wp-embed.min.js?ver=4.9.19", "jquery", "xenforo", "audentio", "audentio", "comment_count.js?ver=3.0.16", "skip-link-focus-fix.js?ver=1.0", "global.js?ver=1.0", "jquery.scrollTo.js?ver=2.1.2", "wp-embed.min.js?ver=4.9.19", "comment_count.js?ver=3.0.16", "skip-link-focus-fix.js?ver=1.0", "global.js?ver=1.0", "jquery.scrollTo.js?ver=2.1.2", "wp-embed.min.js?ver=4.9.19", "comment_count.js?ver=3.0.16", "skip-link-focus-fix.js?ver=1.0", "global.js?ver=1.0", "jquery.scrollTo.js?ver=2.1.2", "wp-embed.min.js?ver=4.9.19"], "cloudflare"=>[1]}, :version=>"4.9.19"}}
+I, [2022-02-18T15:50:41.218046 #44712]  INFO -- : scraping complete
+I, [2022-02-18T15:50:41.220623 #44872]  INFO -- : Blogvault Scraping Job 26 Started
+I, [2022-02-18T15:50:41.276842 #44870]  INFO -- : Blogvault Scraping Job 25 Started
+I, [2022-02-18T15:50:41.338158 #44712]  INFO -- : url update started
+I, [2022-02-18T15:50:41.586082 #44911]  INFO -- : Blogvault Scraping Job 27 Started
+I, [2022-02-18T15:50:42.490162 #44760]  INFO -- : filter complete
+I, [2022-02-18T15:50:42.490299 #44760]  INFO -- : {}
+I, [2022-02-18T15:50:42.490325 #44760]  INFO -- : scraping complete
+I, [2022-02-18T15:50:42.493282 #44760]  INFO -- : url update started
+I, [2022-02-18T15:50:42.684642 #44936]  INFO -- : Blogvault Scraping Job 28 Started
+I, [2022-02-18T15:50:43.433545 #44782]  INFO -- : filter complete
+I, [2022-02-18T15:50:43.433703 #44782]  INFO -- : 209
+I, [2022-02-18T15:50:43.436077 #44782]  INFO -- : {209=>{:mapedData=>{"plugins"=>["photonfill", "photonfill", "hubspot_subscribe"], "themes"=>["brookings"], "js"=>["jquery", "jquery", "dist", "dist", "dist", "dist", "dist", "dist", "dist", "global.min.js?ver=eaab081be77e48307af0", "hubspot-contacts.js?ver=5.9"]}, :version=>"5.9"}}
+I, [2022-02-18T15:50:43.436264 #44782]  INFO -- : scraping complete
+I, [2022-02-18T15:50:43.520400 #44782]  INFO -- : url update started
+I, [2022-02-18T15:50:43.758964 #44958]  INFO -- : Blogvault Scraping Job 29 Started
+I, [2022-02-18T15:50:44.392872 #44804]  INFO -- : filter complete
+I, [2022-02-18T15:50:44.393024 #44804]  INFO -- : {}
+I, [2022-02-18T15:50:44.393056 #44804]  INFO -- : scraping complete
+I, [2022-02-18T15:50:44.396092 #44804]  INFO -- : url update started
+I, [2022-02-18T15:50:44.632988 #44980]  INFO -- : Blogvault Scraping Job 30 Started
+I, [2022-02-18T15:50:45.721475 #44848]  INFO -- : filter complete
+I, [2022-02-18T15:50:45.721601 #44848]  INFO -- : {}
+I, [2022-02-18T15:50:45.721625 #44848]  INFO -- : scraping complete
+I, [2022-02-18T15:50:45.724963 #44848]  INFO -- : url update started
+I, [2022-02-18T15:50:45.938207 #45002]  INFO -- : Blogvault Scraping Job 31 Started
+I, [2022-02-18T15:50:46.257203 #44872]  INFO -- : filter complete
+I, [2022-02-18T15:50:46.257545 #44872]  INFO -- : {}
+I, [2022-02-18T15:50:46.257771 #44872]  INFO -- : scraping complete
+I, [2022-02-18T15:50:46.262779 #44872]  INFO -- : url update started
+I, [2022-02-18T15:50:46.326308 #44870]  INFO -- : filter complete
+I, [2022-02-18T15:50:46.326418 #44870]  INFO -- : {}
+I, [2022-02-18T15:50:46.326442 #44870]  INFO -- : scraping complete
+I, [2022-02-18T15:50:46.330099 #44870]  INFO -- : url update started
+I, [2022-02-18T15:50:46.468224 #45024]  INFO -- : Blogvault Scraping Job 32 Started
+I, [2022-02-18T15:50:46.582263 #45033]  INFO -- : Blogvault Scraping Job 33 Started
+I, [2022-02-18T15:50:46.631103 #44911]  INFO -- : filter complete
+I, [2022-02-18T15:50:46.631245 #44911]  INFO -- : 261
+I, [2022-02-18T15:50:46.632779 #44911]  INFO -- : 265
+I, [2022-02-18T15:50:46.634431 #44911]  INFO -- : {261=>{:mapedData=>{"plugins"=>["dfm_zeus", "loader-wp", "bloom-for-publishers", "dfm-pushly", "dfm-ad-mods", "dfm-viafoura-prototype"], "themes"=>["wp-mason"], "js"=>["global.js?m=1645034912g", "auth0-spa-js", "dfm-pushly.min.js?m=1645034912g", "hhsl-check.min.js?m=1645034912g", "ads.js?ver=1.0", "gpt.js?ver=2.0", "dfm-viafoura.bundle.js?m=1645137579g"]}, :version=>"5.9"}, 265=>{:mapedData=>{"plugins"=>["jquery-updater", "jquery-updater", "cookie-law-info", "pdf-print", "pdf-print", "pdf-print"], "themes"=>["Newsmag"], "js"=>["jquery-3.6.0.min.js?ver=3.6.0", "jquery-migrate-3.3.2.min.js?ver=3.3.2", "cookie-law-info-public.js?ver=2.0.1", "html2canvas.js?ver=5.7.5", "jspdf.js?ver=5.7.5", "front-script.js?ver=5.7.5", "adsbygoogle.js", "adsbygoogle.js", "tagdiv_theme.min.js?ver=4.2", "comment-reply.min.js?ver=5.7.5", "wp-embed.min.js?ver=5.7.5"], "cloudflare"=>[1]}, :version=>"5.7.5"}}
+I, [2022-02-18T15:50:46.634544 #44911]  INFO -- : scraping complete
+I, [2022-02-18T15:50:46.820557 #44911]  INFO -- : url update started
+I, [2022-02-18T15:50:47.046620 #45068]  INFO -- : Blogvault Scraping Job 34 Started
+I, [2022-02-18T15:50:47.726304 #44936]  INFO -- : filter complete
+I, [2022-02-18T15:50:47.726501 #44936]  INFO -- : 273
+I, [2022-02-18T15:50:47.728354 #44936]  INFO -- : {273=>{:mapedData=>{"plugins"=>["stop-user-enumeration", "wp-captcha", "td-cloud-library", "td-composer", "td-cloud-library", "wp-rocket"], "js"=>["frontend.js?ver=1645011698", "jquery", "jquery", "c4wp-public.js?ver=1645011698", "underscore.min.js?ver=1.13.1", "js_posts_autoload.min.js?ver=ecd3ae9d894693e4aa2a268d920aa306", "tagdiv_theme.min.js?ver=11.4.1", "js_files_for_front.min.js?ver=ecd3ae9d894693e4aa2a268d920aa306", "lazyload"], "cloudflare"=>[1]}, :version=>"5.9"}}
+I, [2022-02-18T15:50:47.728527 #44936]  INFO -- : scraping complete
+I, [2022-02-18T15:50:47.845448 #44936]  INFO -- : url update started
+I, [2022-02-18T15:50:48.035894 #45090]  INFO -- : Blogvault Scraping Job 35 Started
+I, [2022-02-18T15:50:48.813521 #44958]  INFO -- : filter complete
+I, [2022-02-18T15:50:48.813665 #44958]  INFO -- : {}
+I, [2022-02-18T15:50:48.813698 #44958]  INFO -- : scraping complete
+I, [2022-02-18T15:50:48.818125 #44958]  INFO -- : url update started
+I, [2022-02-18T15:50:49.061509 #45112]  INFO -- : Blogvault Scraping Job 36 Started
+I, [2022-02-18T15:50:49.676983 #44980]  INFO -- : filter complete
+I, [2022-02-18T15:50:49.677147 #44980]  INFO -- : 291
+I, [2022-02-18T15:50:49.678710 #44980]  INFO -- : {291=>{:mapedData=>{"plugins"=>["video"], "js"=>["rlt-proxy.js?m=1637704497j", "gprofiles.js?ver=202207y", "devicepx.js,", "bilmur.min.js?i=3&m=202207", "videojs"]}, :version=>"version not found"}}
+I, [2022-02-18T15:50:49.678847 #44980]  INFO -- : scraping complete
+I, [2022-02-18T15:50:49.738825 #44980]  INFO -- : url update started
+I, [2022-02-18T15:50:49.954848 #45134]  INFO -- : Blogvault Scraping Job 37 Started
+I, [2022-02-18T15:50:50.986692 #45002]  INFO -- : filter complete
+I, [2022-02-18T15:50:50.986807 #45002]  INFO -- : 302
+I, [2022-02-18T15:50:50.987881 #45002]  INFO -- : {302=>{:mapedData=>{"plugins"=>["duracelltomi-google-tag-manager"], "themes"=>["uw-2014", "boundless", "boundless"], "js"=>["underscore.min.js?2f2358e", "jquery", "jquery", "backbone.min.js?2f2358e", "site.js?ver=3.0.0", "homepage.js?2f2358e", "gtm4wp-form-move-tracker.js?2f2358e", "homepage-event-tracking.js?2f2358e"]}, :version=>"5.9"}}
+I, [2022-02-18T15:50:50.987985 #45002]  INFO -- : scraping complete
+I, [2022-02-18T15:50:51.077588 #45002]  INFO -- : url update started
+I, [2022-02-18T15:50:51.258913 #45156]  INFO -- : Blogvault Scraping Job 38 Started
+I, [2022-02-18T15:50:51.502365 #45024]  INFO -- : filter complete
+I, [2022-02-18T15:50:51.502518 #45024]  INFO -- : {}
+I, [2022-02-18T15:50:51.502550 #45024]  INFO -- : scraping complete
+I, [2022-02-18T15:50:51.506805 #45024]  INFO -- : url update started
+I, [2022-02-18T15:50:51.633996 #45033]  INFO -- : filter complete
+I, [2022-02-18T15:50:51.634156 #45033]  INFO -- : 324
+I, [2022-02-18T15:50:51.635752 #45033]  INFO -- : {324=>{:mapedData=>{"plugins"=>["duracelltomi-google-tag-manager", "wp-modal-popup-with-cookie-integration"], "themes"=>["state"], "js"=>["gtm4wp-form-move-tracker.js?ver=1.14.2", "underscore.min.js?ver=1.13.1", "backbone.min.js?ver=1.4.0", "api-request.min.js?ver=5.8.3", "wp-api.min.js?ver=5.8.3", "wp-util.min.js?ver=5.8.3", "state.min.js?ver=1642788827", "wmpci-popup.js?ver=2.2", "wp-embed.min.js?ver=5.8.3"]}, :version=>"5.8.3"}}
+I, [2022-02-18T15:50:51.635872 #45033]  INFO -- : scraping complete
+I, [2022-02-18T15:50:51.687121 #45179]  INFO -- : Blogvault Scraping Job 39 Started
+I, [2022-02-18T15:50:51.742811 #45033]  INFO -- : url update started
+I, [2022-02-18T15:50:51.977937 #45203]  INFO -- : Blogvault Scraping Job 40 Started
+I, [2022-02-18T15:50:53.071216 #45090]  INFO -- : filter complete
+I, [2022-02-18T15:50:53.071377 #45090]  INFO -- : 344
+I, [2022-02-18T15:50:53.073958 #45090]  INFO -- : {344=>{:mapedData=>{"plugins"=>["uji-countdown", "uji-countdown", "optinmonster"], "themes"=>["genesis", "genesis", "genesis", "sme-pro", "sme-pro", "sme-pro", "sme-pro"], "js"=>["jquery", "jquery", "api.min.js", "hoverIntent.min.js?ver=1.10.1", "menu", "menu", "skip-links.min.js?ver=3.3.5", "min", "src", "min", "src", "jquery.countdown.js?ver=2.0.8", "uji-countdown.js?ver=2.0.8", "helper.js?ver=2.6.9"], "cloudflare"=>[1]}, :version=>"5.9"}}
+I, [2022-02-18T15:50:53.074160 #45090]  INFO -- : scraping complete
+I, [2022-02-18T15:50:53.200329 #45090]  INFO -- : url update started
+I, [2022-02-18T15:50:53.383423 #45225]  INFO -- : Blogvault Scraping Job 41 Started
+I, [2022-02-18T15:50:55.004460 #45134]  INFO -- : filter complete
+I, [2022-02-18T15:50:55.004558 #45134]  INFO -- : 361
+I, [2022-02-18T15:50:55.006293 #45134]  INFO -- : {361=>{:mapedData=>{"plugins"=>["search-filter-pro", "search-filter-pro", "wp-media-folder", "mailchimp-for-wp"], "themes"=>["Divi", "Divi"], "js"=>["jquery", "jquery", "search-filter-build.min.js?ver=2.5.11", "chosen.jquery.min.js?ver=2.5.11", "mc-validate.js", "mc-validate.js", "jquery", "jquery", "custom.unified.js?ver=4.9.10", "300", "common.js?ver=4.9.10", "mediaelement", "mediaelement", "mediaelement", "forms.js?ver=4.8.6"]}, :version=>"5.9"}}
+I, [2022-02-18T15:50:55.006428 #45134]  INFO -- : scraping complete
+I, [2022-02-18T15:50:55.135535 #45134]  INFO -- : url update started
+I, [2022-02-18T15:50:55.361674 #45247]  INFO -- : Blogvault Scraping Job 42 Started
+I, [2022-02-18T15:50:55.821212 #44648]  INFO -- : filter complete
+I, [2022-02-18T15:50:55.821300 #44648]  INFO -- : {}
+I, [2022-02-18T15:50:55.821313 #44648]  INFO -- : scraping complete
+I, [2022-02-18T15:50:55.824592 #44648]  INFO -- : url update started
+I, [2022-02-18T15:50:55.998337 #45269]  INFO -- : Blogvault Scraping Job 43 Started
+I, [2022-02-18T15:50:56.299259 #45156]  INFO -- : filter complete
+I, [2022-02-18T15:50:56.299410 #45156]  INFO -- : 372
+I, [2022-02-18T15:50:56.302018 #45156]  INFO -- : 378
+I, [2022-02-18T15:50:56.303407 #45156]  INFO -- : {372=>{:mapedData=>{"plugins"=>["speak-api", "wp-user-avatar", "wp-user-avatar", "ubermenu", "link-whisper-premium", "wp-user-avatar"], "themes"=>["spk-lawyers", "spk-lawyers", "spk-lawyers", "spk-lawyers"], "js"=>["jquery", "jquery", "speak-api-js-frontend.js?ver=5.9", "jquery.gmap.min.js", "funcations.js", "hoverIntent.min.js?ver=1.10.1", "ubermenu.min.js?ver=5.9", "frontend.js?ver=1643219785", "frontend.min.js?ver=3.2.7", "bootstrap.min.js?ver=20140318", "jquery.compresed.min.js?ver=20140318"]}, :version=>"5.9"}, 378=>{:mapedData=>{"plugins"=>["LayerSlider", "LayerSlider", "LayerSlider", "LayerSlider"], "themes"=>["scientiamobile"], "js"=>["jquery", "jquery", "layerslider.kreaturamedia.jquery.js?ver=4.6.5", "jquery-easing-1.3.js?ver=1.3.0", "jquerytransit.js?ver=0.9.9", "layerslider.transitions.js?ver=4.6.5", "app-3d0c1d454b.js?ver=1.1", "wp-embed.min.js?ver=4.9.19"]}, :version=>"4.9.19"}}
+I, [2022-02-18T15:50:56.303618 #45156]  INFO -- : scraping complete
+I, [2022-02-18T15:50:56.455257 #45156]  INFO -- : url update started
+I, [2022-02-18T15:50:56.652366 #45291]  INFO -- : Blogvault Scraping Job 44 Started
+I, [2022-02-18T15:50:56.721758 #45179]  INFO -- : filter complete
+I, [2022-02-18T15:50:56.721957 #45179]  INFO -- : {}
+I, [2022-02-18T15:50:56.722036 #45179]  INFO -- : scraping complete
+I, [2022-02-18T15:50:56.726329 #45179]  INFO -- : url update started
+I, [2022-02-18T15:50:56.904626 #45313]  INFO -- : Blogvault Scraping Job 45 Started
+I, [2022-02-18T15:50:57.019627 #45203]  INFO -- : filter complete
+I, [2022-02-18T15:50:57.019728 #45203]  INFO -- : {}
+I, [2022-02-18T15:50:57.019752 #45203]  INFO -- : scraping complete
+I, [2022-02-18T15:50:57.022472 #45203]  INFO -- : url update started
+I, [2022-02-18T15:50:57.233953 #45068]  INFO -- : filter complete
+I, [2022-02-18T15:50:57.234102 #45068]  INFO -- : 339
+I, [2022-02-18T15:50:57.237765 #45068]  INFO -- : {339=>{:mapedData=>{"plugins"=>["umg-grand-royal-theme-plugin", "umg-analytics", "appreciation-engine-social-follow", "appreciation-engine-social-follow", "push-global", "push-global", "umg-grand-royal-theme-plugin", "ScrollToPlugin.min.js?ver=1.9.0", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "appreciation-engine-social-sign-in", "appreciation-engine-social-sign-in", "appreciation-engine-social-sign-in", "appreciation-engine-social-sign-in", "appreciation-engine-social-sign-in", "appreciation-engine-social-sign-in", "umg-aal", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-ecrm", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin", "umg-grand-royal-theme-plugin"], "themes"=>["umg-grand-royal-theme", "umg-grand-royal-theme", "umg-grand-royal-theme", "umg-grand-royal-theme", "umg-grand-royal-theme", "umg-grand-royal-theme", "umg-grand-royal-theme", "umg-grand-royal-theme"], "js"=>["shortcodes", "umg-analytics.min.js?ver=1.0.0", "jquery", "jquery", "ae_follow.js?ver=5.8.1", "client.js?ver=5.8.1", "ae_follow_facebook.js?ver=5.8.1", "push-global-public.js?ver=1.2.18", "autocolor", "libs", "libs", "modules", "modules", "libs", "libs", "shortcodes", "shortcodes", "libs", "libs", "libs", "int-tel-input", "int-tel-input", "ae_wp_frontend.js?ver=2.12.0", "min", "parsley.min.js?ver=2.12.0", "umg-aal-wp.js?ver=1.0", "umggr-main.js?ver=2.8.0", "global", "global", "libs", "shortcodes", "footer.js?ver=2.8.0", "home.js?ver=2.8.0", "main.js?ver=2.8.0", "cookie-styles.js?ver=2.8.0", "umg-ecrm-frontend.js?ver=0.7.12", "wp-embed.min.js?ver=5.8.1", "underscore.min.js?ver=1.13.1", "backbone.min.js?ver=1.4.0", "api-request.min.js?ver=5.8.1", "wp-api.min.js?ver=5.8.1", "shortcodes", "libs", "shortcodes"], "cloudflare"=>[1]}, :version=>"5.8.1"}}
+I, [2022-02-18T15:50:57.238058 #45068]  INFO -- : scraping complete
+I, [2022-02-18T15:50:57.246183 #45336]  INFO -- : Blogvault Scraping Job 46 Started
+I, [2022-02-18T15:50:57.468066 #45068]  INFO -- : url update started
+I, [2022-02-18T15:50:57.695803 #45358]  INFO -- : Blogvault Scraping Job 47 Started
+I, [2022-02-18T15:50:58.420450 #45225]  INFO -- : filter complete
+I, [2022-02-18T15:50:58.420697 #45225]  INFO -- : {}
+I, [2022-02-18T15:50:58.420775 #45225]  INFO -- : scraping complete
+I, [2022-02-18T15:50:58.425967 #45225]  INFO -- : url update started
+I, [2022-02-18T15:50:58.602219 #45380]  INFO -- : Blogvault Scraping Job 48 Started
+I, [2022-02-18T15:51:00.414006 #45247]  INFO -- : filter complete
+I, [2022-02-18T15:51:00.414155 #45247]  INFO -- : 415
+I, [2022-02-18T15:51:00.416480 #45247]  INFO -- : {415=>{:mapedData=>{"plugins"=>["wp-smushit"], "themes"=>["Divi", "Divi", "Divi"], "js"=>["jquery", "jquery", "adsbygoogle.js?client=ca-pub-5878046506349106", "adsbygoogle.js?client=ca-pub-5878046506349106", "adsbygoogle.js?client=ca-pub-5878046506349106", "adsbygoogle.js?client=ca-pub-5878046506349106", "scripts.min.js?ver=4.14.7", "jquery.fitvids.js?ver=1644605091", "common.js?ver=1644605091", "smush-lazy-load.min.js?ver=3.9.5"], "cloudflare"=>[1]}, :version=>"5.9"}}
+I, [2022-02-18T15:51:00.416592 #45247]  INFO -- : scraping complete
+I, [2022-02-18T15:51:00.497029 #45247]  INFO -- : url update started
+I, [2022-02-18T15:51:00.707546 #45402]  INFO -- : Blogvault Scraping Job 49 Started
+I, [2022-02-18T15:51:01.032173 #45269]  INFO -- : filter complete
+I, [2022-02-18T15:51:01.032356 #45269]  INFO -- : 421
+I, [2022-02-18T15:51:01.035049 #45269]  INFO -- : 424
+I, [2022-02-18T15:51:01.036056 #45269]  INFO -- : {421=>{:mapedData=>{"js"=>["breeze_8cac4f13cbecea1b6e358ce8d2b0f693.js", "breeze_b646847ad2191982696c41766f828273.js", "breeze_0b7abda5cc1c594380e66a29c8740b1f.js", "breeze_d425af0dfcc148d4bfa89be3eb47cfa0.js", "breeze_5c9faf082c3a733b0dcf0769cedba271.js", "breeze_db94450d6ffb2a509f1dd8ace44e8bb4.js", "breeze_02514e3321a6875999c1a8c14116e96b.js", "breeze_ccdc2c2f4dc7dd25524959aa276609ad.js", "breeze_e083ee3a8a6d032f5d69d2446794bb27.js", "breeze_739f17c9b51a0c54abee2f8d8529a5e4.js", "breeze_4097970242bf3674ce890fa2f623030a.js", "breeze_d4a3ccf63194583ed8c44eed00d532e4.js", "breeze_e7f56bc5bda392b7a63a1299521d8125.js", "breeze_af70e9e9968a29642268b5a0a2cbdd4b.js", "breeze_9d2815bed93d2cb1b7a110af0950736a.js", "breeze_cfb428c02811f0cbe515d5f3dca61de6.js", "breeze_fea92d65a8826da45e10de84490d45ef.js", "breeze_314811cb65375c1fc0dcf1b5380e1ce3.js", "breeze_e9ef5f8ad95937c06f0ac70d49b2eebc.js", "breeze_5bee100767963a537630021df3cfd9d6.js", "breeze_35f36d87794b9f8956e46733015828c0.js", "breeze_9b0dbdafe4330c96589afe4e75eca0e0.js", "breeze_1dff0fb95929a3311dd2a4d4a4993746.js", "breeze_68b7f3927245553c8e8f3f62f9416937.js", "breeze_6250263134ad0d941fe68a91feb3c785.js", "breeze_3cfd87f7e38fc7ea62ded16e8532957e.js", "breeze_ebae1957b554d6066fa4c8c3034c7068.js", "breeze_31d38933f6b26f57e611e92d0d64f83e.js", "breeze_ed22d8b75b4526981dbd5911f3d33490.js", "breeze_29b204e3e81b0126112aadbdc8817dea.js", "breeze_b0554c2631676d16509ef1e812d42e3b.js", "breeze_bf8fdb32453fbbd9afc6439b2a0badcd.js", "breeze_0d66719aea530288705da8ebd0a3dc0d.js", "breeze_bf4ef1478fb5b15157d71ca3b8979219.js", "breeze_f278b8d125dabba57fc5ab8551577145.js", "breeze_6e6f6c3655b658795366024b53a10151.js", "breeze_47c2fabfd186264e4354c7a59eece0a6.js", "breeze_c3be2a899c3d952d323229e607663af1.js", "breeze_466587e3947bfcbed6344ac7d61f4563.js", "breeze_83ccc4c596c9b3805992296e7eb6f089.js", "breeze_5db86169e99711e5e5c29b07f955923c.js", "breeze_b7f711eb485cdecf9b62315f1cc13fd1.js", "breeze_bff8a063838b3ae3242a06e5b130f3ef.js", "breeze_3304aeb0dceeb5444bf66e109393ab6d.js", "breeze_ceee8c86416bcd1049b1a6be037de9ee.js", "breeze_c039f16eaaf8991e894350bb6e9ac6fa.js", "breeze_4d665d31a2c97a394795b196136e372d.js"]}, :version=>"5.9"}, 424=>{:mapedData=>{"plugins"=>["themezee-widget-bundle", "link-whisper-premium", "sassy-social-share", "elementor-pro", "elementor", "elementor", "elementor-pro", "elementor-pro", "elementor", "elementor", "elementor", "elementor", "elementor", "elementor-pro", "elementor"], "themes"=>["maxwell", "maxwell", "maxwell", "maxwell"], "js"=>["jquery", "jquery", "svgxuse.min.js?ver=1.2.6", "jquery.flexslider-min.js?ver=2.6.0", "slider.js?ver=20170421", "tabbed-content.js?ver=1.5.1", "frontend.js?ver=1636412189", "navigation.min.js?ver=20200822", "sassy-social-share-public.js?ver=3.3.25", "webpack-pro.runtime.min.js?ver=3.1.0", "webpack.runtime.min.js?ver=3.4.7", "frontend-modules.min.js?ver=3.4.7", "frontend.min.js?ver=3.1.0", "jquery", "frontend.min.js?ver=3.4.7", "preloaded-elements-handlers.min.js?ver=3.1.0", "preloaded-modules.min.js?ver=3.4.7"]}, :version=>"5.9"}}
+I, [2022-02-18T15:51:01.036293 #45269]  INFO -- : scraping complete
+I, [2022-02-18T15:51:01.427553 #45269]  INFO -- : url update started
+I, [2022-02-18T15:51:01.594086 #45425]  INFO -- : Blogvault Scraping Job 50 Started
+I, [2022-02-18T15:51:01.937142 #45313]  INFO -- : filter complete
+I, [2022-02-18T15:51:01.937301 #45313]  INFO -- : 445
+I, [2022-02-18T15:51:01.939302 #45313]  INFO -- : {445=>{:mapedData=>{"plugins"=>["google-analytics-dashboard-for-wp", "td-cloud-library", "td-composer", "sassy-social-share", "td-cloud-library", "social-networks-auto-poster-facebook-twitter-g", "ml-slider"], "js"=>["frontend-gtag.min.js?ver=7.3.4", "jquery", "jquery", "underscore.min.js?ver=1.13.1", "js_posts_autoload.min.js?ver=2713a088559ff26084e8003394764364", "tagdiv_theme.min.js?ver=11.3.1", "comment-reply.min.js?ver=5.9", "sassy-social-share-public.js?ver=3.3.38", "js_files_for_front.min.js?ver=2713a088559ff26084e8003394764364"], "cloudflare"=>[1]}, :version=>"5.9"}}
+I, [2022-02-18T15:51:01.939409 #45313]  INFO -- : scraping complete
+I, [2022-02-18T15:51:02.058961 #45313]  INFO -- : url update started
+I, [2022-02-18T15:51:02.294525 #45336]  INFO -- : filter complete
+I, [2022-02-18T15:51:02.294686 #45336]  INFO -- : 451
+I, [2022-02-18T15:51:02.296086 #45336]  INFO -- : {451=>{:mapedData=>{"js"=>["jquery", "adsbygoogle.js", "dist", "dist", "autoptimize_a29d8254042931c5494159a88c490518.js"]}, :version=>"5.9"}}
+I, [2022-02-18T15:51:02.296165 #45336]  INFO -- : scraping complete
+I, [2022-02-18T15:51:02.345792 #45336]  INFO -- : url update started
+I, [2022-02-18T15:51:02.745289 #45358]  INFO -- : filter complete
+I, [2022-02-18T15:51:02.745435 #45358]  INFO -- : {}
+I, [2022-02-18T15:51:02.745469 #45358]  INFO -- : scraping complete
+I, [2022-02-18T15:51:02.749619 #45358]  INFO -- : url update started
+I, [2022-02-18T15:51:03.011085 #45291]  INFO -- : filter complete
+I, [2022-02-18T15:51:03.011197 #45291]  INFO -- : {}
+I, [2022-02-18T15:51:03.011222 #45291]  INFO -- : scraping complete
+I, [2022-02-18T15:51:03.013863 #45291]  INFO -- : url update started
+I, [2022-02-18T15:51:03.633834 #45380]  INFO -- : filter complete
+I, [2022-02-18T15:51:03.633950 #45380]  INFO -- : {}
+I, [2022-02-18T15:51:03.633974 #45380]  INFO -- : scraping complete
+I, [2022-02-18T15:51:03.637318 #45380]  INFO -- : url update started
+I, [2022-02-18T15:51:05.753105 #45402]  INFO -- : filter complete
+I, [2022-02-18T15:51:05.753339 #45402]  INFO -- : {}
+I, [2022-02-18T15:51:05.753374 #45402]  INFO -- : scraping complete
+I, [2022-02-18T15:51:05.757536 #45402]  INFO -- : url update started
+I, [2022-02-18T15:51:06.632950 #45425]  INFO -- : filter complete
+I, [2022-02-18T15:51:06.633114 #45425]  INFO -- : 495
+I, [2022-02-18T15:51:06.634282 #45425]  INFO -- : {495=>{:mapedData=>{"js"=>["jquery", "autoptimize_5af66c27f6e480882f527cda6e2063ad.js"]}, :version=>"5.9"}}
+I, [2022-02-18T15:51:06.634367 #45425]  INFO -- : scraping complete
+I, [2022-02-18T15:51:06.674318 #45425]  INFO -- : url update started
+I, [2022-02-18T15:52:31.397075 #44488]  INFO -- : filter complete
+I, [2022-02-18T15:52:31.397272 #44488]  INFO -- : {}
+I, [2022-02-18T15:52:31.397310 #44488]  INFO -- : scraping complete
+I, [2022-02-18T15:52:31.400524 #44488]  INFO -- : url update started
+I, [2022-02-18T15:52:40.625502 #44826]  INFO -- : filter complete
+I, [2022-02-18T15:52:40.625654 #44826]  INFO -- : {}
+I, [2022-02-18T15:52:40.625689 #44826]  INFO -- : scraping complete
+I, [2022-02-18T15:52:40.629877 #44826]  INFO -- : url update started
+I, [2022-02-18T15:52:49.437780 #45112]  INFO -- : filter complete
+I, [2022-02-18T15:52:49.437952 #45112]  INFO -- : {}
+I, [2022-02-18T15:52:49.438001 #45112]  INFO -- : scraping complete
+I, [2022-02-18T15:52:49.442263 #45112]  INFO -- : url update started
+I, [2022-02-18T15:52:49.460715 #45112]  INFO -- : url site info called
