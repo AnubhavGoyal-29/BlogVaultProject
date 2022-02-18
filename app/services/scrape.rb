@@ -18,11 +18,11 @@ class Scrape
   def self.filter_wp_urls(urls, logger)
     url_html_version_map = Hash.new{ |h,k| h[k] = Hash.new }
     threads = []
-   # _proxy = ProxyDatum.order('RANDOM()').first
-      urls.each do |url|
-        threads << Thread.new(){
-          thread_block(url,url_html_version_map)
-        }
+    # _proxy = ProxyDatum.order('RANDOM()').first
+    urls.each do |url|
+      threads << Thread.new(){
+        thread_block(url,url_html_version_map)
+      }
     end
     threads.each do |thread|
       thread.join
@@ -32,19 +32,13 @@ class Scrape
 
   def self.thread_block(url, url_html_version_map)
     begin
-     # puts url + "    " + proxy_ip
-     # RestClient.proxy = "http://" + proxy_ip
-      html = Nokogiri::HTML.parse(RestClient.get url)
-      _url = Url.where(url: url).first
-      if _url 
-        _url_id = _url.id
-        url_html_version_map[_url_id] = {:html => html, :version => _url.site_data_info.cms_version}
-      else
-        _version = check_wordpress_in_meta(html)
-        if _version
-          _url_id =  Url.import_urls([url])[0]
-          url_html_version_map[_url_id] = {:html => html, :version => _version}
-        end
+      # puts url + "    " + proxy_ip
+      # RestClient.proxy = "http://" + proxy_ip
+      html = Nokogiri::HTML.parse(RestClient.get url[0])
+      _version = check_wordpress_in_meta(html)
+      if _version
+        _url_id = url[1]
+        url_html_version_map[_url_id] = {:html => html, :version => _version}
       end
     rescue => e
       puts "#{url}...#{e}"

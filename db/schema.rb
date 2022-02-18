@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_17_052649) do
+ActiveRecord::Schema.define(version: 2022_02_17_145016) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -82,6 +82,15 @@ ActiveRecord::Schema.define(version: 2022_02_17_052649) do
     t.index ["url_id"], name: "index_site_data_infos_on_url_id"
   end
 
+  create_table "steps", force: :cascade do |t|
+    t.string "status"
+    t.integer "total_urls"
+    t.integer "test_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["test_id"], name: "index_steps_on_test_id"
+  end
+
   create_table "tests", force: :cascade do |t|
     t.integer "status"
     t.integer "number_of_urls"
@@ -105,6 +114,7 @@ ActiveRecord::Schema.define(version: 2022_02_17_052649) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["site_data_info_id"], name: "index_urls_on_site_data_info_id"
+    t.index ["url"], name: "index_urls_on_url"
   end
 
 end
