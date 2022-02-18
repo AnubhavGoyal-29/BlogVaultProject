@@ -41,6 +41,7 @@ ActiveAdmin.register_page "Dashboard" do
         BlogvaultScrapingJob.perform_later(_urls, test.id, id)
         id += 1
     }
+    TestCompleteConfirmationJob.perform_later(test.id)
     redirect_to admin_dashboard_path
   end
 end
