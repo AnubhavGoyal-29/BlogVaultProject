@@ -21,6 +21,8 @@ class BlogvaultScrapingJob < ApplicationJob
       Url.find(url[1]).update(:site_data_info_id => ( SiteDataInfo.where(:url_id => url[1], :test_id => test_id).first.id ))
     end
     TestCompletionJob.perform_now(logger, test_id, step_id)
-  end
 
+  rescue => e
+    Step.find(step_id).update(:status => 3)
+  end
 end
