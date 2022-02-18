@@ -1,8 +1,7 @@
 class Url < ApplicationRecord
-  has_many :plugins
-  has_many :themes
-  belongs_to :site_data_info, required: false
   has_many :site_data_infos
+
+  scope :site_data_info, -> { where.not(site_data_info_id: nil) }
 
 
   def self.import_urls(urls)

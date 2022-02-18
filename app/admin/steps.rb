@@ -14,5 +14,12 @@ ActiveAdmin.register Step do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
-  
+  index do
+    column :id
+    column :status
+    column "Urls" do |step|
+      link_to 'urls', admin_urls_path("q[id_equals]" => step.urls)
+    end
+  end
+
 end

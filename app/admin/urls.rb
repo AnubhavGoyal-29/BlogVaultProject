@@ -1,18 +1,18 @@
 ActiveAdmin.register Url do
 
-  # See permitted parameters documentation:
-  # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-  #
-  # Uncomment all parameters which should be permitted for assignment
-  #
-  # permit_params :url, :site_data_id
-  #
-  # or
-  #
-  # permit_params do
-  #   permitted = [:url, :site_data_id]
-  #   permitted << :other if params[:action] == 'create' && current_user.admin?
-  #   permitted
-  # end
-  
+  filter :id
+  controller do 
+    def scoper_collection
+      Url.site_data_info
+    end
+  end
+  index do 
+    column :id
+    column :url
+    column "SiteDataInfo" do |url|
+      if url.site_data_infos.last
+        link_to "#{url.site_data_infos.last}", admin_site_data_infos_path("q[id_equals]" => url.site_data_infos.last.id)
+      end
+    end
+  end
 end
