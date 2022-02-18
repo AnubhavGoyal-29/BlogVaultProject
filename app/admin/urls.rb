@@ -1,18 +1,10 @@
 ActiveAdmin.register Url do
 
-  # See permitted parameters documentation:
-  # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-  #
-  # Uncomment all parameters which should be permitted for assignment
-  #
-  # permit_params :url, :site_data_id
-  #
-  # or
-  #
-  # permit_params do
-  #   permitted = [:url, :site_data_id]
-  #   permitted << :other if params[:action] == 'create' && current_user.admin?
-  #   permitted
-  # end
-  
+  actions :index, :show
+   index do 
+    column :id
+    column :url
+    column :site_data_info
+   end
+
 end

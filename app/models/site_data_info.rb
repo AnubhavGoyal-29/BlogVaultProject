@@ -2,6 +2,16 @@ class SiteDataInfo < ApplicationRecord
   belongs_to :url, required: true
   belongs_to :test, required: true
 
+  module Status
+    ACTIVE = "t"
+    INACTIVE = "f"
+  end
+
+  STATUS = {}
+  Status.constants.each { |type|
+    STATUS[Status.class_eval(type.to_s)] = type
+  }
+
 
   def self.import_data(test_id, urls_data, logger)
     site_data_objects = []
