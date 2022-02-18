@@ -1,5 +1,5 @@
 ActiveAdmin.register Url do
-
+  actions :index, :show
   filter :id
   controller do 
     def scoped_collection
@@ -11,9 +11,18 @@ ActiveAdmin.register Url do
     column :url
     column "SiteDataInfo" do |url|
       if url.site_data_info_id
-        link_to "#{url.site_data_infos.last}", admin_site_data_infos_path("q[id_equals]" => url.site_data_infos.last.id)
+        link_to "#{url.site_data_infos.last}", admin_site_data_info_path(url.site_data_info_id)
       else 
         'not a wordpress site'
+      end
+    end
+  end
+
+  show do 
+    attributes_table do
+      row :url
+      row 'Site Data Info' do |url|
+        link_to url.site_data_infos.last, admin_site_data_info_path(url.site_data_info_id)
       end
     end
   end

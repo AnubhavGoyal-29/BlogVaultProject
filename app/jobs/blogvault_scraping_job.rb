@@ -2,7 +2,7 @@ class BlogvaultScrapingJob < ApplicationJob
   QUEUE = :my_worker_queue
 
   def logger
-    @logger ||= Logger.new("testing.log")
+    @logger ||= Logger.new("log/testing.log")
   end
 
   def perform(urls, test_id, step_id)
@@ -10,7 +10,9 @@ class BlogvaultScrapingJob < ApplicationJob
     Step.find(step_id).update(:status => 1)
     #each url in urls will store [url, id]
 
-    data = Scrape::filter_wp_urls(urls, logger)             # here data will be maped agains url id from our database tables
+    data = Scrape::filter_wp_urls(urls, logger)     # here data will be maped agains url id from our database tables
+
+    logger.info data.count
     logger.info "filter complete"
     data = Scrape::scrape_html(data, logger)
     logger.info "scraping complete"
