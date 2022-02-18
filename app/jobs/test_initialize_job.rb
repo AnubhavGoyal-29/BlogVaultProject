@@ -12,18 +12,17 @@ class TestInitializeJob < ApplicationJob
       _urls.each do |url|
         if !urls_hash[url].present?
           new_urls << Url.new(:url => url)
-          url_ids << [url, new_id]
+          url_ids << new_id
           new_id += 1
         else
-          url_ids << [url, urls_hash[url]]
+          url_ids << urls_hash[url]
         end
       end
     end
-
     Url.import new_urls
-
+    
     url_ids.each_slice(10) do |_url_ids|
-      step = Step.create(:status => 0, :total_urls => _url_ids.count, :test_id => test.id)
+      step = Step.create(:status => 0, :urls => _url_ids, :test_id => test.id)
       BlogvaultScrapingJob.perform_later(_url_ids, test.id, step.id)
     end
 

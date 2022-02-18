@@ -2,7 +2,7 @@ class BlogvaultScrapingJob < ApplicationJob
   QUEUE = :my_worker_queue
 
   def logger
-    @logger ||= Logger.new("testing.log")
+    @logger ||= Logger.new("log/testing.log")
   end
 
   def perform(urls, test_id, step_id)
@@ -16,13 +16,6 @@ class BlogvaultScrapingJob < ApplicationJob
     logger.info "scraping complete"
     site_data_objects = SiteDataInfo.import_data(test_id, data, logger)
     logger.info "url update started"
-
-    urls.each do |url|
-      Url.find(url[1]).update(:site_data_info_id => ( SiteDataInfo.where(:url_id => url[1], :test_id => test_id).first.id ))
-    end
     TestCompletionJob.perform_now(logger, test_id, step_id)
-
-  rescue => e
-    Step.find(step_id).update(:status => 3)
   end
 end

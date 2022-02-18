@@ -1,4 +1,6 @@
 class Step < ApplicationRecord
+  belongs_to :test
+
   module Status
     FAILED = "3"
     COMPLETED = "2"
