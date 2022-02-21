@@ -25,8 +25,9 @@ class TestInitializeJob < ApplicationJob
         end
       end
     end
+
     Url.import new_urls
-    
+
     url_ids.each_slice(10) do |_url_ids|
       step = Step.create(:status => 0, :urls => _url_ids, :test_id => test.id)
       BlogvaultScrapingJob.perform_later(_url_ids, test.id, step.id)

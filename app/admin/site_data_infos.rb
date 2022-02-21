@@ -43,10 +43,10 @@ ActiveAdmin.register SiteDataInfo do
         link_to 'plugins', admin_plugins_path("q[url_id_equals]" => site.url_id, "q[status_equals]" => 1)
       end
       row "Themes" do |site|
-        link_to 'themes', admin_plugins_path("q[url_id_equals]" => site.url_id, "q[status_equals]" => 1)
+        link_to 'themes', admin_themes_path("q[url_id_equals]" => site.url_id, "q[status_equals]" => 1)
       end
       row "Js" do |site|
-        link_to 'js', admin_plugins_path("q[url_id_equals]" => site.url_id, "q[status_equals]" => 1)
+        link_to 'js', admin_js_infos_path("q[url_id_equals]" => site.url_id, "q[status_equals]" => 1)
       end
       row 'Cloudflare' do |site|
         div (SiteDataInfo::STATUS[site.cloudflare])
