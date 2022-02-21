@@ -19,6 +19,10 @@ class BlogvaultScrapingJob < ApplicationJob
     site_data_objects = SiteDataInfo.import_data(test_id, data, logger)
     logger.info "url update started"
     TestCompletionJob.perform_now(logger, test_id, step_id)
- 
+  rescue => e
+    Step.find(step_id).update(:status => '3')
+    Test.find(test_id).update(:status => '2')
+    logger.info "error in blogvault scraping job #{e}"
   end
+
 end

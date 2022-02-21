@@ -6,7 +6,15 @@ ActiveAdmin.register Step do
   index do
     column :id
     column 'Status' do |step_status|
-      div (Step::STATUS[step_status.status])
+      if step_status.status == '0' 
+       div (Step::STATUS[step_status.status]), :style => "color : yellow"
+      elsif step_status.status == '1'
+       div (Step::STATUS[step_status.status]), :style => "color : blue" 
+      elsif step_status.status == '2'
+       div (Step::STATUS[step_status.status]), :style => "color : green"
+      else 
+       div (Step::STATUS[step_status.status]), :style => "color : red"
+      end
     end
     column :test_id
     column "Urls" do |step|

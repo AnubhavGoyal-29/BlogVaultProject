@@ -16,7 +16,7 @@ ActiveAdmin.register Url do
     column 'Plugins' do |url|
       plugins = url.site_data_infos.last.plugins
       if JSON::parse(plugins).size > 0
-        link_to 'plugins', admin_plugins_path("q[url_id_equals]" => url.id, "q[status_equals]" => 1)
+        link_to 'plugins', admin_plugins_path("q[url_id_equals]" => url.id, "q[status_equals]" => 1), style: "color:green; text:bold"
       else
         "plugin not found"
       end
