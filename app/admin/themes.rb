@@ -11,8 +11,13 @@ ActiveAdmin.register Theme do
     column 'Url' do |theme|
       link_to "#{theme.url.id} ::  #{theme.url.url}", admin_url_path(theme.url)
     end
-    column 'Status' do |theme_status|
-      div (Theme::STATUS[theme_status.status])
+    column 'Status' do |theme|
+      status = theme.status
+      if status == '0'
+        div (Theme::STATUS[status]),style: "color: red"
+      elsif status =='1'
+        div (Theme::STATUS[status]),style: "color: green"
+      end
     end
   end
 

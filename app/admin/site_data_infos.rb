@@ -26,7 +26,11 @@ ActiveAdmin.register SiteDataInfo do
       link_to 'themes', admin_themes_path("q[url_id_equals]" => site.url_id, "q[status_equals]" => 1)
     end
     column 'Cloudflare' do |site|
-      div (SiteDataInfo::STATUS[site.cloudflare])
+      if site.cloudflare == '0'
+        div (SiteDataInfo::STATUS[site.cloudflare]),style: "color: red"
+      elsif site.cloudflare =='1'
+        div (SiteDataInfo::STATUS[site.cloudflare]),style: "color: green"
+      end
     end
   end
 
