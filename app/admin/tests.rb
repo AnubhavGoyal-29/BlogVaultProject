@@ -4,11 +4,15 @@ ActiveAdmin.register Test do
 
   index do
     column :id
-    column :number_of_urls do |test|
-      link_to 'urls', admin_urls_path()
+
+    column 'Test Info' do |test|
+      url_ids = SiteDataInfo.where(test_id: 2).pluck(:url_id).to_s
+      link_to 'urls', admin_urls_path("q[id_equals]" => url_ids)
     end
+
     column 'Status' do |test_status|
       div (Test::STATUS[test_status.status])
     end 
+
   end
 end
