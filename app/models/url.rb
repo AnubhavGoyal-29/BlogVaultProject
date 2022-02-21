@@ -1,7 +1,7 @@
 class Url < ApplicationRecord
   has_many :site_data_infos
 
-  scope :site_data_info, -> { where.not(site_data_info_id: nil) }
+  scope :site_data_info, -> { where.not(:site_data_info_id => nil) }
 
 
   def self.import_urls(urls)
@@ -22,7 +22,8 @@ class Url < ApplicationRecord
     logger.info "url site info called"
     self.all.each do |url|
       begin
-        url.site_data_info_id = SiteDataInfo.where(test_id: test_id, url_id: url.id).first.id
+        site_data_info = SiteDataInfo.where(test_id: test_id, url_id: url.id).first
+        url.site_data_info_id = site_data_info ? site_data_info.id : url.site_data_info_id
         url.save!
       rescue => e
         logger.info e

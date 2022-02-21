@@ -12,8 +12,8 @@ default: &default
 development:
   adapter: mysql2
   database: bv_dev
-  pool: 50
-  timeout: 5000
+  pool: 5000
+  timeout: 15000
   reconnect: true
   hostname: localhost
   username: bvuser

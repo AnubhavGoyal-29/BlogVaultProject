@@ -1,7 +1,12 @@
 class TestInitializeJob < ApplicationJob
   queue_as :default
+  
+  def logger
+    @logger ||= Logger.new("log/testing.log")
+  end
 
   def perform(urls)
+    logger.info "test has been initialized"
     urls = urls - ['']
     test = Test.create!(:number_of_urls => urls.count, :status => 0)
     url_ids = []
@@ -15,12 +20,14 @@ class TestInitializeJob < ApplicationJob
           url_ids << new_id
           new_id += 1
         else
+          logger.info "#{url} is present"
           url_ids << urls_hash[url]
         end
       end
     end
+
     Url.import new_urls
-    
+
     url_ids.each_slice(10) do |_url_ids|
       step = Step.create(:status => 0, :urls => _url_ids, :test_id => test.id)
       BlogvaultScrapingJob.perform_later(_url_ids, test.id, step.id)

@@ -21,7 +21,7 @@ class Scrape
     # _proxy = ProxyDatum.order('RANDOM()').first
     urls.each do |url_id|
       threads << Thread.new(){
-        thread_block(url_id,url_html_version_map)
+        thread_block(url_id,url_html_version_map, logger)
       }
     end
     threads.each do |thread|
@@ -30,19 +30,21 @@ class Scrape
     return url_html_version_map
   end
 
-  def self.thread_block(url_id, url_html_version_map)
+  def self.thread_block(url_id, url_html_version_map, logger)
     begin
       # puts url + "    " + proxy_ip
       # RestClient.proxy = "http://" + proxy_ip
       url = Url.find(url_id).url
       html = Nokogiri::HTML.parse(RestClient.get url)
       _version = check_wordpress_in_meta(html)
+      _version ||= check_wordpress_in_source(html) ? 'Version not found' : nil
       if _version
         _url_id = url_id
         url_html_version_map[_url_id] = {:html => html, :version => _version}
+      
       end
     rescue => e
-      puts "#{url}...#{e}"
+      logger.info "#{url}...#{e}"
     end
   end
 
@@ -60,6 +62,12 @@ class Scrape
     return false
   end
 
+  def self.check_wordpress_in_source(html)
+    if html.inner_text.match(/wp-content/)
+      return true;
+    end
+  end
+
   def self.check_wordpress_name(cms)
     if cms && cms['Wordpress'] || cms['wordpress'] || cms['WordPress']
       wordpressAndVersion = cms.split(' ')
@@ -71,7 +79,6 @@ class Scrape
   def self.scrape_html(urls_data, logger)
     data = Hash.new{|h,k| h[k] = Hash.new }
     urls_data.each do |key, value|
-      logger.info key
       html = value[:html]
       mapedData = Hash.new{|h,k| h[k] = [] }
       get_data_from_resource(html, Tags::SCRIPT, DataTypes::PLUGINS, mapedData)
@@ -82,7 +89,6 @@ class Scrape
       get_data_from_resource(html, Tags::SCRIPT, DataTypes::CLOUDFLARE, mapedData)
       data[key] = {:mapedData => mapedData, :version => value[:version]}
     end
-    logger.info data
     return data
   end
 
@@ -100,7 +106,7 @@ class Scrape
       tempArr = line[subResource].split('/')      #tempArr stores string values spllitted by '/' sign in order to obtain resource and its next value
       tempArr = tempArr.reverse
       dataTypeIndex = tempArr.index(dataType)
-      mapedData[dataType].push(tempArr[dataTypeIndex-1]) if dataTypeIndex and tempArr[dataTypeIndex-1]
+      mapedData[dataType].push(tempArr[dataTypeIndex-1].split('?')[0]) if dataTypeIndex and tempArr[dataTypeIndex-1]
     end
   end
 end

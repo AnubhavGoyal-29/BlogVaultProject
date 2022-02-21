@@ -10,12 +10,15 @@ class BlogvaultScrapingJob < ApplicationJob
     Step.find(step_id).update(:status => 1)
     #each url in urls will store [url, id]
 
-    data = Scrape::filter_wp_urls(urls, logger)             # here data will be maped agains url id from our database tables
+    data = Scrape::filter_wp_urls(urls, logger)     # here data will be maped agains url id from our database tables
+
+    logger.info data.count
     logger.info "filter complete"
     data = Scrape::scrape_html(data, logger)
     logger.info "scraping complete"
     site_data_objects = SiteDataInfo.import_data(test_id, data, logger)
     logger.info "url update started"
     TestCompletionJob.perform_now(logger, test_id, step_id)
+ 
   end
 end

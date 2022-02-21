@@ -8,10 +8,9 @@ ActiveAdmin.register Step do
     column 'Status' do |step_status|
       div (Step::STATUS[step_status.status])
     end
-    column :total_urls
     column :test_id
     column "Urls" do |step|
-      link_to 'urls', admin_urls_path("q[id_equals]" => step.urls)
+      link_to 'urls', admin_urls_path()
     end
   end
 

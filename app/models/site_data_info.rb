@@ -3,8 +3,8 @@ class SiteDataInfo < ApplicationRecord
   belongs_to :test, required: true
 
   module Status
-    ACTIVE = "t"
-    INACTIVE = "f"
+    ACTIVE = "1"
+    INACTIVE = "0"
   end
 
   STATUS = {}
@@ -38,6 +38,7 @@ class SiteDataInfo < ApplicationRecord
       #new_site_data_info_id += 1
       site_data_objects << create_from_maped_data(data_map, logger)
     end
+    logger.info "site data object size if #{site_data_objects.count}"
     SiteDataInfo.import site_data_objects
     return 
   end
