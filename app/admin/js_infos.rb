@@ -11,9 +11,13 @@ ActiveAdmin.register JsInfo do
     column 'Url' do |js|
       link_to "#{js.url.id} ::  #{js.url.url}", admin_url_path(js.url)
     end
-    column 'Status' do |js_status|
-      div (JsInfo::STATUS[js_status.status])
+    column 'Status' do |js|
+      status = js.status
+      if status == '0'
+        div (JsInfo::STATUS[status]),style: "color: red"
+      elsif status =='1'
+        div (JsInfo::STATUS[status]),style: "color: green"
+      end
     end
   end
-
 end
