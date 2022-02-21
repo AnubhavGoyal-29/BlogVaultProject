@@ -12,7 +12,7 @@ ActiveAdmin.register Test do
 
     column 'Status' do |test|
       if test.status == '0'
-        div (Test::STATUS[test.status]), :style => "color : yellow"
+        div (Test::STATUS[test.status]), :style => "color : #8B8000"
       elsif test.status == '1'
         div (Test::STATUS[test.status]), :style => "color : green"
       else 

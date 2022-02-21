@@ -2,8 +2,8 @@ class Test < ApplicationRecord
   has_many :steps
   has_many :site_data_infos
   module Status
-    COMPLETE = 1
-    RUNNING = 0
+    COMPLETE = '1'
+    RUNNING = '0'
   end
 
   STATUS = {}
