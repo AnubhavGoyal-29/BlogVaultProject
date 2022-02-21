@@ -4,9 +4,9 @@ ActiveAdmin.register SiteDataInfo do
 
   filter :id
   filter :test_id
-  filter :Url
+  filter :url_id
   filter :cloudflare, :as => :select, :collection => SiteDataInfo::STATUS.invert
-
+  
 
   index do 
     column :id
