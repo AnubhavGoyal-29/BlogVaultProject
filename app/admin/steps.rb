@@ -18,7 +18,7 @@ ActiveAdmin.register Step do
     end
     column :test_id
     column "Urls" do |step|
-      link_to 'urls', admin_urls_path("q[id_equals]" => step.urls)
+      link_to 'urls', admin_urls_path()
     end
   end
 

@@ -1,5 +1,6 @@
 ActiveAdmin.register Url do
   actions :index, :show
+
   filter :id
   filter :site_data_infos_last_id
   controller do 
@@ -18,7 +19,7 @@ ActiveAdmin.register Url do
       if JSON::parse(plugins).size > 0
         link_to 'plugins', admin_plugins_path("q[url_id_equals]" => url.id, "q[status_equals]" => 1), style: "color:green; text:bold"
       else
-        "plugin not found"
+        div("plugin not found", style: "color: red")
       end
     end
     column 'Themes' do |url|
@@ -26,19 +27,23 @@ ActiveAdmin.register Url do
       if JSON::parse(themes).size > 0
         link_to 'themes', admin_themes_path("q[url_id_equals]" => url.id, "q[status_equals]" => 1)
       else
-        "themes not found"
+        div("Themes not found", style: "color: red")
       end
     end
     column 'Js' do |url|
       link_to 'js_info', admin_js_infos_path("q[url_id_equals]" => url.id, "q[status_equals]" => 1)
     end
     column 'Cloudflare' do |url|
-      div (SiteDataInfo::STATUS[url.site_data_infos.last.cloudflare])
+      cloudflare = url.site_data_infos.last.cloudflare
+      if cloudflare == '0'
+        div (SiteDataInfo::STATUS[cloudflare]),style: "color: red"
+      elsif cloudflare =='1'
+        div (SiteDataInfo::STATUS[cloudflare]),style: "color: green"
+      end
     end
     column 'LastTest' do |url|
       link_to "Test #{url.site_data_infos.last.test_id}", admin_tests_path("q[id_equals]" => url.site_data_infos.last.test_id)
     end
-
   end
 
   show do 

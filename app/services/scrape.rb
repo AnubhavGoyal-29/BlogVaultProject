@@ -37,9 +37,11 @@ class Scrape
       url = Url.find(url_id).url
       html = Nokogiri::HTML.parse(RestClient.get url)
       _version = check_wordpress_in_meta(html)
+      _version ||= check_wordpress_in_source(html) ? 'Version not found' : nil
       if _version
         _url_id = url_id
         url_html_version_map[_url_id] = {:html => html, :version => _version}
+      
       end
     rescue => e
       logger.info "#{url}...#{e}"
@@ -58,6 +60,12 @@ class Scrape
       end
     end
     return false
+  end
+
+  def self.check_wordpress_in_source(html)
+    if html.inner_text.match(/wp-content/)
+      return true;
+    end
   end
 
   def self.check_wordpress_name(cms)

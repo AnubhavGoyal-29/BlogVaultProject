@@ -11,8 +11,13 @@ ActiveAdmin.register Plugin do
     column 'Url' do |plugin|
       link_to "#{plugin.url.id} ::  #{plugin.url.url}", admin_url_path(plugin.url)
     end
-    column 'Status' do |plugin_status|
-      div (Plugin::STATUS[plugin_status.status])
+    column 'Status' do |plugin|
+   status = plugin.status
+      if status == '0'
+        div (Plugin::STATUS[status]),style: "color: red"
+      elsif status =='1'
+        div (Plugin::STATUS[status]),style: "color: green"
+      end
     end
   end
 end
