@@ -5,15 +5,16 @@ ActiveAdmin.register Step do
 
   index do
     column :id
-    column 'Status' do |step_status|
-      if step_status.status == '0' 
-       div (Step::STATUS[step_status.status]), :style => "color : yellow"
-      elsif step_status.status == '1'
-       div (Step::STATUS[step_status.status]), :style => "color : blue" 
-      elsif step_status.status == '2'
-       div (Step::STATUS[step_status.status]), :style => "color : green"
-      else 
-       div (Step::STATUS[step_status.status]), :style => "color : red"
+    column 'Status' do |step|
+      step = step.status
+      if step == '0'
+      div (Step::STATUS[step]), style: "color: yellow"
+      elsif step == '1'
+      div (Step::STATUS[step]), style: "color: orange"
+      elsif step == '2'
+      div (Step::STATUS[step]), style: "color: green"
+      elsif step == '3'
+      div (Step::STATUS[step]), style: "color: red"
       end
     end
     column :test_id
