@@ -71,7 +71,7 @@ class Scrape
   def self.check_wordpress_name(cms)
     if cms && cms['Wordpress'] || cms['wordpress'] || cms['WordPress']
       wordpressAndVersion = cms.split(' ')
-      return wordpressAndVersion[1] ? wordpressAndVersion[1] : "version not found"
+      return wordpressAndVersion[1] ? wordpressAndVersion[1] : "Version not found"
     end
     return nil;
   end

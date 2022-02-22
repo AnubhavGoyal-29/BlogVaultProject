@@ -6,7 +6,7 @@ ActiveAdmin.register SiteDataInfo do
   filter :test_id
   filter :url_id
   filter :cloudflare, :as => :select, :collection => SiteDataInfo::STATUS.invert
-  
+
 
   index do 
     column "Test" do |site_data|
@@ -15,11 +15,19 @@ ActiveAdmin.register SiteDataInfo do
     column "Url" do |site_data|
       link_to "#{site_data.url.id}:  #{site_data.url.url}", admin_url_path(site_data.url)
     end 
-    column 'Versions' do |site_data|
-      link_to 'versions', admin_site_data_infos_path('q[url_id_equals]' => site_data.url_id)
+    column 'All Tests' do |site_data|
+      link_to 'all_tests', admin_site_data_infos_path('q[url_id_equals]' => site_data.url_id)
     end
     column "Plugins" do |site|
       link_to 'plugins', admin_plugins_path("q[url_id_equals]" => site.url_id, "q[status_equals]" => 1)
+    end
+    column 'Wordpress Version' do |site_data|
+      version = site_data.cms_version
+      if version == 'Version not found'
+        div (version), :style => "color : red"
+      else
+        version
+      end
     end
     column "Js" do |site|
       link_to 'js', admin_js_infos_path("q[url_id_equals]" => site.url_id, "q[status_equals]" => 1)
@@ -46,8 +54,8 @@ ActiveAdmin.register SiteDataInfo do
       row :cms_type
       row :cms_version
       row 'Versions' do |site_data|
-      link_to 'versions', admin_site_data_infos_path('q[url_id_equals]' => site_data.url_id)
-    end
+        link_to 'versions', admin_site_data_infos_path('q[url_id_equals]' => site_data.url_id)
+      end
       row "Plugins" do |site|
         link_to 'plugins', admin_plugins_path("q[url_id_equals]" => site.url_id, "q[status_equals]" => 1)
       end

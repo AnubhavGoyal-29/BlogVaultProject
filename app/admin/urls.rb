@@ -22,6 +22,14 @@ ActiveAdmin.register Url do
         div("plugin not found", style: "color: red")
       end
     end
+    column 'Wordpress Version' do |url|
+      version = url.site_data_infos.last.cms_version
+      if version == 'Version not found'
+        div (url.site_data_infos.last.cms_version), :style => "color : red"
+      else
+        version
+      end
+    end
     column 'Themes' do |url|
       themes = url.site_data_infos.last.themes
       if JSON::parse(themes).size > 0
