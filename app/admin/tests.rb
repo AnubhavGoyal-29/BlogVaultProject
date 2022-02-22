@@ -5,9 +5,9 @@ ActiveAdmin.register Test do
 
   index do
     column :id
-    column 'Test Info' do |test|
+    column 'Data Infos' do |test|
       url_ids = SiteDataInfo.where(test_id: 2).pluck(:url_id).to_s
-      link_to 'urls', admin_site_data_infos_path("q[test_id_equals]" => test.id )
+      link_to 'data info', admin_site_data_infos_path("q[test_id_equals]" => test.id )
     end
     column 'Status' do |test|
       if test.status == '0'
@@ -24,9 +24,9 @@ ActiveAdmin.register Test do
     attributes_table do
 
       row :id
-      row 'Test Info' do |test|
+      row 'Data Infos' do |test|
         url_ids = SiteDataInfo.where(test_id: 2).pluck(:url_id).to_s
-        link_to 'urls', admin_site_data_infos_path("q[test_id_equals]" => test.id )
+        link_to 'data info', admin_site_data_infos_path("q[test_id_equals]" => test.id )
       end
       row 'Status' do |test|
         if test.status == '0'

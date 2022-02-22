@@ -23,29 +23,24 @@ ActiveAdmin.register SiteDataInfo do
       if JSON::parse(plugins).size > 0
         link_to 'plugins', admin_plugins_path("q[url_id_equals]" => site_data.url_id, "q[status_equals]" => 1)
       else
-        div("plugin not found", style: "color: red")
+        div("Not found", style: "color: red")
       end
     end
-    column 'Themes' do |site_data|
+    column 'themes' do |site_data|
       themes = site_data.themes
       if JSON::parse(themes).size > 0
-        link_to 'Themes', admin_themes_path("q[url_id_equals]" => site_data.url_id, "q[status_equals]" => 1)
+        link_to 'themes', admin_themes_path("q[url_id_equals]" => site_data.url_id, "q[status_equals]" => 1)
       else
-        div("Theme not found", style: "color: red")
+        div("Not found", style: "color: red")
       end
     end
-
-    column 'Js' do |site_data|
+    column 'js' do |site_data|
       js = site_data.js
       if JSON::parse(js).size > 0
-        link_to 'Js', admin_js_infos_path("q[url_id_equals]" => site_data.url_id, "q[status_equals]" => 1)
+        link_to 'js', admin_js_infos_path("q[url_id_equals]" => site_data.url_id, "q[status_equals]" => 1)
       else
-        div("js not found", style: "color: red")
+        div("Not found", style: "color: red")
       end
-    end
-
-    column "Js" do |site|
-      link_to 'js', admin_js_infos_path("q[url_id_equals]" => site.url_id, "q[status_equals]" => 1)
     end
     column 'Cloudflare' do |site|
       if site.cloudflare == '0'

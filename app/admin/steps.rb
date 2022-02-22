@@ -5,6 +5,10 @@ ActiveAdmin.register Step do
 
   index do
     column :id
+    column :test_id
+    column "Urls" do |step|
+      link_to 'urls', admin_urls_path()
+    end
     column 'Status' do |step|
       step = step.status
       if step == '0'
@@ -16,10 +20,6 @@ ActiveAdmin.register Step do
       elsif step == '3'
       div (Step::STATUS[step]), style: "color: red"
       end
-    end
-    column :test_id
-    column "Urls" do |step|
-      link_to 'urls', admin_urls_path()
     end
   end
 
