@@ -8,7 +8,7 @@ ActiveAdmin.register Step do
     column 'Status' do |step|
       step = step.status
       if step == '0'
-      div (Step::STATUS[step]), style: "color: yellow"
+      div (Step::STATUS[step]), style: "color: blue"
       elsif step == '1'
       div (Step::STATUS[step]), style: "color: orange"
       elsif step == '2'

@@ -45,6 +45,9 @@ ActiveAdmin.register SiteDataInfo do
       row :test
       row :cms_type
       row :cms_version
+      row 'Versions' do |site_data|
+      link_to 'versions', admin_site_data_infos_path('q[url_id_equals]' => site_data.url_id)
+    end
       row "Plugins" do |site|
         link_to 'plugins', admin_plugins_path("q[url_id_equals]" => site.url_id, "q[status_equals]" => 1)
       end
@@ -58,6 +61,5 @@ ActiveAdmin.register SiteDataInfo do
         div (SiteDataInfo::STATUS[site.cloudflare])
       end
     end
-
   end
 end
