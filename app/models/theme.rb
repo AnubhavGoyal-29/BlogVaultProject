@@ -2,8 +2,8 @@ class Theme < ApplicationRecord
   belongs_to :url , default: nil
 
   module Status
-    ACTIVE = "1"
-    INACTIVE = "0"
+    ACTIVE = 1
+    INACTIVE = 0
   end
 
   STATUS = {}

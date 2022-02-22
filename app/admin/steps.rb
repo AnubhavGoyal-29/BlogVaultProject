@@ -10,16 +10,18 @@ ActiveAdmin.register Step do
       link_to 'urls', admin_urls_path()
     end
     column 'Status' do |step|
-      step = step.status
-      if step == '0'
-      div (Step::STATUS[step]), style: "color: blue"
-      elsif step == '1'
-      div (Step::STATUS[step]), style: "color: orange"
-      elsif step == '2'
-      div (Step::STATUS[step]), style: "color: green"
-      elsif step == '3'
-      div (Step::STATUS[step]), style: "color: red"
+      status = step.status
+      options = Step::STATUS.invert
+      if status == options[:FAILED]
+        div ("FAILED"),style: "color: red"
+      elsif status == options[:INITIALIZED]
+        div ("INITIALIZED"),style: "color: orange"
+      elsif status == options[:COMPLETED]
+        div ("COMPLETED"),style: "color: green"
+      else
+        div ("RUNNING"),style: "color: blue"
       end
+
     end
   end
 

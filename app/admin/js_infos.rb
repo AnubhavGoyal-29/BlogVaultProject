@@ -13,10 +13,11 @@ ActiveAdmin.register JsInfo do
     end
     column 'Status' do |js|
       status = js.status
-      if status == '0'
-        div (JsInfo::STATUS[status]),style: "color: red"
-      elsif status =='1'
-        div (JsInfo::STATUS[status]),style: "color: green"
+      options = JsInfo::STATUS.invert
+      if status == options[:INACTIVE]
+        div ('INACTIVE'),style: "color: red"
+      elsif status == options[:ACTIVE]
+        div ('ACTIVE'),style: "color: green"
       end
     end
   end

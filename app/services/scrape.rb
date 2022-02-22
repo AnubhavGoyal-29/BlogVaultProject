@@ -35,11 +35,10 @@ class Scrape
       url = Url.find(url_id).url
       html = Nokogiri::HTML.parse(RestClient.get url)
       _version = check_wordpress_in_meta(html)
-      _version ||= check_wordpress_in_source(html) ? 'Version not found' : nil
+      _version ||= check_wordpress_in_source(html) ? 'version not found' : nil ;
       if _version
         _url_id = url_id
         url_html_version_map[_url_id] = {:html => html, :version => _version}
-
       end
     rescue => e
       logger.info "#{url}...#{e}"
@@ -69,7 +68,7 @@ class Scrape
   def self.check_wordpress_name(cms)
     if cms && cms['Wordpress'] || cms['wordpress'] || cms['WordPress']
       wordpressAndVersion = cms.split(' ')
-      return wordpressAndVersion[1] ? wordpressAndVersion[1] : "version not found"
+      return wordpressAndVersion[1] ? wordpressAndVersion[1] : 'version not found'
     end
     return nil;
   end
@@ -79,33 +78,44 @@ class Scrape
     urls_data.each do |key, value|
       html = value[:html]
       mapedData = Hash.new{|h,k| h[k] = [] }
-      get_data_from_resource(html, Tags::SCRIPT, DataTypes::PLUGINS, mapedData)
-      get_data_from_resource(html, Tags::SCRIPT, DataTypes::THEMES, mapedData)
-      get_data_from_resource(html, Tags::SCRIPT, DataTypes::JS, mapedData)
-      get_data_from_resource(html, Tags::LINK, DataTypes::JS, mapedData)
-      get_data_from_resource(html, Tags::LINK, DataTypes::CLOUDFLARE, mapedData)
-      get_data_from_resource(html, Tags::SCRIPT, DataTypes::CLOUDFLARE, mapedData)
-      mapedData[:login_url] = get_login_url(url)
+      url = Url.find(key).url
+      get_data_from_resource(url, html, Tags::SCRIPT, DataTypes::PLUGINS, mapedData, logger)
+      get_data_from_resource(url, html, Tags::SCRIPT, DataTypes::THEMES, mapedData, logger)
+      get_data_from_resource(url, html, Tags::SCRIPT, DataTypes::JS, mapedData, logger)
+      get_data_from_resource(url, html, Tags::LINK, DataTypes::JS, mapedData, logger)
+      get_data_from_resource(url, html, Tags::LINK, DataTypes::CLOUDFLARE, mapedData, logger)
+      get_data_from_resource(url, html, Tags::SCRIPT, DataTypes::CLOUDFLARE, mapedData, logger)
+      mapedData[:login_url].push(get_login_url(url))
+      puts mapedData[:login_url]
       data[key] = {:mapedData => mapedData, :version => value[:version]}
     end
     return data
   end
 
-  def self.get_data_from_resource(html, resource, dataType, mapedData)
+  def self.get_data_from_resource(url, html, resource, dataType, mapedData, logger)
     resource_data = html.css(resource)
     resource_data.each do |line|
-      get_data_from_sub_source(line, dataType, Tags::SRC, mapedData)
-      get_data_from_sub_source(line, dataType, Tags::HREF, mapedData)
+      get_data_from_sub_source(url, line, dataType, Tags::SRC, mapedData, logger)
+      get_data_from_sub_source(url, line, dataType, Tags::HREF, mapedData, logger)
     end
   end
 
-  def self.get_data_from_sub_source(line, dataType, subResource, mapedData)
+  def self.get_data_from_sub_source(url, line, dataType, subResource, mapedData, logger)
     if line[subResource] and line[subResource][dataType]
-      return mapedData[dataType] = [1] if dataType == 'cloudflare'
+      return mapedData[dataType] = [1] if dataType == DataTypes::CLOUDFLARE
+
+      if dataType == DataTypes::JS
+        return if line[subResource][DataTypes::PLUGINS] || line[subResource][DataTypes::THEMES]
+        tempArr = line[subResource].split('/')
+        tempArr = tempArr - [nil, '']
+        tempArr = remove_common_words_from_line(url, tempArr, logger)
+        mapedData[dataType].push(tempArr.join('/'))
+        return 
+      end
       tempArr = line[subResource].split('/')      #tempArr stores string values spllitted by '/' sign in order to obtain resource and its next value
       tempArr = tempArr.reverse
       dataTypeIndex = tempArr.index(dataType)
-      mapedData[dataType].push(tempArr[dataTypeIndex-1].split('?')[0]) if dataTypeIndex and tempArr[dataTypeIndex-1]
+      mapedData[dataType].push(tempArr[dataTypeIndex-1].split('?')[0]) if dataTypeIndex && tempArr[dataTypeIndex-1] && !tempArr[dataTypeIndex-1]['.js']
     end
   end
 
@@ -117,5 +127,12 @@ class Scrape
       return _url if res.code == 200
     end
     return nil
+  end
+  def self.remove_common_words_from_line(url, tempArr, logger)
+    common_words = ['libs', 'js', 'cache', 'min', 'lib', 'ajax', 'https:', 'wp-content', 'wp-includes', url]
+    tempArr = tempArr - common_words
+    logger.info tempArr
+    logger.info url
+    return tempArr
   end
 end

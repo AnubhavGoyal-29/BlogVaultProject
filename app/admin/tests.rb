@@ -10,12 +10,16 @@ ActiveAdmin.register Test do
       link_to 'data info', admin_site_data_infos_path("q[test_id_equals]" => test.id )
     end
     column 'Status' do |test|
-      if test.status == '0'
-        div (Test::STATUS[test.status]), :style => "color : #8B8000"
-      elsif test.status == '1'
-        div (Test::STATUS[test.status]), :style => "color : green"
-      else 
-        div (Test::STATUS[test.status]), :style => "color : red"
+      status = test.status 
+      options = Test::STATUS.invert
+      if status == options[:FAILED]
+        div ("FAILED"),style: "color: red"
+      elsif status == options[:INITIALIZED]
+        div ("INITIALIZED"),style: "color: orange"
+      elsif status == options[:COMPLETED]
+        div ("COMPLETED"),style: "color: green"
+      else
+        div ("RUNNING"),style: "color: blue"
       end
     end 
   end
@@ -29,13 +33,18 @@ ActiveAdmin.register Test do
         link_to 'data info', admin_site_data_infos_path("q[test_id_equals]" => test.id )
       end
       row 'Status' do |test|
-        if test.status == '0'
-          div (Test::STATUS[test.status]), :style => "color : #8B8000"
-        elsif test.status == '1'
-          div (Test::STATUS[test.status]), :style => "color : green"
+        status = test.status
+        options = Test::STATUS.invert
+        if status == options[:FAILED]
+          div ("FAILED"),style: "color: red"
+        elsif status == options[:INITIALIZED]
+          div ("INITIALIZED"),style: "color: orange"
+        elsif status == options[:COMPLETED]
+          div ("COMPLETED"),style: "color: green"
         else
-          div (Test::STATUS[test.status]), :style => "color : red"
+          div ("RUNNING"),style: "color: blue"
         end
+
       end
 
     end

@@ -23,6 +23,8 @@ class SiteDataInfo < ApplicationRecord
       _plugins = Plugin.import_plugins(maped_data["plugins"].uniq, url_id)
       _themes = Theme.import_themes(maped_data["themes"].uniq, url_id)
       _js = JsInfo.import_js(maped_data["js"].uniq, url_id)
+      _login_url = maped_data[:login_url]
+      logger.info _login_url
       data_map = Hash.new
       data_map = {
         :url_id => url_id,
@@ -32,7 +34,8 @@ class SiteDataInfo < ApplicationRecord
         :cms_version => cms_version,
         :js => _js,
         :plugins => _plugins,
-        :themes => _themes
+        :themes => _themes,
+        :login_url => _login_url
       }
       #Url.find(url_id).update(:site_data_info_id => new_site_data_info_id)
       #new_site_data_info_id += 1
@@ -53,7 +56,8 @@ class SiteDataInfo < ApplicationRecord
           cms_version: data[:cms_version],
           plugins: data[:plugins],
           themes: data[:themes],
-          js: data[:js]
+          js: data[:js],
+          login_url: data[:login_url][0]
         )
         return site_data_info
       rescue => e

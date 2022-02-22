@@ -3,7 +3,7 @@ class CreateThemes < ActiveRecord::Migration[5.2]
     create_table :themes do |t|
       t.string :theme_name
       t.string :url_id
-      t.string :status
+      t.integer :status
       t.string :version
       t.string :other_data
       t.timestamps

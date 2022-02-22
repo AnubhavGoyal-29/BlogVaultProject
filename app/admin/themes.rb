@@ -1,7 +1,7 @@
 ActiveAdmin.register Theme do
 
   actions :index  
-
+  filter :theme_name
   filter :url_id
   filter :status , :as => :select, :collection => Theme::STATUS.invert
 
@@ -13,9 +13,10 @@ ActiveAdmin.register Theme do
     end
     column 'Status' do |theme|
       status = theme.status
-      if status == '0'
+      options = Theme::STATUS.invert
+      if status == options[:INACTIVE]
         div (Theme::STATUS[status]),style: "color: red"
-      elsif status =='1'
+      elsif status == options[:ACTIVE]
         div (Theme::STATUS[status]),style: "color: green"
       end
     end
