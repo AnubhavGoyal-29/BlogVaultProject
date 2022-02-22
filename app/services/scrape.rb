@@ -13,8 +13,6 @@ class Scrape
     JS = 'js'
     CLOUDFLARE = 'cloudflare'
   end
-
-
   def self.filter_wp_urls(urls, logger)
     url_html_version_map = Hash.new{ |h,k| h[k] = Hash.new }
     threads = []
@@ -41,7 +39,7 @@ class Scrape
       if _version
         _url_id = url_id
         url_html_version_map[_url_id] = {:html => html, :version => _version}
-      
+
       end
     rescue => e
       logger.info "#{url}...#{e}"
@@ -87,6 +85,7 @@ class Scrape
       get_data_from_resource(html, Tags::LINK, DataTypes::JS, mapedData)
       get_data_from_resource(html, Tags::LINK, DataTypes::CLOUDFLARE, mapedData)
       get_data_from_resource(html, Tags::SCRIPT, DataTypes::CLOUDFLARE, mapedData)
+      mapedData[:login_url] = get_login_url(url)
       data[key] = {:mapedData => mapedData, :version => value[:version]}
     end
     return data
@@ -108,5 +107,15 @@ class Scrape
       dataTypeIndex = tempArr.index(dataType)
       mapedData[dataType].push(tempArr[dataTypeIndex-1].split('?')[0]) if dataTypeIndex and tempArr[dataTypeIndex-1]
     end
+  end
+
+  def self.get_login_url(url)
+    login_suffix = ['/login', '/wp-admin', '/wp-config']
+    login_suffix.each do |suffix|
+      _url = url + suffix
+      res = RestClient.get _url
+      return _url if res.code == 200
+    end
+    return nil
   end
 end
