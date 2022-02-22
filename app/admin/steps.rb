@@ -5,6 +5,10 @@ ActiveAdmin.register Step do
 
   index do
     column :id
+    column :test_id
+    column "Urls" do |step|
+      link_to 'urls', admin_urls_path()
+    end
     column 'Status' do |step|
       status = step.status
       options = Step::STATUS.invert
@@ -18,10 +22,6 @@ ActiveAdmin.register Step do
         div ("RUNNING"),style: "color: blue"
       end
 
-    end
-    column :test_id
-    column "Urls" do |step|
-      link_to 'urls', admin_urls_path()
     end
   end
 

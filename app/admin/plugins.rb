@@ -3,6 +3,7 @@ ActiveAdmin.register Plugin do
   actions :index  
   filter :plugin_name
   filter :url_id
+  filter :plugin_name
   filter :status , :as => :select, :collection => Plugin::STATUS.invert
 
   index do 
@@ -12,10 +13,11 @@ ActiveAdmin.register Plugin do
       link_to "#{plugin.url.id} ::  #{plugin.url.url}", admin_url_path(plugin.url)
     end
     column 'Status' do |plugin|
-   status = plugin.status
-      if status == '0'
+      status = plugin.status
+      options = Plugin::STATUS.invert
+      if status == options[:INACTIVE]
         div (Plugin::STATUS[status]),style: "color: red"
-      elsif status =='1'
+      elsif status == options[:ACTIVE]
         div (Plugin::STATUS[status]),style: "color: green"
       end
     end

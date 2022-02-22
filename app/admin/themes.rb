@@ -14,14 +14,10 @@ ActiveAdmin.register Theme do
     column 'Status' do |theme|
       status = theme.status
       options = Theme::STATUS.invert
-      if status == options[:FAILED]
-        div ("FAILED"),style: "color: red"
-      elsif status == options[:INITIALIZED]
-        div ("INITIALIZED"),style: "color: orange"
-      elsif status == options[:COMPLETED]
-        div ("COMPLETED"),style: "color: green"
-      else
-        div ("RUNNING"),style: "color: blue"
+      if status == options[:INACTIVE]
+        div (Theme::STATUS[status]),style: "color: red"
+      elsif status == options[:ACTIVE]
+        div (Theme::STATUS[status]),style: "color: green"
       end
     end
   end
