@@ -19,8 +19,7 @@ ActiveAdmin.register_page "Dashboard" do
 
 
   action_item :view do
-
-    if Test.last
+    if Test.last != nil
       if  Test.last.status == '1'
         link_to " Test #{ Test.last.id } is #{ Test::STATUS[Test.last.status]}", 
           admin_site_data_infos_path('q[test_id_equals]' => Test.last.id), 
@@ -28,16 +27,17 @@ ActiveAdmin.register_page "Dashboard" do
       else
         link_to " Test #{ Test.last.id } is #{ Test::STATUS[Test.last.status]}",
           admin_site_data_infos_path('q[test_id_equals]' => Test.last.id),
-          :style => "color : #CCCC00"
+          :style => "color : dark-blue"
       end
     end
   end
 
   action_item :view do 
-    if Test.last
-      running = Step.where(:test_id => Test.last.id, :status => '1').count
-      if running != 0
-        link_to "#{ Step.where(status: '1').count } jobs are running", admin_steps_path('q[status_eq]' => '1'), :style => "color : green"
+    if Test.last != nil
+      total = Step.where(:test_id => Test.last.id).count
+      completed = Step.where(:test_id => Test.last.id, :status => 2).count
+      if completed != total
+        link_to "#{ completed } / #{ total } completed", admin_steps_path('q[status_eq]' => '1'), :style => "color : green"
       end
     end
   end
