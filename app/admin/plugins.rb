@@ -1,7 +1,7 @@
 ActiveAdmin.register Plugin do
 
   actions :index  
-
+  filter :plugin_name
   filter :url_id
   filter :status , :as => :select, :collection => Plugin::STATUS.invert
 

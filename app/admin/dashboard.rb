@@ -20,10 +20,10 @@ ActiveAdmin.register_page "Dashboard" do
 
   action_item :view do
     if Test.last != nil
-      if  Test.last.status == '1'
-        link_to " Test #{ Test.last.id } is #{ Test::STATUS[Test.last.status]}", 
+      if  Test.last.status == Test::STATUS.invert[:COMPLETED]
+        link_to " Test #{ Test.last.id } has been Completed", 
           admin_site_data_infos_path('q[test_id_equals]' => Test.last.id), 
-          :style => "color : darkgreen", :class => "btn-primary"
+          :style => "color : darkgreen"
       else
         link_to " Test #{ Test.last.id } is #{ Test::STATUS[Test.last.status]}",
           admin_site_data_infos_path('q[test_id_equals]' => Test.last.id),
@@ -37,7 +37,7 @@ ActiveAdmin.register_page "Dashboard" do
       total = Step.where(:test_id => Test.last.id).count
       completed = Step.where(:test_id => Test.last.id, :status => 2).count
       if completed != total
-        link_to "#{ completed } / #{ total } completed", admin_steps_path('q[status_eq]' => '1'), :style => "color : green"
+        link_to "#{ completed } / #{ total } jobs completed", admin_steps_path('q[status_eq]' => '1'), :style => "color : dark-blue"
       end
     end
   end
