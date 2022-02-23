@@ -9,7 +9,7 @@ ActiveAdmin.register JsInfo do
     column :id
     column :js_name
     column 'Version' do |js_info|
-      if js_info.version == "" || js_info.version == nil
+      if js_info.version == '0'
         div ("Not found"), :style => 'color : red'
       else 
         js_info.version

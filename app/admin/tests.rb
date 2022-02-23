@@ -4,7 +4,7 @@ ActiveAdmin.register Test do
   filter :status , :as => :select, :collection => Test::STATUS.invert
 
   index do
-    column :id
+    id_column
     column 'Data Infos' do |test|
       url_ids = SiteDataInfo.where(test_id: 2).pluck(:url_id).to_s
       link_to 'data info', admin_site_data_infos_path("q[test_id_equals]" => test.id )
@@ -44,8 +44,8 @@ ActiveAdmin.register Test do
         else
           div ("RUNNING"),style: "color: blue"
         end
-
       end
+      row :created_at
 
     end
   end

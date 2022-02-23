@@ -17,4 +17,25 @@
 
 //   .status_tag { background: #6090DB; }
 
-.col-plugins{color:red;}
+.active_admin_test_completed_label {
+	width : 15vw;
+	font-size : 1rem;
+	font-weight : bold;
+	text-align : left;
+}
+.active_admin_test_running_label {
+        width : 15vw;
+        font-size : 1rem;
+        font-weight : bold;
+        text-align : left;
+}
+
+.completed_tests {
+	display : grid;
+	grid-template-columns : auto auto auto auto
+}
+.running_tests {
+        display : grid;
+        grid-template-columns : auto auto auto auto auto
+}
+

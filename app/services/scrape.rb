@@ -117,7 +117,7 @@ class Scrape
         js = arr[0] ;
         version = arr[1] if arr[1]
         if version.to_i == 0
-          version = nil
+          version = '0'
         end
         mapedData[dataType].push([js,version])
         return 
