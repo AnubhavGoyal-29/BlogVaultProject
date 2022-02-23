@@ -90,7 +90,11 @@ ActiveAdmin.register SiteDataInfo do
         div (SiteDataInfo::STATUS[site.cloudflare])
       end
       row 'Login Url' do |site_data|
-        link_to site_data.login_url, "http://www.#{site_data.login_url}", :target => '_blank'
+        if site_data.login_url 
+          link_to site_data.login_url, "http://www.#{site_data.login_url}", :target => '_blank'
+        else
+          div ('Not found'), :style => "color : red"
+        end
       end
       row :ip
     end
