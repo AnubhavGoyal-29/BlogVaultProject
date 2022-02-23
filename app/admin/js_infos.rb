@@ -8,6 +8,13 @@ ActiveAdmin.register JsInfo do
   index do
     column :id
     column :js_name
+    column 'Version' do |js_info|
+      if js_info.version == "" || js_info.version == nil
+        div ("Not found"), :style => 'color : red'
+      else 
+        js_info.version
+      end
+    end
     column 'Url' do |js|
       link_to "#{js.url.id} ::  #{js.url.url}", admin_url_path(js.url)
     end

@@ -109,7 +109,14 @@ class Scrape
         tempArr = line[subResource].split('/')
         tempArr = tempArr - [nil, '']
         tempArr = remove_common_words_from_line(url, tempArr, logger)
-        mapedData[dataType].push(tempArr.join('/'))
+        arr = tempArr.join('/').split('?')
+        if arr[1]
+          arr[1] = arr[1].split('=')[1]
+        end
+        version = ''
+        js = arr[0] ;
+        version = arr[1] if arr[1]
+        mapedData[dataType].push([js,version])
         return 
       end
       tempArr = line[subResource].split('/')      #tempArr stores string values spllitted by '/' sign in order to obtain resource and its next value
@@ -133,7 +140,7 @@ class Scrape
     return nil
   end
   def self.remove_common_words_from_line(url, tempArr, logger)
-    common_words = ['libs', 'js', 'cache', 'min', 'lib', 'ajax', 'https:', 'wp-content', 'wp-includes', url]
+    common_words = ['libs', 'js', 'cache', 'min', 'lib', 'ajax', 'https:', 'wp-content', 'wp-includes','www.'+ url]
     tempArr = tempArr - common_words
     logger.info tempArr
     logger.info url
