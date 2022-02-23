@@ -116,6 +116,9 @@ class Scrape
         version = ''
         js = arr[0] ;
         version = arr[1] if arr[1]
+        if version.to_i == 0
+          version = nil
+        end
         mapedData[dataType].push([js,version])
         return 
       end
@@ -140,7 +143,7 @@ class Scrape
     return nil
   end
   def self.remove_common_words_from_line(url, tempArr, logger)
-    common_words = ['libs', 'js', 'cache', 'min', 'lib', 'ajax', 'https:', 'wp-content', 'wp-includes','www.'+ url]
+    common_words = ['libs', 'js', 'cache', 'min', 'lib', 'ajax', 'https:', 'wp-content', 'wp-includes','www.'+ url, '1']
     tempArr = tempArr - common_words
     logger.info tempArr
     logger.info url
