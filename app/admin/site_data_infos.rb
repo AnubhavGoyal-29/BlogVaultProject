@@ -62,6 +62,7 @@ ActiveAdmin.register SiteDataInfo do
         div ('Not found'), :style => "color : red"
       end
     end
+    column :ip
   end
 
   show do
@@ -91,6 +92,7 @@ ActiveAdmin.register SiteDataInfo do
       row 'Login Url' do |site_data|
         link_to site_data.login_url, "http://www.#{site_data.login_url}", :target => '_blank'
       end
+      row :ip
     end
   end
 end

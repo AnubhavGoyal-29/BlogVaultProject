@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(version: 2022_02_17_145016) do
     t.string "cloudflare"
     t.string "login_url"
     t.string "host_name"
+    t.string "ip"
     t.string "plugins"
     t.string "themes"
     t.datetime "created_at", null: false
