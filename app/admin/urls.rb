@@ -46,7 +46,7 @@ ActiveAdmin.register Url do
       row 'WP Version' do |url|
         version = url.site_data_infos.last.cms_version
         if version == 'version not found'
-          div ("not found"), :style => "color : red"
+          div ("Not found"), :style => "color : red"
         else
           version
         end

@@ -85,7 +85,7 @@ class Scrape
       get_data_from_resource(url, html, Tags::LINK, DataTypes::JS, mapedData, logger)
       get_data_from_resource(url, html, Tags::LINK, DataTypes::CLOUDFLARE, mapedData, logger)
       get_data_from_resource(url, html, Tags::SCRIPT, DataTypes::CLOUDFLARE, mapedData, logger)
-      mapedData[:login_url].push(get_login_url(url))
+      mapedData[:login_url].push(get_login_url(url, logger))
       puts mapedData[:login_url]
       data[key] = {:mapedData => mapedData, :version => value[:version]}
     end
@@ -119,12 +119,16 @@ class Scrape
     end
   end
 
-  def self.get_login_url(url)
+  def self.get_login_url(url, logger)
     login_suffix = ['/login', '/wp-admin', '/wp-config']
     login_suffix.each do |suffix|
       _url = url + suffix
-      res = RestClient.get _url
-      return _url if res.code == 200
+      begin
+        res = RestClient.get _url
+        return _url if res.code == 200
+      rescue => e
+        logger.info e
+      end
     end
     return nil
   end

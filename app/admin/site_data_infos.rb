@@ -56,7 +56,11 @@ ActiveAdmin.register SiteDataInfo do
       end
     end
     column 'Login Url' do |site_data|
-      link_to site_data.login_url, "http://www.#{site_data.login_url}", :target => '_blank'
+      if site_data.login_url
+        link_to site_data.login_url, "http://www.#{site_data.login_url}", :target => '_blank'
+      else
+        div ('Not found'), :style => "color : red"
+      end
     end
   end
 
@@ -83,6 +87,9 @@ ActiveAdmin.register SiteDataInfo do
       end
       row 'Cloudflare' do |site|
         div (SiteDataInfo::STATUS[site.cloudflare])
+      end
+      row 'Login Url' do |site_data|
+        link_to site_data.login_url, "http://www.#{site_data.login_url}", :target => '_blank'
       end
     end
   end
