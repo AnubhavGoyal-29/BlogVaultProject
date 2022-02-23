@@ -1,5 +1,7 @@
 class Scrape
 
+  require'resolv'
+
   module Tags
     SCRIPT = 'script'
     LINK = 'links'
@@ -86,7 +88,7 @@ class Scrape
       get_data_from_resource(url, html, Tags::LINK, DataTypes::CLOUDFLARE, mapedData, logger)
       get_data_from_resource(url, html, Tags::SCRIPT, DataTypes::CLOUDFLARE, mapedData, logger)
       mapedData[:login_url].push(get_login_url(url, logger))
-      puts mapedData[:login_url]
+      mapedData[:ip].push(get_ip(url))
       data[key] = {:mapedData => mapedData, :version => value[:version]}
     end
     return data
@@ -142,6 +144,12 @@ class Scrape
     end
     return nil
   end
+
+  def self.get_ip(url)
+    ip =  Resolv.getaddress url
+    return ip  
+  end
+
   def self.remove_common_words_from_line(url, tempArr, logger)
     common_words = ['libs', 'js', 'cache', 'min', 'lib', 'ajax', 'https:', 'wp-content', 'wp-includes','www.'+ url, '1']
     tempArr = tempArr - common_words
