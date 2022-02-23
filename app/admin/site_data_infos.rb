@@ -55,6 +55,9 @@ ActiveAdmin.register SiteDataInfo do
         div (SiteDataInfo::STATUS[site.cloudflare]),style: "color: green"
       end
     end
+    column 'Login Url' do |site_data|
+      link_to site_data.login_url, "http://www.#{site_data.login_url}", :target => '_blank'
+    end
   end
 
   show do
