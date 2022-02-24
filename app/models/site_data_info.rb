@@ -6,6 +6,16 @@ class SiteDataInfo < ApplicationRecord
     ACTIVE = "1"
     INACTIVE = "0"
   end
+  
+  module Filter
+   NOT_FOUND = SiteDataInfo.where(:login_url => '0').pluck(:id)
+   FOUND = SiteDataInfo.where.not(:login_url => '0').pluck(:id)
+  end
+
+  LOGIN_URL = {}  
+  Filter.constants.each { |type|
+    LOGIN_URL[Filter.class_eval(type.to_s)] = type
+  }
 
   STATUS = {}
   Status.constants.each { |type|

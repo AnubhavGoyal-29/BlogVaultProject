@@ -2,10 +2,10 @@ ActiveAdmin.register SiteDataInfo do
 
   actions :index, :show
 
-  filter :id
   filter :test_id
   filter :url_id
   filter :cloudflare, :as => :select, :collection => SiteDataInfo::STATUS.invert
+  filter :id,label: 'login url', :as => :select, :collection => SiteDataInfo::LOGIN_URL.invert
 
 
   index do 
@@ -56,10 +56,10 @@ ActiveAdmin.register SiteDataInfo do
       end
     end
     column 'Login Url' do |site_data|
-      if site_data.login_url
-        link_to site_data.login_url, "http://www.#{site_data.login_url}", :target => '_blank'
-      else
+      if site_data.login_url == '0'
         div ('Not found'), :style => "color : red"
+      elsif site_data.login_url
+        link_to site_data.login_url, "http://www.#{site_data.login_url}", :target => '_blank'
       end
     end
     column :ip
