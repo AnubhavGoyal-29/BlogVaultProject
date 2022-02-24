@@ -5,7 +5,8 @@ ActiveAdmin.register JsInfo do
   filter :url_id
   filter :status , :as => :select, :collection => JsInfo::STATUS.invert
 
-  index do
+  index do 
+    debugger
     column :id
     column :js_name
     column 'Version' do |js_info|

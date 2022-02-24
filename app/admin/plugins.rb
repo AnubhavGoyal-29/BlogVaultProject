@@ -8,7 +8,9 @@ ActiveAdmin.register Plugin do
 
   index do 
     column :id
-    column :plugin_name
+    column 'Plugin Name' do |plugin|
+      link_to plugin.plugin_name, "https://www.wordpress.org/plugins/#{plugin.plugin_name}", :target => 'blank'
+    end
     column 'Url' do |plugin|
       link_to "#{plugin.url.id} ::  #{plugin.url.url}", admin_url_path(plugin.url)
     end

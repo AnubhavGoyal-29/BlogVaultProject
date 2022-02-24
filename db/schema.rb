@@ -70,13 +70,13 @@ ActiveRecord::Schema.define(version: 2022_02_17_145016) do
     t.string "test_id"
     t.string "cms_type"
     t.string "cms_version"
-    t.string "js"
+    t.text "js"
     t.string "cloudflare"
     t.string "login_url"
     t.string "host_name"
     t.string "ip"
-    t.string "plugins"
-    t.string "themes"
+    t.text "plugins"
+    t.text "themes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

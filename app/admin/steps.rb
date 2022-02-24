@@ -2,7 +2,7 @@ ActiveAdmin.register Step do
 
   actions :index
   filter :status , :as => :select, :collection => Step::STATUS.invert
-
+  filter :test_id
   index do
     column :id
     column :test_id

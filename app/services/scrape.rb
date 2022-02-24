@@ -4,7 +4,7 @@ class Scrape
 
   module Tags
     SCRIPT = 'script'
-    LINK = 'links'
+    LINK = 'link'
     SRC = 'src'
     HREF = 'href'
   end
@@ -37,7 +37,12 @@ class Scrape
       url = Url.find(url_id).url
       html = Nokogiri::HTML.parse(RestClient.get url)
       _version = check_wordpress_in_meta(html)
-      _version ||= check_wordpress_in_source(html) ? 'version not found' : nil ;
+
+      if !_version and check_wordpress_in_html(html) 
+        version_from_resource = find_wordpress_version(html) 
+        _version = version_from_resource ? version_from_resource : 'version not found'
+      end
+
       if _version
         _url_id = url_id
         url_html_version_map[_url_id] = {:html => html, :version => _version}
@@ -61,12 +66,39 @@ class Scrape
     return false
   end
 
-  def self.check_wordpress_in_source(html)
+  def self.check_wordpress_in_html(html)
     if html.inner_text.match(/wp-content/)
-      return true;
+      return true
     end
   end
 
+  def self.find_wordpress_version(html)
+    return find_version_in_resource(Tags::LINK, html) || find_version_in_resource(Tags::SCRIPT, html)
+  end
+
+  def self.find_version_in_resource(resource, html)
+    lines = html.css(resource)
+    lines.each do |line|
+      version = find_version_in_sub_resource(line, Tags::SRC) || find_version_in_sub_resource(line, Tags::HREF)
+      return version if version 
+    end
+    return nil
+  end
+  def self.find_version_in_sub_resource(line, subresource)
+    checks = ['wp-includes/css/dist/block-library/style.min.css', 'wp-includes/js/wp-embed.min.js']
+    if line[subresource]
+      checks.each do |check|
+        if line[subresource][check]
+          ver = line[subresource].split('ver=')[1]
+          if ver.size < 7
+            puts ver
+            return ver
+          end
+        end
+      end
+    end
+    return nil
+  end
   def self.check_wordpress_name(cms)
     if cms && cms['Wordpress'] || cms['wordpress'] || cms['WordPress']
       wordpressAndVersion = cms.split(' ')
@@ -153,8 +185,6 @@ class Scrape
   def self.remove_common_words_from_line(url, tempArr, logger)
     common_words = ['libs', 'js', 'cache', 'min', 'lib', 'ajax', 'https:', 'wp-content', 'wp-includes','www.'+ url, '1']
     tempArr = tempArr - common_words
-    logger.info tempArr
-    logger.info url
     return tempArr
   end
 end

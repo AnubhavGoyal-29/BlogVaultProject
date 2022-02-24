@@ -6,9 +6,12 @@ ActiveAdmin.register SiteDataInfo do
   filter :test_id
   filter :url_id
   filter :cloudflare, :as => :select, :collection => SiteDataInfo::STATUS.invert
-
-
+  scope :login_url_found, :default => true do |site_data_infos|
+    site_data_infos.where.not(:login_url => '0')
+  end
+  scope :all
   index do 
+    id_column
     column "Test" do |site_data|
       link_to site_data.test.id, admin_test_path(site_data.test)
     end
@@ -34,7 +37,7 @@ ActiveAdmin.register SiteDataInfo do
     column 'JS' do |site_data|
       js = site_data.js
       if JSON::parse(js).size > 0
-        link_to 'JS', admin_js_infos_path("q[url_id_equals]" => site_data.url_id, "q[status_equals]" => 1)
+        link_to 'JS', admin_js_infos_path('q[id_not_in]' => [705,704,703,703,702], "q[status_equals]" => 1)
       else
         div("Not found", style: "color: red")
       end

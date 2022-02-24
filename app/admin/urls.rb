@@ -8,8 +8,6 @@ ActiveAdmin.register Url do
       Url.site_data_info
     end
   end
-
-
   index do
     id_column
     column 'Url' do |url|
