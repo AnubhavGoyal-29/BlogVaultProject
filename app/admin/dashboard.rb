@@ -57,6 +57,7 @@ ActiveAdmin.register_page "Dashboard" do
             div :class => 'completed_tests' do 
               span "sr.no", :class => 'active_admin_test_completed_label'
               span "test", :class => 'active_admin_test_completed_label'
+              span "total urls", :class => 'active_admin_test_completed_label'
               span "started_at", :class => 'active_admin_test_completed_label'
               span "ended_at", :class => 'active_admin_test_completed_label'
               span "time taken", :class => 'active_admin_test_completed_label'
