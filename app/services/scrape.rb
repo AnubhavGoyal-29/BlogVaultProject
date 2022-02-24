@@ -118,7 +118,7 @@ class Scrape
       get_data_from_resource(url, html, Tags::SCRIPT, DataTypes::JS, mapedData, logger)
       get_data_from_resource(url, html, Tags::LINK, DataTypes::JS, mapedData, logger)
       get_data_from_resource(url, html, Tags::LINK, DataTypes::CLOUDFLARE, mapedData, logger)
-      get_data_from_resource(url, html, Tags::SCRIPT, DataTypes::CLOUDFLARE, mapedData, logger)
+      get_data_from_resource(url, html, Tags::SCRIPT, DataTypes::CLOUDFLARE, mapedData, logger) 
       mapedData[:login_url].push(get_login_url(url, logger))
       mapedData[:ip].push(get_ip(url))
       data[key] = {:mapedData => mapedData, :version => value[:version]}
@@ -171,7 +171,7 @@ class Scrape
         res = RestClient.get _url
         return _url if res.code == 200
       rescue => e
-        logger.info e
+        return '0'
       end
     end
     return nil
