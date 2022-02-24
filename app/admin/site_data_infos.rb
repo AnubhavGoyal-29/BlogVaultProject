@@ -5,10 +5,22 @@ ActiveAdmin.register SiteDataInfo do
   filter :test_id
   filter :url_id
   filter :cloudflare, :as => :select, :collection => SiteDataInfo::STATUS.invert
+  scope :all, :default => true
+  scope :Plugins_found, :default => true do |site_data_infos|
+    site_data_infos.where.not(:plugins => '[]')    
+  end
+  scope :Themes_found, :default => true do |site_data_infos|
+    site_data_infos.where.not(:themes => '[]')
+  end
+  scope :Js_found, :default => true do |site_data_infos|
+    site_data_infos.where.not(:js => '[]')
+  end
   scope :login_url_found, :default => true do |site_data_infos|
     site_data_infos.where.not(:login_url => '0')
   end
-  scope :all
+  scope :WP_version_found, :default => true do |site_data_infos|
+    site_data_infos.where.not(:cms_version => 'version not found')
+  end
   filter :id
 
 
@@ -28,7 +40,7 @@ ActiveAdmin.register SiteDataInfo do
         div("Not found", style: "color: red")
       end
     end
-    column 'themes' do |site_data|
+    column 'Themes' do |site_data|
       themes = site_data.themes
       if JSON::parse(themes).size > 0
         link_to 'Themes', admin_themes_path("q[url_id_equals]" => site_data.url_id, "q[status_equals]" => 1)
