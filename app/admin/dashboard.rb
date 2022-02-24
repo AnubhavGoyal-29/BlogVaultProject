@@ -20,6 +20,7 @@ ActiveAdmin.register_page "Dashboard" do
               span "started_at", :class => 'active_admin_test_running_label'
               span "total jobs", :class => 'active_admin_test_running_label'
               span "jobs completed", :class => 'active_admin_test_running_label'
+              span "running time", :class => 'active_admin_test_running_label'
               br
             end
             tests = Test.where(:status => Test::STATUS.invert[:RUNNING]).all
@@ -38,6 +39,10 @@ ActiveAdmin.register_page "Dashboard" do
                   div total, :class => 'active_admin_test_running_label'
                   # div Step.where(:test_id => test.id).count, :class => 'active_admin_test_running_lable'
                   div completed, :class => 'active_admin_test_running_label'
+
+                  div " #{Integer(Time.now - test.created_at)/60}minutes #{Integer(Time.now - test.created_at)%60}seconds ",
+                    :class => 'active_admin_test_running_label'
+
                   #div Step.where(:test_id => test.id, :status => Step::STATUS.invert[:RUNNING]).count, :class => 'active_admin_test_running_lable'
                   br
                 end
@@ -54,6 +59,7 @@ ActiveAdmin.register_page "Dashboard" do
               span "test", :class => 'active_admin_test_completed_label'
               span "started_at", :class => 'active_admin_test_completed_label'
               span "ended_at", :class => 'active_admin_test_completed_label'
+              span "time taken", :class => 'active_admin_test_completed_label'
               br
             end
             tests = Test.where(:status => Test::STATUS.invert[:COMPLETED]).last(5)
@@ -63,8 +69,11 @@ ActiveAdmin.register_page "Dashboard" do
                 div i, :class => 'active_admin_test_completed_label'
                 a "Test #{test.id}",href: admin_tests_path('q[id_equals]' => test.id), 
                   :class => 'active_admin_test_completed_label'
+                div test.number_of_urls, :class => 'active_admin_test_completed_label'
                 div test.created_at, :class => 'active_admin_test_completed_label'
                 div test.updated_at, :class => 'active_admin_test_completed_label'
+                div (" #{Integer(test.updated_at - test.created_at)/60}minutes #{Integer(test.updated_at - test.created_at)%60}seconds "), 
+                     :class => 'active_admin_test_completed_label'
                 br
               end
               i += 1
