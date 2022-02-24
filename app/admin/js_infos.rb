@@ -6,7 +6,6 @@ ActiveAdmin.register JsInfo do
   filter :status , :as => :select, :collection => JsInfo::STATUS.invert
 
   index do 
-    debugger
     column :id
     column :js_name
     column 'Version' do |js_info|
@@ -16,7 +15,7 @@ ActiveAdmin.register JsInfo do
         js_info.version
       end
     end
-    column 'Url' do |js|
+    column 'Used in' do |js|
       link_to "#{js.url.id} ::  #{js.url.url}", admin_url_path(js.url)
     end
     column 'Status' do |js|

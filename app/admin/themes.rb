@@ -8,7 +8,7 @@ ActiveAdmin.register Theme do
   index do 
     column :id
     column :theme_name
-    column 'Url' do |theme|
+    column 'Used IN' do |theme|
       link_to "#{theme.url.id} ::  #{theme.url.url}", admin_url_path(theme.url)
     end
     column 'Status' do |theme|
