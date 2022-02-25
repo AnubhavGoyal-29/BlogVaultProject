@@ -2,22 +2,23 @@ ActiveAdmin.register Url do
   actions :index, :show
 
   filter :id
-  filter :site_data_infos_last_id
-  controller do 
-    def scoped_collection
-      Url.site_data_info
-    end
+  filter :url
+  scope :all
+  scope :wordpress_sites, :default => true do |urls|
+    urls.where.not(:site_data_info_id => nil) 
   end
-  index do
+  index do |url|
     id_column
     column 'Url' do |url|
       link_to url.url, "http://www.#{url.url}", :target => '_blank'
     end
     column 'All Versions' do |url|
-      link_to 'Versions', admin_site_data_infos_path('q[url_id_equals]' => url.id)
+      if url.site_data_infos.last
+        link_to 'Versions', admin_site_data_infos_path('q[url_id_equals]' => url.id)
+      end
     end
     column 'WP Version' do |url|
-      version = url.site_data_infos.last.cms_version
+      version = url.site_data_infos.last ? url.site_data_infos.last.cms_version : 'not a wordpress site'
       if version == 'version not found'
         div ("Not found"), :style => "color : red"
       else
@@ -25,11 +26,15 @@ ActiveAdmin.register Url do
       end
     end
     column 'LastTest' do |url|
-      link_to "Test #{url.site_data_infos.last.test_id}", admin_tests_path("q[id_equals]" => url.site_data_infos.last.test_id)
+      if url.site_data_infos.last
+        link_to "Test #{url.site_data_infos.last.test_id}", admin_tests_path("q[id_equals]" => url.site_data_infos.last.test_id)
+      end
     end
     column 'LastTestData' do |url|
-      link_to "LastTestdataInfo", admin_site_data_infos_path("q[url_id_equals]" => url.site_data_infos.last.url_id, 
+      if url.site_data_infos.last
+        link_to "LastTestdataInfo", admin_site_data_infos_path("q[url_id_equals]" => url.site_data_infos.last.url_id, 
                                                              "q[test_id_equals]" => url.site_data_infos.last.test_id)
+      end
     end
   end
 

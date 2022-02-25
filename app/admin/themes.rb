@@ -6,8 +6,13 @@ ActiveAdmin.register Theme do
   filter :status , :as => :select, :collection => Theme::STATUS.invert
 
   index do 
-    column :id
+    id_column
     column :theme_name
+=begin
+    column 'Theme Name' do |theme|
+      link_to theme.theme_name, "https://www.wordpress.org/themes/#{theme.theme_name}", :target => 'blank'
+    end
+=end
     column 'Used IN' do |theme|
       link_to "#{theme.url.id} ::  #{theme.url.url}", admin_url_path(theme.url)
     end

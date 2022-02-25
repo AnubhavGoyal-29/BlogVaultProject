@@ -18,15 +18,28 @@
 //   .status_tag { background: #6090DB; }
 
 .active_admin_test_completed_label {
+	color: #5E6469;
 	width : 15vw;
 	font-size : 1rem;
 	font-weight : bold;
 	text-align : left;
 }
+.active_admin_test_completed_content {
+        width : 15vw;
+        font-size : .9rem;
+        text-align : left;
+}
+
 .active_admin_test_running_label {
+	color: #5E6469;
         width : 15vw;
         font-size : 1rem;
         font-weight : bold;
+        text-align : left;
+}
+.active_admin_test_running_content{
+        width : 15vw;
+        font-size : .9rem;
         text-align : left;
 }
 
