@@ -1,12 +1,11 @@
 ActiveAdmin.register JsInfo do
 
-  actions :index
-
+  actions :index, :show
   filter :url_id
   filter :status , :as => :select, :collection => JsInfo::STATUS.invert
 
   index do 
-    column :id
+    id_column
     column :js_name
     column 'Version' do |js_info|
       if js_info.version == '0'
@@ -28,4 +27,15 @@ ActiveAdmin.register JsInfo do
       end
     end
   end
+
+  show do
+    attributes_table do
+      row :js_name
+      row "Usage" do |js|
+        url_ids = JsInfo.where(:js_name => js.js_name, :status => JsInfo::STATUS.invert[:ACTIVE]).pluck(:url_id)
+        link_to "#{url_ids.count} :: urls", admin_urls_path('q[id_in]' => url_ids)
+      end
+    end
+  end
+
 end

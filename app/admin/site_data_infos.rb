@@ -1,7 +1,6 @@
 ActiveAdmin.register SiteDataInfo do
 
   actions :index, :show
-
   filter :test_id
   filter :url_id
   filter :cloudflare, :as => :select, :collection => SiteDataInfo::STATUS.invert
@@ -21,8 +20,6 @@ ActiveAdmin.register SiteDataInfo do
   scope :WP_version_found, :default => true do |site_data_infos|
     site_data_infos.where.not(:cms_version => 'version not found')
   end
-  filter :id
-
 
   index do 
     id_column
@@ -56,7 +53,6 @@ ActiveAdmin.register SiteDataInfo do
         div("Not found", style: "color: red")
       end
     end
-
     column 'WP Version' do |site_data|
       version = site_data.cms_version
       if version == 'version not found'
@@ -116,4 +112,5 @@ ActiveAdmin.register SiteDataInfo do
       row :ip
     end
   end
+
 end

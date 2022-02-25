@@ -74,7 +74,7 @@ ActiveAdmin.register_page "Dashboard" do
                 div test.created_at, :class => 'active_admin_test_completed_label'
                 div test.updated_at, :class => 'active_admin_test_completed_label'
                 div (" #{Integer(test.updated_at - test.created_at)/60}minutes #{Integer(test.updated_at - test.created_at)%60}seconds "), 
-                     :class => 'active_admin_test_completed_label'
+                  :class => 'active_admin_test_completed_label'
                 br
               end
               i += 1
@@ -83,35 +83,7 @@ ActiveAdmin.register_page "Dashboard" do
         end
       end
     end
-
   end
-
-
-=begin
-  action_item :view do
-    if Test.last != nil
-      if  Test.last.status == Test::STATUS.invert[:COMPLETED]
-        link_to " Test #{ Test.last.id } has been Completed", 
-          admin_site_data_infos_path('q[test_id_equals]' => Test.last.id), 
-          :style => "color : darkgreen"
-      else
-        link_to " Test #{ Test.last.id } is #{ Test::STATUS[Test.last.status]}",
-          admin_site_data_infos_path('q[test_id_equals]' => Test.last.id),
-          :style => "color : dark-blue"
-      end
-    end
-  end
-
-  action_item :view do 
-    if Test.last != nil
-      total = Step.where(:test_id => Test.last.id).count
-      completed = Step.where(:test_id => Test.last.id, :status => 2).count
-      if completed != total
-        link_to "#{ completed } / #{ total } jobs completed", admin_steps_path('q[status_eq]' => '1'), :style => "color : dark-blue"
-      end
-    end
-  end
-=end
 
   # first it will add new wordpress site to database 
   # then run the test for all urls

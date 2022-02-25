@@ -1,6 +1,6 @@
 ActiveAdmin.register Url do
-  actions :index, :show
 
+  actions :index, :show
   filter :id
   filter :site_data_infos_last_id
   controller do 
@@ -29,7 +29,6 @@ ActiveAdmin.register Url do
     end
     column 'LastTestData' do |url|
       link_to "LastTestdataInfo", admin_site_data_infos_path("q[url_id_equals]" => url.site_data_infos.last.url_id, 
-                                                             "q[test_id_equals]" => url.site_data_infos.last.test_id)
     end
   end
 
@@ -49,7 +48,6 @@ ActiveAdmin.register Url do
           version
         end
       end
-
       row 'Plugins' do |url|
         plugins = url.site_data_infos.last.plugins
         if JSON::parse(plugins).size > 0
@@ -83,7 +81,7 @@ ActiveAdmin.register Url do
       row 'LastTest' do |url|
         link_to "Test #{url.site_data_infos.last.test_id}", admin_tests_path("q[id_equals]" => url.site_data_infos.last.test_id)
       end
-
     end
   end
+
 end

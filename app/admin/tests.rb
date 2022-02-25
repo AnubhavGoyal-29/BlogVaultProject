@@ -29,7 +29,6 @@ ActiveAdmin.register Test do
       theme_ids.uniq!
       link_to 'themes', admin_themes_path('q[id_in]' => theme_ids)
     end
-
     column 'JS' do |test|
       js_ids = []
       SiteDataInfo.where(:test_id => test.id).each do |site_data|
@@ -40,8 +39,6 @@ ActiveAdmin.register Test do
       js_ids.uniq!
       link_to 'JS', admin_js_infos_path('q[id_in]' => js_ids)
     end
-
-
     column 'Status' do |test|
       status = test.status 
       options = Test::STATUS.invert
@@ -59,7 +56,6 @@ ActiveAdmin.register Test do
 
   show do
     attributes_table do
-
       row :id
       row 'Data Infos' do |test|
         url_ids = SiteDataInfo.where(test_id: 2).pluck(:url_id).to_s
@@ -82,6 +78,5 @@ ActiveAdmin.register Test do
 
     end
   end
-
 
 end
