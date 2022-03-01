@@ -1,0 +1,12 @@
+ActiveAdmin.register_page "Compare" do
+
+  page_action :test_method, :method => [:get, :post] do
+    if :method == :get
+      flash[:notice] = "get"
+      render :partial => "form"
+    else
+      flash[:notice] = params
+      #redirect_to admin_compare_path
+    end
+  end
+end 

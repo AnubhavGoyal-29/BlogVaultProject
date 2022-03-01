@@ -75,7 +75,9 @@ ActiveAdmin.register SiteDataInfo do
         link_to site_data.login_url, "http://www.#{site_data.login_url}", :target => '_blank'
       end
     end
-    column :ip
+    column 'IP' do |site_data|
+      link_to "#{ site_data.ip }", "http://#{site_data.ip}" , :target => 'blank'
+    end
   end
 
   show do
@@ -100,13 +102,17 @@ ActiveAdmin.register SiteDataInfo do
         link_to 'JS', admin_js_infos_path("q[url_id_equals]" => site.url_id, "q[status_equals]" => 1)
       end
       row 'Cloudflare' do |site|
-        div (SiteDataInfo::STATUS[site.cloudflare])
+        if site.cloudflare == '0'
+        div (SiteDataInfo::STATUS[site.cloudflare]),style: "color: red"
+      elsif site.cloudflare =='1'
+        div (SiteDataInfo::STATUS[site.cloudflare]),style: "color: green"
+      end
       end
       row 'Login Url' do |site_data|
-        if site_data.login_url 
-          link_to site_data.login_url, "http://www.#{site_data.login_url}", :target => '_blank'
-        else
+        if site_data.login_url == '0'
           div ('Not found'), :style => "color : red"
+        elsif site_data.login_url
+          link_to site_data.login_url, "http://www.#{site_data.login_url}", :target => '_blank'
         end
       end
       row :ip

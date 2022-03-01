@@ -8,11 +8,19 @@ ActiveAdmin.register Plugin do
 
   index do 
     id_column
+    column 'Name' do|plugin|
+      name = ( PluginSlug.where("slug LIKE?", "%#{ plugin.plugin_name }%").first && PluginSlug.where("slug LIKE?", "%#{ plugin.plugin_name }%").first.name ) 
+      name ||= plugin.plugin_name
+      div (name)
+    end
+=begin
     column 'Plugin Name' do |plugin|
       link_to plugin.plugin_name, "https://www.wordpress.org/plugins/#{plugin.plugin_name}", :target => 'blank'
     end
-    column 'Used IN' do |plugin|
-      link_to "#{plugin.url.id} ::  #{plugin.url.url}", admin_url_path(plugin.url)
+=end
+    column "Usage" do |plugin|
+      url_ids = Plugin.where(:plugin_name => plugin.plugin_name, :status => Plugin::STATUS.invert[:ACTIVE]).pluck(:url_id)
+      link_to "#{url_ids.count} :: urls", admin_urls_path('q[id_in]' => url_ids)
     end
     column 'Status' do |plugin|
       status = plugin.status

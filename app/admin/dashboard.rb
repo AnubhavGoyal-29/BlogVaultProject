@@ -15,13 +15,13 @@ ActiveAdmin.register_page "Dashboard" do
         panel 'Test Info' do 
           panel 'Running Tests' do
             div :class => 'running_tests' do
-              span "sr.no", :class => 'active_admin_test_running_label'
-              span "test", :class => 'active_admin_test_running_label'
-              span "started_at", :class => 'active_admin_test_running_label'
-              span "total jobs", :class => 'active_admin_test_running_label'
-              span "jobs completed", :class => 'active_admin_test_running_label'
-              span "running time", :class => 'active_admin_test_running_label'
-              br
+              h3 "No.", :class => 'active_admin_test_running_label'
+              h3 "Test", :class => 'active_admin_test_running_label'
+              h3 "Started_at", :class => 'active_admin_test_running_label'
+              h3 "Total Jobs", :class => 'active_admin_test_running_label'
+              h3 "Completed Jobs", :class => 'active_admin_test_running_label'
+              h3 "Running Time", :class => 'active_admin_test_running_label'
+              hr
             end
             tests = Test.where(:status => Test::STATUS.invert[:RUNNING]).all
             i = 1
@@ -31,17 +31,17 @@ ActiveAdmin.register_page "Dashboard" do
                 completed = Step.where(:test_id => test.id, :status => Step::STATUS.invert[:COMPLETED]).count
 
                 div :class => 'running_tests' do
-                  div i, :class => 'active_admin_test_running_label'
-                  a "Test #{test.id} is running",href: admin_tests_path('q[id_equals]' => test.id), 
-                    :class => 'active_admin_test_running_label', 
+                  div i, :class => 'active_admin_test_running_content'
+                  div "Test #{test.id} is running",
+                    :class => 'active_admin_test_running_content', 
                     :style => 'color : orange'
-                  div test.created_at, :class => 'active_admin_test_running_label'
-                  div total, :class => 'active_admin_test_running_label'
+                  div test.created_at, :class => 'active_admin_test_running_content'
+                  div total, :class => 'active_admin_test_running_content'
                   # div Step.where(:test_id => test.id).count, :class => 'active_admin_test_running_lable'
-                  div completed, :class => 'active_admin_test_running_label'
+                  div completed, :class => 'active_admin_test_running_content'
 
-                  div " #{Integer(Time.now - test.created_at)/60}minutes #{Integer(Time.now - test.created_at)%60}seconds ",
-                    :class => 'active_admin_test_running_label'
+                  div " #{Integer(Time.now - test.created_at)/60} min #{Integer(Time.now - test.created_at)%60} sec ",
+                    :class => 'active_admin_test_running_content'
 
                   #div Step.where(:test_id => test.id, :status => Step::STATUS.invert[:RUNNING]).count, :class => 'active_admin_test_running_lable'
                   br
@@ -49,35 +49,39 @@ ActiveAdmin.register_page "Dashboard" do
                 i += 1
               end
             else
-              div "no running tests", :class => 'active_admin_test_running_label'
+              div "no running tests", :class => 'active_admin_test_running_content'
             end
           end
 
           panel 'Completed Tests' do
             div :class => 'completed_tests' do 
-              span "sr.no", :class => 'active_admin_test_completed_label'
-              span "test", :class => 'active_admin_test_completed_label'
-              span "total urls", :class => 'active_admin_test_completed_label'
-              span "started_at", :class => 'active_admin_test_completed_label'
-              span "ended_at", :class => 'active_admin_test_completed_label'
-              span "time taken", :class => 'active_admin_test_completed_label'
+              span "No.", :class => 'active_admin_test_completed_label'
+              span "Test", :class => 'active_admin_test_completed_label'
+              span "Total Sites", :class => 'active_admin_test_completed_label'
+              span "Started_at", :class => 'active_admin_test_completed_label'
+              span "Ended_at", :class => 'active_admin_test_completed_label'
+              span "Time Taken", :class => 'active_admin_test_completed_label'
               br
             end
             tests = Test.where(:status => Test::STATUS.invert[:COMPLETED]).last(5)
             i = 1
-            tests.reverse.each do |test|
-              div :class => 'completed_tests' do
-                div i, :class => 'active_admin_test_completed_label'
-                a "Test #{test.id}",href: admin_tests_path('q[id_equals]' => test.id), 
-                  :class => 'active_admin_test_completed_label'
-                div test.number_of_urls, :class => 'active_admin_test_completed_label'
-                div test.created_at, :class => 'active_admin_test_completed_label'
-                div test.updated_at, :class => 'active_admin_test_completed_label'
-                div (" #{Integer(test.updated_at - test.created_at)/60}minutes #{Integer(test.updated_at - test.created_at)%60}seconds "), 
-                  :class => 'active_admin_test_completed_label'
-                br
+            if tests.count > 0
+              tests.reverse.each do |test|
+                div :class => 'completed_tests' do
+                  div i, :class => 'active_admin_test_completed_content'
+                  a "Test #{test.id}",href: admin_tests_path('q[id_equals]' => test.id), 
+                    :class => 'active_admin_test_completed_content'
+                  div test.urls, :class => 'active_admin_test_completed_content'
+                  div test.created_at, :class => 'active_admin_test_completed_content'
+                  div test.updated_at, :class => 'active_admin_test_completed_content'
+                  div (" #{Integer(test.updated_at - test.created_at)/60} min #{Integer(test.updated_at - test.created_at)%60} sec "), 
+                    :class => 'active_admin_test_completed_content'
+                  br
+                end
+                i += 1
               end
-              i += 1
+            else 
+              div "no recorded test", :class => 'active_admin_test_running_content'
             end
           end
         end

@@ -14,8 +14,9 @@ ActiveAdmin.register JsInfo do
         js_info.version
       end
     end
-    column 'Used in' do |js|
-      link_to "#{js.url.id} ::  #{js.url.url}", admin_url_path(js.url)
+    column "Usage" do |js|
+      url_ids = JsInfo.where(:js_name => js.js_name, :status => JsInfo::STATUS.invert[:ACTIVE]).pluck(:url_id)
+      link_to "#{url_ids.count} :: urls", admin_urls_path('q[id_in]' => url_ids)
     end
     column 'Status' do |js|
       status = js.status

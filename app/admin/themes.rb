@@ -7,9 +7,19 @@ ActiveAdmin.register Theme do
 
   index do 
     id_column
-    column :theme_name
-    column 'Used IN' do |theme|
-      link_to "#{theme.url.id} ::  #{theme.url.url}", admin_url_path(theme.url)
+    column 'Name' do|theme|
+      name = ( ThemeSlug.where("name LIKE?","%#{theme.theme_name}%").first && ThemeSlug.where("slug LIKE?" , "%#{theme.theme_name}%").first.name )
+      name ||= theme.theme_name
+      div ( name )
+    end
+=begin
+    column 'Theme Name' do |theme|
+      link_to theme.theme_name, "https://www.wordpress.org/themes/#{theme.theme_name}", :target => 'blank'
+    end
+=end
+    column "Usage" do |theme|
+      url_ids = Theme.where(:theme_name => theme.theme_name, :status => Theme::STATUS.invert[:ACTIVE]).pluck(:url_id)
+      link_to "#{url_ids.count} :: urls", admin_urls_path('q[id_in]' => url_ids)
     end
     column 'Status' do |theme|
       status = theme.status

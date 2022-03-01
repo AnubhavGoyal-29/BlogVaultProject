@@ -1,0 +1,2 @@
+class PluginSlug < ApplicationRecord
+end
