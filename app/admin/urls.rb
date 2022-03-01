@@ -86,6 +86,9 @@ ActiveAdmin.register Url do
       row 'LastTest' do |url|
         link_to "Test #{url.site_data_infos.last.test_id}", admin_tests_path("q[id_equals]" => url.site_data_infos.last.test_id)
       end
+      row 'Changes' do |url|
+        link_to 'check', admin_compare_test_method_path(:url_id => url.id ), :method => 'get'
+      end
     end
   end
 end

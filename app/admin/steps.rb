@@ -3,9 +3,7 @@ ActiveAdmin.register Step do
   actions :index
   filter :status , :as => :select, :collection => Step::STATUS.invert
   filter :test_id
-  action_item :check do
-    link_to 'check', admin_compare_test_method_path(:url_id => 5 ), :method => 'get'
-  end
+
   index do
     column :id
     column :test_id

@@ -1,0 +1,69 @@
+<table>
+  <thead><th>Field</th><th>Test1</th><th>Test2</th></thead>
+  <tbody>
+    <tr>
+      <td> Cloudflare </td>
+      <td><%= data[:data_1][:cloudflare] %></td>
+      <td><%= data[:data_2][:cloudflare] %></td>
+    </tr>
+    <tr>
+      <td> Wp Version </td>
+      <td><%= data[:data_1][:cms_version] %></td>
+      <td><%= data[:data_2][:cms_version] %></td>
+    </tr>
+    <tr>
+      <td> LoginUrl </td>
+      <td><%= data[:data_1][:login_url] %></td>
+      <td><%= data[:data_2][:login_url] %></td>
+    </tr>
+  </tbody>
+</table>
+
+<h1> Plugins </h1>
+<table>
+  <thead><th>Test1</th><th>Test2</th><th>Common</th></thead>
+  <tbody>
+    <% for index in 0..data[:data_common][:plugin].count %>
+      <tr>
+
+        <td><%= data[:data_1][:plugin][index] %></td>
+      <td><%= data[:data_2][:plugin][index] %></td>
+      <td><%= data[:data_common][:plugin][index] %></td>
+    </tr>
+  <%end%>
+  </tbody>
+
+</table>
+
+<h1> Themes </h1>
+<table>
+  <thead><th>Test1</th><th>Test2</th><th>Common</th></thead>
+  <tbody>
+    <% for index in 0..data[:data_common][:plugin].count %>
+      <tr>
+
+        <td><%= data[:data_1][:plugin][index] %></td>
+      <td><%= data[:data_2][:plugin][index] %></td>
+      <td><%= data[:data_common][:plugin][index] %></td>
+    </tr>
+  <%end%>
+  </tbody>
+
+</table>
+
+<h1> Js </h1>
+<table>
+  <thead><th>Test1</th><th>Test2</th><th>Common</th></thead>
+  <tbody>
+    <% for index in 0..data[:data_common][:plugin].count %>
+      <tr>
+
+        <td><%= data[:data_1][:plugin][index] %></td>
+      <td><%= data[:data_2][:plugin][index] %></td>
+      <td><%= data[:data_common][:plugin][index] %></td>
+    </tr>
+  <%end%>
+  </tbody>
+
+</table>
+

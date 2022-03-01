@@ -1,9 +1,9 @@
 <%= semantic_form_for :test_method, builder: ActiveAdmin::FormBuilder,
   :url => admin_compare_test_method_path, :method => :post  do |f| %>
   <%= f.inputs "Select two tests" do %>
-    <%= f.input :Test1, as: :select, collection: Test.select(:id).uniq.pluck(:id)%>
-    <%= f.input :Test2, as: :select, collection: Test.select(:id).uniq.pluck(:id)%>
-    <%= f.input :hidden, as: :hidden, :input_html => { :value => url_id }%>
+    <%= f.input :test1, as: :select, collection: SiteDataInfo.where(:url_id => url_id).pluck(:test_id) %>
+    <%= f.input :test2, as: :select, collection: SiteDataInfo.where(:url_id => url_id).pluck(:test_id) %>
+    <%= f.input :url_id, as: :hidden, :input_html => { :value => url_id }%>
   <%end%>
   <%=submit_tag "Start Process"%>
 <%end%>
