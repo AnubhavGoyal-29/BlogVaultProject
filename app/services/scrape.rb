@@ -1,6 +1,7 @@
 class Scrape
 
   require'resolv'
+ # require 'selenium-webdriver'
 
   module Tags
     SCRIPT = 'script'
@@ -15,6 +16,7 @@ class Scrape
     JS = 'js'
     CLOUDFLARE = 'cloudflare'
   end
+
   def self.filter_wp_urls(urls, logger)
     url_html_version_map = Hash.new{ |h,k| h[k] = Hash.new }
     threads = []
@@ -42,7 +44,6 @@ class Scrape
         version_from_resource = find_wordpress_version(html) 
         _version = version_from_resource ? version_from_resource : 'version not found'
       end
-
       if _version
         _url_id = url_id
         url_html_version_map[_url_id] = {:html => html, :version => _version}
@@ -84,6 +85,7 @@ class Scrape
     end
     return nil
   end
+
   def self.find_version_in_sub_resource(line, subresource)
     checks = ['wp-includes/css/dist/block-library/style.min.css', 'wp-includes/js/wp-embed.min.js']
     if line[subresource]
@@ -99,6 +101,7 @@ class Scrape
     end
     return nil
   end
+  
   def self.check_wordpress_name(cms)
     if cms && cms['Wordpress'] || cms['wordpress'] || cms['WordPress']
       wordpressAndVersion = cms.split(' ')
@@ -182,8 +185,22 @@ class Scrape
     return ip  
   end
 
+=begin
+  def self.get_host_name(url)
+    options = Selenium::WebDriver::Chrome::Options.new
+    options.add_argument('--headless')
+    driver = Selenium::WebDriver.for :chrome, options: options
+    driver.navigate.to "https://check-host.net/?lang=en" 
+    driver.find_element(:id, 'hostip').send_keys url
+    driver.find_element(:name, 'info').click
+    host_info = driver.find_element(:class => "hostinfo")
+    isp = host_info.text.split("\n")[3].split(" ")[1].split(",")[0]
+    return isp
+  end
+=end
+
   def self.remove_common_words_from_line(url, tempArr, logger)
-    common_words = ['libs', 'js', 'cache', 'min', 'lib', 'ajax', 'https:', 'wp-content', 'wp-includes','www.'+ url, '1']
+    common_words = ['libs', 'js', 'cache', 'min', 'lib', 'ajax', 'https:', 'wp-content', 'wp-includes','www.'+ url, url, '1']
     tempArr = tempArr - common_words
     return tempArr
   end

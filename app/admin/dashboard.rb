@@ -32,7 +32,7 @@ ActiveAdmin.register_page "Dashboard" do
 
                 div :class => 'running_tests' do
                   div i, :class => 'active_admin_test_running_content'
-                  a "Test #{test.id} is running",href: admin_tests_path('q[id_equals]' => test.id), 
+                  div "Test #{test.id} is running",
                     :class => 'active_admin_test_running_content', 
                     :style => 'color : orange'
                   div test.created_at, :class => 'active_admin_test_running_content'
@@ -65,53 +65,29 @@ ActiveAdmin.register_page "Dashboard" do
             end
             tests = Test.where(:status => Test::STATUS.invert[:COMPLETED]).last(5)
             i = 1
-            tests.reverse.each do |test|
-              div :class => 'completed_tests' do
-                div i, :class => 'active_admin_test_completed_content'
-                a "Test #{test.id}",href: admin_tests_path('q[id_equals]' => test.id), 
-                  :class => 'active_admin_test_completed_content'
-                div test.number_of_urls, :class => 'active_admin_test_completed_content'
-                div test.created_at, :class => 'active_admin_test_completed_content'
-                div test.updated_at, :class => 'active_admin_test_completed_content'
-                div (" #{Integer(test.updated_at - test.created_at)/60} min #{Integer(test.updated_at - test.created_at)%60} sec "), 
-                     :class => 'active_admin_test_completed_content'
-                br
+            if tests.count > 0
+              tests.reverse.each do |test|
+                div :class => 'completed_tests' do
+                  div i, :class => 'active_admin_test_completed_content'
+                  a "Test #{test.id}",href: admin_tests_path('q[id_equals]' => test.id), 
+                    :class => 'active_admin_test_completed_content'
+                  div test.urls, :class => 'active_admin_test_completed_content'
+                  div test.created_at, :class => 'active_admin_test_completed_content'
+                  div test.updated_at, :class => 'active_admin_test_completed_content'
+                  div (" #{Integer(test.updated_at - test.created_at)/60} min #{Integer(test.updated_at - test.created_at)%60} sec "), 
+                    :class => 'active_admin_test_completed_content'
+                  br
+                end
+                i += 1
               end
-              i += 1
+            else 
+              div "no recorded test", :class => 'active_admin_test_running_content'
             end
           end
         end
       end
     end
-
   end
-
-
-=begin
-  action_item :view do
-    if Test.last != nil
-      if  Test.last.status == Test::STATUS.invert[:COMPLETED]
-        link_to " Test #{ Test.last.id } has been Completed", 
-          admin_site_data_infos_path('q[test_id_equals]' => Test.last.id), 
-          :style => "color : darkgreen"
-      else
-        link_to " Test #{ Test.last.id } is #{ Test::STATUS[Test.last.status]}",
-          admin_site_data_infos_path('q[test_id_equals]' => Test.last.id),
-          :style => "color : dark-blue"
-      end
-    end
-  end
-
-  action_item :view do 
-    if Test.last != nil
-      total = Step.where(:test_id => Test.last.id).count
-      completed = Step.where(:test_id => Test.last.id, :status => 2).count
-      if completed != total
-        link_to "#{ completed } / #{ total } jobs completed", admin_steps_path('q[status_eq]' => '1'), :style => "color : dark-blue"
-      end
-    end
-  end
-=end
 
   # first it will add new wordpress site to database 
   # then run the test for all urls
