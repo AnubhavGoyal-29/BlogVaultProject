@@ -28,7 +28,7 @@ ActiveAdmin.register Url do
       link_to "Test #{url.site_data_infos.last.test_id}", admin_tests_path("q[id_equals]" => url.site_data_infos.last.test_id)
     end
     column 'LastTestData' do |url|
-      link_to "LastTestdataInfo", admin_site_data_infos_path("q[url_id_equals]" => url.site_data_infos.last.url_id, 
+      link_to "LastTestdataInfo", admin_site_data_infos_path("q[url_id_equals]" => url.site_data_infos.last.url_id) 
     end
   end
 
@@ -83,5 +83,4 @@ ActiveAdmin.register Url do
       end
     end
   end
-
 end
