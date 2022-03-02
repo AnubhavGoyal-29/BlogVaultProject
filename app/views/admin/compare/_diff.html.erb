@@ -24,12 +24,16 @@
   <tbody>
     <% for index in 0..data[:data_common][:plugin].count %>
       <tr>
-
-        <td><%= data[:data_1][:plugin][index] %></td>
-      <td><%= data[:data_2][:plugin][index] %></td>
-      <td><%= data[:data_common][:plugin][index] %></td>
-    </tr>
-  <%end%>
+        <td style="color : red"><%= data[:data_common][:plugin][index] %></td>
+        <td><%= data[:data_common][:plugin][index] %></td>
+      </tr>
+    <%end%>
+    <% for index in 0..((data[:data_1][:plugin].count, data[:data_2][:plugin].count).max) %>
+      <tr>
+        <td style="color : red" ><%= data[:data_1][:plugin][index] %></td>
+        <td style="color : green" ><%= data[:data_2][:plugin][index] %></td>
+      </tr>
+    <%end%>
   </tbody>
 
 </table>
