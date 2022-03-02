@@ -27,12 +27,12 @@ ActiveAdmin.register Url do
     end
     column 'LastTest' do |url|
       if url.site_data_infos.last
-        link_to "Test #{url.site_data_infos.last.test_id}", admin_tests_path("q[id_equals]" => url.site_data_infos.last.test_id)
+        link_to "Test #{url.site_data_infos.last.test_id}", admin_test_path(url.site_data_infos.last.test_id)
       end
     end
     column 'LastTestData' do |url|
       if url.site_data_infos.last
-        link_to "LastTestdataInfo", admin_site_data_infos_path("q[url_id_equals]" => url.site_data_infos.last.url_id) 
+        link_to "LastTestdataInfo", admin_site_data_infos_path("q[test_id_equals]" => url.site_data_infos.last.test_id, "q[url_id_equals]" => url.site_data_infos.last.url_id)
       end
     end
   end
@@ -87,8 +87,12 @@ ActiveAdmin.register Url do
         link_to "Test #{url.site_data_infos.last.test_id}", admin_tests_path("q[id_equals]" => url.site_data_infos.last.test_id)
       end
       row 'Changes' do |url|
-        link_to 'check', admin_compare_test_method_path(:url_id => url.id ), :method => 'get'
+        link_to 'check', test_select_form_admin_url_path(url)
       end
     end
+  end
+  member_action :test_select_form, :method => [:get, :post]
+  member_action :compare_test_form, :method => [:get, :post] do
+    render :partial => "compare_test_form" , :locals => {:test1 => params["test_select_form"]["test1"], :test2 => params["test_select_form"]["test2"]}
   end
 end

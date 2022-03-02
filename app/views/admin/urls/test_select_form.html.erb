@@ -1,0 +1,8 @@
+<%= form_for :test_select_form, builder: ActiveAdmin::FormBuilder,
+  :url => compare_test_form_admin_url_path, :method => :post  do |f| %>
+  <%= f.inputs "Select two tests" do %>
+    <%= f.input :test1, as: :select, collection: SiteDataInfo.where(:url_id => resource.id).pluck(:test_id) %>
+    <%= f.input :test2, as: :select, collection: SiteDataInfo.where(:url_id => resource.id).pluck(:test_id) %>
+  <%end%>
+  <%=submit_tag "Start Process"%>
+<%end%>
