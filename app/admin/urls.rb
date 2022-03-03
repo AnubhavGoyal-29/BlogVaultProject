@@ -94,7 +94,4 @@ ActiveAdmin.register Url do
     end
   end
   member_action :test_select_form, :method => [:get, :post]
-  member_action :compare_test_form, :method => [:get, :post] do
-    render :partial => "compare_test_form" , :locals => {:test1 => params["test_select_form"]["test1"], :test2 => params["test_select_form"]["test2"]}
-  end
 end

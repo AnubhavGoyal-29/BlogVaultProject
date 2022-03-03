@@ -8,7 +8,7 @@ ActiveAdmin.register Theme do
   index do 
     id_column
     column 'Name' do|theme|
-      name = ( ThemeSlug.where("name LIKE?","%#{theme.theme_name}%").first && ThemeSlug.where("slug LIKE?" , "%#{theme.theme_name}%").first.name )
+      name = ( ThemeSlug.where("name LIKE?","#{theme.theme_name}").first && ThemeSlug.where("slug LIKE?" , "#{theme.theme_name}").first.name )
       name ||= theme.theme_name
       div ( name )
     end

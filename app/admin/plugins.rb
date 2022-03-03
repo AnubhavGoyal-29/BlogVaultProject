@@ -10,7 +10,7 @@ ActiveAdmin.register Plugin do
   index do 
     id_column
     column 'Name' do|plugin|
-      name = ( PluginSlug.where("slug LIKE?", "%#{ plugin.plugin_name }%").first && PluginSlug.where("slug LIKE?", "%#{ plugin.plugin_name }%").first.name ) 
+      name = ( PluginSlug.where("slug LIKE?", "#{ plugin.plugin_name }").first && PluginSlug.where("slug LIKE?", "#{ plugin.plugin_name }").first.name ) 
       name ||= plugin.plugin_name
       div (name)
     end
@@ -28,6 +28,8 @@ ActiveAdmin.register Plugin do
         link_to "#{url_ids.count} :: urls", admin_urls_path('q[id_in]' => url_ids)
       end
     end
+    column :first_seen
+    column :last_seen
     column 'Status' do |plugin|
       status = plugin.status
       options = Plugin::STATUS.invert

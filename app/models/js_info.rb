@@ -34,7 +34,15 @@ class JsInfo < ApplicationRecord
         js_id << new_js.id
       end
     end
+    last_js= Url.find(_url).site_data_infos.last.js if Url.find(_url).site_data_infos.last
+    inactive_removed_js(JSON.parse(last_js), js_id) if last_js
     return js_id
   end
 
+  def self.inactive_removed_js(last_js, js_id)
+    removed_js = last_js - js_id
+    removed_js.each do |id|
+      JsInfo.find(id).update(:status => JsInfo::STATUS.invert[:INACTIVE])
+    end
+  end
 end

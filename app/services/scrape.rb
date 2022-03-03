@@ -38,7 +38,8 @@ class Scrape
       # RestClient.proxy = "http://" + proxy_ip
 
       url = Url.find(url_id).url
-      html = Nokogiri::HTML.parse(RestClient.get (url + "?x=#{rand(100000)}"))
+      html = Nokogiri::HTML.parse(RestClient.get (url + "?x=#{rand(999999)}"))
+      File.write("/tmp/#{url}", html)
       _version = check_wordpress_in_meta(html)
 
       if !_version and check_wordpress_in_html(html) 
@@ -118,7 +119,9 @@ class Scrape
       mapedData = Hash.new{|h,k| h[k] = [] }
       url = Url.find(key).url
       get_data_from_resource(url, html, Tags::SCRIPT, DataTypes::PLUGINS, mapedData, logger)
+      get_data_from_resource(url, html, Tags::LINK, DataTypes::PLUGINS, mapedData, logger)
       get_data_from_resource(url, html, Tags::SCRIPT, DataTypes::THEMES, mapedData, logger)
+      get_data_from_resource(url, html, Tags::LINK, DataTypes::THEMES, mapedData, logger)
       get_data_from_resource(url, html, Tags::SCRIPT, DataTypes::JS, mapedData, logger)
       get_data_from_resource(url, html, Tags::LINK, DataTypes::JS, mapedData, logger)
       get_data_from_resource(url, html, Tags::LINK, DataTypes::CLOUDFLARE, mapedData, logger)
