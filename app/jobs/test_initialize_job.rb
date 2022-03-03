@@ -8,7 +8,7 @@ class TestInitializeJob < ApplicationJob
   def perform(urls)
     logger.info "test has been initialized"
     urls = urls - ['']
-    test = Test.create!(:urls => urls.size, :status => Test::STATUS.invert[:RUNNING])
+    test = Test.create!(:number_of_urls => urls.size, :status => Test::STATUS.invert[:RUNNING])
     url_ids = []
     new_urls = []
     new_id = Url.last ? Url.last.id : 1 ; 

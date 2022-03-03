@@ -3,6 +3,7 @@ class CreatePlugins < ActiveRecord::Migration[5.2]
     create_table :plugins do |t|
       t.string :plugin_name
       t.string :url_id
+      t.string :test_id
       t.integer :status
       t.string :type
       t.string :version
