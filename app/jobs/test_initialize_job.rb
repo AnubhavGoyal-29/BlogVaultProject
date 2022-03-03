@@ -27,7 +27,7 @@ class TestInitializeJob < ApplicationJob
     end
     Url.import new_urls
 
-    url_ids.each_slice(10) do |_url_ids|
+    url_ids.each_slice(50) do |_url_ids|
       step = Step.create(:status => Step::STATUS.invert[:INITIALIZED], :urls => _url_ids, :test_id => test.id)
       BlogvaultScrapingJob.perform_later(_url_ids, test.id, step.id)
     end

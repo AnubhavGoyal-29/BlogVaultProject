@@ -93,14 +93,17 @@ ActiveAdmin.register_page "Dashboard" do
   # then run the test for all urls
   page_action :start_test, :method => [:post,:get] do
     urls = []
-    if params[:start_test][:file]
+    if params[:start_test] && params[:start_test][:file]
       File.readlines(params[:start_test][:file].tempfile, chomp: true).each do |line|
         # to remove last character '/n'
         urls.append(line)
       end
+      TestInitializeJob.perform_later(urls)
+      flash[:notice] = "test has been started"
+      redirect_to admin_dashboard_path
+    else
+      flash[:alert] = "please input a csv file to get started"
+      redirect_to admin_dashboard_path
     end
-    TestInitializeJob.perform_later(urls)
-    flash[:notice] = "test has been started"
-    redirect_to admin_dashboard_path
   end
 end
