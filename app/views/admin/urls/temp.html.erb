@@ -21,21 +21,13 @@ table.center {
 }
 </style>
 
-<%= form_for :test_select_form, builder: ActiveAdmin::FormBuilder,
-  :url => test_select_form_admin_url_path, :method => :post  do |f| %>
-  <%= f.inputs "Select two tests" do %>
-    <%= f.input :test1, as: :select, required: true, collection: SiteDataInfo.where(:url_id => resource.id).pluck(:test_id) %>
-    <%= f.input :test2, as: :select, required: true, collection: SiteDataInfo.where(:url_id => resource.id).pluck(:test_id) %>
-  <%end%>
-  <%=submit_tag "Start Process"%>
-<%end%>
-<%= form_for "test_select_form", builder: ActiveAdmin::FormBuilder, :url => "", :method => :post  do |f| %>
-  <% if params["test_select_form"] and params["test_select_form"]["test1"] != "" and params["test_select_form"]["test2"] != "" %>
-  <% data = Url.find(resource.id).compare_two_test(params["test_select_form"]["test1"], params["test_select_form"]["test2"]) %>
+<%= form_for "compare_test_form", builder: ActiveAdmin::FormBuilder, :url => "", :method => :post  do |f| %>
+  <div class= 'panel'>
+    <%= data = Url.find(resource.id).compare_two_test(test1, test2) %>
     <h1><%= link_to resource.url, admin_url_path(resource.id)%></h1>
     <h2> General Info </h2>
     <table class="center", style="width:80%">
-      <thead><th>Field</th><th>Test <%= params["test_select_form"]["test1"]%></th><th>Test <%= params["test_select_form"]["test2"]%></th></thead>
+      <thead><th>Field</th><th>Test1</th><th>Test2</th></thead>
       <tbody>
         <tr>
           <td> Cloudflare </td>
@@ -57,7 +49,7 @@ table.center {
 
     <h2> Plugins </h2>
     <table class="center", style="width:80%">
-      <thead><th>Test <%= params["test_select_form"]["test1"]%></th><th>Test <%= params["test_select_form"]["test2"]%></th></thead>
+      <thead><th>Test1</th><th>Test2</th></thead>
       <tbody>
         <% for index in 0..data[:data_common][:plugin].count-1 %>
           <tr>
@@ -68,16 +60,16 @@ table.center {
         <%total_count = (data[:data_1][:plugin].count > data[:data_2][:plugin].count) ? data[:data_1][:plugin].count : data[:data_2][:plugin].count%>
         <% for index in 0..total_count-1 %>
           <tr>
-            <td style="color : red"><%= data[:data_1][:plugin][index] %></td>
-            <td style="color : green"><%= data[:data_2][:plugin][index] %></td>
+            <td style="color : red"><%= data[:data_common][:plugin][index] %></td>
+            <td><%= data[:data_common][:plugin][index] %></td>
           </tr>
         <%end%>
       </tbody>
     </table>
 
-    <h2> Themes </h2>
+     <h2> Themes </h2>
     <table class="center", style="width:80%">
-      <thead><th>Test <%= params["test_select_form"]["test1"]%></th><th>Test <%= params["test_select_form"]["test2"]%></th></thead>
+      <thead><th>Test1</th><th>Test2</th></thead>
       <tbody>
         <% for index in 0..data[:data_common][:theme].count-1 %>
           <tr>
@@ -88,8 +80,8 @@ table.center {
         <%total_count = (data[:data_1][:theme].count > data[:data_2][:theme].count) ? data[:data_1][:theme].count : data[:data_2][:theme].count%>
         <% for index in 0..total_count-1 %>
           <tr>
-            <td style = "color : red;"><%= data[:data_1][:theme][index] %></td>
-            <td style = "color : green;"><%= data[:data_2][:theme][index] %></td>
+            <td style = "color:red;"><%= data[:data_1][:theme][index] %></td>
+            <td style = "color:green;"><%= data[:data_2][:theme][index] %></td>
           </tr>
         <%end%>
       </tbody>
@@ -97,7 +89,7 @@ table.center {
 
     <h2> Js </h2>
     <table class="center", style="width:80%">
-      <thead><th>Test <%= params["test_select_form"]["test1"]%></th><th>Test <%= params["test_select_form"]["test2"]%></th></thead>
+      <thead><th>Test1</th><th>Test2</th></thead>
       <tbody>
         <% for index in 0..data[:data_common][:js].count-1 %>
           <tr>
@@ -108,12 +100,12 @@ table.center {
         <%total_count = (data[:data_1][:js].count > data[:data_2][:js].count) ? data[:data_1][:js].count : data[:data_2][:js].count%>
         <% for index in 0..total_count-1 %>
           <tr>
-            <td style = "color : red;"><%= data[:data_1][:js][index] %></td>
-            <td style = "color : green;"><%= data[:data_2][:js][index] %></td>
+            <td style = "color:red;"><%= data[:data_1][:js][index] %></td>
+            <td style = "color:green;"><%= data[:data_2][:js][index] %></td>
           </tr>
         <%end%>
       </tbody>
     </table>
-    <% end %>
   </div>
 <% end %>
+

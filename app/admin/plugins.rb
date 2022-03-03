@@ -24,7 +24,7 @@ ActiveAdmin.register Plugin do
         url_ids = Plugin.where(:plugin_name => plugin.plugin_name, :status => Plugin::STATUS.invert[:ACTIVE]).pluck(:url_id)
         link_to "#{url_ids.count} :: urls", admin_urls_path('q[id_in]' => url_ids)
       else
-        url_ids = Plugin.where("first_seen <= ?", params[:test_id]).where("last_seen >= ?", params[:test_id]).where(:plugin_name => plugin.plugin_name).pluck(:url_id)
+        url_ids = Plugin.where("first_seen <= ?", params["test_id"]).where("last_seen >= ?", params["test_id"]).where(:plugin_name => plugin.plugin_name).pluck(:url_id)
         link_to "#{url_ids.count} :: urls", admin_urls_path('q[id_in]' => url_ids)
       end
     end

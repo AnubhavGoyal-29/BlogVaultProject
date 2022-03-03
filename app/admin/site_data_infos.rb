@@ -32,7 +32,7 @@ ActiveAdmin.register SiteDataInfo do
     column 'Plugins' do |site_data|
       plugins = site_data.plugins
       if JSON::parse(plugins).size > 0
-        link_to 'Plugins', admin_plugins_path("q[url_id_equals]" => site_data.url_id, "q[status_equals]" => 1)
+        link_to 'Plugins', admin_plugins_path("q[url_id_equals]" => site_data.url_id)
       else
         div("Not found", style: "color: red")
       end
@@ -40,7 +40,7 @@ ActiveAdmin.register SiteDataInfo do
     column 'Themes' do |site_data|
       themes = site_data.themes
       if JSON::parse(themes).size > 0
-        link_to 'Themes', admin_themes_path("q[url_id_equals]" => site_data.url_id, "q[status_equals]" => 1)
+        link_to 'Themes', admin_themes_path("q[url_id_equals]" => site_data.url_id)
       else
         div("Not found", style: "color: red")
       end
@@ -48,7 +48,7 @@ ActiveAdmin.register SiteDataInfo do
     column 'JS' do |site_data|
       js = site_data.js
       if JSON::parse(js).size > 0
-        link_to 'JS', admin_js_infos_path('q[url_id_equals]' => site_data.url_id, "q[status_equals]" => 1)
+        link_to 'JS', admin_js_infos_path('q[url_id_equals]' => site_data.url_id)
       else
         div("Not found", style: "color: red")
       end

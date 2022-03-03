@@ -30,10 +30,10 @@ ActiveAdmin.register Test do
       link_to 'plugins', admin_plugins_path('q[first_seen_less_than]' => test.id + 1,'q[last_seen_greater_than]' => test.id - 1, :test_id => test.id)
     end
     column 'Themes' do |test|
-      link_to 'themes', admin_themes_path('q[first_seen_less_than]' => test.id + 1,'q[last_seen_greater_than]' => test.id - 1, :test_id => test.id)
+      link_to 'themes', admin_plugins_path('q[first_seen_less_than]' => test.id + 1,'q[last_seen_greater_than]' => test.id - 1, :test_id => test.id)
     end
     column 'JS' do |test|
-      link_to 'js', admin_js_infos_path('q[first_seen_less_than]' => test.id + 1,'q[last_seen_greater_than]' => test.id - 1, :test_id => test.id)
+      link_to 'js', admin_plugins_path('q[first_seen_less_than]' => test.id + 1,'q[last_seen_greater_than]' => test.id - 1, :test_id => test.id)
 
     end
     column 'Status' do |test|

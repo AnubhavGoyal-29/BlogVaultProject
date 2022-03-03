@@ -71,7 +71,7 @@ ActiveAdmin.register_page "Dashboard" do
                   div i, :class => 'active_admin_test_completed_content'
                   a "Test #{test.id}",href: admin_tests_path('q[id_equals]' => test.id), 
                     :class => 'active_admin_test_completed_content'
-                  div test.urls, :class => 'active_admin_test_completed_content'
+                  div test.number_of_urls, :class => 'active_admin_test_completed_content'
                   div test.created_at, :class => 'active_admin_test_completed_content'
                   div test.updated_at, :class => 'active_admin_test_completed_content'
                   div (" #{Integer(test.updated_at - test.created_at)/60} min #{Integer(test.updated_at - test.created_at)%60} sec "), 

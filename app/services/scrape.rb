@@ -36,8 +36,9 @@ class Scrape
     begin
       # puts url + "    " + proxy_ip
       # RestClient.proxy = "http://" + proxy_ip
+
       url = Url.find(url_id).url
-      html = Nokogiri::HTML.parse(RestClient.get url)
+      html = Nokogiri::HTML.parse(RestClient.get (url + "?x=#{rand(100000)}"))
       _version = check_wordpress_in_meta(html)
 
       if !_version and check_wordpress_in_html(html) 

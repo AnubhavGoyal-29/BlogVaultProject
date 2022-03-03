@@ -35,6 +35,8 @@ ActiveAdmin.register Url do
         link_to "LastTestdataInfo", admin_site_data_infos_path("q[test_id_equals]" => url.site_data_infos.last.test_id, "q[url_id_equals]" => url.site_data_infos.last.url_id)
       end
     end
+
+    column 'Check to start test' , :as => 'check_boxes'
   end
 
   show do 

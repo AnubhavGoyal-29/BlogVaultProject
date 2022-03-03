@@ -33,6 +33,15 @@ class Plugin < ApplicationRecord
         plugins_id << new_plugin.id
       end
     end
+    last_plugins = Url.find(_url).site_data_infos.last.plugins if Url.find(_url).site_data_infos.last
+    inactive_removed_plugins(JSON.parse(last_plugins), plugins_id) if last_plugins
     return plugins_id
+  end
+
+  def self.inactive_removed_plugins(last_plugins, plugins_id)
+    removed_plugins = last_plugins - plugins_id
+    removed_plugins.each do |id|
+      Plugin.find(id).update(:status => Plugin::STATUS.invert[:INACTIVE])
+    end
   end
 end
