@@ -15,8 +15,13 @@ ActiveAdmin.register JsInfo do
       end
     end
     column "Usage" do |js|
-      url_ids = JsInfo.where(:js_name => js.js_name, :status => JsInfo::STATUS.invert[:ACTIVE]).pluck(:url_id)
-      link_to "#{url_ids.count} :: urls", admin_urls_path('q[id_in]' => url_ids)
+      if !params["test_id"]
+        url_ids = JsInfo.where(:js_name => js.js_name, :status => JsInfo::STATUS.invert[:ACTIVE]).pluck(:url_id)
+        link_to "#{url_ids.count} :: urls", admin_urls_path('q[id_in]' => url_ids)
+      else
+        url_ids = JsInfo.where("first_seen <= ?", params["test_id"]).where("last_seen >= ?", params["test_id"]).where(:js_name => js.js_name).pluck(:url_id)
+        link_to "#{url_ids.count} :: urls", admin_urls_path("q[id_in]" => url_ids)
+      end
     end
     column 'Status' do |js|
       status = js.status

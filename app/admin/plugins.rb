@@ -3,8 +3,9 @@ ActiveAdmin.register Plugin do
   actions :index, :show  
   filter :plugin_name
   filter :url_id
-  filter :plugin_name
   filter :status , :as => :select, :collection => Plugin::STATUS.invert
+  filter :first_seen
+  filter :last_seen
 
   index do 
     id_column
@@ -19,8 +20,13 @@ ActiveAdmin.register Plugin do
     end
 =end
     column "Usage" do |plugin|
-      url_ids = Plugin.where(:plugin_name => plugin.plugin_name, :status => Plugin::STATUS.invert[:ACTIVE]).pluck(:url_id)
-      link_to "#{url_ids.count} :: urls", admin_urls_path('q[id_in]' => url_ids)
+      if !params["test_id"]
+        url_ids = Plugin.where(:plugin_name => plugin.plugin_name, :status => Plugin::STATUS.invert[:ACTIVE]).pluck(:url_id)
+        link_to "#{url_ids.count} :: urls", admin_urls_path('q[id_in]' => url_ids)
+      else
+        url_ids = Plugin.where("first_seen <= ?", params["test_id"]).where("last_seen >= ?", params["test_id"]).where(:plugin_name => plugin.plugin_name).pluck(:url_id)
+        link_to "#{url_ids.count} :: urls", admin_urls_path('q[id_in]' => url_ids)
+      end
     end
     column 'Status' do |plugin|
       status = plugin.status

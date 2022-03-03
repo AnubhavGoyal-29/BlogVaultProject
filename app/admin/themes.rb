@@ -18,8 +18,13 @@ ActiveAdmin.register Theme do
     end
 =end
     column "Usage" do |theme|
-      url_ids = Theme.where(:theme_name => theme.theme_name, :status => Theme::STATUS.invert[:ACTIVE]).pluck(:url_id)
-      link_to "#{url_ids.count} :: urls", admin_urls_path('q[id_in]' => url_ids)
+      if !params["test_id"]
+        url_ids = Theme.where(:theme_name => theme.theme_name, :status => Theme::STATUS.invert[:ACTIVE]).pluck(:url_id)
+        link_to "#{url_ids.count} :: urls", admin_urls_path('q[id_in]' => url_ids)
+      else
+        url_ids = Theme.where("first_seen <= ?", params["test_id"]).where("last_seen >= ?", params["test_id"]).where(:theme_name => theme.theme_name).pluck(:url_id)
+        link_to "#{url_ids.count} :: urls", admin_urls_path('q[id_in]' => url_ids)
+      end
     end
     column 'Status' do |theme|
       status = theme.status
