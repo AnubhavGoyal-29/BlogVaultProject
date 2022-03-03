@@ -31,7 +31,7 @@ table.center {
 <%end%>
 <%= form_for "test_select_form", builder: ActiveAdmin::FormBuilder, :url => "", :method => :post  do |f| %>
   <% if params["test_select_form"] and params["test_select_form"]["test1"] != "" and params["test_select_form"]["test2"] != "" %>
-  <% data = Url.find(resource.id).compare_two_test(params["test_select_form"]["test1"], params["test_select_form"]["test2"]) %>
+    <% data = Url.find(resource.id).compare_two_test(params["test_select_form"]["test1"], params["test_select_form"]["test2"]) %>
     <h1><%= link_to resource.url, admin_url_path(resource.id)%></h1>
     <h2> General Info </h2>
     <table class="center", style="width:80%">
@@ -55,65 +55,80 @@ table.center {
       </tbody>
     </table>
 
-    <h2> Plugins </h2>
+    <h2><%= link_to "Plugins", admin_plugins_path %> </h2>
     <table class="center", style="width:80%">
       <thead><th>Test <%= params["test_select_form"]["test1"]%></th><th>Test <%= params["test_select_form"]["test2"]%></th></thead>
       <tbody>
         <% for index in 0..data[:data_common][:plugin].count-1 %>
           <tr>
-            <td><%= data[:data_common][:plugin][index] %></td>
-            <td><%= data[:data_common][:plugin][index] %></td>
+            <td><%= link_to data[:data_common][:plugin][index], 
+              admin_plugins_path("q[plugin_name_equals]" => data[:data_common][:plugin][index]) %></td>
+            <td><%= link_to data[:data_common][:plugin][index], 
+              admin_plugins_path("q[plugin_name_equals]" => data[:data_common][:plugin][index]) %></td>
           </tr>
         <%end%>
         <%total_count = (data[:data_1][:plugin].count > data[:data_2][:plugin].count) ? data[:data_1][:plugin].count : data[:data_2][:plugin].count%>
         <% for index in 0..total_count-1 %>
           <tr>
-            <td style="color : red"><%= data[:data_1][:plugin][index] %></td>
-            <td style="color : green"><%= data[:data_2][:plugin][index] %></td>
+            <% if data[:data_1][:plugin][index]%>
+              <td style="background-color : #FFCCCB"><%= link_to data[:data_1][:plugin][index], 
+                admin_plugins_path("q[plugin_name_equals]" => data[:data_1][:plugin][index]) %></td>
+            <% end %>
+            <% if data[:data_2][:plugin][index]%>
+              <td style="background-color : #90EE90"><%= link_to data[:data_2][:plugin][index], 
+                admin_plugins_path("q[plugin_name_equals]" => data[:data_2][:plugin][index]) %></td>
+            <% end %>
           </tr>
         <%end%>
       </tbody>
     </table>
 
-    <h2> Themes </h2>
+    <h2><%= link_to "Themes", admin_themes_path %></h2>
     <table class="center", style="width:80%">
       <thead><th>Test <%= params["test_select_form"]["test1"]%></th><th>Test <%= params["test_select_form"]["test2"]%></th></thead>
       <tbody>
         <% for index in 0..data[:data_common][:theme].count-1 %>
           <tr>
-            <td><%= data[:data_common][:theme][index] %></td>
-            <td><%= data[:data_common][:theme][index] %></td>
+            <td><%= link_to data[:data_common][:theme][index],admin_themes_path("q[theme_name_equals]" => data[:data_common][:theme][index]) %></td>
+            <td><%= link_to data[:data_common][:theme][index],admin_themes_path("q[theme_name_equals]" => data[:data_common][:theme][index]) %></td>
+
           </tr>
         <%end%>
         <%total_count = (data[:data_1][:theme].count > data[:data_2][:theme].count) ? data[:data_1][:theme].count : data[:data_2][:theme].count%>
         <% for index in 0..total_count-1 %>
           <tr>
-            <td style = "color : red;"><%= data[:data_1][:theme][index] %></td>
-            <td style = "color : green;"><%= data[:data_2][:theme][index] %></td>
+            <td style = "color : #FFCCCB;"><%= link_to data[:data_1][:theme][index],
+              admin_themes_path("q[theme_name_equals]" => data[:data_1][:theme][index]) %></td>
+            <td style = "color : #90EE90;"><%= link_to data[:data_2][:theme][index], 
+              admin_themes_path("q[theme_name_equals]" => data[:data_2][:theme][index]) %></td>
+
           </tr>
         <%end%>
       </tbody>
     </table>
 
-    <h2> Js </h2>
+    <h2><%= link_to "Js", admin_js_infos_path %></h2>
     <table class="center", style="width:80%">
       <thead><th>Test <%= params["test_select_form"]["test1"]%></th><th>Test <%= params["test_select_form"]["test2"]%></th></thead>
       <tbody>
         <% for index in 0..data[:data_common][:js].count-1 %>
           <tr>
-            <td><%= data[:data_common][:js][index] %></td>
-            <td><%= data[:data_common][:js][index] %></td>
+            <td><%= link_to data[:data_common][:js][index],admin_js_infos_path("q[js_name_equals]" => data[:data_common][:js][index]) %></td>
+            <td><%= link_to data[:data_common][:js][index],admin_js_infos_path("q[js_name_equals]" => data[:data_common][:js][index]) %></td>
+
           </tr>
         <%end%>
         <%total_count = (data[:data_1][:js].count > data[:data_2][:js].count) ? data[:data_1][:js].count : data[:data_2][:js].count%>
         <% for index in 0..total_count-1 %>
           <tr>
-            <td style = "color : red;"><%= data[:data_1][:js][index] %></td>
-            <td style = "color : green;"><%= data[:data_2][:js][index] %></td>
+            <td style = "color : #FFCCCB;"><%= link_to data[:data_2][:js][index], 
+              admin_js_infos_path("q[js_name_equals]" => data[:data_1][:js][index]) %></td>
+            <td style = "color : #90EE90;"><%= link_to data[:data_2][:js][index], 
+              admin_js_infos_path("q[js_name_equals]" => data[:data_2][:js][index]) %></td>
           </tr>
         <%end%>
       </tbody>
     </table>
-    <% end %>
+  <% end %>
   </div>
 <% end %>
