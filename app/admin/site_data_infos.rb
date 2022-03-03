@@ -48,7 +48,7 @@ ActiveAdmin.register SiteDataInfo do
     column 'JS' do |site_data|
       js = site_data.js
       if JSON::parse(js).size > 0
-        link_to 'JS', admin_js_infos_path('q[id_not_in]' => [705,704,703,703,702], "q[status_equals]" => 1)
+        link_to 'JS', admin_js_infos_path('q[url_id_equals]' => site_data.url_id, "q[status_equals]" => 1)
       else
         div("Not found", style: "color: red")
       end

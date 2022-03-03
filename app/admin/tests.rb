@@ -27,7 +27,7 @@ ActiveAdmin.register Test do
       end
       plugin_ids.uniq!
 =end
-      link_to 'plugins', admin_plugins_path('q[url_id_in]' => SiteDataInfo.where(test_id: test.id).pluck(:url_id), 'q[status_equals]' => 1)
+      link_to 'plugins', admin_plugins_path('q[first_seen_less_than]' => test.id + 1,'q[last_seen_greater_than]' => test.id - 1)
     end
     column 'Themes' do |test|
       theme_ids = []

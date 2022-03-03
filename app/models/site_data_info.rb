@@ -30,9 +30,9 @@ class SiteDataInfo < ApplicationRecord
       maped_data = data[:mapedData]
       cms_version = data[:version]
       cloudflare =  maped_data['cloudflare'].size > 0
-      _plugins = Plugin.import_plugins(maped_data["plugins"].uniq, url_id)
-      _themes = Theme.import_themes(maped_data["themes"].uniq, url_id)
-      _js = JsInfo.import_js(maped_data["js"].uniq, url_id)
+      _plugins = Plugin.import_plugins(maped_data["plugins"].uniq, url_id, test_id)
+      _themes = Theme.import_themes(maped_data["themes"].uniq, url_id, test_id)
+      _js = JsInfo.import_js(maped_data["js"].uniq, url_id, test_id)
       _login_url = maped_data[:login_url]
       _ip = maped_data[:ip]
       data_map = Hash.new
