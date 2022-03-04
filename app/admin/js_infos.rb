@@ -16,20 +16,25 @@ ActiveAdmin.register JsInfo do
     end
     column "Usage" do |js|
       if !params["test_id"]
-        url_ids = JsInfo.where(:js_name => js.js_name, :status => JsInfo::STATUS.invert[:ACTIVE]).pluck(:url_id)
+        url_ids = JsInfo.where(:js_name => js.js_name, :status => JsInfo::Status::ACTIVE).pluck(:url_id)
         link_to "#{url_ids.count} :: urls", admin_urls_path('q[id_in]' => url_ids)
       else
-        url_ids = JsInfo.where("first_seen <= ?", params["test_id"]).where("last_seen >= ?", params["test_id"]).where(:js_name => js.js_name).pluck(:url_id)
+        url_ids = JsInfo.where("first_seen <= ?", params["test_id"]).where("last_seen >= ?",
+                                                                           params["test_id"]).where(:js_name => js.js_name).pluck(:url_id)
         link_to "#{url_ids.count} :: urls", admin_urls_path("q[id_in]" => url_ids)
       end
     end
-    column 'Status' do |js|
-      status = js.status
-      options = JsInfo::STATUS.invert
-      if status == options[:INACTIVE]
-        div ('INACTIVE'),style: "color: red"
-      elsif status == options[:ACTIVE]
-        div ('ACTIVE'),style: "color: green"
+    column :first_seen
+    column :last_seen
+    if params[:q]
+      column 'Status' do |js|
+        status = js.status
+        options = JsInfo::STATUS.invert
+        if status == options[:INACTIVE]
+          div ('INACTIVE'),style: "color: red"
+        elsif status == options[:ACTIVE]
+          div ('ACTIVE'),style: "color: green"
+        end
       end
     end
   end
@@ -38,7 +43,7 @@ ActiveAdmin.register JsInfo do
     attributes_table do
       row :js_name
       row "Usage" do |js|
-        url_ids = JsInfo.where(:js_name => js.js_name, :status => JsInfo::STATUS.invert[:ACTIVE]).pluck(:url_id)
+        url_ids = JsInfo.where(:js_name => js.js_name, :status => JsInfo::Status::ACTIVE).pluck(:url_id)
         link_to "#{url_ids.count} :: urls", admin_urls_path('q[id_in]' => url_ids)
       end
     end

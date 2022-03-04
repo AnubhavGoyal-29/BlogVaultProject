@@ -101,17 +101,17 @@ ActiveAdmin.register Url do
         link_to "Test #{url.site_data_infos.last.test_id}", admin_tests_path("q[id_equals]" => url.site_data_infos.last.test_id)
       end
       row 'Changes' do |url|
-        link_to 'check', test_select_form_admin_url_path(url)
+        link_to 'check', test_comparison_admin_url_path(url)
       end
     end
   end
-  member_action :test_select_form, :method => [:get, :post]
+  member_action :test_comparison, :method => [:get, :post]
   member_action :run_test, :method => :get do 
     ids = params["id"].split('/')
     raise "please select at least one url" if ids.count == 0
     urls = Url.where(:id => ids).pluck(:url)
     test = Test.create!(:number_of_urls => urls.size, :status => Test::Status::RUNNING)
-    TestInitializeJob.perform_later(urls)
+    TestInitializeJob.perform_later(urls, test.id)
     flash[:notice] = "Test has been started"
     redirect_to admin_urls_path
   rescue => e

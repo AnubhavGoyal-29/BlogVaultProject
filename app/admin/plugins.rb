@@ -24,19 +24,22 @@ ActiveAdmin.register Plugin do
         url_ids = Plugin.where(:plugin_name => plugin.plugin_name, :status => Plugin::STATUS.invert[:ACTIVE]).pluck(:url_id)
         link_to "#{url_ids.count} :: urls", admin_urls_path('q[id_in]' => url_ids)
       else
-        url_ids = Plugin.where("first_seen <= ?", params["test_id"]).where("last_seen >= ?", params["test_id"]).where(:plugin_name => plugin.plugin_name).pluck(:url_id)
+        url_ids = Plugin.where("first_seen <= ?", params["test_id"]).where("last_seen >= ?",
+                                                                           params["test_id"]).where(:plugin_name => plugin.plugin_name).pluck(:url_id)
         link_to "#{url_ids.count} :: urls", admin_urls_path('q[id_in]' => url_ids)
       end
     end
     column :first_seen
     column :last_seen
-    column 'Status' do |plugin|
-      status = plugin.status
-      options = Plugin::STATUS.invert
-      if status == options[:INACTIVE]
-        div (Plugin::STATUS[status]),style: "color: red"
-      elsif status == options[:ACTIVE]
-        div (Plugin::STATUS[status]),style: "color: green"
+    if params[:q]
+      column 'Status' do |plugin|
+        status = plugin.status
+        options = Plugin::STATUS.invert
+        if status == options[:INACTIVE]
+          div (Plugin::STATUS[status]),style: "color: red"
+        elsif status == options[:ACTIVE]
+          div (Plugin::STATUS[status]),style: "color: green"
+        end
       end
     end
   end

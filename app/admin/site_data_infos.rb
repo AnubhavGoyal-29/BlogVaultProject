@@ -27,7 +27,7 @@ ActiveAdmin.register SiteDataInfo do
       link_to site_data.test.id, admin_test_path(site_data.test)
     end
     column "Url" do |site_data|
-      link_to "#{site_data.url.id}:  #{site_data.url.url}", admin_url_path(site_data.url)
+      link_to "#{site_data.url.id}:: #{site_data.url.url}", admin_url_path(site_data.url)
     end 
     column 'Plugins' do |site_data|
       plugins = site_data.plugins

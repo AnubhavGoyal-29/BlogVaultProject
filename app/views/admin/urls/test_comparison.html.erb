@@ -21,18 +21,18 @@ table.center {
 }
 </style>
 
-<%= form_for :test_select_form, builder: ActiveAdmin::FormBuilder,
-  :url => test_select_form_admin_url_path, :method => :post  do |f| %>
+<%= form_for :test_comparison, builder: ActiveAdmin::FormBuilder,
+  :url => test_comparison_admin_url_path, :method => :post  do |f| %>
   <%= f.inputs "Select two tests" do %>
     <%= f.input :test1, as: :select, required: true, collection: SiteDataInfo.where(:url_id => resource.id).pluck(:test_id) %>
     <%= f.input :test2, as: :select, required: true, collection: SiteDataInfo.where(:url_id => resource.id).pluck(:test_id) %>
   <%end%>
   <%=submit_tag "Start Process"%>
 <%end%>
-<%= form_for "test_select_form", builder: ActiveAdmin::FormBuilder, :url => "", :method => :post  do |f| %>
-  <% if params["test_select_form"] and params["test_select_form"]["test1"] != "" and params["test_select_form"]["test2"] != "" %>
-         <% test1 = params["test_select_form"]["test1"] %>
-         <% test2 = params["test_select_form"]["test2"]%>
+<%= form_for "test_comparison", builder: ActiveAdmin::FormBuilder, :url => "", :method => :post  do |f| %>
+  <% if params["test_comparison"] and params["test_comparison"]["test1"] != "" and params["test_comparison"]["test2"] != "" %>
+         <% test1 = params["test_comparison"]["test1"] %>
+         <% test2 = params["test_comparison"]["test2"]%>
           <% if test1 > test2%>
             <% temp = test1%>
             <% test1 = test2%>
@@ -42,7 +42,8 @@ table.center {
     <h1><%= link_to resource.url, admin_url_path(resource.id)%></h1>
     <h2> General Info </h2>
     <table class="center", style="width:80%">
-      <thead><th>Field</th><th>Test <%= params["test_select_form"]["test1"]%></th><th>Test <%= params["test_select_form"]["test2"]%></th></thead>
+      <thead><th>Field</th><th>Test <%= params["test_comparison"]["test1"]%></th>
+      <th>Test <%= params["test_comparison"]["test2"]%></th></thead>
       <tbody>
         <tr>
           <td> Cloudflare </td>
@@ -64,7 +65,7 @@ table.center {
 
     <h2><%= link_to "Plugins", admin_plugins_path %> </h2>
     <table class="center", style="width:80%">
-      <thead><th>Test <%= params["test_select_form"]["test1"]%></th><th>Test <%= params["test_select_form"]["test2"]%></th></thead>
+      <thead><th>Test <%= params["test_comparison"]["test1"]%></th><th>Test <%= params["test_comparison"]["test2"]%></th></thead>
       <tbody>
         <% for index in 0..data[:data_common][:plugin].count-1 %>
           <tr>
@@ -94,7 +95,7 @@ table.center {
 
     <h2><%= link_to "Themes", admin_themes_path %></h2>
     <table class="center", style="width:80%">
-      <thead><th>Test <%= params["test_select_form"]["test1"]%></th><th>Test <%= params["test_select_form"]["test2"]%></th></thead>
+      <thead><th>Test <%= params["test_comparison"]["test1"]%></th><th>Test <%= params["test_comparison"]["test2"]%></th></thead>
       <tbody>
         <% for index in 0..data[:data_common][:theme].count-1 %>
           <tr>
@@ -118,7 +119,7 @@ table.center {
 
     <h2><%= link_to "Js", admin_js_infos_path %></h2>
     <table class="center", style="width:80%">
-      <thead><th>Test <%= params["test_select_form"]["test1"]%></th><th>Test <%= params["test_select_form"]["test2"]%></th></thead>
+      <thead><th>Test <%= params["test_comparison"]["test1"]%></th><th>Test <%= params["test_comparison"]["test2"]%></th></thead>
       <tbody>
         <% for index in 0..data[:data_common][:js].count-1 %>
           <tr>

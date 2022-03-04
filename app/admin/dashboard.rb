@@ -23,13 +23,12 @@ ActiveAdmin.register_page "Dashboard" do
               h3 "Running Time", :class => 'active_admin_test_running_label'
               hr
             end
-            tests = Test.where(:status => Test::STATUS.invert[:RUNNING]).all
+            tests = Test.where(:status => Test::Status::RUNNING).all
             i = 1
             if tests.count > 0
               tests.each do |test|
                 total = Step.where(:test_id => test.id).count
-                completed = Step.where(:test_id => test.id, :status => Step::STATUS.invert[:COMPLETED]).count
-
+                completed = Step.where(:test_id => test.id, :status => Step::Status::COMPLETED).count
                 div :class => 'running_tests' do
                   div i, :class => 'active_admin_test_running_content'
                   div "Test #{test.id} is running",
@@ -63,7 +62,7 @@ ActiveAdmin.register_page "Dashboard" do
               span "Time Taken", :class => 'active_admin_test_completed_label'
               br
             end
-            tests = Test.where(:status => Test::STATUS.invert[:COMPLETED]).last(5)
+            tests = Test.where(:status => Test::Status::COMPLETED).last(5)
             i = 1
             if tests.count > 0
               tests.reverse.each do |test|
