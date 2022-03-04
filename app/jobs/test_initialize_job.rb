@@ -8,7 +8,7 @@ class TestInitializeJob < ApplicationJob
   def perform(urls)
     logger.info "test has been initialized"
     urls = urls - ['']
-    test = Test.create!(:number_of_urls => urls.size, :status => Test::STATUS.invert[:RUNNING])
+    test = Test.create!(:number_of_urls => urls.size, :status => Test::Status::RUNNING)
     url_ids = []
     new_urls = []
     new_id = Url.last ? Url.last.id : 1 ; 
@@ -28,11 +28,11 @@ class TestInitializeJob < ApplicationJob
     Url.import new_urls
 
     url_ids.each_slice(10) do |_url_ids|
-      step = Step.create(:status => Step::STATUS.invert[:INITIALIZED], :urls => _url_ids, :test_id => test.id)
+      step = Step.create(:status => Step::Status::INITIALIZED, :urls => _url_ids, :test_id => test.id)
       BlogvaultScrapingJob.perform_later(_url_ids, test.id, step.id)
     end
   rescue => e
-    Test.find(test.id).update(:status => Step::STATUS.invert[:FAILED])
+    Test.find(test.id).update(:status => Step::Status::FAILED)
     logger.info "error in test initialize #{e}"
   end
 end

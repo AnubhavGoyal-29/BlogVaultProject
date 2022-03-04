@@ -1,5 +1,6 @@
 ActiveAdmin.register Url do
 
+    permit_params :url
   actions :index, :show
   filter :id
   filter :url
@@ -36,7 +37,21 @@ ActiveAdmin.register Url do
       end
     end
 
-    column 'Check to start test' , :as => 'check_boxes'
+    column "select" do |url|
+      check_box_tag "skdnf"
+    end 
+
+        actions defaults: true do |role|
+        end
+
+  end
+
+ form do |f|
+    f.inputs "Add/Edit Role" do
+      f.input :user_id,  :as => :select, :collection => User.all
+      f.input :role_id, :as => :check_boxes, :collection => Role.all
+    end
+    actions
   end
 
   show do 
