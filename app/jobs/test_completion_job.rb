@@ -1,17 +1,30 @@
 class TestCompletionJob < ApplicationJob
   queue_as :default
 
+  def test
+    @test ||= Test.find(@test_id)
+  end
+
+  def step
+    @step ||= Step.find(@step_id)
+  end
+  
   def perform(logger, test_id, step_id)
-    Step.find(step_id).update(:status => Step::Status::COMPLETED)
+    @test_id = test_id
+    @step_id = step_id
+    step.update(:status => Step::Status::COMPLETED)
+    logger.info "Test Id : #{test_id} Step Id : #{ step.id } Message : Completed"
     total_jobs = Step.where(:test_id => test_id).count
     completed_jobs = Step.where(:test_id => test_id, status: Step::Status::COMPLETED).count
     if total_jobs == completed_jobs
-      Test.find(test_id).update(:status => Test::Status::COMPLETED)
       Url.url_site_data_info_update(test_id, logger)
+      test.update(:status => Test::Status::COMPLETED)
+      logger.info "Test Id : #{test_id} Message : Completed"
     end
   rescue => e
-    Step.find(step_id).update(:status => Step::Status::FAILED)
-    Test.find(test_id).update(:status => Test::Status::FAILED)
-    logger.info "error in test completion #{e}"
+    step.update(:status => Step::Status::FAILED)
+    test.find(test_id).update(:status => Test::Status::FAILED)
+    logger.info "Test Id : #{test_id} Step Id : #{step_id} Error : #{e}"
   end
+
 end

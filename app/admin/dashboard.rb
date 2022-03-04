@@ -99,7 +99,7 @@ ActiveAdmin.register_page "Dashboard" do
         urls.append(line)
       end
       test = Test.create!(:number_of_urls => urls.size, :status => Test::Status::INITIALIZED)
-      TestInitializeJob.new(urls, test.id).perform
+      TestInitializeJob.perform_later(urls, test.id)
       flash[:notice] = "test #{test.id} has been started"
       redirect_to admin_dashboard_path
     else

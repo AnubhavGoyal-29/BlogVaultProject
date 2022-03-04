@@ -24,7 +24,7 @@ class Scrape
     # _proxy = ProxyDatum.order('RANDOM()').first
     urls.each do |url_id|
       threads << Thread.new(){
-        thread_block(url_id,url_html_version_map, logger)
+        thread_block(url_id, url_html_version_map, logger, test_id)
       }
     end
     threads.each do |thread|
@@ -52,13 +52,13 @@ class Scrape
         url_html_version_map[_url_id] = {:html => html, :version => _version}
       end
     rescue => e
-      logger.info "Test ID : #{test_id}::#{url}::#{e}"
+      logger.info "Test Id : #{test_id} Url: #{url} Error: #{e}"
     end
   end
 
   def self.check_wordpress_in_meta(html)
-    metaName = ['generator', 'Generator']
-    metaName.each do |name|
+    meta_name = ['generator', 'Generator']
+    meta_name.each do |name|
       html.search("meta[name='#{name}']").map do |line|
         if line['content']
           cms = line['content']
@@ -89,15 +89,14 @@ class Scrape
     return nil
   end
 
-  def self.find_version_in_sub_resource(line, subresource)
+  def self.find_version_in_sub_resource(line, sub_resource)
     checks = ['wp-includes/css/dist/block-library/style.min.css', 'wp-includes/js/wp-embed.min.js']
-    if line[subresource]
+    if line[sub_resource]
       checks.each do |check|
-        if line[subresource][check]
-          ver = line[subresource].split('ver=')[1]
-          if ver.size < 7
-            puts ver
-            return ver
+        if line[sub_resource][check]
+          version = line[sub_resource].split('ver=')[1]
+          if version.size < 7 # version be like 5.14 or 12344232321212 so to take only actual version check is < 7
+            return version
           end
         end
       end
@@ -107,8 +106,8 @@ class Scrape
 
   def self.check_wordpress_name(cms)
     if cms && cms['Wordpress'] || cms['wordpress'] || cms['WordPress']
-      wordpressAndVersion = cms.split(' ')
-      return wordpressAndVersion[1] ? wordpressAndVersion[1] : 'version not found'
+      wordpress_and_version = cms.split(' ')
+      return wordpress_and_version[1] ? wordpress_and_version[1] : 'version not found'
     end
     return nil;
   end
@@ -117,67 +116,67 @@ class Scrape
     data = Hash.new{|h,k| h[k] = Hash.new }
     urls_data.each do |key, value|
       html = value[:html]
-      mapedData = Hash.new{|h,k| h[k] = [] }
+      maped_data = Hash.new{|h,k| h[k] = [] }
       url = Url.find(key).url
       
       
-      get_data_from_resource(url, html, Tags::LINK, DataTypes::PLUGINS, mapedData, logger)
-      get_data_from_resource(url, html, Tags::SCRIPT, DataTypes::PLUGINS, mapedData, logger)
+      get_data_from_resource(url, html, Tags::LINK, DataTypes::PLUGINS, maped_data, logger)
+      get_data_from_resource(url, html, Tags::SCRIPT, DataTypes::PLUGINS, maped_data, logger)
 
-      get_data_from_resource(url, html, Tags::LINK, DataTypes::MUPLUGINS, mapedData, logger)
-      get_data_from_resource(url, html, Tags::SCRIPT, DataTypes::MUPLUGINS, mapedData, logger)
+      get_data_from_resource(url, html, Tags::LINK, DataTypes::MUPLUGINS, maped_data, logger)
+      get_data_from_resource(url, html, Tags::SCRIPT, DataTypes::MUPLUGINS, maped_data, logger)
 
-      get_data_from_resource(url, html, Tags::LINK, DataTypes::THEMES, mapedData, logger)
-      get_data_from_resource(url, html, Tags::SCRIPT, DataTypes::THEMES, mapedData, logger)
+      get_data_from_resource(url, html, Tags::LINK, DataTypes::THEMES, maped_data, logger)
+      get_data_from_resource(url, html, Tags::SCRIPT, DataTypes::THEMES, maped_data, logger)
 
-      get_data_from_resource(url, html, Tags::LINK, DataTypes::JS, mapedData, logger)
-      get_data_from_resource(url, html, Tags::SCRIPT, DataTypes::JS, mapedData, logger)
+      get_data_from_resource(url, html, Tags::LINK, DataTypes::JS, maped_data, logger)
+      get_data_from_resource(url, html, Tags::SCRIPT, DataTypes::JS, maped_data, logger)
 
-      get_data_from_resource(url, html, Tags::LINK, DataTypes::CLOUDFLARE, mapedData, logger)
-      get_data_from_resource(url, html, Tags::SCRIPT, DataTypes::CLOUDFLARE, mapedData, logger) 
+      get_data_from_resource(url, html, Tags::LINK, DataTypes::CLOUDFLARE, maped_data, logger)
+      get_data_from_resource(url, html, Tags::SCRIPT, DataTypes::CLOUDFLARE, maped_data, logger) 
 
 
-      mapedData[:login_url].push(get_login_url(url, logger))
-      mapedData[:ip].push(get_ip(url))
-      data[key] = {:mapedData => mapedData, :version => value[:version]}
+      maped_data[:login_url].push(get_login_url(url, logger))
+      maped_data[:ip].push(get_ip(url))
+      data[key] = {:maped_data => maped_data, :version => value[:version]}
     end
     return data
   end
 
-  def self.get_data_from_resource(url, html, resource, dataType, mapedData, logger)
+  def self.get_data_from_resource(url, html, resource, data_type, maped_data, logger)
     resource_data = html.css(resource)
     resource_data.each do |line|
-      get_data_from_sub_source(url, line, dataType, Tags::SRC, mapedData, logger)
-      get_data_from_sub_source(url, line, dataType, Tags::HREF, mapedData, logger)
+      get_data_from_sub_source(url, line, data_type, Tags::SRC, maped_data, logger)
+      get_data_from_sub_source(url, line, data_type, Tags::HREF, maped_data, logger)
     end
   end
 
-  def self.get_data_from_sub_source(url, line, dataType, subResource, mapedData, logger)
-    if line[subResource] and line[subResource][dataType]
-      return mapedData[dataType] = [1] if dataType == DataTypes::CLOUDFLARE
+  def self.get_data_from_sub_source(url, line, data_type, sub_resource, maped_data, logger)
+    if line[sub_resource] and line[sub_resource][data_type]
+      return maped_data[data_type] = [1] if data_type == DataTypes::CLOUDFLARE
 
-      if dataType == DataTypes::JS
-        return if line[subResource][DataTypes::PLUGINS] || line[subResource][DataTypes::THEMES]
-        tempArr = line[subResource].split('/')
-        tempArr = tempArr - [nil, '']
-        tempArr = remove_common_words_from_line(url, tempArr, logger)
-        arr = tempArr.join('/').split('?')
-        if arr[1]
-          arr[1] = arr[1].split('=')[1]
+      if data_type == DataTypes::JS
+        return if line[sub_resource][DataTypes::PLUGINS] || line[sub_resource][DataTypes::THEMES]
+        key_words = line[sub_resource].split('/')
+        key_words = key_words - [nil, '']
+        key_words = remove_common_words_from_line(url, key_words, logger)
+        version_array = key_words.join('/').split('?')
+        if version_array[1]
+          version_array[1] = version_array[1].split('=')[1]
         end
         version = ''
-        js = arr[0] ;
-        version = arr[1] if arr[1]
+        js = version_array[0] ;
+        version = version_array[1] if version_array[1]
         if version.to_i == 0
           version = '0'
         end
-        mapedData[dataType].push([js,version])
+        maped_data[data_type].push([js,version])
         return 
       end
-      tempArr = line[subResource].split('/')      #tempArr stores string values spllitted by '/' sign in order to obtain resource and its next value
-      tempArr = tempArr.reverse
-      dataTypeIndex = tempArr.index(dataType)
-      mapedData[dataType].push(tempArr[dataTypeIndex-1].split('?')[0]) if dataTypeIndex && tempArr[dataTypeIndex-1] && !tempArr[dataTypeIndex-1]['.js']
+      key_words = line[sub_resource].split('/')      #tempArr stores string values spllitted by '/' sign in order to obtain resource and its next value
+      key_words = key_words.reverse
+      data_type_index = key_words.index(data_type)
+      maped_data[data_type].push(key_words[data_type_index-1].split('?')[0]) if data_type_index && key_words[data_type_index-1] && !key_words[data_type_index-1]['.js']
     end
   end
 
@@ -214,9 +213,9 @@ class Scrape
   end
 =end
 
-  def self.remove_common_words_from_line(url, tempArr, logger)
+  def self.remove_common_words_from_line(url, key_words, logger)
     common_words = ['libs', 'js', 'cache', 'min', 'lib', 'ajax', 'https:', 'wp-content', 'wp-includes','www.'+ url, url, '1']
-    tempArr = tempArr - common_words
-    return tempArr
+    key_words = key_words - common_words
+    return key_words
   end
 end

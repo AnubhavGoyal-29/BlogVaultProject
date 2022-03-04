@@ -27,11 +27,11 @@ class SiteDataInfo < ApplicationRecord
     site_data_objects = []
     #new_site_data_info_id = SiteDataInfo.last ? SiteDataInfo.last.id : 1 ;
     urls_data.each do |url_id, data|
-      maped_data = data[:mapedData]
+      maped_data = data[:maped_data]
       cms_version = data[:version]
       cloudflare =  maped_data['cloudflare'].size > 0
       _plugins = Plugin.import_plugins(maped_data["plugins"].uniq, url_id, test_id)
-      _plugins << Plugin.import_plugins(maped_data["mu-plugins"].uniq, url_id, test_id) if maped_data["mu-plugins"].count > 0
+      _plugins +=  Plugin.import_plugins(maped_data["mu-plugins"].uniq, url_id, test_id) if maped_data["mu-plugins"].count > 0
       _themes = Theme.import_themes(maped_data["themes"].uniq, url_id, test_id)
       _js = JsInfo.import_js(maped_data["js"].uniq, url_id, test_id)
       _login_url = maped_data[:login_url]
@@ -51,16 +51,15 @@ class SiteDataInfo < ApplicationRecord
       }
       #Url.find(url_id).update(:site_data_info_id => new_site_data_info_id)
       #new_site_data_info_id += 1
-      site_data_objects << create_from_maped_data(data_map, logger)
+      site_data_objects << create_from_maped_data(data_map, test_id, logger)
     end
-    logger.info "site data object size if #{site_data_objects.count}"
     SiteDataInfo.import site_data_objects
     return 
   rescue => e
-    logger.info e
+        logger.info "Test Id: #{test_id} \nError: #{e}"
   end
 
-  def self.create_from_maped_data(data, logger)
+  def self.create_from_maped_data(data, test_id, logger)
       begin
         site_data_info = self.new(
           url_id: data[:url_id], 
@@ -76,7 +75,7 @@ class SiteDataInfo < ApplicationRecord
         )
         return site_data_info
       rescue => e
-        logger.info e
+           logger.info "Test Id: #{test_id} \nError: #{e}"
       end
   end
 end

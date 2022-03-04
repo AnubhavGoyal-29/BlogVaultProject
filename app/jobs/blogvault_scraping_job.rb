@@ -1,28 +1,36 @@
 class BlogvaultScrapingJob < ApplicationJob
-  QUEUE = :my_worker_queue
+  queue_as = :default
 
   def logger
     @logger ||= Logger.new("log/testing.log")
   end
 
-  def perform(urls, test_id, step_id)
-    logger.info "Blogvault Scraping Job #{step_id} Started"
-    Step.find(step_id).update(:status => Step::Status::RUNNING)
-    #each url in urls will store [url, id]
+  def test
+    @test ||= Test.find(@test_id)
+  end
 
-    data = Scrape::filter_wp_urls(urls, logger)     # here data will be maped agains url id from our database tables
+  def step
+    @step ||= Step.find(@step_id)
+  end
 
-    logger.info data.count
-    logger.info "filter complete"
-    data = Scrape::scrape_html(data, logger, test_id)
-    logger.info "scraping complete"
-    site_data_objects = SiteDataInfo.import_data(test_id, data, logger)
-    logger.info "url update started"
-    TestCompletionJob.perform_now(logger, test_id, step_id)
+  def perform(url_ids, test_id, step_id)
+
+    @url_ids = url_ids
+    @test_id = test_id
+    @step_id = step_id
+    logger.info "Test Id: #{test.id} Blogvault Scraping Job : #{step.id} Message: Started"
+    step.update(:status => Step::Status::RUNNING)
+    data = Scrape::filter_wp_urls(@url_ids, logger, test.id)     # here data will be maped agains url id from our database tables
+    logger.info "Test Id: #{test.id} Step Id : #{step.id} Message: Filter completed"
+    data = Scrape::scrape_html(data, logger)
+    logger.info "Test Id: #{test.id} Step Id : #{step.id} Message: Scraping completed"
+    site_data_objects = SiteDataInfo.import_data(test.id, data, logger)
+    logger.info "Test Id: #{test.id} Step Id : #{step.id} Message: Url update started"
+    TestCompletionJob.perform_now(logger, test.id, step.id)
   rescue => e
-    Step.find(step_id).update(:status => Step::Status::FAILED)
-    Test.find(test_id).update(:status => Test::Status::FAILED)
-    logger.info "error in blogvault scraping job #{e}"
+    step.update(:status => Step::Status::FAILED)
+    test.update(:status => Test::Status::FAILED)
+    logger.info "Test Id: #{test.id} Step Id : #{step.id} Error: #{e}"
   end
 
 end
