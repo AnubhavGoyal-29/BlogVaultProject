@@ -51,16 +51,15 @@ class SiteDataInfo < ApplicationRecord
       }
       #Url.find(url_id).update(:site_data_info_id => new_site_data_info_id)
       #new_site_data_info_id += 1
-      site_data_objects << create_from_maped_data(data_map, logger)
+      site_data_objects << create_from_maped_data(data_map, test_id, logger)
     end
-    logger.info "site data object size if #{site_data_objects.count}"
     SiteDataInfo.import site_data_objects
     return 
   rescue => e
-    logger.info e
+        logger.info "Test Id: #{test_id} \nError: #{e}"
   end
 
-  def self.create_from_maped_data(data, logger)
+  def self.create_from_maped_data(data, test_id, logger)
       begin
         site_data_info = self.new(
           url_id: data[:url_id], 
@@ -76,7 +75,7 @@ class SiteDataInfo < ApplicationRecord
         )
         return site_data_info
       rescue => e
-        logger.info e
+           logger.info "Test Id: #{test_id} \nError: #{e}"
       end
   end
 end

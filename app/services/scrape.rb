@@ -52,7 +52,7 @@ class Scrape
         url_html_version_map[_url_id] = {:html => html, :version => _version}
       end
     rescue => e
-      logger.info "Test ID : #{test_id}::#{url}::#{e}"
+      logger.info "Test ID : #{test_id} \nUrl: #{url} \nError: #{e}"
     end
   end
 

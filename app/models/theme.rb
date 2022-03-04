@@ -41,7 +41,7 @@ class Theme < ApplicationRecord
   def self.inactive_removed_themes(last_themes, themes_id)
     removed_themes = last_themes - themes_id
     removed_themes.each do |id|
-      Theme.find(id).update(:status => Theme::STATUS.invert[:INACTIVE])
+      Theme.find(id).update(:status => Theme::Status::INACTIVE)
     end
     return true
   end

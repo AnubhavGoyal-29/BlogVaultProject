@@ -1,14 +1,16 @@
 class TestInitializeJob < ApplicationJob
   queue_as :default
-  
+
   def logger
     @logger ||= Logger.new("log/testing.log")
   end
+
   def test
     @test ||= Test.find(test_id)
   end
-  def perform(urls, test_id)
-    logger.info "test has been initialized"
+  
+  def perform(urls, test_id, step_id)
+    logger.info "Test Id: #{test_id} \nStep Id: #{step_id} \nMessage: Test has been initalized"
     urls = urls - ['']
     test.update(:status => Test::Status::RUNNING)
     url_ids = []
@@ -21,19 +23,19 @@ class TestInitializeJob < ApplicationJob
           url_ids << new_id
           new_id += 1
         else
-          logger.info "#{url} is present"
+          logger.info "Test Id: #{test_id} \nUrl: #{url} \nMessage: Present"
           url_ids << urls_hash[url]
         end
       end
     end
     Url.import new_urls
-
     url_ids.each_slice(10) do |_url_ids|
       step = Step.create(:status => Step::Status::INITIALIZED, :urls => _url_ids, :test_id => test.id)
       BlogvaultScrapingJob.perform_later(_url_ids, test.id, step.id)
     end
   rescue => e
     test.update(:status => Step::Status::FAILED)
-    logger.info "error in test initialize #{e}"
+    logger.info "Test Id: #{test_id} \nStep Id : #{step_id} \nError: #{e}"
   end
+
 end

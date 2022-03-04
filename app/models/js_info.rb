@@ -42,7 +42,7 @@ class JsInfo < ApplicationRecord
   def self.inactive_removed_js(last_js, js_id)
     removed_js = last_js - js_id
     removed_js.each do |id|
-      JsInfo.find(id).update(:status => JsInfo::STATUS.invert[:INACTIVE])
+      JsInfo.find(id).update(:status => JsInfo::Status::INACTIVE)
     end
     return true
   end
