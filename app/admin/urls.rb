@@ -1,13 +1,10 @@
 ActiveAdmin.register Url do
-<<<<<<< HEAD
   
   batch_action :run_test do |ids|
     redirect_to run_test_admin_url_path(ids)
   end
-=======
 
-    permit_params :url
->>>>>>> 0929d210c86ee44d2f817fd829d4f4575c234bb3
+  permit_params :url
   actions :index, :show
   filter :id
   filter :url
@@ -45,28 +42,9 @@ ActiveAdmin.register Url do
             "q[url_id_equals]" => url.site_data_infos.last.url_id)
       end
     end
-<<<<<<< HEAD
     column 'Run new Test' do |url|
       link_to "run_test", run_test_admin_url_path(url)
     end
-=======
-
-    column "select" do |url|
-      check_box_tag "skdnf"
-    end 
-
-        actions defaults: true do |role|
-        end
-
-  end
-
- form do |f|
-    f.inputs "Add/Edit Role" do
-      f.input :user_id,  :as => :select, :collection => User.all
-      f.input :role_id, :as => :check_boxes, :collection => Role.all
-    end
-    actions
->>>>>>> 0929d210c86ee44d2f817fd829d4f4575c234bb3
   end
 
   show do 
