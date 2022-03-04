@@ -98,8 +98,9 @@ ActiveAdmin.register_page "Dashboard" do
         # to remove last character '/n'
         urls.append(line)
       end
-      TestInitializeJob.perform_later(urls)
-      flash[:notice] = "test has been started"
+      test = Test.create!(:number_of_urls => urls.size, :status => Test::Status::INITIALIZED)
+      TestInitializeJob.perform_later(urls, test.id)
+      flash[:notice] = "test #{test.id} has been started"
       redirect_to admin_dashboard_path
     else
       flash[:alert] = "please input a csv file to get started"

@@ -31,6 +31,7 @@ class SiteDataInfo < ApplicationRecord
       cms_version = data[:version]
       cloudflare =  maped_data['cloudflare'].size > 0
       _plugins = Plugin.import_plugins(maped_data["plugins"].uniq, url_id, test_id)
+      _plugins << Plugin.import_plugins(maped_data["mu-plugins"].uniq, url_id, test_id) if maped_data["mu-plugins"].count > 0
       _themes = Theme.import_themes(maped_data["themes"].uniq, url_id, test_id)
       _js = JsInfo.import_js(maped_data["js"].uniq, url_id, test_id)
       _login_url = maped_data[:login_url]
@@ -55,6 +56,8 @@ class SiteDataInfo < ApplicationRecord
     logger.info "site data object size if #{site_data_objects.count}"
     SiteDataInfo.import site_data_objects
     return 
+  rescue => e
+    logger.info e
   end
 
   def self.create_from_maped_data(data, logger)

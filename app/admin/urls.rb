@@ -1,5 +1,8 @@
 ActiveAdmin.register Url do
-
+  
+  batch_action :run_test do |ids|
+    redirect_to run_test_admin_url_path(ids)
+  end
   actions :index, :show
   filter :id
   filter :url
@@ -8,6 +11,7 @@ ActiveAdmin.register Url do
     urls.where.not(:site_data_info_id => nil) 
   end
   index do |url|
+    selectable_column
     id_column
     column 'Url' do |url|
       link_to url.url, "http://www.#{url.url}", :target => '_blank'
@@ -32,11 +36,13 @@ ActiveAdmin.register Url do
     end
     column 'LastTestData' do |url|
       if url.site_data_infos.last
-        link_to "LastTestdataInfo", admin_site_data_infos_path("q[test_id_equals]" => url.site_data_infos.last.test_id, "q[url_id_equals]" => url.site_data_infos.last.url_id)
+        link_to "LastTestdataInfo", admin_site_data_infos_path("q[test_id_equals]" => url.site_data_infos.last.test_id, 
+            "q[url_id_equals]" => url.site_data_infos.last.url_id)
       end
     end
-
-    column 'Check to start test' , :as => 'check_boxes'
+    column 'Run new Test' do |url|
+      link_to "run_test", run_test_admin_url_path(url)
+    end
   end
 
   show do 
@@ -94,4 +100,16 @@ ActiveAdmin.register Url do
     end
   end
   member_action :test_select_form, :method => [:get, :post]
+  member_action :run_test, :method => :get do 
+    logger = Logger.new('log/testing.log')
+    ids = params["id"].split('/')
+    raise "please select at least one url" if ids.count == 0
+    urls = Url.where(:id => ids).pluck(:url)
+    TestInitializeJob.perform_later(urls)
+    flash[:notice] = "Test has been started"
+    redirect_to admin_urls_path
+  rescue => e
+    flash[:error] = e.message
+    redirect_to admin_urls_path
+  end
 end

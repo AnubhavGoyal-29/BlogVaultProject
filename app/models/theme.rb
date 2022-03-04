@@ -33,8 +33,8 @@ class Theme < ApplicationRecord
         themes_id << new_theme.id
       end
     end
-    last_themes = Url.find(_url).site_data_infos.last.themes if Url.find(_url).site_data_infos.last
-    inactive_removed_themes(JSON.parse(last_themes), themes_id) if last_themes
+    last_themes = Url.find(_url).site_data_infos.last.themes if Url.find(_url) and Url.find(_url).site_data_infos.last
+    done = inactive_removed_themes(JSON.parse(last_themes), themes_id) if last_themes
     return themes_id
   end
 
@@ -43,5 +43,6 @@ class Theme < ApplicationRecord
     removed_themes.each do |id|
       Theme.find(id).update(:status => Theme::STATUS.invert[:INACTIVE])
     end
+    return true
   end
 end

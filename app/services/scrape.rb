@@ -1,7 +1,7 @@
 class Scrape
 
   require'resolv'
- # require 'selenium-webdriver'
+  # require 'selenium-webdriver'
 
   module Tags
     SCRIPT = 'script'
@@ -12,6 +12,7 @@ class Scrape
 
   module DataTypes
     PLUGINS = 'plugins'
+    MUPLUGINS = 'mu-plugins'
     THEMES = 'themes'
     JS = 'js'
     CLOUDFLARE = 'cloudflare'
@@ -103,7 +104,7 @@ class Scrape
     end
     return nil
   end
-  
+
   def self.check_wordpress_name(cms)
     if cms && cms['Wordpress'] || cms['wordpress'] || cms['WordPress']
       wordpressAndVersion = cms.split(' ')
@@ -118,14 +119,24 @@ class Scrape
       html = value[:html]
       mapedData = Hash.new{|h,k| h[k] = [] }
       url = Url.find(key).url
-      get_data_from_resource(url, html, Tags::SCRIPT, DataTypes::PLUGINS, mapedData, logger)
+      
+      
       get_data_from_resource(url, html, Tags::LINK, DataTypes::PLUGINS, mapedData, logger)
-      get_data_from_resource(url, html, Tags::SCRIPT, DataTypes::THEMES, mapedData, logger)
+      get_data_from_resource(url, html, Tags::SCRIPT, DataTypes::PLUGINS, mapedData, logger)
+
+      get_data_from_resource(url, html, Tags::LINK, DataTypes::MUPLUGINS, mapedData, logger)
+      get_data_from_resource(url, html, Tags::SCRIPT, DataTypes::MUPLUGINS, mapedData, logger)
+
       get_data_from_resource(url, html, Tags::LINK, DataTypes::THEMES, mapedData, logger)
-      get_data_from_resource(url, html, Tags::SCRIPT, DataTypes::JS, mapedData, logger)
+      get_data_from_resource(url, html, Tags::SCRIPT, DataTypes::THEMES, mapedData, logger)
+
       get_data_from_resource(url, html, Tags::LINK, DataTypes::JS, mapedData, logger)
+      get_data_from_resource(url, html, Tags::SCRIPT, DataTypes::JS, mapedData, logger)
+
       get_data_from_resource(url, html, Tags::LINK, DataTypes::CLOUDFLARE, mapedData, logger)
       get_data_from_resource(url, html, Tags::SCRIPT, DataTypes::CLOUDFLARE, mapedData, logger) 
+
+
       mapedData[:login_url].push(get_login_url(url, logger))
       mapedData[:ip].push(get_ip(url))
       data[key] = {:mapedData => mapedData, :version => value[:version]}
