@@ -41,7 +41,7 @@ class Plugin < ApplicationRecord
   def self.inactive_removed_plugins(last_plugins, plugins_id)
     removed_plugins = last_plugins - plugins_id
     removed_plugins.each do |id|
-      Plugin.find(id).update(:status => Plugin::STATUS.invert[:INACTIVE])
+      Plugin.find(id).update(:status => Plugin::Status::INACTIVE)
     end
     return true
   end

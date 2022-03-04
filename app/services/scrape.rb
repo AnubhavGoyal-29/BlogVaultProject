@@ -18,7 +18,7 @@ class Scrape
     CLOUDFLARE = 'cloudflare'
   end
 
-  def self.filter_wp_urls(urls, logger)
+  def self.filter_wp_urls(urls, logger, test_id)
     url_html_version_map = Hash.new{ |h,k| h[k] = Hash.new }
     threads = []
     # _proxy = ProxyDatum.order('RANDOM()').first
@@ -33,7 +33,7 @@ class Scrape
     return url_html_version_map
   end
 
-  def self.thread_block(url_id, url_html_version_map, logger)
+  def self.thread_block(url_id, url_html_version_map, logger, test_id)
     begin
       # puts url + "    " + proxy_ip
       # RestClient.proxy = "http://" + proxy_ip
@@ -52,7 +52,7 @@ class Scrape
         url_html_version_map[_url_id] = {:html => html, :version => _version}
       end
     rescue => e
-      logger.info "#{url}...#{e}"
+      logger.info "Test ID : #{test_id}::#{url}::#{e}"
     end
   end
 

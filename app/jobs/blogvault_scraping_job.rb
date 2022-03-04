@@ -7,7 +7,7 @@ class BlogvaultScrapingJob < ApplicationJob
 
   def perform(urls, test_id, step_id)
     logger.info "Blogvault Scraping Job #{step_id} Started"
-    Step.find(step_id).update(:status => Step::STATUS.invert[:RUNNING])
+    Step.find(step_id).update(:status => Step::Status::RUNNING)
     #each url in urls will store [url, id]
 
     data = Scrape::filter_wp_urls(urls, logger)     # here data will be maped agains url id from our database tables
@@ -20,8 +20,8 @@ class BlogvaultScrapingJob < ApplicationJob
     logger.info "url update started"
     TestCompletionJob.perform_now(logger, test_id, step_id)
   rescue => e
-    Step.find(step_id).update(:status => Step::STATUS.invert[:FAILED])
-    Test.find(test_id).update(:status => Test::STATUS.invert[:FAILED])
+    Step.find(step_id).update(:status => Step::Status::FAILED)
+    Test.find(test_id).update(:status => Test::Status::FAILED)
     logger.info "error in blogvault scraping job #{e}"
   end
 
