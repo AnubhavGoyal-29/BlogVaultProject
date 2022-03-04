@@ -17,7 +17,7 @@ ActiveAdmin.register_page "Dashboard" do
             div :class => 'running_tests' do
               h3 "No.", :class => 'active_admin_test_running_label'
               h3 "Test", :class => 'active_admin_test_running_label'
-              h3 "Started_at", :class => 'active_admin_test_running_label'
+              h3 "Started at", :class => 'active_admin_test_running_label'
               h3 "Total Jobs", :class => 'active_admin_test_running_label'
               h3 "Completed Jobs", :class => 'active_admin_test_running_label'
               h3 "Running Time", :class => 'active_admin_test_running_label'
@@ -58,8 +58,8 @@ ActiveAdmin.register_page "Dashboard" do
               span "No.", :class => 'active_admin_test_completed_label'
               span "Test", :class => 'active_admin_test_completed_label'
               span "Total Sites", :class => 'active_admin_test_completed_label'
-              span "Started_at", :class => 'active_admin_test_completed_label'
-              span "Ended_at", :class => 'active_admin_test_completed_label'
+              span "Started at", :class => 'active_admin_test_completed_label'
+              span "Ended at", :class => 'active_admin_test_completed_label'
               span "Time Taken", :class => 'active_admin_test_completed_label'
               br
             end
@@ -99,7 +99,7 @@ ActiveAdmin.register_page "Dashboard" do
         urls.append(line)
       end
       test = Test.create!(:number_of_urls => urls.size, :status => Test::Status::INITIALIZED)
-      TestInitializeJob.perform_later(urls, test.id)
+      TestInitializeJob.new(urls, test.id).perform
       flash[:notice] = "test #{test.id} has been started"
       redirect_to admin_dashboard_path
     else

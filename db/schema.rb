@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_28_100556) do
+ActiveRecord::Schema.define(version: 2022_03_04_104939) do
 
   create_table "active_admin_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "namespace"
@@ -136,6 +136,7 @@ ActiveRecord::Schema.define(version: 2022_02_28_100556) do
     t.string "site_data_info_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "first_seen"
     t.index ["url"], name: "index_urls_on_url"
   end
 

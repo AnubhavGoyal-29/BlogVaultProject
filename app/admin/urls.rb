@@ -1,17 +1,21 @@
 ActiveAdmin.register Url do
-  
+
+  permit_params :url
+
   batch_action :run_test do |ids|
     redirect_to run_test_admin_url_path(ids)
   end
 
-  permit_params :url
   actions :index, :show
+
   filter :id
   filter :url
+
   scope :all
   scope :wordpress_sites, :default => true do |urls|
     urls.where.not(:site_data_info_id => nil) 
   end
+
   index do |url|
     selectable_column
     id_column
@@ -31,18 +35,18 @@ ActiveAdmin.register Url do
         version
       end
     end
-    column 'LastTest' do |url|
+    column 'Last Test' do |url|
       if url.site_data_infos.last
         link_to "Test #{url.site_data_infos.last.test_id}", admin_test_path(url.site_data_infos.last.test_id)
       end
     end
-    column 'LastTestData' do |url|
+    column 'Last Test Data' do |url|
       if url.site_data_infos.last
-        link_to "LastTestdataInfo", admin_site_data_infos_path("q[test_id_equals]" => url.site_data_infos.last.test_id, 
+        link_to "last_test_data_info", admin_site_data_infos_path("q[test_id_equals]" => url.site_data_infos.last.test_id, 
             "q[url_id_equals]" => url.site_data_infos.last.url_id)
       end
     end
-    column 'Run new Test' do |url|
+    column 'Run New Test' do |url|
       link_to "run_test", run_test_admin_url_path(url)
     end
   end
@@ -91,9 +95,9 @@ ActiveAdmin.register Url do
         end
       end
       row 'Last Test Data' do |url|
-        link_to "LastTestDataInfo", admin_site_data_info_path(url.site_data_info_id)
+        link_to "last_test_data_info", admin_site_data_info_path(url.site_data_info_id)
       end
-      row 'LastTest' do |url|
+      row 'Last Test' do |url|
         link_to "Test #{url.site_data_infos.last.test_id}", admin_tests_path("q[id_equals]" => url.site_data_infos.last.test_id)
       end
       row 'Changes' do |url|
@@ -103,10 +107,10 @@ ActiveAdmin.register Url do
   end
   member_action :test_select_form, :method => [:get, :post]
   member_action :run_test, :method => :get do 
-    logger = Logger.new('log/testing.log')
     ids = params["id"].split('/')
     raise "please select at least one url" if ids.count == 0
     urls = Url.where(:id => ids).pluck(:url)
+    test = Test.create!(:number_of_urls => urls.size, :status => Test::Status::RUNNING)
     TestInitializeJob.perform_later(urls)
     flash[:notice] = "Test has been started"
     redirect_to admin_urls_path

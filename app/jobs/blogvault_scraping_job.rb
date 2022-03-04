@@ -14,7 +14,7 @@ class BlogvaultScrapingJob < ApplicationJob
 
     logger.info data.count
     logger.info "filter complete"
-    data = Scrape::scrape_html(data, logger)
+    data = Scrape::scrape_html(data, logger, test_id)
     logger.info "scraping complete"
     site_data_objects = SiteDataInfo.import_data(test_id, data, logger)
     logger.info "url update started"
