@@ -108,7 +108,7 @@ ActiveAdmin.register Url do
     ids = params["id"].split('/')
     raise "please select at least one url" if ids.count == 0
     urls = Url.where(:id => ids).pluck(:url)
-    test = Test.create!(:number_of_urls => urls.size, :status => Test::Status::RUNNING)
+    test = Test.create!(:number_of_urls => urls.size, :status => Test::Status::INITIALIZED)
     TestInitializeJob.perform_later(urls, test.id)
     flash[:notice] = "Test has been started"
     redirect_to admin_urls_path
