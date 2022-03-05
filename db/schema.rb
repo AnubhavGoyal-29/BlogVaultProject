@@ -41,14 +41,14 @@ ActiveRecord::Schema.define(version: 2022_03_04_104939) do
   create_table "js_infos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "js_name"
     t.string "url_id"
-    t.string "test_id"
     t.integer "status"
     t.string "version"
     t.string "other_data"
-    t.integer "first_seen"
-    t.integer "last_seen"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "test_id"
+    t.integer "first_seen"
+    t.integer "last_seen"
   end
 
   create_table "plugin_slugs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -62,15 +62,15 @@ ActiveRecord::Schema.define(version: 2022_03_04_104939) do
   create_table "plugins", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "plugin_name"
     t.string "url_id"
-    t.string "test_id"
     t.integer "status"
     t.string "type"
     t.string "version"
     t.string "other_data"
-    t.integer "first_seen"
-    t.integer "last_seen"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "test_id"
+    t.integer "first_seen"
+    t.integer "last_seen"
   end
 
   create_table "proxy_data", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -121,14 +121,14 @@ ActiveRecord::Schema.define(version: 2022_03_04_104939) do
   create_table "themes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "theme_name"
     t.string "url_id"
-    t.string "test_id"
     t.integer "status"
     t.string "version"
     t.string "other_data"
-    t.integer "first_seen"
-    t.integer "last_seen"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "test_id"
+    t.integer "first_seen"
+    t.integer "last_seen"
   end
 
   create_table "urls", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
