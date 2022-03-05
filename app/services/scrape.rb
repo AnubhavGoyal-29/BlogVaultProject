@@ -38,9 +38,9 @@ class Scrape
       # puts url + "    " + proxy_ip
       # RestClient.proxy = "http://" + proxy_ip
 
-      url = Url.find(url_id).url
-      html = Nokogiri::HTML.parse(RestClient.get (url + "?x=#{rand(999999)}"))
-      File.write("/tmp/#{url}", html)
+      url = Url.find(url_id)
+      html = Nokogiri::HTML.parse(RestClient.get (url.url + "?x=#{rand(999999)}"))
+      File.write("/tmp/#{url.url}", html)
       _version = check_wordpress_in_meta(html)
 
       if !_version and check_wordpress_in_html(html) 
@@ -48,11 +48,12 @@ class Scrape
         _version = version_from_resource ? version_from_resource : 'version not found'
       end
       if _version
+        url.cms || url.update(:cms => Url::Cms::WORDPRESS)
         _url_id = url_id
         url_html_version_map[_url_id] = {:html => html, :version => _version}
       end
     rescue => e
-      logger.info "Test Id : #{test_id} Url: #{url} Error: #{e}"
+      logger.info "Test Id : #{test_id} Url: #{url.url} Error: #{e}"
     end
   end
 

@@ -1,7 +1,5 @@
 ActiveAdmin.register Url do
 
-  permit_params :url
-
   batch_action :run_test do |ids|
     redirect_to run_test_admin_url_path(ids)
   end
@@ -10,10 +8,10 @@ ActiveAdmin.register Url do
 
   filter :id
   filter :url
-
+  filter :site_data_info_id
   scope :all
   scope :wordpress_sites, :default => true do |urls|
-    urls.where.not(:site_data_info_id => nil) 
+    urls.where(:cms => Url::Cms::WORDPRESS) 
   end
 
   index do |url|
@@ -43,7 +41,7 @@ ActiveAdmin.register Url do
     column 'Last Test Data' do |url|
       if url.site_data_infos.last
         link_to "last_test_data_info", admin_site_data_infos_path("q[test_id_equals]" => url.site_data_infos.last.test_id, 
-            "q[url_id_equals]" => url.site_data_infos.last.url_id)
+                                                                  "q[url_id_equals]" => url.site_data_infos.last.url_id)
       end
     end
     column 'Run New Test' do |url|
@@ -95,7 +93,7 @@ ActiveAdmin.register Url do
         end
       end
       row 'Last Test Data' do |url|
-        link_to "last_test_data_info", admin_site_data_info_path(url.site_data_info_id)
+        link_to "last_test_data_info", admin_site_data_info_path(url.site_data_infos.last.id)
       end
       row 'Last Test' do |url|
         link_to "Test #{url.site_data_infos.last.test_id}", admin_tests_path("q[id_equals]" => url.site_data_infos.last.test_id)

@@ -18,6 +18,8 @@ class BlogvaultScrapingJob < ApplicationJob
     @url_ids = url_ids
     @test_id = test_id
     @step_id = step_id
+
+    raise "TESTING FAIL" if rand(1000) > 500
     logger.info "Test Id: #{test.id} Blogvault Scraping Job : #{step.id} Message: Started"
     step.update(:status => Step::Status::RUNNING)
     data = Scrape::filter_wp_urls(@url_ids, logger, test.id)     # here data will be maped agains url id from our database tables
@@ -29,7 +31,6 @@ class BlogvaultScrapingJob < ApplicationJob
     TestCompletionJob.perform_now(logger, test.id, step.id)
   rescue => e
     step.update(:status => Step::Status::FAILED)
-    test.update(:status => Test::Status::FAILED)
     logger.info "Test Id: #{test.id} Step Id : #{step.id} Error: #{e}"
   end
 

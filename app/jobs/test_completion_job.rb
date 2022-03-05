@@ -16,14 +16,15 @@ class TestCompletionJob < ApplicationJob
     logger.info "Test Id : #{test_id} Step Id : #{ step.id } Message : Completed"
     total_jobs = Step.where(:test_id => test_id).count
     completed_jobs = Step.where(:test_id => test_id, status: Step::Status::COMPLETED).count
-    if total_jobs == completed_jobs
-      Url.url_site_data_info_update(test_id, logger)
+    failed_jobs = Step.where(:test_id => test_id, status: Step::Status::FAILED).count
+    
+    if total_jobs == ( completed_jobs + failed_jobs )
+      #Url.url_site_data_info_update(test_id, logger)
       test.update(:status => Test::Status::COMPLETED)
       logger.info "Test Id : #{test_id} Message : Completed"
     end
   rescue => e
     step.update(:status => Step::Status::FAILED)
-    test.find(test_id).update(:status => Test::Status::FAILED)
     logger.info "Test Id : #{test_id} Step Id : #{step_id} Error : #{e}"
   end
 
