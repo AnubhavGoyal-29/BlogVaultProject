@@ -1,9 +1,9 @@
 class Url < ApplicationRecord
-  has_many :site_data_infos
+  has_many :site_data_infos, dependent: :destroy
 
-  scope :site_data_info, -> { where.not(:site_data_info_id => nil) }
-
-
+  module Cms
+    WORDPRESS = "wordpress"
+  end
   def self.import_urls(urls)
     urls_id = []
     urls.each do |url|
@@ -19,7 +19,7 @@ class Url < ApplicationRecord
   end
 
   def self.url_site_data_info_update(test_id, logger)
-    logger.info "url site info called"
+    logger.info "Test Id : #{test_id} Message : Url last_site_data  updated started"
     self.all.each do |url|
       begin
         site_data_info = SiteDataInfo.where(test_id: test_id, url_id: url.id).first

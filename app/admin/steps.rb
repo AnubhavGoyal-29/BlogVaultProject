@@ -3,9 +3,10 @@ ActiveAdmin.register Step do
   actions :index
   filter :status , :as => :select, :collection => Step::STATUS.invert
   filter :test_id
+  filter :id
 
   index do
-    column :id
+    id_column
     column :test_id
     column "Urls" do |step|
       url_ids = JSON.parse(step.urls)

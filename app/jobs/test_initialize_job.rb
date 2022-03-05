@@ -16,14 +16,15 @@ class TestInitializeJob < ApplicationJob
 
     @urls = @urls - ['']
     logger.info "Test Id: #{test.id} Message: Test has been initalized"
-    test.update(:status => Test::Status::RUNNING)
+    test.update(:status => Test::Status::RUNNING, :started_at => Time.now)
     url_ids = []
     new_urls = []
-    @urls.each_slice(100) do |_urls|
+    @urls.each_slice(500) do |_urls|
       urls_hash = Url.where(:url => _urls).pluck(:url, :id).to_h
       _urls.each do |url|
         if !urls_hash[url].present?
           new_urls << Url.new(:url => url, :first_seen => test.id)
+          logger.info "Test Id: #{test.id} Url: #{url} Message: Created"
         else
           logger.info "Test Id: #{test.id} Url: #{url} Message: Present"
           url_ids << urls_hash[url]

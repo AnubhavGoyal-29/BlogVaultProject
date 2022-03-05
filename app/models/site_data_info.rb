@@ -56,7 +56,7 @@ class SiteDataInfo < ApplicationRecord
     SiteDataInfo.import site_data_objects
     return 
   rescue => e
-        logger.info "Test Id: #{test_id} \nError: #{e}"
+      logger.info "Test Id: #{test_id} \nError: #{e}"
   end
 
   def self.create_from_maped_data(data, test_id, logger)

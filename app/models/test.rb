@@ -1,6 +1,6 @@
 class Test < ApplicationRecord
   has_many :steps, dependent: :destroy
-  has_many :site_data_infos
+  has_many :site_data_infos, dependent: :destroy
   module Status
     FAILED = 3
     COMPLETED = 2
