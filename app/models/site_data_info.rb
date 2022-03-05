@@ -2,24 +2,17 @@ class SiteDataInfo < ApplicationRecord
   belongs_to :url, required: true
   belongs_to :test, required: true
 
-  module Status
+  module CloudFlareStatus
     ACTIVE = "1"
     INACTIVE = "0"
   end
-  
-  module Filter
-   NOT_FOUND = SiteDataInfo.where(:login_url => '0').pluck(:id)
-   FOUND = SiteDataInfo.where.not(:login_url => '0').pluck(:id)
+
+  module LoginUrl
+    NOTFOUND = '0'
   end
-
-  LOGIN_URL = {}  
-  Filter.constants.each { |type|
-    LOGIN_URL[Filter.class_eval(type.to_s)] = type
-  }
-
-  STATUS = {}
-  Status.constants.each { |type|
-    STATUS[Status.class_eval(type.to_s)] = type
+  CLOUDFLARESTATUS = {}
+  CloudFlareStatus.constants.each { |type|
+    CLOUDFLARESTATUS[CloudFlareStatus.class_eval(type.to_s)] = type
   }
 
 

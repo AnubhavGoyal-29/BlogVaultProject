@@ -3,7 +3,7 @@ ActiveAdmin.register SiteDataInfo do
   actions :index, :show
   filter :test_id
   filter :url_id
-  filter :cloudflare, :as => :select, :collection => SiteDataInfo::STATUS.invert
+  filter :cloudflare, :as => :select, :collection => SiteDataInfo::CLOUDFLARESTATUS.invert
   scope :all, :default => true
   scope :Plugins_found, :default => true do |site_data_infos|
     site_data_infos.where.not(:plugins => '[]')    
@@ -62,16 +62,16 @@ ActiveAdmin.register SiteDataInfo do
       end
     end
     column 'Cloudflare' do |site|
-      if site.cloudflare == '0'
-        div (SiteDataInfo::STATUS[site.cloudflare]),style: "color: red"
-      elsif site.cloudflare =='1'
-        div (SiteDataInfo::STATUS[site.cloudflare]),style: "color: green"
+      if site.cloudflare == SiteDataInfo::CloudFlareStatus::INACTIVE
+        div (SiteDataInfo::CloudFlareStatus::INACTIVE),style: "color: red"
+      elsif site.cloudflare == SiteDataInfo::CloudFlareStatus::ACTIVE
+        div (SiteDataInfo::CloudFlareStatus::ACTIVE),style: "color: green"
       end
     end
     column 'Login Url' do |site_data|
-      if site_data.login_url == '0'
+      if site_data.login_url == SiteDataInfo::LoginUrl::NOTFOUND
         div ('Not found'), :style => "color : red"
-      elsif site_data.login_url
+      else
         link_to site_data.login_url, "http://www.#{site_data.login_url}", :target => '_blank'
       end
     end
