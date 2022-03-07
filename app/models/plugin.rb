@@ -1,5 +1,5 @@
 class Plugin < ApplicationRecord
-  belongs_to :url , default: nil
+  belongs_to :url, default: nil
 
   module Status 
     ACTIVE = 1
@@ -12,7 +12,7 @@ class Plugin < ApplicationRecord
   }
 
   def self.import_plugins(plugins, _url, test_id)
-   plugins_id = []
+    plugins_id = []
     plugins.each do |plugin|
       _plugin = Plugin.where(plugin_name: plugin, url_id: _url, status: 1).first
       if _plugin 

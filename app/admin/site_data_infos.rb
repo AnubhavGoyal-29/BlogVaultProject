@@ -88,18 +88,40 @@ ActiveAdmin.register SiteDataInfo do
       end
       row :test
       row :cms_type
-      row :cms_version
       row 'Versions' do |site_data|
         link_to 'Versions', admin_site_data_infos_path('q[url_id_equals]' => site_data.url_id)
       end
-      row "Plugins" do |site|
-        link_to 'Plugins', admin_plugins_path("q[url_id_equals]" => site.url_id, "q[status_equals]" => 1)
+      row 'Plugins' do |site_data|
+        plugins = site_data.plugins
+        if JSON::parse(plugins).size > 0
+          link_to 'Plugins', admin_plugins_path("q[url_id_equals]" => site_data.url_id)
+        else
+          div("Not found", style: "color: red")
+        end
       end
-      row "Themes" do |site|
-        link_to 'Themes', admin_themes_path("q[url_id_equals]" => site.url_id, "q[status_equals]" => 1)
+      row 'Themes' do |site_data|
+        themes = site_data.themes
+        if JSON::parse(themes).size > 0
+          link_to 'Themes', admin_themes_path("q[url_id_equals]" => site_data.url_id)
+        else
+          div("Not found", style: "color: red")
+        end
       end
-      row "JS" do |site|
-        link_to 'JS', admin_js_infos_path("q[url_id_equals]" => site.url_id, "q[status_equals]" => 1)
+      row 'JS' do |site_data|
+        js = site_data.js
+        if JSON::parse(js).size > 0
+          link_to 'JS', admin_js_infos_path('q[url_id_equals]' => site_data.url_id)
+        else
+          div("Not found", style: "color: red")
+        end
+      end
+      row 'WP Version' do |site_data|
+        version = site_data.cms_version
+        if version == 'version not found'
+          div ('Not found'), :style => "color : red"
+        else
+          version
+        end
       end
       row 'Cloudflare' do |site|
         if site.cloudflare == SiteDataInfo::CloudFlareStatus::INACTIVE
@@ -115,7 +137,9 @@ ActiveAdmin.register SiteDataInfo do
           link_to site_data.login_url, "http://www.#{site_data.login_url}", :target => '_blank'
         end
       end
-      row :ip
+      row 'IP' do |site_data|
+      link_to "#{ site_data.ip }", "http://#{site_data.ip}" , :target => 'blank'
+    end
     end
   end
 
