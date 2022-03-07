@@ -41,10 +41,37 @@ ActiveAdmin.register JsInfo do
 
   show do
     attributes_table do
+      row :id
       row :js_name
+      row 'Version' do |js_info|
+        if js_info.version == '0'
+          div ("Not found"), :style => 'color : red'
+        else
+          js_info.version
+        end
+      end
       row "Usage" do |js|
-        url_ids = JsInfo.where(:js_name => js.js_name, :status => JsInfo::Status::ACTIVE).pluck(:url_id)
-        link_to "#{url_ids.count} :: urls", admin_urls_path('q[id_in]' => url_ids)
+        if !params["test_id"]
+          url_ids = JsInfo.where(:js_name => js.js_name, :status => JsInfo::Status::ACTIVE).pluck(:url_id)
+          link_to "#{url_ids.count} :: urls", admin_urls_path('q[id_in]' => url_ids)
+        else
+          url_ids = JsInfo.where("first_seen <= ?", params["test_id"]).where("last_seen >= ?",
+                                                                             params["test_id"]).where(:js_name => js.js_name).pluck(:url_id)
+          link_to "#{url_ids.count} :: urls", admin_urls_path("q[id_in]" => url_ids)
+        end
+      end
+      row :first_seen
+      row :last_seen
+      if params[:q]
+        row 'Status' do |js|
+          status = js.status
+          options = JsInfo::STATUS.invert
+          if status == options[:INACTIVE]
+            div ('INACTIVE'),style: "color: red"
+          elsif status == options[:ACTIVE]
+            div ('ACTIVE'),style: "color: green"
+          end
+        end
       end
     end
   end

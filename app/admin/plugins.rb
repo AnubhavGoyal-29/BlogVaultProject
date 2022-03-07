@@ -37,9 +37,9 @@ ActiveAdmin.register Plugin do
       column 'Status' do |plugin|
         status = plugin.status
         if status == Plugin::Status::INACTIVE
-          div (Plugin::Status::ACTIVE),style: "color: red"
+          div (Plugin::STATUS[status]),style: "color: red"
         elsif status == Plugin::Status::ACTIVE
-          div (Plugin::Status::ACTIVE),style: "color: green"
+          div (Plugin::STATUS[status]),style: "color: green"
         end
       end
     end
@@ -47,10 +47,35 @@ ActiveAdmin.register Plugin do
 
   show do
     attributes_table do
-      row :plugin_name
+      row :id
+      row 'Name' do|plugin|
+        name = (PluginSlug.where("slug LIKE?", "#{ plugin.plugin_name }").first &&
+                PluginSlug.where("slug LIKE?", "#{ plugin.plugin_name }").first.name)
+        name ||= plugin.plugin_name
+        div (name)
+      end
       row "Usage" do |plugin|
-        url_ids = Plugin.where(:plugin_name => plugin.plugin_name, :status => Plugin::STATUS.invert[:ACTIVE]).pluck(:url_id)
-        link_to "#{url_ids.count} :: urls", admin_urls_path('q[id_in]' => url_ids)
+        if !params["test_id"]
+          url_ids = Plugin.where(:plugin_name => plugin.plugin_name, :status => Plugin::Status::ACTIVE).pluck(:url_id)
+          link_to "#{url_ids.count} :: urls", admin_urls_path('q[id_in]' => url_ids)
+        else
+          url_ids = Plugin.where("first_seen <= ?", params["test_id"]).
+            where("last_seen >= ?",params["test_id"]).
+            where(:plugin_name => plugin.plugin_name).pluck(:url_id)
+          link_to "#{url_ids.count} :: urls", admin_urls_path('q[id_in]' => url_ids)
+        end
+      end
+      row :first_seen
+      row :last_seen
+      if params[:q]
+        row 'Status' do |plugin|
+          status = plugin.status
+          if status == Plugin::Status::INACTIVE
+            div (Plugin::STATUS[status]),style: "color: red"
+          elsif status == Plugin::Status::ACTIVE
+            div (Plugin::STATUS[status]),style: "color: green"
+          end
+        end
       end
     end
   end
