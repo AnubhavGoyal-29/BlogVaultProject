@@ -6,7 +6,9 @@ class JsInfo < ApplicationRecord
     ACTIVE = 1
     INACTIVE = 0
   end
-
+  module Version
+    NOTFOUND = "0"
+  end
   STATUS = {}
   Status.constants.each { |type|
     STATUS[Status.class_eval(type.to_s)] = type

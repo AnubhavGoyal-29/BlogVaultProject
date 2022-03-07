@@ -11,6 +11,10 @@ class SiteDataInfo < ApplicationRecord
     NOTFOUND = '0'
   end
 
+  module WpVersion
+    NOTFOUND = 'NF'
+  end
+
   CLOUDFLARESTATUS = {}
   CloudFlareStatus.constants.each { |type|
     CLOUDFLARESTATUS[CloudFlareStatus.class_eval(type.to_s)] = type

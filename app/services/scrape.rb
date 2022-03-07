@@ -45,12 +45,11 @@ class Scrape
 
       if !_version and check_wordpress_in_html(html) 
         version_from_resource = find_wordpress_version(html) 
-        _version = version_from_resource ? version_from_resource : 'version not found'
+        _version = version_from_resource ? version_from_resource : SiteDataInfo::WpVersion::NOTFOUND
       end
-      if _version
+      if _version != SiteDataInfo::WpVersion::NOTFOUND
         url.cms || url.update(:cms => Url::Cms::WORDPRESS)
-        _url_id = url_id
-        url_html_version_map[_url_id] = {:html => html, :version => _version}
+        url_html_version_map[url_id] = {:html => html, :version => _version}
       end
     rescue => e
       logger.info "Test Id : #{test_id} Url: #{url.url} Error: #{e}"
@@ -108,7 +107,7 @@ class Scrape
   def self.check_wordpress_name(cms)
     if cms && cms['Wordpress'] || cms['wordpress'] || cms['WordPress']
       wordpress_and_version = cms.split(' ')
-      return wordpress_and_version[1] ? wordpress_and_version[1] : 'version not found'
+      return wordpress_and_version[1] ? wordpress_and_version[1] : SiteDataInfo::WpVersion::NOTFOUND
     end
     return nil;
   end

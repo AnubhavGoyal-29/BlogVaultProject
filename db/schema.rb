@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_05_050801) do
+ActiveRecord::Schema.define(version: 2022_02_28_100556) do
 
   create_table "active_admin_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "namespace"
@@ -41,7 +41,6 @@ ActiveRecord::Schema.define(version: 2022_03_05_050801) do
   create_table "js_infos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "js_name"
     t.string "url_id"
-    t.string "test_id"
     t.integer "status"
     t.string "version"
     t.string "other_data"
@@ -62,7 +61,6 @@ ActiveRecord::Schema.define(version: 2022_03_05_050801) do
   create_table "plugins", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "plugin_name"
     t.string "url_id"
-    t.string "test_id"
     t.integer "status"
     t.string "type"
     t.string "version"
@@ -106,9 +104,9 @@ ActiveRecord::Schema.define(version: 2022_03_05_050801) do
   create_table "tests", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "status"
     t.integer "number_of_urls"
+    t.timestamp "started_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.timestamp "started_at"
   end
 
   create_table "theme_slugs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -122,7 +120,6 @@ ActiveRecord::Schema.define(version: 2022_03_05_050801) do
   create_table "themes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "theme_name"
     t.string "url_id"
-    t.string "test_id"
     t.integer "status"
     t.string "version"
     t.string "other_data"
