@@ -41,15 +41,16 @@ class Scrape
       url = Url.find(url_id)
       html = Nokogiri::HTML.parse(RestClient.get (url.url + "?x=#{rand(999999)}"))
       File.write("/tmp/#{url.url}", html)
-      _version = check_wordpress_in_meta(html)
+      wordpress_and_version = check_wordpress_in_meta(html) || []  # fetching both cms type and its version together 
 
-      if !_version and check_wordpress_in_html(html) 
+      if wordpress_and_version.count == 0 and check_wordpress_in_html(html) 
+        wordpress_and_version << "wordpress"
         version_from_resource = find_wordpress_version(html) 
-        _version = version_from_resource ? version_from_resource : SiteDataInfo::WpVersion::NOTFOUND
+        wordpress_and_version << version_from_resource
       end
-      if _version != SiteDataInfo::WpVersion::NOTFOUND
+      if wordpress_and_version.count > 0
         url.cms || url.update(:cms => Url::Cms::WORDPRESS)
-        url_html_version_map[url_id] = {:html => html, :version => _version}
+        url_html_version_map[url_id] = {:html => html, :version => wordpress_and_version[1]}
       end
     rescue => e
       logger.info "Test Id : #{test_id} Url: #{url.url} Error: #{e}"
@@ -62,12 +63,20 @@ class Scrape
       html.search("meta[name='#{name}']").map do |line|
         if line['content']
           cms = line['content']
-          version = check_wordpress_name(cms)
-          return version if version
+          wordpress_and_version = check_wordpress_name(cms)
+          return wordpress_and_version if wordpress_and_version
         end
       end
     end
-    return false
+    return nil
+  end
+
+  def self.check_wordpress_name(cms)
+    if cms && cms['Wordpress'] || cms['wordpress'] || cms['WordPress']
+      wordpress_and_version = cms.split(' ')
+      return wordpress_and_version
+    end
+    return nil;
   end
 
   def self.check_wordpress_in_html(html)
@@ -102,14 +111,6 @@ class Scrape
       end
     end
     return nil
-  end
-
-  def self.check_wordpress_name(cms)
-    if cms && cms['Wordpress'] || cms['wordpress'] || cms['WordPress']
-      wordpress_and_version = cms.split(' ')
-      return wordpress_and_version[1] ? wordpress_and_version[1] : SiteDataInfo::WpVersion::NOTFOUND
-    end
-    return nil;
   end
 
   def self.scrape_html(urls_data, logger)

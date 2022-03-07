@@ -1,6 +1,8 @@
 class Url < ApplicationRecord
   has_many :site_data_infos, dependent: :destroy
-
+  has_many :plugins, dependent: :destroy
+  has_many :themes, dependent: :destroy
+  has_many :js_inos, dependent: :destroy
   module Cms
     WORDPRESS = "wordpress"
   end

@@ -27,23 +27,26 @@ table.center {
     <%= f.input :test1, as: :select, required: true, collection: SiteDataInfo.where(:url_id => resource.id).pluck(:test_id) %>
     <%= f.input :test2, as: :select, required: true, collection: SiteDataInfo.where(:url_id => resource.id).pluck(:test_id) %>
   <%end%>
-  <%=submit_tag "Start Process"%>
+  <%= submit_tag "Start Process"%>
 <%end%>
 <%= form_for "test_comparison", builder: ActiveAdmin::FormBuilder, :url => "", :method => :post  do |f| %>
   <% if params["test_comparison"] and params["test_comparison"]["test1"] != "" and params["test_comparison"]["test2"] != "" %>
          <% test1 = params["test_comparison"]["test1"] %>
-         <% test2 = params["test_comparison"]["test2"]%>
-          <% if test1 > test2%>
-            <% temp = test1%>
-            <% test1 = test2%>
-            <% test2 = temp%>
+         <% test2 = params["test_comparison"]["test2"] %>
+          <% if test1 > test2 %>
+            <% temp = test1 %>
+            <% test1 = test2 %>
+            <% test2 = temp %>
           <% end %>
     <% data = Url.find(resource.id).compare_two_test(test1, test2) %>
     <h1><%= link_to resource.url, admin_url_path(resource.id)%></h1>
     <h2> General Info </h2>
     <table class="center", style="width:80%">
-      <thead><th>Field</th><th>Test <%= test1%></th>
-      <th>Test <%= test2%></th></thead>
+      <thead>
+        <th>Field</th>
+        <th>Test <%= test1 %></th>
+        <th>Test <%= test2 %></th>
+      </thead>
       <tbody>
         <tr>
           <td> Cloudflare </td>
@@ -63,9 +66,12 @@ table.center {
       </tbody>
     </table>
 
-    <h2><%= link_to "Plugins", admin_plugins_path %> </h2>
+    <h2><%= link_to "Plugins", admin_plugins_path %></h2>
     <table class="center", style="width:80%">
-      <thead><th>Test <%= test1%></th><th>Test <%= test2%></th></thead>
+      <thead>
+        <th>Test <%= test1 %></th>
+        <th>Test <%= test2 %></th>
+      </thead>
       <tbody>
         <% for index in 0..data[:data_common][:plugin].count-1 %>
           <tr>
@@ -78,18 +84,19 @@ table.center {
         <%total_count = (data[:data_1][:plugin].count > data[:data_2][:plugin].count) ? data[:data_1][:plugin].count : data[:data_2][:plugin].count%>
         <% for index in 0..total_count-1 %>
           <tr>
-            <% if data[:data_1][:plugin][index]%>
+            <% if data[:data_1][:plugin][index] %>
               <td style="background-color : #FFCCCB"><%= link_to data[:data_1][:plugin][index], 
                 admin_plugins_path("q[plugin_name_equals]" => data[:data_1][:plugin][index]) %></td>
-            <% else%>
-              <td></td>
+            <% else %>
+              <td>
+              </td>
             <% end %>
             <% if data[:data_2][:plugin][index]%>
               <td style="background-color : #D0F0C0"><%= link_to data[:data_2][:plugin][index], 
                 admin_plugins_path("q[plugin_name_equals]" => data[:data_2][:plugin][index]) %></td>
             <% end %>
           </tr>
-        <%end%>
+        <% end %>
       </tbody>
     </table>
 
@@ -113,13 +120,16 @@ table.center {
               admin_themes_path("q[theme_name_equals]" => data[:data_2][:theme][index]) %></td>
 
           </tr>
-        <%end%>
+        <% end %>
       </tbody>
     </table>
 
     <h2><%= link_to "Js", admin_js_infos_path %></h2>
     <table class="center", style="width:80%">
-      <thead><th>Test <%= test1%></th><th>Test <%= test2%></th></thead>
+      <thead>
+        <th>Test <%= test1 %></th>
+        <th>Test <%= test2 %></th>
+      </thead>
       <tbody>
         <% for index in 0..data[:data_common][:js].count-1 %>
           <tr>
@@ -127,8 +137,8 @@ table.center {
             <td><%= link_to data[:data_common][:js][index],admin_js_infos_path("q[js_name_equals]" => data[:data_common][:js][index]) %></td>
 
           </tr>
-        <%end%>
-        <%total_count = (data[:data_1][:js].count > data[:data_2][:js].count) ? data[:data_1][:js].count : data[:data_2][:js].count%>
+        <% end %>
+        <% total_count = (data[:data_1][:js].count > data[:data_2][:js].count) ? data[:data_1][:js].count : data[:data_2][:js].count %>
         <% for index in 0..total_count-1 %>
           <tr>
             <td style = "background-color : #FFCCCB;"><%= link_to data[:data_2][:js][index], 
@@ -136,7 +146,7 @@ table.center {
             <td style = "background-color : #D0F0C0;"><%= link_to data[:data_2][:js][index], 
               admin_js_infos_path("q[js_name_equals]" => data[:data_2][:js][index]) %></td>
           </tr>
-        <%end%>
+        <% end %>
       </tbody>
     </table>
   <% end %>
