@@ -86,10 +86,10 @@ ActiveAdmin.register Url do
       end
       row 'Cloudflare' do |url|
         cloudflare = url.site_data_infos.last.cloudflare
-        if cloudflare == '0'
-          div (SiteDataInfo::STATUS[cloudflare]),style: "color: red"
-        elsif cloudflare =='1'
-          div (SiteDataInfo::STATUS[cloudflare]),style: "color: green"
+        if cloudflare == SiteDataInfo::CloudFlareStatus::INACTIVE
+          div ("INACTIVE"),style: "color: red"
+        elsif cloudflare == SiteDataInfo::CloudFlareStatus::ACTIVE
+          div ("ACTIVE"),style: "color: green"
         end
       end
       row 'Last Test Data' do |url|
