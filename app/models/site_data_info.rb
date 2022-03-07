@@ -14,6 +14,7 @@ class SiteDataInfo < ApplicationRecord
   module WpVersion
     NOTFOUND = 'NF'
   end
+
   CLOUDFLARESTATUS = {}
   CloudFlareStatus.constants.each { |type|
     CLOUDFLARESTATUS[CloudFlareStatus.class_eval(type.to_s)] = type
@@ -53,26 +54,26 @@ class SiteDataInfo < ApplicationRecord
     SiteDataInfo.import site_data_objects
     return 
   rescue => e
-      logger.info "Test Id: #{test_id} \nError: #{e}"
+    logger.info "Test Id: #{test_id} \nError: #{e}"
   end
 
   def self.create_from_maped_data(data, test_id, logger)
-      begin
-        site_data_info = self.new(
-          url_id: data[:url_id], 
-          test_id: data[:test_id],
-          cloudflare: data[:cloudflare],
-          cms_type: data[:cms_type],
-          cms_version: data[:cms_version],
-          plugins: data[:plugins],
-          themes: data[:themes],
-          js: data[:js],
-          login_url: data[:login_url][0],
-          ip: data[:ip][0]
-        )
-        return site_data_info
-      rescue => e
-           logger.info "Test Id: #{test_id} \nError: #{e}"
-      end
+    begin
+      site_data_info = self.new(
+        url_id: data[:url_id], 
+        test_id: data[:test_id],
+        cloudflare: data[:cloudflare],
+        cms_type: data[:cms_type],
+        cms_version: data[:cms_version],
+        plugins: data[:plugins],
+        themes: data[:themes],
+        js: data[:js],
+        login_url: data[:login_url][0],
+        ip: data[:ip][0]
+      )
+      return site_data_info
+    rescue => e
+      logger.info "Test Id: #{test_id} \nError: #{e}"
+    end
   end
 end

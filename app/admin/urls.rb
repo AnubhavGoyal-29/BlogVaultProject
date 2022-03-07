@@ -51,10 +51,11 @@ ActiveAdmin.register Url do
 
   show do 
     attributes_table do
+      row :id
       row 'Url' do |url|
         link_to url.url, "http://www.#{url.url}", :target => '_blank'
       end
-      row 'Versions' do |url|
+      if url.site_data_infos.last
         link_to 'Versions', admin_site_data_infos_path('q[url_id_equals]' => url.id)
       end
       row 'WP Version' do |url|
@@ -82,7 +83,12 @@ ActiveAdmin.register Url do
         end
       end
       row 'Js' do |url|
-        link_to 'JS', admin_js_infos_path("q[url_id_equals]" => url.id, "q[status_equals]" => 1)
+        js = url.site_data_infos.last.js
+        if JSON::parse(js).size > 0
+          link_to 'Js', admin_js_infos_path("q[url_id_equals]" => url.id, "q[status_equals]" => 1)
+        else
+          div("Not found", style: "color: red")
+        end
       end
       row 'Cloudflare' do |url|
         cloudflare = url.site_data_infos.last.cloudflare
@@ -93,10 +99,15 @@ ActiveAdmin.register Url do
         end
       end
       row 'Last Test Data' do |url|
-        link_to "last_test_data_info", admin_site_data_info_path(url.site_data_infos.last.id)
+        if url.site_data_infos.last
+          link_to "last_test_data_info", admin_site_data_infos_path("q[test_id_equals]" => url.site_data_infos.last.test_id,
+                                                                    "q[url_id_equals]" => url.site_data_infos.last.url_id)
+        end
       end
       row 'Last Test' do |url|
-        link_to "Test #{url.site_data_infos.last.test_id}", admin_tests_path("q[id_equals]" => url.site_data_infos.last.test_id)
+        if url.site_data_infos.last
+          link_to "Test #{url.site_data_infos.last.test_id}", admin_test_path(url.site_data_infos.last.test_id)
+        end
       end
       row 'Changes' do |url|
         link_to 'check', test_comparison_admin_url_path(url)
