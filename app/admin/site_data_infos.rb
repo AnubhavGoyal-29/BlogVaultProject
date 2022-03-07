@@ -63,9 +63,9 @@ ActiveAdmin.register SiteDataInfo do
     end
     column 'Cloudflare' do |site|
       if site.cloudflare == SiteDataInfo::CloudFlareStatus::INACTIVE
-        div (SiteDataInfo::CloudFlareStatus::INACTIVE),style: "color: red"
+        div (SiteDataInfo::CLOUDFLARESTATUS[site.cloudflare]),style: "color: red"
       elsif site.cloudflare == SiteDataInfo::CloudFlareStatus::ACTIVE
-        div (SiteDataInfo::CloudFlareStatus::ACTIVE),style: "color: green"
+        div (SiteDataInfo::CLOUDFLARESTATUS[site.cloudflare]),style: "color: green"
       end
     end
     column 'Login Url' do |site_data|
@@ -102,11 +102,11 @@ ActiveAdmin.register SiteDataInfo do
         link_to 'JS', admin_js_infos_path("q[url_id_equals]" => site.url_id, "q[status_equals]" => 1)
       end
       row 'Cloudflare' do |site|
-        if site.cloudflare == '0'
-        div (SiteDataInfo::STATUS[site.cloudflare]),style: "color: red"
-      elsif site.cloudflare =='1'
-        div (SiteDataInfo::STATUS[site.cloudflare]),style: "color: green"
-      end
+        if site.cloudflare == SiteDataInfo::CloudFlareStatus::INACTIVE
+          div (SiteDataInfo::CLOUDFLARESTATUS[site.cloudflare]),style: "color: red"
+        elsif site.cloudflare == SiteDataInfo::CloudFlareStatus::ACTIVE
+          div (SiteDataInfo::CLOUDFLARESTATUS[site.cloudflare]),style: "color: green"
+        end
       end
       row 'Login Url' do |site_data|
         if site_data.login_url == '0'

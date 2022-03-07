@@ -25,7 +25,6 @@ ActiveAdmin.register Test do
     end
     column 'JS' do |test|
       link_to 'js', admin_js_infos_path('q[first_seen_less_than]' => test.id + 1,'q[last_seen_greater_than]' => test.id - 1, :test_id => test.id)
-
     end
     column 'Status' do |test|
       status = test.status 
@@ -45,6 +44,14 @@ ActiveAdmin.register Test do
   show do
     attributes_table do
       row :id
+      row 'Urls' do |test|
+        url_ids = SiteDataInfo.where(test_id: test.id).pluck(:url_id)
+        if url_ids.size > 0
+          link_to 'urls', admin_urls_path('q[id_in]' => url_ids)
+        else
+          div ('no urls found')
+        end
+      end
       row 'Data Infos' do |test|
         url_ids = SiteDataInfo.where(test_id: 2).pluck(:url_id).to_s
         link_to 'data info', admin_site_data_infos_path("q[test_id_equals]" => test.id )
@@ -72,7 +79,6 @@ ActiveAdmin.register Test do
         link_to 'js', admin_js_infos_path('q[first_seen_less_than]' => test.id + 1,'q[last_seen_greater_than]' => test.id - 1, :test_id => test.id)
       end
       row :created_at
-
     end
   end
 
