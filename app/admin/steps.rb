@@ -4,6 +4,8 @@ ActiveAdmin.register Step do
   filter :status , :as => :select, :collection => Step::STATUS.invert
   filter :test_id
   filter :id
+  filter :created_at
+  filter :updated_at
 
   index do
     id_column

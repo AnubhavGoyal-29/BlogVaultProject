@@ -3,6 +3,10 @@ ActiveAdmin.register Theme do
   actions :index, :show  
   filter :theme_name
   filter :url_id
+  filter :first_seen
+  filter :last_seen
+  filter :created_at
+  filter :updated_at
   filter :status , :as => :select, :collection => Theme::STATUS.invert
 
   index do 

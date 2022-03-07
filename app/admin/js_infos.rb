@@ -3,6 +3,10 @@ ActiveAdmin.register JsInfo do
   actions :index, :show
   filter :url_id
   filter :status , :as => :select, :collection => JsInfo::STATUS.invert
+  filter :first_seen
+  filter :last_seen
+  filter :created_at
+  filter :updated_at
 
   index do 
     id_column

@@ -4,6 +4,8 @@ ActiveAdmin.register SiteDataInfo do
   filter :test_id
   filter :url_id
   filter :cloudflare, :as => :select, :collection => SiteDataInfo::CLOUDFLARESTATUS.invert
+  filter :id
+
   scope :all, :default => true
   scope :Plugins_found, :default => true do |site_data_infos|
     site_data_infos.where.not(:plugins => '[]')    

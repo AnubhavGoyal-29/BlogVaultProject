@@ -8,7 +8,9 @@ ActiveAdmin.register Url do
 
   filter :id
   filter :url
-  filter :site_data_info_id
+  filter :created_at
+  filter :updated_at
+  filter :first_seen 
   scope :all
   scope :wordpress_sites, :default => true do |urls|
     urls.where(:cms => Url::Cms::WORDPRESS) 

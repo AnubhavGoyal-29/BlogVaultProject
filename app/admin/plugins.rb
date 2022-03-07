@@ -6,6 +6,8 @@ ActiveAdmin.register Plugin do
   filter :status , :as => :select, :collection => Plugin::STATUS.invert
   filter :first_seen
   filter :last_seen
+  filter :created_at
+  filter :updated_at
 
   index do 
     id_column

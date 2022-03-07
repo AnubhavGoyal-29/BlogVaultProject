@@ -2,6 +2,9 @@ ActiveAdmin.register Test do
 
   actions :index, :show
   filter :status , :as => :select, :collection => Test::STATUS.invert
+  filter :id
+  filter :created_at
+  filter :updated_at
 
   index do
     id_column
