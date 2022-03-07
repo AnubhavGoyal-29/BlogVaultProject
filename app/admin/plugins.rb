@@ -10,8 +10,8 @@ ActiveAdmin.register Plugin do
   index do 
     id_column
     column 'Name' do|plugin|
-      name = (PluginSlug.where("slug LIKE?", "#{ plugin.plugin_name }").first && 
-              PluginSlug.where("slug LIKE?", "#{ plugin.plugin_name }").first.name) 
+      slug_name = PluginSlug.where("slug LIKE?", "#{ plugin.plugin_name }").first
+      name = slug_name && slug_name.name 
       name ||= plugin.plugin_name
       div (name)
     end
@@ -26,7 +26,7 @@ ActiveAdmin.register Plugin do
         link_to "#{url_ids.count} :: urls", admin_urls_path('q[id_in]' => url_ids)
       else
         url_ids = Plugin.where("first_seen <= ?", params["test_id"]).
-          where("last_seen >= ?",params["test_id"]).
+          where("last_seen >= ?", params["test_id"]).
           where(:plugin_name => plugin.plugin_name).pluck(:url_id)
         link_to "#{url_ids.count} :: urls", admin_urls_path('q[id_in]' => url_ids)
       end
@@ -37,9 +37,9 @@ ActiveAdmin.register Plugin do
       column 'Status' do |plugin|
         status = plugin.status
         if status == Plugin::Status::INACTIVE
-          div (Plugin::STATUS[status]),style: "color: red"
+          div (Plugin::STATUS[status]), style: "color: red"
         elsif status == Plugin::Status::ACTIVE
-          div (Plugin::STATUS[status]),style: "color: green"
+          div (Plugin::STATUS[status]), style: "color: green"
         end
       end
     end
@@ -49,8 +49,8 @@ ActiveAdmin.register Plugin do
     attributes_table do
       row :id
       row 'Name' do|plugin|
-        name = (PluginSlug.where("slug LIKE?", "#{ plugin.plugin_name }").first &&
-                PluginSlug.where("slug LIKE?", "#{ plugin.plugin_name }").first.name)
+        slug_name = PluginSlug.where("slug LIKE?", "#{ plugin.plugin_name }").first
+        name = slug_name && slug_name.name
         name ||= plugin.plugin_name
         div (name)
       end
@@ -60,7 +60,7 @@ ActiveAdmin.register Plugin do
           link_to "#{url_ids.count} :: urls", admin_urls_path('q[id_in]' => url_ids)
         else
           url_ids = Plugin.where("first_seen <= ?", params["test_id"]).
-            where("last_seen >= ?",params["test_id"]).
+            where("last_seen >= ?", params["test_id"]).
             where(:plugin_name => plugin.plugin_name).pluck(:url_id)
           link_to "#{url_ids.count} :: urls", admin_urls_path('q[id_in]' => url_ids)
         end
@@ -71,9 +71,9 @@ ActiveAdmin.register Plugin do
         row 'Status' do |plugin|
           status = plugin.status
           if status == Plugin::Status::INACTIVE
-            div (Plugin::STATUS[status]),style: "color: red"
+            div (Plugin::STATUS[status]), style: "color: red"
           elsif status == Plugin::Status::ACTIVE
-            div (Plugin::STATUS[status]),style: "color: green"
+            div (Plugin::STATUS[status]), style: "color: green"
           end
         end
       end

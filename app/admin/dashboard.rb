@@ -28,28 +28,22 @@ ActiveAdmin.register_page "Dashboard" do
                 total = Step.where(:test_id => test.id).count
                 running = Step.where(:test_id => test.id, :status => Test::Status::RUNNING).count             
                 initialized = Step.where(:test_id => test.id, :status => Test::Status::INITIALIZED).count
-
                 div :class => 'running_tests' do
                   div "Test #{test.id} is running",
                     :class => 'active_admin_test_running_content', 
                     :style => 'color : orange'
-                  div test.created_at, :class => 'active_admin_test_running_content'
+                  div test.started_at, :class => 'active_admin_test_running_content'
                   div total, :class => 'active_admin_test_running_content'
-                  # div Step.where(:test_id => test.id).count, :class => 'active_admin_test_running_lable'
                   div (total - running - initialized), :class => 'active_admin_test_running_content'
-
                   div " #{Integer(Time.now - test.started_at)/60} min #{Integer(Time.now - test.started_at)%60} sec ",
                     :class => 'active_admin_test_running_content'
-
-                  #div Step.where(:test_id => test.id, :status => Step::STATUS.invert[:RUNNING]).count, :class => 'active_admin_test_running_lable'
-                  br
+                  hr
                 end
               end
             else
               div "no running tests", :class => 'active_admin_test_running_content'
             end
           end
-
           panel 'Completed Tests' do
             div :class => 'completed_tests' do 
               span "Test", :class => 'active_admin_test_completed_label'
@@ -58,7 +52,7 @@ ActiveAdmin.register_page "Dashboard" do
               span "Failed Jobs", :class => 'active_admin_test_completed_label'
               span "Started at", :class => 'active_admin_test_completed_label'
               span "Time Taken", :class => 'active_admin_test_completed_label'
-              br
+              hr
             end
             tests = Test.where(:status => Test::Status::COMPLETED).last(5)
             if tests.count > 0
@@ -74,7 +68,7 @@ ActiveAdmin.register_page "Dashboard" do
                   div test.started_at, :class => 'active_admin_test_completed_content'
                   div (" #{Integer(test.updated_at - test.started_at)/60} min #{Integer(test.updated_at - test.started_at)%60} sec "), 
                     :class => 'active_admin_test_completed_content'
-                  br
+                  hr
                 end
               end
             else 
@@ -92,7 +86,6 @@ ActiveAdmin.register_page "Dashboard" do
     urls = []
     if params[:start_test] && params[:start_test][:file]
       File.readlines(params[:start_test][:file].tempfile, chomp: true).each do |line|
-        # to remove last character '/n'
         urls.append(line)
       end
       test = Test.create!(:number_of_urls => urls.size, :status => Test::Status::INITIALIZED)

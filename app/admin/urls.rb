@@ -5,6 +5,7 @@ ActiveAdmin.register Url do
   end
 
   actions :index, :show
+
   filter :id
   filter :url
   filter :site_data_info_id
@@ -39,7 +40,8 @@ ActiveAdmin.register Url do
     end
     column 'Last Test Data' do |url|
       if url.site_data_infos.last
-        link_to "last_test_data_info", admin_site_data_infos_path("q[test_id_equals]" => url.site_data_infos.last.test_id) 
+        link_to "last_test_data_info", admin_site_data_infos_path("q[test_id_equals]" => url.site_data_infos.last.test_id, 
+                                                                  "q[url_id_equals]" => url.site_data_infos.last.url_id)
       end
     end
     column 'Run New Test' do |url|
@@ -85,9 +87,9 @@ ActiveAdmin.register Url do
       row 'Cloudflare' do |url|
         cloudflare = url.site_data_infos.last.cloudflare
         if cloudflare == SiteDataInfo::CloudFlareStatus::INACTIVE
-          div (SiteDataInfo::CLOUDFLARESTATUS[cloudflare]),style: "color: red"
+          div ("INACTIVE"),style: "color: red"
         elsif cloudflare == SiteDataInfo::CloudFlareStatus::ACTIVE
-          div (SiteDataInfo::CLOUDFLARESTATUS[cloudflare]),style: "color: green"
+          div ("ACTIVE"),style: "color: green"
         end
       end
       row 'Last Test Data' do |url|

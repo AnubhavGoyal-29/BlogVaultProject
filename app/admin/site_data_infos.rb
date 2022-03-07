@@ -109,7 +109,7 @@ ActiveAdmin.register SiteDataInfo do
         end
       end
       row 'Login Url' do |site_data|
-        if site_data.login_url == '0'
+        if site_data.login_url == SiteDataInfo::LoginUrl::NOTFOUND
           div ('Not found'), :style => "color : red"
         elsif site_data.login_url
           link_to site_data.login_url, "http://www.#{site_data.login_url}", :target => '_blank'
