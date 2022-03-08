@@ -46,14 +46,8 @@ ActiveAdmin.register Theme do
         div ( name )
       end
       row "Usage" do |theme|
-        if !params["test_id"]
-          url_ids = Theme.where(:theme_name => theme.theme_name, :status => true).pluck(:url_id)
-          link_to "#{url_ids.count} :: urls", admin_urls_path('q[id_in]' => url_ids)
-        else
-          url_ids = Theme.where("first_seen <= ?", params["test_id"]).
-            where("last_seen >= ?", params["test_id"]).where(:theme_name => theme.theme_name).pluck(:url_id)
-          link_to "#{url_ids.count} :: urls", admin_urls_path('q[id_in]' => url_ids)
-        end
+        url_ids = Theme.where(:theme_name => theme.theme_name, :status => true).pluck(:url_id)
+        link_to "#{url_ids.count} :: urls", admin_urls_path('q[id_in]' => url_ids)
       end
       row :first_seen
       row :last_seen

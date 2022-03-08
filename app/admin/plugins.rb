@@ -46,15 +46,8 @@ ActiveAdmin.register Plugin do
         div (name)
       end
       row "Usage" do |plugin|
-        if !params["test_id"]
-          url_ids = Plugin.where(:plugin_name => plugin.plugin_name, :status => true).pluck(:url_id)
-          link_to "#{url_ids.count} :: urls", admin_urls_path('q[id_in]' => url_ids)
-        else
-          url_ids = Plugin.where("first_seen <= ?", params["test_id"]).
-            where("last_seen >= ?", params["test_id"]).
-            where(:plugin_name => plugin.plugin_name).pluck(:url_id)
-          link_to "#{url_ids.count} :: urls", admin_urls_path('q[id_in]' => url_ids)
-        end
+        url_ids = Plugin.where(:plugin_name => plugin.plugin_name, :status => true).pluck(:url_id)
+        link_to "#{url_ids.count} :: urls", admin_urls_path('q[id_in]' => url_ids)
       end
       row :first_seen
       row :last_seen

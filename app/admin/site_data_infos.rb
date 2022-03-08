@@ -65,9 +65,9 @@ ActiveAdmin.register SiteDataInfo do
     end
     column 'Cloudflare' do |site|
       if site.cloudflare == false
-        div ("INACTIVE"),style: "color: red"
+        div ("INACTIVE"), style: "color: red"
       else
-        div ("ACTIVE"),style: "color: green"
+        div ("ACTIVE"), style: "color: green"
       end
     end
     column 'Login Url' do |site_data|
@@ -93,7 +93,7 @@ ActiveAdmin.register SiteDataInfo do
       end
       row 'Plugins' do |site_data|
         plugins = site_data.plugins
-        if JSON::parse(plugins).size > 0
+        if plugins.present?
           link_to 'Plugins', admin_plugins_path("q[url_id_equals]" => site_data.url_id)
         else
           div("Not found", style: "color: red")
@@ -101,7 +101,7 @@ ActiveAdmin.register SiteDataInfo do
       end
       row 'Themes' do |site_data|
         themes = site_data.themes
-        if JSON::parse(themes).size > 0
+        if themes.present?
           link_to 'Themes', admin_themes_path("q[url_id_equals]" => site_data.url_id)
         else
           div("Not found", style: "color: red")
@@ -109,7 +109,7 @@ ActiveAdmin.register SiteDataInfo do
       end
       row 'JS' do |site_data|
         js = site_data.js
-        if JSON::parse(js).size > 0
+        if js.present?
           link_to 'JS', admin_js_infos_path('q[url_id_equals]' => site_data.url_id)
         else
           div("Not found", style: "color: red")
@@ -125,9 +125,9 @@ ActiveAdmin.register SiteDataInfo do
       end
       row 'Cloudflare' do |site|
         if site.cloudflare == false
-          div ("INACTIVE"),style: "color: red"
+          div ("INACTIVE"), style: "color: red"
         else
-          div ("ACTIVE"),style: "color: green"
+          div ("ACTIVE"), style: "color: green"
         end
       end
       row 'Login Url' do |site_data|
