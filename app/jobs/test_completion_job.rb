@@ -16,7 +16,6 @@ class TestCompletionJob < ApplicationJob
     logger.info "Test Id : #{test_id} Step Id : #{ step.id } Message : Completed"
     total_jobs = test.steps.count
     completed_jobs = test.steps.completed.count
-    
     if total_jobs == completed_jobs
       #Url.url_site_data_info_update(test_id, logger)
       test.update(:status => Test::Status::COMPLETED)

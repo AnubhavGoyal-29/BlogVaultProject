@@ -3,7 +3,7 @@ ActiveAdmin.register Plugin do
   actions :index, :show  
   filter :plugin_name
   filter :url_id
-  filter :status , :as => :select, :collection => Plugin::STATUS.invert
+  filter :status 
   filter :first_seen
   filter :last_seen
   filter :created_at
@@ -24,7 +24,7 @@ ActiveAdmin.register Plugin do
 =end
     column "Usage" do |plugin|
       if !params["test_id"]
-        url_ids = Plugin.where(:plugin_name => plugin.plugin_name, :status => Plugin::Status::ACTIVE).pluck(:url_id)
+        url_ids = Plugin.where(:plugin_name => plugin.plugin_name, :status => true).pluck(:url_id)
         link_to "#{url_ids.count} :: urls", admin_urls_path('q[id_in]' => url_ids)
       else
         url_ids = Plugin.where("first_seen <= ?", params["test_id"]).
@@ -38,10 +38,10 @@ ActiveAdmin.register Plugin do
     if params[:q]
       column 'Status' do |plugin|
         status = plugin.status
-        if status == Plugin::Status::INACTIVE
-          div (Plugin::STATUS[status]), style: "color: red"
-        elsif status == Plugin::Status::ACTIVE
-          div (Plugin::STATUS[status]), style: "color: green"
+        if status == false
+          div ("INACTIVE"), style: "color: red"
+        else
+          div ("ACTIVE"), style: "color: green"
         end
       end
     end
@@ -58,7 +58,7 @@ ActiveAdmin.register Plugin do
       end
       row "Usage" do |plugin|
         if !params["test_id"]
-          url_ids = Plugin.where(:plugin_name => plugin.plugin_name, :status => Plugin::Status::ACTIVE).pluck(:url_id)
+          url_ids = Plugin.where(:plugin_name => plugin.plugin_name, :status => true).pluck(:url_id)
           link_to "#{url_ids.count} :: urls", admin_urls_path('q[id_in]' => url_ids)
         else
           url_ids = Plugin.where("first_seen <= ?", params["test_id"]).
@@ -72,10 +72,10 @@ ActiveAdmin.register Plugin do
       if params[:q]
         row 'Status' do |plugin|
           status = plugin.status
-          if status == Plugin::Status::INACTIVE
-            div (Plugin::STATUS[status]), style: "color: red"
-          elsif status == Plugin::Status::ACTIVE
-            div (Plugin::STATUS[status]), style: "color: green"
+          if status == false
+            div ("INACTIVE"), style: "color: red"
+          else
+            div ("ACTIVE"), style: "color: green"
           end
         end
       end

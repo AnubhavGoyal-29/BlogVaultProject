@@ -13,7 +13,7 @@ ActiveAdmin.register Url do
   filter :first_seen 
   scope :all
   scope :wordpress_sites, :default => true do |urls|
-    urls.where(:cms => Url::Cms::WORDPRESS) 
+    urls.where.not(:cms => nil) 
   end
 
   index do |url|
@@ -94,9 +94,9 @@ ActiveAdmin.register Url do
       end
       row 'Cloudflare' do |url|
         cloudflare = url.site_data_infos.last.cloudflare
-        if cloudflare == SiteDataInfo::CloudFlareStatus::INACTIVE
+        if cloudflare == false
           div ("INACTIVE"),style: "color: red"
-        elsif cloudflare == SiteDataInfo::CloudFlareStatus::ACTIVE
+        elsif cloudflare == true
           div ("ACTIVE"),style: "color: green"
         end
       end

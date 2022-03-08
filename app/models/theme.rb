@@ -1,30 +1,20 @@
 class Theme < ApplicationRecord
   belongs_to :url , default: nil
 
-  module Status
-    ACTIVE = 1
-    INACTIVE = 0
-  end
-
-  STATUS = {}
-  Status.constants.each { |type|
-    STATUS[Status.class_eval(type.to_s)] = type
-  }
-
   def self.import_themes(themes, _url, test_id )
     themes_id = []
     themes.each do |slug|
-      _theme = Theme.where(theme_slug: slug, url_id: _url, status: 1).first
+      _theme = Theme.where(theme_slug: slug, url_id: _url, status: true).first
       if _theme
         _version = _theme.version
         # passing 1.1 for testing only
         # finding ways to find version effectively
         if  _version != '1.1'
-          _theme.status = 0
+          _theme.status = false
           _theme.save
           theme_name = ThemeSlug.where(:slug => slug).first&.name || slug
           new_theme = Theme.create(:first_seen => test_id, :last_seen => test_id, :theme_name => theme_name,
-                                   :theme_slug => slug, :url_id => _url, :status => 1, :version => '1.1')
+                                   :theme_slug => slug, :url_id => _url, :status => true, :version => '1.1')
           themes_id << new_theme.id
         else
           _theme.update(:last_seen => test_id)
@@ -33,7 +23,7 @@ class Theme < ApplicationRecord
       else
         theme_name = ThemeSlug.where(:slug => slug).first&.name || slug
         new_theme = Theme.create(:first_seen => test_id, :last_seen => test_id, :theme_name => theme_name,
-                                 :theme_slug => slug, :url_id => _url, :status => 1, :version => '1.1')
+                                 :theme_slug => slug, :url_id => _url, :status => true, :version => '1.1')
         themes_id << new_theme.id
       end
     end
@@ -45,7 +35,7 @@ class Theme < ApplicationRecord
   def self.inactive_removed_themes(last_themes, themes_id)
     removed_themes = last_themes - themes_id
     removed_themes.each do |id|
-      Theme.find(id).update(:status => Theme::Status::INACTIVE)
+      Theme.find(id).update(:status => false)
     end
     return true
   end

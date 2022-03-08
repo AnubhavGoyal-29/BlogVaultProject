@@ -49,7 +49,7 @@ class Scrape
         wordpress_and_version << version_from_resource
       end
       if wordpress_and_version.count > 0
-        url.cms || url.update(:cms => Url::Cms::WORDPRESS)
+        url.cms || url.update(:cms => "wordpress")
         url_html_version_map[url_id] = {:html => html, :version => wordpress_and_version[1]}
       end
     rescue => e
@@ -165,12 +165,12 @@ class Scrape
         if js_and_version[1]
           js_and_version[1] = js_and_version[1].split('=')[1] # saving only version at 2nd index of js_and_version
         end
-        js_lib = js_and_version[0] ;
+        js_lib = js_and_version[0]
         version = js_and_version[1]
-        if version&.to_i == 0
+        if version&.to_i == 0  # reject all string
           version = nil
         end
-        maped_data[data_type].push([js,version])
+        maped_data[data_type].push([js_lib, version])
         return 
       end
       key_words = line[sub_resource].split('/')      #tempArr stores string values spllitted by '/' sign in order to obtain resource and its next value
@@ -188,7 +188,7 @@ class Scrape
         res = RestClient.get _url
         return _url if res.code == 200
       rescue => e
-        return '0'
+        return nil
       end
     end
     return nil

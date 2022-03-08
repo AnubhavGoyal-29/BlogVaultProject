@@ -2,7 +2,7 @@ ActiveAdmin.register JsInfo do
 
   actions :index, :show
   filter :url_id
-  filter :status , :as => :select, :collection => JsInfo::STATUS.invert
+  filter :status 
   filter :first_seen
   filter :last_seen
   filter :created_at
@@ -12,7 +12,7 @@ ActiveAdmin.register JsInfo do
     id_column
     column :js_lib
     column 'Version' do |js_info|
-      if js_info.version == JsInfo::Version::NOTFOUND
+      if js_info.version == nil
         div ("Not found"), :style => 'color : red'
       else 
         js_info.version
@@ -25,7 +25,7 @@ ActiveAdmin.register JsInfo do
       else
         url_ids = JsInfo.where("first_seen <= ?", params["test_id"]).
           where("last_seen >= ?",params["test_id"]).
-          where(:js_name => js.js_name).pluck(:url_id)
+          where(:js_lib => js.js_name).pluck(:url_id)
         link_to "#{url_ids.count} :: urls", admin_urls_path("q[id_in]" => url_ids)
       end
     end
@@ -34,10 +34,10 @@ ActiveAdmin.register JsInfo do
     if params[:q] and params[:q][:url_id_equals]
       column 'Status' do |js|
         status = js.status
-        if status == JsInfo::Status::INACTIVE
-          div (JsInfo::STATUS[status]),style: "color: red"
+        if status == false
+          div ("INACTIVE"),style: "color: red"
         else
-          div (JsInfo::STATUS[status]),style: "color: green"
+          div ("ACTIVE"),style: "color: green"
         end
       end
     end
@@ -48,7 +48,7 @@ ActiveAdmin.register JsInfo do
       row :id
       row :js_lib
       row 'Version' do |js_info|
-        if js_info.version == JsInfo::Version::NOTFOUND
+        if js_info.version == nil
           div ("Not found"), :style => 'color : red'
         else
           js_info.version
@@ -61,7 +61,7 @@ ActiveAdmin.register JsInfo do
         else
           url_ids = JsInfo.where("first_seen <= ?", params["test_id"]).
             where("last_seen >= ?", params["test_id"]).
-            where(:js_name => js.js_name).pluck(:url_id)
+            where(:js_lib => js.js_name).pluck(:url_id)
           link_to "#{url_ids.count} :: urls", admin_urls_path("q[id_in]" => url_ids)
         end
       end
@@ -70,10 +70,10 @@ ActiveAdmin.register JsInfo do
       if params[:q]
         row 'Status' do |js|
           status = js.status
-          if status == JsInfo::Status::INACTIVE
-            div (JsInfo::STATUS[status]),style: "color: red"
+          if status == false
+            div ("INACTIVE"),style: "color: red"
           else
-            div (JsInfo::STATUS[status]),style: "color: green"
+            div ("ACTIVE"),style: "color: green"
           end
         end
       end
