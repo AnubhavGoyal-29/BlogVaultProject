@@ -21,7 +21,7 @@ ActiveAdmin.register Step do
         div ("FAILED"),style: "color: red"
       elsif status == options[:INITIALIZED]
         div ("INITIALIZED"),style: "color: orange"
-      elsif status == options[:COMPLETED]
+      elsif status == options[:SUCCEED]
         div ("COMPLETED"),style: "color: green"
       else
         div ("RUNNING"),style: "color: blue"

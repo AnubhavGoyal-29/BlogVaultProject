@@ -5,22 +5,22 @@ class JsInfo < ApplicationRecord
   def self.import_js(all_js, url_id, test_id)
     js_id = []
     all_js.each do |js|
-      _js = JsInfo.where(js_lib: js[0], url_id: url_id, status: true).first
+      _js = JsInfo.where(js_lib: js[:js_lib], url_id: url_id, status: true).first
       if _js
         _version = _js.version
-        if  _version != js[1]
+        if  _version != js[:version]
           _js.status = false
           _js.save
-          new_js = JsInfo.create(:first_seen => test_id, :last_seen => test_id, :js_lib => js[0], 
-                                 :url_id => url_id, :status => true, :version => js[1] )
+          new_js = JsInfo.create(:first_seen => test_id, :last_seen => test_id, :js_lib => js[:js_lib], 
+                                 :url_id => url_id, :status => true, :version => js[:version] )
           js_id << new_js.id
         else
           _js.update(:last_seen => test_id)
           js_id << _js.id
         end
       else
-        new_js = JsInfo.create(:first_seen => test_id, :last_seen => test_id, :js_lib => js[0], 
-                               :url_id => url_id, :status => true, :version => js[1] )
+        new_js = JsInfo.create(:first_seen => test_id, :last_seen => test_id, :js_lib => js[:js_lib], 
+                               :url_id => url_id, :status => true, :version => js[:version] )
         js_id << new_js.id
       end
     end

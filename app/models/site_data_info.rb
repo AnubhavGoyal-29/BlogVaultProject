@@ -10,13 +10,13 @@ class SiteDataInfo < ApplicationRecord
     #new_site_data_info_id = SiteDataInfo.last ? SiteDataInfo.last.id : 1 ;
     urls_data.each do |url_id, data|
       maped_data = data[:maped_data]
-      cms_version = data[:version]
+      cms_version = data[:cms_version]
       cloudflare =  maped_data['cloudflare'].present?
-      _plugins = Plugin.import_plugins(maped_data["plugins"].uniq, url_id, test_id)
-      _plugins +=  Plugin.import_plugins(maped_data["mu-plugins"].uniq, url_id, test_id) if maped_data["mu-plugins"].count > 0
-      _themes = Theme.import_themes(maped_data["themes"].uniq, url_id, test_id)
-      _js = JsInfo.import_js(maped_data["js"].uniq, url_id, test_id)
-      _login_url = maped_data[:login_url][0]
+      _plugins = Plugin.import_plugins(maped_data["plugins"].uniq, url_id, test_id) if maped_data["plugins"].present?
+      _plugins +=  Plugin.import_plugins(maped_data["mu-plugins"].uniq, url_id, test_id) if maped_data["mu-plugins"].present?
+      _themes = Theme.import_themes(maped_data["themes"].uniq, url_id, test_id) if maped_data["themes"].present?
+      _js = JsInfo.import_js(maped_data["js"].uniq, url_id, test_id) if maped_data["js"].present?
+      _login_url = maped_data[:login_url]
       _ip = maped_data[:ip]
       data_map = Hash.new
       data_map = {
@@ -53,7 +53,7 @@ class SiteDataInfo < ApplicationRecord
         themes: data[:themes],
         js: data[:js],
         login_url: data[:login_url],
-        ip: data[:ip][0]
+        ip: data[:ip]
       )
       return site_data_info
     rescue => e

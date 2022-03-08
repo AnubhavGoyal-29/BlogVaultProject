@@ -28,6 +28,8 @@ class Plugin < ApplicationRecord
     last_plugins = Url.find(url_id).site_data_infos.last&.plugins
     done = inactive_removed_plugins(last_plugins, plugins_id) if last_plugins.present?
     return plugins_id
+  rescue => e
+    logger.info "error #{e} from plugin"
   end
 
   def self.inactive_removed_plugins(last_plugins, plugins_id)

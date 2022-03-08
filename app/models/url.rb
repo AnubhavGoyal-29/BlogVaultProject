@@ -38,8 +38,8 @@ class Url < ApplicationRecord
     data_1 = SiteDataInfo.where(:test_id => test_id_1, :url_id => url_id).first
     data_2 = SiteDataInfo.where(:test_id => test_id_2, :url_id => url_id).first
 
-    plugin_1 = JSON.parse( data_1.plugins )
-    plugin_2 = JSON.parse( data_2.plugins )
+    plugin_1 = data_1.plugins
+    plugin_2 = data_2.plugins
     plugins_common = plugin_1 & plugin_2
 
     for i in 0..( plugin_1.size - 1 )
@@ -54,8 +54,8 @@ class Url < ApplicationRecord
     plugin_1 = plugin_1 - plugins_common
     plugin_2 = plugin_2 - plugins_common
 
-    theme_1 = JSON.parse( data_1.themes )
-    theme_2 = JSON.parse( data_2.themes )
+    theme_1 = data_1.themes
+    theme_2 = data_2.themes
     themes_common = theme_1 & theme_2
 
     for i in 0..( theme_1.size - 1 )
@@ -71,18 +71,18 @@ class Url < ApplicationRecord
     theme_1 = theme_1 - themes_common
     theme_2 = theme_2 - themes_common
 
-    js_1 = JSON.parse( data_1.js )
-    js_2 = JSON.parse( data_2.js )
+    js_1 = data_1.js
+    js_2 = data_2.js
     js_common = js_1 & js_2
 
     for i in 0..( js_1.size - 1 )
-      js_1[i] = JsInfo.find(js_1[i]).js_name if JsInfo.find(js_1[i]).js_name
+      js_1[i] = JsInfo.find(js_1[i]).js_lib if JsInfo.find(js_1[i]).js_lib
     end
     for i in 0..( js_2.size - 1 )
-      js_2[i] = JsInfo.find(js_2[i]).js_name if JsInfo.find(js_2[i]).js_name
+      js_2[i] = JsInfo.find(js_2[i]).js_lib if JsInfo.find(js_2[i]).js_lib
     end
     for i in 0..( js_common.size - 1 )
-      js_common[i] = JsInfo.find(js_common[i]).js_name
+      js_common[i] = JsInfo.find(js_common[i]).js_lib
     end
 
     js_1 = js_1 - js_common

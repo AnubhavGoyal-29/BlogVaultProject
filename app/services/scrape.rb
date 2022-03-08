@@ -35,23 +35,20 @@ class Scrape
 
   def self.thread_block(url_id, url_html_version_map, logger, test_id)
     begin
-      # puts url + "    " + proxy_ip
-      # RestClient.proxy = "http://" + proxy_ip
-
       url = Url.find(url_id)
       html = Nokogiri::HTML.parse(RestClient.get (url.url + "?x=#{rand(999999)}"))
-      File.write("/tmp/#{url.url}", html)
-      wordpress_and_version = check_wordpress_in_meta(html) || []  # fetching both cms type and its version together 
+      #File.write("/tmp/#{url.url}", html)
+      wordpress_and_version_hash = check_wordpress_in_meta(html) || Hash.new  # fetching both cms type and its version together 
 
-      if !wordpress_and_version.present? and check_wordpress_in_html(html) 
-        wordpress_and_version << "wordpress"
+      if !wordpress_and_version_hash.present? and check_wordpress_in_html(html) 
+        wordpress_and_version_hash[:cms] = "wordpress"
         version_from_resource = find_wordpress_version(html) 
-        wordpress_and_version << version_from_resource
+        wordpress_and_version_hash[:cms_version] = version_from_resource
       end
 
-      if wordpress_and_version.present?
-        url.cms || url.update(:cms => "wordpress")
-        url_html_version_map[url_id] = {:html => html, :version => wordpress_and_version[1]}
+      if wordpress_and_version_hash.present?
+        url.cms || url.update(:cms => wordpress_and_version_hash[:cms])
+        url_html_version_map[url_id] = {:html => html, :cms_version => wordpress_and_version_hash[:cms_version]}
       end
     rescue => e
       logger.info "Test Id : #{test_id} Url: #{url.url} Error: #{e}"
@@ -64,8 +61,8 @@ class Scrape
       html.search("meta[name='#{name}']").map do |line|
         if line['content']
           cms = line['content']
-          wordpress_and_version = check_wordpress_name(cms)
-          return wordpress_and_version if wordpress_and_version
+          wordpress_and_version_hash = check_wordpress_name(cms)
+          return wordpress_and_version_hash if wordpress_and_version_hash
         end
       end
     end
@@ -73,9 +70,9 @@ class Scrape
   end
 
   def self.check_wordpress_name(cms)
-    if cms && cms['Wordpress'] || cms['wordpress'] || cms['WordPress']
-      wordpress_and_version = cms.split(' ')
-      return wordpress_and_version
+    if cms && ( cms['Wordpress'] || cms['wordpress'] || cms['WordPress'] )
+      wordpress_and_version_arr = cms.split(' ')
+      return {:cms => "wordpress", :cms_version => wordpress_and_version_arr[1]}
     end
     return nil;
   end
@@ -118,7 +115,7 @@ class Scrape
     data = Hash.new{|h,k| h[k] = Hash.new }
     urls_data.each do |key, value|
       html = value[:html]
-      maped_data = Hash.new{|h,k| h[k] = [] }
+      maped_data = Hash.new
       url = Url.find(key).url 
 
       get_data_from_resource(url, html, Tags::LINK, DataTypes::PLUGINS, maped_data, logger)
@@ -136,10 +133,11 @@ class Scrape
       get_data_from_resource(url, html, Tags::LINK, DataTypes::CLOUDFLARE, maped_data, logger)
       get_data_from_resource(url, html, Tags::SCRIPT, DataTypes::CLOUDFLARE, maped_data, logger) 
 
-      maped_data[:login_url].push(get_login_url(url, logger))
-      maped_data[:ip].push(get_ip(url))
-      data[key] = {:maped_data => maped_data, :version => value[:version]}
+      maped_data[:login_url] = get_login_url(url, logger)
+      maped_data[:ip] = get_ip(url)
+      data[key] = {:maped_data => maped_data, :cms_version => value[:cms_version]}
     end
+    logger.info data
     return data
   end
 
@@ -153,23 +151,25 @@ class Scrape
 
   def self.get_data_from_sub_source(url, line, data_type, sub_resource, maped_data, logger)
     if line[sub_resource] and line[sub_resource][data_type]
-      return maped_data[data_type] = [1] if data_type == DataTypes::CLOUDFLARE
+      return maped_data[data_type] = true if data_type == DataTypes::CLOUDFLARE
 
       if data_type == DataTypes::JS
         return if line[sub_resource][DataTypes::PLUGINS] || line[sub_resource][DataTypes::THEMES]
         key_words = line[sub_resource].split('/')
         key_words = key_words - [nil, '']
         key_words = remove_common_words_from_line(url, key_words, logger)
-        js_and_version = key_words.join('/').split('?')
-        if js_and_version[1]
-          js_and_version[1] = js_and_version[1].split('=')[1] # saving only version at 2nd index of js_and_version
+        js_and_version_arr = key_words.join('/').split('?')
+        js_and_version_hash = {:js => js_and_version_arr[0], :version => js_and_version_arr[1]}
+        if js_and_version_hash[:version]
+          js_and_version_hash[:version] = js_and_version_hash[:version].split('=')[1] # saving only version at 2nd index of js_and_version
         end
-        js_lib = js_and_version[0]
-        version = js_and_version[1]
+        js_lib = js_and_version_hash[:js]
+        version = js_and_version_hash[:version]
         if version&.to_i == 0  # reject all string
           version = nil
         end
-        maped_data[data_type].push([js_lib, version])
+        maped_data[data_type] ||= []
+        maped_data[data_type] << {:js_lib => js_lib, :version => version}
         return 
       end
       #key_words stores string values spllitted by '/' sign in order to obtain resource and its next value
@@ -177,7 +177,8 @@ class Scrape
       key_words = key_words.reverse
       data_type_index = key_words.index(data_type)
       if data_type_index && key_words[data_type_index-1] && !key_words[data_type_index-1]['.js']
-        maped_data[data_type].push(key_words[data_type_index-1].split('?')[0])
+        maped_data[data_type] ||= []
+        maped_data[data_type] << key_words[data_type_index-1].split('?')[0]
       end
     end
   end

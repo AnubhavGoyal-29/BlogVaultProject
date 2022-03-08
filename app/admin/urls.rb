@@ -62,7 +62,7 @@ ActiveAdmin.register Url do
       end
       row 'WP Version' do |url|
         version = url.site_data_infos.last.cms_version
-        if version == 'version not found'
+        if version == nil
           div ("Not found"), :style => "color : red"
         else
           version
@@ -70,7 +70,7 @@ ActiveAdmin.register Url do
       end
       row 'Plugins' do |url|
         plugins = url.site_data_infos.last.plugins
-        if JSON::parse(plugins).size > 0
+        if plugins.present?
           link_to 'Plugins', admin_plugins_path("q[url_id_equals]" => url.id, "q[status_equals]" => 1)
         else
           div("Not found", style: "color: red")
@@ -78,7 +78,7 @@ ActiveAdmin.register Url do
       end
       row 'Themes' do |url|
         themes = url.site_data_infos.last.themes
-        if JSON::parse(themes).size > 0
+        if themes.present?
           link_to 'Themes', admin_themes_path("q[url_id_equals]" => url.id, "q[status_equals]" => 1)
         else
           div("Not found", style: "color: red")
@@ -86,19 +86,17 @@ ActiveAdmin.register Url do
       end
       row 'Js' do |url|
         js = url.site_data_infos.last.js
-        if JSON::parse(js).size > 0
+        if js.present?
           link_to 'Js', admin_js_infos_path("q[url_id_equals]" => url.id, "q[status_equals]" => 1)
         else
           div("Not found", style: "color: red")
         end
       end
       row 'Cloudflare' do |url|
-        cloudflare = url.site_data_infos.last.cloudflare
-        if cloudflare == false
-          div ("INACTIVE"),style: "color: red"
-        elsif cloudflare == true
-          div ("ACTIVE"),style: "color: green"
-        end
+        site_data = url.site_data_infos.last
+        status = site_data.cloudflare ? "ACTIVE" : "INACTIVE"
+        color = site_data.cloudflare ? "green" : "red"
+        div status, :style => "color : #{color}"
       end
       row 'Last Test Data' do |url|
         if url.site_data_infos.last
