@@ -10,7 +10,7 @@ ActiveAdmin.register JsInfo do
 
   index do 
     id_column
-    column :js_name
+    column :js_lib
     column 'Version' do |js_info|
       if js_info.version == JsInfo::Version::NOTFOUND
         div ("Not found"), :style => 'color : red'
@@ -20,7 +20,7 @@ ActiveAdmin.register JsInfo do
     end
     column "Usage" do |js|
       if !params["test_id"]
-        url_ids = JsInfo.where(:js_name => js.js_name, :status => JsInfo::Status::ACTIVE).pluck(:url_id)
+        url_ids = JsInfo.where(:js_lib => js.js_lib, :status => JsInfo::Status::ACTIVE).pluck(:url_id)
         link_to "#{url_ids.count} :: urls", admin_urls_path('q[id_in]' => url_ids)
       else
         url_ids = JsInfo.where("first_seen <= ?", params["test_id"]).
@@ -46,7 +46,7 @@ ActiveAdmin.register JsInfo do
   show do
     attributes_table do
       row :id
-      row :js_name
+      row :js_lib
       row 'Version' do |js_info|
         if js_info.version == JsInfo::Version::NOTFOUND
           div ("Not found"), :style => 'color : red'
@@ -56,7 +56,7 @@ ActiveAdmin.register JsInfo do
       end
       row "Usage" do |js|
         if !params["test_id"]
-          url_ids = JsInfo.where(:js_name => js.js_name, :status => JsInfo::Status::ACTIVE).pluck(:url_id)
+          url_ids = JsInfo.where(:js_lib => js.js_lib, :status => JsInfo::Status::ACTIVE).pluck(:url_id)
           link_to "#{url_ids.count} :: urls", admin_urls_path('q[id_in]' => url_ids)
         else
           url_ids = JsInfo.where("first_seen <= ?", params["test_id"]).

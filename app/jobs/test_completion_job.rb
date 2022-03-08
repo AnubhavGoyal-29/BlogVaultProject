@@ -12,13 +12,12 @@ class TestCompletionJob < ApplicationJob
   def perform(logger, test_id, step_id)
     @test_id = test_id
     @step_id = step_id
-    step.update(:status => Step::Status::COMPLETED)
+    step.update(:status => Step::Status::SUCCEED)
     logger.info "Test Id : #{test_id} Step Id : #{ step.id } Message : Completed"
-    total_jobs = Step.where(:test_id => test_id).count
-    completed_jobs = Step.where(:test_id => test_id, status: Step::Status::COMPLETED).count
-    failed_jobs = Step.where(:test_id => test_id, status: Step::Status::FAILED).count
+    total_jobs = test.steps.count
+    completed_jobs = test.steps.completed.count
     
-    if total_jobs == ( completed_jobs + failed_jobs )
+    if total_jobs == completed_jobs
       #Url.url_site_data_info_update(test_id, logger)
       test.update(:status => Test::Status::COMPLETED)
       logger.info "Test Id : #{test_id} Message : Completed"

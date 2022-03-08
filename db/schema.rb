@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 2022_02_28_100556) do
   end
 
   create_table "js_infos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "js_name"
+    t.string "js_lib"
     t.string "url_id"
     t.boolean "status"
     t.string "version"
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 2022_02_28_100556) do
 
   create_table "plugins", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "plugin_name"
+    t.string "plugin_slug"
     t.string "url_id"
     t.boolean "status"
     t.string "type"
@@ -119,6 +120,7 @@ ActiveRecord::Schema.define(version: 2022_02_28_100556) do
 
   create_table "themes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "theme_name"
+    t.string "theme_slug"
     t.string "url_id"
     t.boolean "status"
     t.string "version"

@@ -1,7 +1,9 @@
 class SiteDataInfo < ApplicationRecord
   belongs_to :url, required: true
-  belongs_to :test, required: true
-
+  belongs_to :test, required: true  
+  serialize :plugins, Array
+  serialize :themes, Array
+  serialize :js, Array
   module CloudFlareStatus
     ACTIVE = "1"
     INACTIVE = "0"

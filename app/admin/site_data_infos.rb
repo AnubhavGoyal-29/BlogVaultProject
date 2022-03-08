@@ -8,19 +8,19 @@ ActiveAdmin.register SiteDataInfo do
 
   scope :all, :default => true
   scope :Plugins_found, :default => true do |site_data_infos|
-    site_data_infos.where.not(:plugins => '[]')    
+    site_data_infos.where.not(:plugins => nil)    
   end
   scope :Themes_found, :default => true do |site_data_infos|
-    site_data_infos.where.not(:themes => '[]')
+    site_data_infos.where.not(:themes => nil)
   end
   scope :Js_found, :default => true do |site_data_infos|
-    site_data_infos.where.not(:js => '[]')
+    site_data_infos.where.not(:js => nil)
   end
   scope :login_url_found, :default => true do |site_data_infos|
     site_data_infos.where.not(:login_url => '0')
   end
   scope :WP_version_found, :default => true do |site_data_infos|
-    site_data_infos.where.not(:cms_version => 'version not found')
+    site_data_infos.where.not(:cms_version => nil)
   end
 
   index do 
@@ -33,7 +33,7 @@ ActiveAdmin.register SiteDataInfo do
     end 
     column 'Plugins' do |site_data|
       plugins = site_data.plugins
-      if JSON::parse(plugins).size > 0
+      if plugins.present?
         link_to 'Plugins', admin_plugins_path("q[url_id_equals]" => site_data.url_id)
       else
         div("Not found", style: "color: red")
@@ -41,7 +41,7 @@ ActiveAdmin.register SiteDataInfo do
     end
     column 'Themes' do |site_data|
       themes = site_data.themes
-      if JSON::parse(themes).size > 0
+      if themes.present?
         link_to 'Themes', admin_themes_path("q[url_id_equals]" => site_data.url_id)
       else
         div("Not found", style: "color: red")
@@ -49,7 +49,7 @@ ActiveAdmin.register SiteDataInfo do
     end
     column 'JS' do |site_data|
       js = site_data.js
-      if JSON::parse(js).size > 0
+      if js.present?
         link_to 'JS', admin_js_infos_path('q[url_id_equals]' => site_data.url_id)
       else
         div("Not found", style: "color: red")
@@ -57,7 +57,7 @@ ActiveAdmin.register SiteDataInfo do
     end
     column 'WP Version' do |site_data|
       version = site_data.cms_version
-      if version == 'version not found'
+      if version == nil
         div ('Not found'), :style => "color : red"
       else
         version
@@ -119,7 +119,7 @@ ActiveAdmin.register SiteDataInfo do
       end
       row 'WP Version' do |site_data|
         version = site_data.cms_version
-        if version == 'version not found'
+        if version == nil
           div ('Not found'), :style => "color : red"
         else
           version

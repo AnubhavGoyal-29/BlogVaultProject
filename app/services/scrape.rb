@@ -161,15 +161,14 @@ class Scrape
         key_words = line[sub_resource].split('/')
         key_words = key_words - [nil, '']
         key_words = remove_common_words_from_line(url, key_words, logger)
-        version_array = key_words.join('/').split('?')
-        if version_array[1]
-          version_array[1] = version_array[1].split('=')[1]
+        js_and_version = key_words.join('/').split('?')
+        if js_and_version[1]
+          js_and_version[1] = js_and_version[1].split('=')[1] # saving only version at 2nd index of js_and_version
         end
-        version = ''
-        js = version_array[0] ;
-        version = version_array[1] if version_array[1]
-        if version.to_i == 0
-          version = '0'
+        js_lib = js_and_version[0] ;
+        version = js_and_version[1]
+        if version&.to_i == 0
+          version = nil
         end
         maped_data[data_type].push([js,version])
         return 
