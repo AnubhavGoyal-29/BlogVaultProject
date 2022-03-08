@@ -12,10 +12,10 @@ class TestCompletionJob < ApplicationJob
   def perform(logger, test_id, step_id)
     @test_id = test_id
     @step_id = step_id
-    step.update(:status => Step::Status::COMPLETED)
+    step.update(:status => Step::Status::SUCCEED)
     logger.info "Test Id : #{test_id} Step Id : #{ step.id } Message : Completed"
     total_jobs = Step.where(:test_id => test_id).count
-    completed_jobs = Step.where(:test_id => test_id, status: Step::Status::COMPLETED).count
+    completed_jobs = Step.where(:test_id => test_id, status: Step::Status::SUCCEED).count
     failed_jobs = Step.where(:test_id => test_id, status: Step::Status::FAILED).count
     
     if total_jobs == ( completed_jobs + failed_jobs )

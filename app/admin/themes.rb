@@ -7,7 +7,7 @@ ActiveAdmin.register Theme do
   filter :last_seen
   filter :created_at
   filter :updated_at
-  filter :status , :as => :select, :collection => Theme::STATUS.invert
+  filter :status 
 
   index do 
     id_column
@@ -19,7 +19,7 @@ ActiveAdmin.register Theme do
     end
     column "Usage" do |theme|
       if !params["test_id"]
-        url_ids = Theme.where(:theme_name => theme.theme_name, :status => Theme::Status::ACTIVE).pluck(:url_id)
+        url_ids = Theme.where(:theme_name => theme.theme_name, :status => true).pluck(:url_id)
         link_to "#{url_ids.count} :: urls", admin_urls_path('q[id_in]' => url_ids)
       else
         url_ids = Theme.where("first_seen <= ?", params["test_id"]).
@@ -32,10 +32,10 @@ ActiveAdmin.register Theme do
     if params[:q]
       column 'Status' do |theme|
         status = theme.status
-        if status == Theme::Status::INACTIVE
-          div (Theme::STATUS[status]),style: "color: red"
-        elsif status == Theme::Status::ACTIVE
-          div (Theme::STATUS[status]),style: "color: green"
+        if status == false
+          div ("INACTIVE"),style: "color: red"
+        else
+          div ("ACTIVE"),style: "color: green"
         end
       end
     end
@@ -52,7 +52,7 @@ ActiveAdmin.register Theme do
       end
       row "Usage" do |theme|
         if !params["test_id"]
-          url_ids = Theme.where(:theme_name => theme.theme_name, :status => Theme::Status::ACTIVE).pluck(:url_id)
+          url_ids = Theme.where(:theme_name => theme.theme_name, :status => true).pluck(:url_id)
           link_to "#{url_ids.count} :: urls", admin_urls_path('q[id_in]' => url_ids)
         else
           url_ids = Theme.where("first_seen <= ?", params["test_id"]).
@@ -65,10 +65,10 @@ ActiveAdmin.register Theme do
       if params[:q]
         row 'Status' do |theme|
           status = theme.status
-          if status == Theme::Status::INACTIVE
-            div (Theme::STATUS[status]),style: "color: red"
-          elsif status == Theme::Status::ACTIVE
-            div (Theme::STATUS[status]),style: "color: green"
+          if status == false
+            div ("INACTIVE"),style: "color: red"
+          else
+            div ("ACTIVE"),style: "color: green"
           end
         end
       end

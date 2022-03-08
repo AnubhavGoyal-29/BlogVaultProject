@@ -49,7 +49,7 @@ class Scrape
         wordpress_and_version << version_from_resource
       end
       if wordpress_and_version.count > 0
-        url.cms || url.update(:cms => Url::Cms::WORDPRESS)
+        url.cms || url.update(:cms => "wordpress")
         url_html_version_map[url_id] = {:html => html, :version => wordpress_and_version[1]}
       end
     rescue => e
@@ -168,7 +168,7 @@ class Scrape
         version = ''
         js = version_array[0] ;
         version = version_array[1] if version_array[1]
-        if version.to_i == 0
+        if version.to_i == nil          
           version = '0'
         end
         maped_data[data_type].push([js,version])
@@ -189,7 +189,7 @@ class Scrape
         res = RestClient.get _url
         return _url if res.code == 200
       rescue => e
-        return '0'
+        return nil
       end
     end
     return nil

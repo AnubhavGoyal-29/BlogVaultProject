@@ -3,9 +3,7 @@ class Url < ApplicationRecord
   has_many :plugins, dependent: :destroy
   has_many :themes, dependent: :destroy
   has_many :js_inos, dependent: :destroy
-  module Cms
-    WORDPRESS = "wordpress"
-  end
+
   def self.import_urls(urls)
     urls_id = []
     urls.each do |url|

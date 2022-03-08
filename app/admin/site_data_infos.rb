@@ -3,7 +3,7 @@ ActiveAdmin.register SiteDataInfo do
   actions :index, :show
   filter :test_id
   filter :url_id
-  filter :cloudflare, :as => :select, :collection => SiteDataInfo::CLOUDFLARESTATUS.invert
+  filter :cloudflare
   filter :id
 
   scope :all, :default => true
@@ -57,21 +57,21 @@ ActiveAdmin.register SiteDataInfo do
     end
     column 'WP Version' do |site_data|
       version = site_data.cms_version
-      if version == 'version not found'
+      if version == nil
         div ('Not found'), :style => "color : red"
       else
         version
       end
     end
     column 'Cloudflare' do |site|
-      if site.cloudflare == SiteDataInfo::CloudFlareStatus::INACTIVE
-        div (SiteDataInfo::CLOUDFLARESTATUS[site.cloudflare]),style: "color: red"
-      elsif site.cloudflare == SiteDataInfo::CloudFlareStatus::ACTIVE
-        div (SiteDataInfo::CLOUDFLARESTATUS[site.cloudflare]),style: "color: green"
+      if site.cloudflare == false
+        div ("INACTIVE"),style: "color: red"
+      else
+        div ("ACTIVE"),style: "color: green"
       end
     end
     column 'Login Url' do |site_data|
-      if site_data.login_url == SiteDataInfo::LoginUrl::NOTFOUND
+      if site_data.login_url == nil
         div ('Not found'), :style => "color : red"
       else
         link_to site_data.login_url, "http://www.#{site_data.login_url}", :target => '_blank'
@@ -119,29 +119,29 @@ ActiveAdmin.register SiteDataInfo do
       end
       row 'WP Version' do |site_data|
         version = site_data.cms_version
-        if version == 'version not found'
+        if version == nil
           div ('Not found'), :style => "color : red"
         else
           version
         end
       end
       row 'Cloudflare' do |site|
-        if site.cloudflare == SiteDataInfo::CloudFlareStatus::INACTIVE
-          div (SiteDataInfo::CLOUDFLARESTATUS[site.cloudflare]),style: "color: red"
-        elsif site.cloudflare == SiteDataInfo::CloudFlareStatus::ACTIVE
-          div (SiteDataInfo::CLOUDFLARESTATUS[site.cloudflare]),style: "color: green"
+        if site.cloudflare == false
+          div ("INACTIVE"),style: "color: red"
+        else
+          div ("ACTIVE"),style: "color: green"
         end
       end
       row 'Login Url' do |site_data|
-        if site_data.login_url == SiteDataInfo::LoginUrl::NOTFOUND
+        if site_data.login_url == nil
           div ('Not found'), :style => "color : red"
         elsif site_data.login_url
           link_to site_data.login_url, "http://www.#{site_data.login_url}", :target => '_blank'
         end
       end
       row 'IP' do |site_data|
-      link_to "#{ site_data.ip }", "http://#{site_data.ip}" , :target => 'blank'
-    end
+        link_to "#{ site_data.ip }", "http://#{site_data.ip}" , :target => 'blank'
+      end
     end
   end
 
