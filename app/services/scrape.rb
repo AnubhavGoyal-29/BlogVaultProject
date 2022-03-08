@@ -43,12 +43,13 @@ class Scrape
       File.write("/tmp/#{url.url}", html)
       wordpress_and_version = check_wordpress_in_meta(html) || []  # fetching both cms type and its version together 
 
-      if wordpress_and_version.count == 0 and check_wordpress_in_html(html) 
+      if !wordpress_and_version.present? and check_wordpress_in_html(html) 
         wordpress_and_version << "wordpress"
         version_from_resource = find_wordpress_version(html) 
         wordpress_and_version << version_from_resource
       end
-      if wordpress_and_version.count > 0
+
+      if wordpress_and_version.present?
         url.cms || url.update(:cms => "wordpress")
         url_html_version_map[url_id] = {:html => html, :version => wordpress_and_version[1]}
       end
@@ -118,8 +119,7 @@ class Scrape
     urls_data.each do |key, value|
       html = value[:html]
       maped_data = Hash.new{|h,k| h[k] = [] }
-      url = Url.find(key).url
-      
+      url = Url.find(key).url 
       
       get_data_from_resource(url, html, Tags::LINK, DataTypes::PLUGINS, maped_data, logger)
       get_data_from_resource(url, html, Tags::SCRIPT, DataTypes::PLUGINS, maped_data, logger)
@@ -135,7 +135,6 @@ class Scrape
 
       get_data_from_resource(url, html, Tags::LINK, DataTypes::CLOUDFLARE, maped_data, logger)
       get_data_from_resource(url, html, Tags::SCRIPT, DataTypes::CLOUDFLARE, maped_data, logger) 
-
 
       maped_data[:login_url].push(get_login_url(url, logger))
       maped_data[:ip].push(get_ip(url))
@@ -173,10 +172,12 @@ class Scrape
         maped_data[data_type].push([js_lib, version])
         return 
       end
-      key_words = line[sub_resource].split('/')      #tempArr stores string values spllitted by '/' sign in order to obtain resource and its next value
+      #key_words stores string values spllitted by '/' sign in order to obtain resource and its next value
+      key_words = line[sub_resource].split('/')   
       key_words = key_words.reverse
       data_type_index = key_words.index(data_type)
-      maped_data[data_type].push(key_words[data_type_index-1].split('?')[0]) if data_type_index && key_words[data_type_index-1] && !key_words[data_type_index-1]['.js']
+      maped_data[data_type].push(key_words[data_type_index-1].split('?')[0]) if data_type_index && key_words[data_type_index-1] && 
+        !key_words[data_type_index-1]['.js']
     end
   end
 

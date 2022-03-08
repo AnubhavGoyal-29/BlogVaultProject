@@ -1,6 +1,7 @@
 ActiveAdmin.register JsInfo do
 
   actions :index, :show
+  filter :js_lib
   filter :url_id
   filter :status 
   filter :first_seen
@@ -19,15 +20,14 @@ ActiveAdmin.register JsInfo do
       end
     end
     column "Usage" do |js|
-      if !params["test_id"]
-        url_ids = JsInfo.where(:js_lib => js.js_lib, :status => JsInfo::Status::ACTIVE).pluck(:url_id)
-        link_to "#{url_ids.count} :: urls", admin_urls_path('q[id_in]' => url_ids)
-      else
-        url_ids = JsInfo.where("first_seen <= ?", params["test_id"]).
-          where("last_seen >= ?",params["test_id"]).
-          where(:js_lib => js.js_name).pluck(:url_id)
-        link_to "#{url_ids.count} :: urls", admin_urls_path("q[id_in]" => url_ids)
+      args = Hash.new
+      args[:js_lib] = js.js_lib
+      if params["test_id"]
+        args[:first_seen] = -Float::INFINITY..params['test_id'].to_i
+        args[:last_seen] = params['test_id'].to_i..Float::INFINITY
       end
+      url_ids = JsInfo.where(args).pluck(:url_id)
+      link_to "#{url_ids.count} :: urls", admin_urls_path("q[id_in]" => url_ids)
     end
     column :first_seen
     column :last_seen

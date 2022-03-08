@@ -59,7 +59,7 @@ ActiveAdmin.register_page "Dashboard" do
               tests.reverse.each do |test|
                 succeed = test.steps.succeed.count
                 failed = test.steps.failed.count
-                time = ActiveSupport::Duration.build(Time.now - test.started_at).parts
+                time = ActiveSupport::Duration.build(test.updated_at - test.started_at).parts
                 div :class => 'completed_tests' do
                   a "Test #{test.id}",href: admin_tests_path('q[id_equals]' => test.id), 
                     :class => 'active_admin_test_completed_content'

@@ -77,9 +77,7 @@ ActiveAdmin.register SiteDataInfo do
         link_to site_data.login_url, "http://www.#{site_data.login_url}", :target => '_blank'
       end
     end
-    column 'IP' do |site_data|
-      link_to "#{ site_data.ip }", "http://#{site_data.ip}" , :target => 'blank'
-    end
+    column :ip
   end
 
   show do
