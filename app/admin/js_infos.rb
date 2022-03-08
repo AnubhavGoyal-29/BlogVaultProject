@@ -33,12 +33,9 @@ ActiveAdmin.register JsInfo do
     column :last_seen
     if params[:q] and params[:q][:url_id_equals]
       column 'Status' do |js|
-        status = js.status
-        if status == false
-          div ("INACTIVE"),style: "color: red"
-        else
-          div ("ACTIVE"),style: "color: green"
-        end
+        status = js.status ? "ACTIVE" : "INACTIVE"
+        color = js.status ? "green" : "red"
+        div status, style: "color: #{color}"
       end
     end
   end
@@ -62,12 +59,9 @@ ActiveAdmin.register JsInfo do
       row :last_seen
       if params[:q]
         row 'Status' do |js|
-          status = js.status
-          if status == false
-            div ("INACTIVE"),style: "color: red"
-          else
-            div ("ACTIVE"),style: "color: green"
-          end
+          status = js.status ? "ACTIVE" : "INACTIVE"
+          color = js.status ? "green" : "red"
+          div status, style: "color: #{color}"
         end
       end
     end

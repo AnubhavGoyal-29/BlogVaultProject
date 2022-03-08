@@ -8,7 +8,7 @@ class TestCompletionJob < ApplicationJob
   def step
     @step ||= Step.find(@step_id)
   end
-  
+
   def perform(logger, test_id, step_id)
     @test_id = test_id
     @step_id = step_id

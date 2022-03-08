@@ -120,7 +120,7 @@ class Scrape
       html = value[:html]
       maped_data = Hash.new{|h,k| h[k] = [] }
       url = Url.find(key).url 
-      
+
       get_data_from_resource(url, html, Tags::LINK, DataTypes::PLUGINS, maped_data, logger)
       get_data_from_resource(url, html, Tags::SCRIPT, DataTypes::PLUGINS, maped_data, logger)
 
@@ -176,8 +176,9 @@ class Scrape
       key_words = line[sub_resource].split('/')   
       key_words = key_words.reverse
       data_type_index = key_words.index(data_type)
-      maped_data[data_type].push(key_words[data_type_index-1].split('?')[0]) if data_type_index && key_words[data_type_index-1] && 
-        !key_words[data_type_index-1]['.js']
+      if data_type_index && key_words[data_type_index-1] && !key_words[data_type_index-1]['.js']
+        maped_data[data_type].push(key_words[data_type_index-1].split('?')[0])
+      end
     end
   end
 

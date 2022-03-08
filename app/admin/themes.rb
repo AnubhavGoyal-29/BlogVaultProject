@@ -26,12 +26,9 @@ ActiveAdmin.register Theme do
     column :last_seen
     if params[:q]
       column 'Status' do |theme|
-        status = theme.status
-        if status == false
-          div ("INACTIVE"),style: "color: red"
-        else
-          div ("ACTIVE"),style: "color: green"
-        end
+        status = theme.status ? "ACTIVE" : "INACTIVE"
+        color = theme.status ? "green" : "red"
+        div status, style: "color: #{color}"
       end
     end
   end
@@ -53,12 +50,9 @@ ActiveAdmin.register Theme do
       row :last_seen
       if params[:q]
         row 'Status' do |theme|
-          status = theme.status
-          if status == false
-            div ("INACTIVE"),style: "color: red"
-          else
-            div ("ACTIVE"),style: "color: green"
-          end
+          status = theme.status ? "ACTIVE" : "INACTIVE"
+          color = theme.status ? "green" : "red"
+          div status, style: "color: #{color}"
         end
       end
     end

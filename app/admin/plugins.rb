@@ -26,12 +26,9 @@ ActiveAdmin.register Plugin do
     column :last_seen
     if params[:q]
       column 'Status' do |plugin|
-        status = plugin.status
-        if status == false
-          div ("INACTIVE"), style: "color: red"
-        else
-          div ("ACTIVE"), style: "color: green"
-        end
+        status = plugin.status ? "ACTIVE" : "INACTIVE"
+        color = plugin.status ? "green" : "red"
+        div status, style: "color: #{color}"
       end
     end
   end
@@ -53,12 +50,9 @@ ActiveAdmin.register Plugin do
       row :last_seen
       if params[:q]
         row 'Status' do |plugin|
-          status = plugin.status
-          if status == false
-            div ("INACTIVE"), style: "color: red"
-          else
-            div ("ACTIVE"), style: "color: green"
-          end
+          status = plugin.status ? "ACTIVE" : "INACTIVE"
+          color = plugin.status ? "green" : "red"
+          div status, style: "color: #{color}"
         end
       end
     end

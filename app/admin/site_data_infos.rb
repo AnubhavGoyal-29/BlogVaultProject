@@ -64,11 +64,9 @@ ActiveAdmin.register SiteDataInfo do
       end
     end
     column 'Cloudflare' do |site|
-      if site.cloudflare == false
-        div ("INACTIVE"), style: "color: red"
-      else
-        div ("ACTIVE"), style: "color: green"
-      end
+      status = site.cloudflare ? "ACTIVE" : "INACTIVE"
+      color = site.cloudflare ? "green" : "red"
+      div status, :style => "color : #{color}"
     end
     column 'Login Url' do |site_data|
       if site_data.login_url == nil
@@ -124,12 +122,11 @@ ActiveAdmin.register SiteDataInfo do
         end
       end
       row 'Cloudflare' do |site|
-        if site.cloudflare == false
-          div ("INACTIVE"), style: "color: red"
-        else
-          div ("ACTIVE"), style: "color: green"
-        end
+        status = site.cloudflare ? "ACTIVE" : "INACTIVE"
+        color = site.cloudflare ? "green" : "red"
+        div status, :style => "color : #{color}"
       end
+
       row 'Login Url' do |site_data|
         if site_data.login_url == nil
           div ('Not found'), :style => "color : red"
