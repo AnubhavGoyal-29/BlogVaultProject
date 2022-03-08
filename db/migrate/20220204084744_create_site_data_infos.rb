@@ -6,7 +6,7 @@ class CreateSiteDataInfos < ActiveRecord::Migration[5.2]
       t.string :cms_type
       t.string :cms_version
       t.text :js
-      t.string :cloudflare
+      t.boolean :cloudflare
       t.string :login_url
       t.string :host_name
       t.string :ip

@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 2022_02_28_100556) do
   create_table "js_infos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "js_name"
     t.string "url_id"
-    t.integer "status"
+    t.boolean "status"
     t.string "version"
     t.string "other_data"
     t.integer "first_seen"
@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 2022_02_28_100556) do
   create_table "plugins", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "plugin_name"
     t.string "url_id"
-    t.integer "status"
+    t.boolean "status"
     t.string "type"
     t.string "version"
     t.string "other_data"
@@ -83,7 +83,7 @@ ActiveRecord::Schema.define(version: 2022_02_28_100556) do
     t.string "cms_type"
     t.string "cms_version"
     t.text "js"
-    t.string "cloudflare"
+    t.boolean "cloudflare"
     t.string "login_url"
     t.string "host_name"
     t.string "ip"
@@ -120,7 +120,7 @@ ActiveRecord::Schema.define(version: 2022_02_28_100556) do
   create_table "themes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "theme_name"
     t.string "url_id"
-    t.integer "status"
+    t.boolean "status"
     t.string "version"
     t.string "other_data"
     t.integer "first_seen"

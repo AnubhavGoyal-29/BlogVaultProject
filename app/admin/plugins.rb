@@ -11,7 +11,7 @@ ActiveAdmin.register Plugin do
 
   index do 
     id_column
-    column 'Name' do|plugin|
+    column 'Name' do |plugin|
       slug_name = PluginSlug.where("slug LIKE?", "#{ plugin.plugin_name }").first
       name = slug_name && slug_name.name 
       name ||= plugin.plugin_name
