@@ -36,12 +36,7 @@ ActiveAdmin.register Plugin do
   show do
     attributes_table do
       row :id
-      row 'Name' do|plugin|
-        slug_name = PluginSlug.where("slug LIKE?", "#{ plugin.plugin_name }").first
-        name = slug_name && slug_name.name
-        name ||= plugin.plugin_name
-        div (name)
-      end
+      row :plugin_name
       row "Usage" do |plugin|
         url_ids = Plugin.where(:plugin_name => plugin.plugin_name, :status => true).pluck(:url_id)
         link_to "#{url_ids.count} :: urls", admin_urls_path('q[id_in]' => url_ids)
