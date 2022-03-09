@@ -21,13 +21,13 @@ ActiveAdmin.register Test do
       link_to 'data info', admin_site_data_infos_path("q[test_id_equals]" => test.id )
     end
     column 'Plugins' do |test|
-      link_to 'plugins', admin_plugins_path(:test_id => test.id)
+      link_to 'plugins', admin_plugins_path('q[first_seen_less_than]' => test.id + 1, 'q[last_seen_greater_than]' => test.id - 1, :test_id => test.id)
     end
     column 'Themes' do |test|
-      link_to 'themes', admin_themes_path(:test_id => test.id)
+      link_to 'themes', admin_themes_path('q[first_seen_less_than]' => test.id + 1, 'q[last_seen_greater_than]' => test.id - 1, :test_id => test.id)
     end
     column 'JS' do |test|
-      link_to 'js', admin_js_infos_path(:test_id => test.id)
+      link_to 'js', admin_js_infos_path('q[first_seen_less_than]' => test.id + 1, 'q[last_seen_greater_than]' => test.id - 1, :test_id => test.id)
     end
     column 'Status' do |test|
       status = test.status 

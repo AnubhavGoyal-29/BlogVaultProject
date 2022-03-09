@@ -165,11 +165,12 @@ class Scrape
         return 
       end
       #key_words stores string values spllitted by '/' sign in order to obtain resource and its next value
-      key_words = line[sub_resource].split('/')   
+      key_words = line[sub_resource].split('/')
+      key_words.reverse!
       data_type_index = key_words.index(data_type)
-      if data_type_index && key_words[data_type_index + 1] && !key_words[data_type_index + 1]['.js']
+      if data_type_index && key_words[data_type_index - 1] && !key_words[data_type_index - 1]['.js']
         maped_data[data_type] ||= []
-        maped_data[data_type] << key_words[data_type_index + 1].split('?')[0]
+        maped_data[data_type] << key_words[data_type_index - 1].split('?')[0]
       end
     end
   end
