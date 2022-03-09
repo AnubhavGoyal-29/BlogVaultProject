@@ -55,13 +55,13 @@ table.center {
         </tr>
         <tr>
           <td> Wp Version </td>
-          <td><%= data[:data_1][:cms_version] %></td>
-          <td><%= data[:data_2][:cms_version] %></td>
+          <td><%= data[:data_1][:cms_version] || "not found" %></td>
+          <td><%= data[:data_2][:cms_version] || "not found" %></td>
         </tr>
         <tr>
           <td> LoginUrl </td>
-          <td><%= data[:data_1][:login_url] %></td>
-          <td><%= data[:data_2][:login_url] %></td>
+          <td><%= data[:data_1][:login_url] || "not found" %></td>
+          <td><%= data[:data_2][:login_url] || "not found" %></td>
         </tr>
       </tbody>
     </table>
@@ -125,7 +125,7 @@ table.center {
     </table>
 
     <h2><%= link_to "Js", admin_js_info_path, :method => :post %></h2>
-    table class="center", style=" width: 80% ">
+    <table class="center", style=" width: 80% ">
       <thead>
         <th>Test <%= test1 %></th>
         <th>Test <%= test2 %></th>
