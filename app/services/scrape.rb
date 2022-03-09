@@ -7,6 +7,7 @@ class Scrape
     SCRIPT = 'script'
     LINK = 'link'
   end
+
   module SubSource
     SRC = 'src'
     HREF = 'href'
@@ -92,7 +93,7 @@ class Scrape
   def self.find_version_in_resource(resource, html)
     lines = html.css(resource)
     lines.each do |line|
-      version = find_version_in_sub_resource(line, Tags::SRC) || find_version_in_sub_resource(line, Tags::HREF)
+      version = find_version_in_sub_resource(line, SubSource::SRC) || find_version_in_sub_resource(line, SubSource::HREF)
       return version if version 
     end
     return nil

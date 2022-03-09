@@ -2,7 +2,7 @@
 table, th, td {
   border: 2px solid black;
   border-collapse: collapse;
-  background-color:#F6F6F6;
+  background-color: #F6F6F6;
 }
 th, td {
   padding: 13px;
@@ -56,13 +56,13 @@ table.center {
         </tr>
         <tr>
           <td> Wp Version </td>
-          <td><%= data[:data_1][:cms_version] %></td>
-          <td><%= data[:data_2][:cms_version] %></td>
+          <td><%= data[:data_1][:cms_version] || "not found" %></td>
+          <td><%= data[:data_2][:cms_version] || "not found" %></td>
         </tr>
         <tr>
           <td> LoginUrl </td>
-          <td><%= data[:data_1][:login_url] %></td>
-          <td><%= data[:data_2][:login_url] %></td>
+          <td><%= data[:data_1][:login_url] || "not found" %></td>
+          <td><%= data[:data_2][:login_url] || "not found" %></td>
         </tr>
       </tbody>
     </table>
@@ -124,28 +124,29 @@ table.center {
     </table>
 
     <h2><%= link_to "Js", admin_js_info_path, :method => :post %></h2>
-    table class="center", style=" width: 80% ">
-    <thead>
-      <th>Test <%= test1 %></th>
-      <th>Test <%= test2 %></th>
-    </thead>
-    <tbody>
-      <% for index in 0..data[:data_common][:js].count-1 %>
-        <tr>
-          <td><%= link_to data[:data_common][:js][index], admin_js_infos_path("q[js_name_equals]" => data[:data_common][:js][index]) %></td>
-          <td><%= link_to data[:data_common][:js][index], admin_js_infos_path("q[js_name_equals]" => data[:data_common][:js][index]) %></td>
-        </tr>
-      <% end %>
-      <% total_count = (data[:data_1][:js].count > data[:data_2][:js].count) ? data[:data_1][:js].count : data[:data_2][:js].count %>
-      <% for index in 0..total_count-1 %>
-        <tr>
-          <td style = "background-color : #FFCCCB;"><%= link_to data[:data_2][:js][index], 
-            admin_js_infos_path("q[js_name_equals]" => data[:data_1][:js][index]) %></td>
-          <td style = "background-color : #D0F0C0;"><%= link_to data[:data_2][:js][index], 
-            admin_js_infos_path("q[js_name_equals]" => data[:data_2][:js][index]) %></td>
-        </tr>
-      <% end %>
-    </tbody>
+    <table class="center", style=" width: 80% ">
+      <thead>
+        <th>Test <%= test1 %></th>
+        <th>Test <%= test2 %></th>
+      </thead>
+      <tbody>
+        <% for index in 0..data[:data_common][:js].count-1 %>
+          <tr>
+            <td><%= link_to data[:data_common][:js][index],admin_js_infos_path("q[js_name_equals]" => data[:data_common][:js][index]) %></td>
+            <td><%= link_to data[:data_common][:js][index],admin_js_infos_path("q[js_name_equals]" => data[:data_common][:js][index]) %></td>
+
+          </tr>
+        <% end %>
+        <% total_count = (data[:data_1][:js].count > data[:data_2][:js].count) ? data[:data_1][:js].count : data[:data_2][:js].count %>
+        <% for index in 0..total_count-1 %>
+          <tr>
+            <td style = "background-color : #FFCCCB;"><%= link_to data[:data_2][:js][index], 
+              admin_js_infos_path("q[js_name_equals]" => data[:data_1][:js][index]) %></td>
+            <td style = "background-color : #D0F0C0;"><%= link_to data[:data_2][:js][index], 
+              admin_js_infos_path("q[js_name_equals]" => data[:data_2][:js][index]) %></td>
+          </tr>
+        <% end %>
+      </tbody>
     </table>
   <% end %>
   </div>

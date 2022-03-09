@@ -7,7 +7,7 @@ class Plugin < ApplicationRecord
       _plugin = Plugin.where(plugin_slug: slug, url_id: url_id, status: true).first
       if _plugin 
         _version = _plugin.version
-        if  _version != '1.1'
+        if  _version != '1.1'      #for testing purpose
           _plugin.status = false
           _plugin.save
           plugin_name = PluginSlug.where(:slug => slug).first&.name || slug
