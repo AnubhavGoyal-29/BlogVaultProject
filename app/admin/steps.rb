@@ -16,15 +16,15 @@ ActiveAdmin.register Step do
     end
     column 'Status' do |step|
       status = step.status
-      options = Step::STATUS.invert
-      if status == options[:FAILED]
-        div ("FAILED"),style: "color: red"
-      elsif status == options[:INITIALIZED]
-        div ("INITIALIZED"),style: "color: orange"
-      elsif status == options[:SUCCEED]
-        div ("COMPLETED"),style: "color: green"
+      case status
+      when Step::Status::FAILED
+        div ("FAILED"), style: "color : red"
+      when Step::Status::INITIALIZED
+        div ("INITIALIZED"), style: "color : orange"
+      when Step::Status::SUCCEED
+        div ("COMPLETED"),style: "color : green"
       else
-        div ("RUNNING"),style: "color: blue"
+        div ("RUNNING"), style: "color : blue"
       end
     end
   end
