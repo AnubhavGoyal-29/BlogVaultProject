@@ -4,7 +4,7 @@ class Plugin < ApplicationRecord
   def self.import_plugins(plugins, url_id, test_id)
     plugins_id = []
     plugins.each do |slug|
-      _plugin = Plugin.where(plugin_slug: slug, url_id: url_id, status: true).first
+      _plugin = Plugin.where(:plugin_slug => slug, :url_id => url_id, :status => true).first
       if _plugin 
         _version = _plugin.version
         if  _version != '1.1'      #for testing purpose

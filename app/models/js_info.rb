@@ -5,7 +5,7 @@ class JsInfo < ApplicationRecord
   def self.import_js(all_js, url_id, test_id)
     js_id = []
     all_js.each do |js|
-      _js = JsInfo.where(js_lib: js[:js_lib], url_id: url_id, status: true).first
+      _js = JsInfo.where(:js_lib => js[:js_lib], :url_id => url_id, :status => true).first
       if _js
         _version = _js.version
         if  _version != js[:version]

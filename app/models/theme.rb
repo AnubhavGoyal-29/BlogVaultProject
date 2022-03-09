@@ -4,7 +4,7 @@ class Theme < ApplicationRecord
   def self.import_themes(themes, url_id, test_id )
     themes_id = []
     themes.each do |slug|
-      _theme = Theme.where(theme_slug: slug, url_id: url_id, status: true).first
+      _theme = Theme.where(:theme_slug => slug, :url_id => url_id, :status => true).first
       if _theme
         _version = _theme.version
         # passing 1.1 for testing only
