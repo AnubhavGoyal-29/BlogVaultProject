@@ -21,25 +21,25 @@ ActiveAdmin.register Test do
       link_to 'data info', admin_site_data_infos_path("q[test_id_equals]" => test.id )
     end
     column 'Plugins' do |test|
-      link_to 'plugins', admin_plugins_path('q[first_seen_less_than]' => test.id + 1,'q[last_seen_greater_than]' => test.id - 1, :test_id => test.id)
+      link_to 'plugins', admin_plugins_path(:test_id => test.id)
     end
     column 'Themes' do |test|
-      link_to 'themes', admin_themes_path('q[first_seen_less_than]' => test.id + 1,'q[last_seen_greater_than]' => test.id - 1, :test_id => test.id)
+      link_to 'themes', admin_themes_path(:test_id => test.id)
     end
     column 'JS' do |test|
-      link_to 'js', admin_js_infos_path('q[first_seen_less_than]' => test.id + 1,'q[last_seen_greater_than]' => test.id - 1, :test_id => test.id)
+      link_to 'js', admin_js_infos_path(:test_id => test.id)
     end
     column 'Status' do |test|
       status = test.status 
-      options = Test::STATUS.invert
-      if status == options[:FAILED]
-        div ("FAILED"),style: "color: red"
-      elsif status == options[:INITIALIZED]
-        div ("INITIALIZED"),style: "color: orange"
-      elsif status == options[:COMPLETED]
-        div ("COMPLETED"),style: "color: green"
+      case status
+      when Test::Status::FAILED
+        div ("FAILED"), style: "color : red"
+      when Test::Status::INITIALIZED
+        div ("INITIALIZED"), style: "color : orange"
+      when Test::Status::COMPLETED
+        div ("COMPLETED"),style: "color : green"
       else
-        div ("RUNNING"),style: "color: blue"
+        div ("RUNNING"), style: "color : blue"
       end
     end 
   end
@@ -59,17 +59,17 @@ ActiveAdmin.register Test do
         url_ids = SiteDataInfo.where(test_id: 2).pluck(:url_id).to_s
         link_to 'data info', admin_site_data_infos_path("q[test_id_equals]" => test.id )
       end
-      row 'Status' do |test|
+      column 'Status' do |test|
         status = test.status
-        options = Test::STATUS.invert
-        if status == options[:FAILED]
-          div ("FAILED"),style: "color: red"
-        elsif status == options[:INITIALIZED]
-          div ("INITIALIZED"),style: "color: orange"
-        elsif status == options[:COMPLETED]
-          div ("COMPLETED"),style: "color: green"
+        case status
+        when Test::Status::FAILED
+          div ("FAILED"), style: "color : red"
+        when Test::Status::INITIALIZED
+          div ("INITIALIZED"), style: "color : orange"
+        when Test::Status::COMPLETED
+          div ("COMPLETED"),style: "color : green"
         else
-          div ("RUNNING"),style: "color: blue"
+          div ("RUNNING"), style: "color : blue"
         end
       end
       row 'Plugins' do |test|

@@ -6,6 +6,8 @@ class Scrape
   module Tags
     SCRIPT = 'script'
     LINK = 'link'
+  end
+  module SubSource
     SRC = 'src'
     HREF = 'href'
   end
@@ -117,22 +119,11 @@ class Scrape
       html = value[:html]
       maped_data = Hash.new
       url = Url.find(key).url 
-
-      get_data_from_resource(url, html, Tags::LINK, DataTypes::PLUGINS, maped_data, logger)
-      get_data_from_resource(url, html, Tags::SCRIPT, DataTypes::PLUGINS, maped_data, logger)
-
-      get_data_from_resource(url, html, Tags::LINK, DataTypes::MUPLUGINS, maped_data, logger)
-      get_data_from_resource(url, html, Tags::SCRIPT, DataTypes::MUPLUGINS, maped_data, logger)
-
-      get_data_from_resource(url, html, Tags::LINK, DataTypes::THEMES, maped_data, logger)
-      get_data_from_resource(url, html, Tags::SCRIPT, DataTypes::THEMES, maped_data, logger)
-
-      get_data_from_resource(url, html, Tags::LINK, DataTypes::JS, maped_data, logger)
-      get_data_from_resource(url, html, Tags::SCRIPT, DataTypes::JS, maped_data, logger)
-
-      get_data_from_resource(url, html, Tags::LINK, DataTypes::CLOUDFLARE, maped_data, logger)
-      get_data_from_resource(url, html, Tags::SCRIPT, DataTypes::CLOUDFLARE, maped_data, logger) 
-
+      DataTypes.constants.each do |data_type|
+        Tags.constants.each do |tag|
+          get_data_from_resource(url, html, Tags.class_eval(tag.to_s), DataTypes.class_eval(data_type.to_s), maped_data, logger)
+        end
+      end
       maped_data[:login_url] = get_login_url(url, logger)
       maped_data[:ip] = get_ip(url)
       data[key] = {:maped_data => maped_data, :cms_version => value[:cms_version]}
@@ -144,8 +135,9 @@ class Scrape
   def self.get_data_from_resource(url, html, resource, data_type, maped_data, logger)
     resource_data = html.css(resource)
     resource_data.each do |line|
-      get_data_from_sub_source(url, line, data_type, Tags::SRC, maped_data, logger)
-      get_data_from_sub_source(url, line, data_type, Tags::HREF, maped_data, logger)
+      SubSource.constants.each do |sub_source|
+        get_data_from_sub_source(url, line, data_type, SubSource.class_eval(sub_source.to_s), maped_data, logger)
+      end
     end
   end
 
@@ -165,7 +157,7 @@ class Scrape
         end
         js_lib = js_and_version_hash[:js]
         version = js_and_version_hash[:version]
-        if version&.to_i == 0  # reject all string
+        if version&.to_i == 0  # accept like '5.4.2' , '452' , not like 'abh122' , 'a@$#'
           version = nil
         end
         maped_data[data_type] ||= []
@@ -174,11 +166,10 @@ class Scrape
       end
       #key_words stores string values spllitted by '/' sign in order to obtain resource and its next value
       key_words = line[sub_resource].split('/')   
-      key_words = key_words.reverse
       data_type_index = key_words.index(data_type)
-      if data_type_index && key_words[data_type_index-1] && !key_words[data_type_index-1]['.js']
+      if data_type_index && key_words[data_type_index + 1] && !key_words[data_type_index + 1]['.js']
         maped_data[data_type] ||= []
-        maped_data[data_type] << key_words[data_type_index-1].split('?')[0]
+        maped_data[data_type] << key_words[data_type_index + 1].split('?')[0]
       end
     end
   end
@@ -191,7 +182,7 @@ class Scrape
         res = RestClient.get _url
         return _url if res.code == 200
       rescue => e
-        return nil
+        logger.info "url : #{url} message : #{e}"
       end
     end
     return nil
@@ -217,7 +208,7 @@ class Scrape
 =end
 
   def self.remove_common_words_from_line(url, key_words, logger)
-    common_words = ['libs', 'js', 'cache', 'min', 'lib', 'ajax', 'https:', 'wp-content', 'wp-includes','www.'+ url, url, '1']
+    common_words = ['libs', 'js', 'cache', 'min', 'lib', 'ajax', 'https:', 'wp-content', 'wp-includes', 'www.'+ url, url, '1']
     key_words = key_words - common_words
     return key_words
   end

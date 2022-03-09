@@ -36,12 +36,7 @@ ActiveAdmin.register Theme do
   show do
     attributes_table do
       row :id
-      row 'Name' do|theme|
-        name = ( ThemeSlug.where("name LIKE?","#{theme.theme_name}").first &&
-                ThemeSlug.where("slug LIKE?" , "#{theme.theme_name}").first.name )
-        name ||= theme.theme_name
-        div ( name )
-      end
+      row :theme_name
       row "Usage" do |theme|
         url_ids = Theme.where(:theme_name => theme.theme_name, :status => true).pluck(:url_id)
         link_to "#{url_ids.count} :: urls", admin_urls_path('q[id_in]' => url_ids)
