@@ -128,7 +128,6 @@ class Scrape
       maped_data[:ip] = get_ip(url)
       data[key] = {:maped_data => maped_data, :cms_version => value[:cms_version]}
     end
-    logger.info data
     return data
   end
 
