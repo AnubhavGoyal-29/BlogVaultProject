@@ -1,7 +1,7 @@
 class CreateJsInfo < ActiveRecord::Migration[5.2]
   def change
     create_table :js_infos do |t|
-      t.string :js_lib
+      t.text :js_lib
       t.string :url_id
       t.boolean :status
       t.string :version

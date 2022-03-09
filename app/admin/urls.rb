@@ -28,11 +28,15 @@ ActiveAdmin.register Url do
       end
     end
     column 'WP Version' do |url|
-      version = url.site_data_infos.last ? url.site_data_infos.last.cms_version : 'not a wordpress site'
-      if !version
-        div ("Not found"), :style => "color : red"
+      version = url.site_data_infos.last.cms_version if url.site_data_infos.last.present?
+      if version
+        div (version)
       else
-        version
+        if url.cms.present?
+          div 'version not found', :style => "color : red"
+        else
+          div 'not a wordpress site'
+        end
       end
     end
     column 'Last Test' do |url|

@@ -11,9 +11,10 @@ class SiteDataInfo < ApplicationRecord
     urls_data.each do |url_id, data|
       maped_data = data[:maped_data]
       cms_version = data[:cms_version]
-      cloudflare =  maped_data['cloudflare'].present?
-      _plugins = Plugin.import_plugins(maped_data["plugins"].uniq, url_id, test_id) if maped_data["plugins"].present?
-      _plugins +=  Plugin.import_plugins(maped_data["mu-plugins"].uniq, url_id, test_id) if maped_data["mu-plugins"].present?
+      cloudflare =  maped_data["cloudflare"].present?
+      plugins_arr = maped_data["plugins"] || []
+      plugins_arr += maped_data["mu-plugins"] if maped_data["mu-plugins"].present?
+      _plugins = Plugin.import_plugins(plugins_arr.uniq, url_id, test_id) if plugins_arr.present?
       _themes = Theme.import_themes(maped_data["themes"].uniq, url_id, test_id) if maped_data["themes"].present?
       _js = JsInfo.import_js(maped_data["js"].uniq, url_id, test_id) if maped_data["js"].present?
       _login_url = maped_data[:login_url]
