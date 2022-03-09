@@ -3,7 +3,7 @@ ActiveAdmin.register Plugin do
   actions :index, :show  
   filter :plugin_name
   filter :url_id
-  filter :status 
+  filter :status, as: :select, collection: [["ACTIVE", true], ["INACTIVE", false]]
   filter :first_seen
   filter :last_seen
   filter :created_at
