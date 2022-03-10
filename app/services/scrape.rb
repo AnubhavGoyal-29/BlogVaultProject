@@ -41,21 +41,39 @@ class Scrape
       url = Url.find(url_id)
       html = Nokogiri::HTML.parse(RestClient.get (url.url + "?x=#{rand(999999)}"))
       #File.write("/tmp/#{url.url}", html)
-      wordpress_and_version_hash = check_wordpress_in_meta(html) || Hash.new  # fetching both cms type and its version together 
+      cms_and_version_hash = cms_and_version(html, logger)  # fetching both cms type and its version together 
 
-      if !wordpress_and_version_hash.present? and check_wordpress_in_html(html) 
-        wordpress_and_version_hash[:cms] = "wordpress"
-        version_from_resource = find_wordpress_version(html) 
-        wordpress_and_version_hash[:cms_version] = version_from_resource
-      end
-
-      if wordpress_and_version_hash.present?
-        url.cms || url.update(:cms => wordpress_and_version_hash[:cms])
-        url_html_version_map[url_id] = {:html => html, :cms_version => wordpress_and_version_hash[:cms_version]}
+      if cms_and_version_hash.present?
+        url.cms || url.update(:cms => cms_and_version_hash[:cms])
+        url_html_version_map[url_id] = {:html => html, :cms_version => cms_and_version_hash[:cms_version]}
       end
     rescue => e
       logger.info "Test Id : #{test_id} Url: #{url.url} Error: #{e}"
     end
+  end
+
+  def self.cms_and_version(html, logger)
+    functions = ["is_wordpress", "is_joomla", "is_drupal", "is_shopify"]
+    functions.each do |function|
+      begin
+        cms_and_version_hash = Scrape.send(function, html)
+        return cms_and_version_hash if cms_and_version_hash.present?
+      rescue => e
+        logger.info e
+      end
+    end
+  end
+
+  def self.is_wordpress(html)
+
+    wordpress_and_version_hash = check_wordpress_in_meta(html) || Hash.new
+    if !wordpress_and_version_hash.present? and check_wordpress_in_html(html)
+      wordpress_and_version_hash[:cms] = "wordpress"
+      version_from_resource = find_wordpress_version(html)
+      wordpress_and_version_hash[:cms_version] = version_from_resource
+    end
+    return wordpress_and_version_hash 
+
   end
 
   def self.check_wordpress_in_meta(html)
