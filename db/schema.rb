@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 2022_02_28_100556) do
   end
 
   create_table "js_infos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "js_lib"
+    t.text "js_lib"
     t.string "url_id"
     t.boolean "status"
     t.string "version"

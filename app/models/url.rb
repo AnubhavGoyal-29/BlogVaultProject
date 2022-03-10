@@ -76,10 +76,10 @@ class Url < ApplicationRecord
     js_common = js_1 & js_2
 
     for i in 0..( js_1.size - 1 )
-      js_1[i] = JsInfo.find(js_1[i]).js_lib if JsInfo.find(js_1[i]).js_lib
+      js_1[i] = JsInfo.find(js_1[i]).js_lib
     end
     for i in 0..( js_2.size - 1 )
-      js_2[i] = JsInfo.find(js_2[i]).js_lib if JsInfo.find(js_2[i]).js_lib
+      js_2[i] = JsInfo.find(js_2[i]).js_lib
     end
     for i in 0..( js_common.size - 1 )
       js_common[i] = JsInfo.find(js_common[i]).js_lib

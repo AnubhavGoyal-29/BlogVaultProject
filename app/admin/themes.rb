@@ -3,11 +3,15 @@ ActiveAdmin.register Theme do
   actions :index, :show  
   filter :theme_name
   filter :url_id
+  filter :status, as: :select, collection: [["ACTIVE", true], ["INACTIVE", false]]
   filter :first_seen
   filter :last_seen
   filter :created_at
   filter :updated_at
-  filter :status 
+
+  scope '', :default => true do |themes|
+    themes.group(:theme_slug)
+  end
 
   index do 
     id_column
@@ -22,8 +26,13 @@ ActiveAdmin.register Theme do
       url_ids = Theme.where(args).pluck(:url_id)
       link_to "#{url_ids.count} :: urls", admin_urls_path("q[id_in]" => url_ids)
     end
-    column :first_seen
-    column :last_seen
+    column 'First Seen' do |js|
+      "Test #{js.first_seen}"
+    end
+    column 'Last Seen' do |js|
+      "Test #{js.last_seen}"
+    end
+
     if params[:q]
       column 'Status' do |theme|
         status = theme.status ? "ACTIVE" : "INACTIVE"

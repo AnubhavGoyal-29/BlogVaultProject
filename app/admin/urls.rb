@@ -33,7 +33,7 @@ ActiveAdmin.register Url do
         div (version)
       else
         if url.cms.present?
-          div 'version not found', :style => "color : red"
+          div 'not found', :style => "color : red"
         else
           div 'not a wordpress site'
         end
@@ -46,12 +46,12 @@ ActiveAdmin.register Url do
     end
     column 'Last Test Data' do |url|
       if url.site_data_infos.last
-        link_to "last_test_data_info", admin_site_data_infos_path("q[test_id_equals]" => url.site_data_infos.last.test_id, 
+        link_to "last test data info", admin_site_data_infos_path("q[test_id_equals]" => url.site_data_infos.last.test_id, 
                                                                   "q[url_id_equals]" => url.site_data_infos.last.url_id)
       end
     end
     column 'Run New Test' do |url|
-      link_to "run_test", run_test_admin_url_path(url)
+      link_to "run test", run_test_admin_url_path(url)
     end
   end
 
@@ -104,7 +104,7 @@ ActiveAdmin.register Url do
       end
       row 'Last Test Data' do |url|
         if url.site_data_infos.last
-          link_to "last_test_data_info", admin_site_data_infos_path("q[test_id_equals]" => url.site_data_infos.last.test_id,
+          link_to "last test data info", admin_site_data_infos_path("q[test_id_equals]" => url.site_data_infos.last.test_id,
                                                                     "q[url_id_equals]" => url.site_data_infos.last.url_id)
         end
       end

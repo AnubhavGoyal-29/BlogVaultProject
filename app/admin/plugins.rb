@@ -3,11 +3,15 @@ ActiveAdmin.register Plugin do
   actions :index, :show  
   filter :plugin_name
   filter :url_id
-  filter :status 
+  filter :status, as: :select, collection: [["ACTIVE", true], ["INACTIVE", false]]
   filter :first_seen
   filter :last_seen
   filter :created_at
   filter :updated_at
+  
+  scope '', :default => true do |plugins|
+    plugins.group(:plugin_slug)
+  end
 
   index do 
     id_column
@@ -22,8 +26,13 @@ ActiveAdmin.register Plugin do
       url_ids = Plugin.where(args).pluck(:url_id)
       link_to "#{url_ids.count} :: urls", admin_urls_path("q[id_in]" => url_ids)
     end
-    column :first_seen
-    column :last_seen
+    column 'First Seen' do |plugin|
+      "Test #{plugin.first_seen}"
+    end
+    column 'Last Seen' do |plugin|
+      "Test #{plugin.last_seen}"
+    end
+
     if params[:q]
       column 'Status' do |plugin|
         status = plugin.status ? "ACTIVE" : "INACTIVE"
