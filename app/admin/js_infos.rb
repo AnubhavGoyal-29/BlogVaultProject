@@ -3,11 +3,15 @@ ActiveAdmin.register JsInfo do
   actions :index, :show
   filter :js_lib
   filter :url_id
-  filter :status 
+  filter :status, as: :select, collection: [["ACTIVE", true], ["INACTIVE", false]]
   filter :first_seen
   filter :last_seen
   filter :created_at
   filter :updated_at
+
+  scope '', :default => true do |js_infos|
+    js_infos.group(:version)
+  end
 
   index do 
     id_column
@@ -22,15 +26,21 @@ ActiveAdmin.register JsInfo do
     column "Usage" do |js|
       args = Hash.new
       args[:js_lib] = js.js_lib
+      args[:status] = true
       if params["test_id"]
         args[:first_seen] = -Float::INFINITY..params['test_id'].to_i
         args[:last_seen] = params['test_id'].to_i..Float::INFINITY
+        args.delete(:status)
       end
       url_ids = JsInfo.where(args).pluck(:url_id)
       link_to "#{url_ids.count} :: urls", admin_urls_path("q[id_in]" => url_ids)
     end
-    column :first_seen
-    column :last_seen
+    column 'First Seen' do |js|
+      "Test #{js.first_seen}"
+    end
+    column 'Last Seen' do |js|
+      "Test #{js.last_seen}"
+    end
     if params[:q] and params[:q][:url_id_equals]
       column 'Status' do |js|
         status = js.status ? "ACTIVE" : "INACTIVE"

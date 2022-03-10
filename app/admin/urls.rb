@@ -104,7 +104,7 @@ ActiveAdmin.register Url do
       end
       row 'Last Test Data' do |url|
         if url.site_data_infos.last
-          link_to "last_test_data_info", admin_site_data_infos_path("q[test_id_equals]" => url.site_data_infos.last.test_id,
+          link_to "last test data info", admin_site_data_infos_path("q[test_id_equals]" => url.site_data_infos.last.test_id,
                                                                     "q[url_id_equals]" => url.site_data_infos.last.url_id)
         end
       end

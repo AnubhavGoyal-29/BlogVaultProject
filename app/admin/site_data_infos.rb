@@ -3,8 +3,10 @@ ActiveAdmin.register SiteDataInfo do
   actions :index, :show
   filter :test_id
   filter :url_id
-  filter :cloudflare
+  filter :cloudflare, as: :select, collection: [["ACTIVE", true], ["INACTIVE", false]]
   filter :id
+  filter :created_at
+  filter :updated_at
 
   scope :all, :default => true
   scope :Plugins_found, :default => true do |site_data_infos|
