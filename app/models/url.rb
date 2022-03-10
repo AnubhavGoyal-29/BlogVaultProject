@@ -109,7 +109,7 @@ class Url < ApplicationRecord
       :theme => themes_common, 
       :js => js_common
     }
-    data = {:data_1 => data_1, :data_2 => data_2, :data_common => data_common}
+    data = {:data_1 => data_1, :data_2 => data_2, :data_common => data_common, :is_data_changed => data_1 == data_2}
     return data
   end
 end

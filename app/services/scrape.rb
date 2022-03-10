@@ -176,7 +176,7 @@ class Scrape
   end
 
   def self.get_login_url(url, logger)
-    login_suffix = ['/login', '/wp-admin', '/wp-config']
+    login_suffix = ['/login']
     login_suffix.each do |suffix|
       _url = url + suffix
       begin
