@@ -54,7 +54,7 @@ class Scrape
   def self.cms_and_version(html)
     is_wordpress(html) || is_drupal(html) || is_shopify(html) || is_joomla(html)
   end
-
+  
   def self.is_wordpress(html)
     wordpress_and_version_hash = check_wordpress_in_meta(html) || Hash.new
     if !wordpress_and_version_hash.present? and check_wordpress_in_html(html)
@@ -65,6 +65,20 @@ class Scrape
     return wordpress_and_version_hash 
   end
 
+  def self.is_drupal(html)
+    # some code here
+    return nil
+  end
+
+  def self.is_shopify(html)
+    # some code here
+    return nil
+  end
+
+  def self.is_joomla(html)
+    # some code here
+    return nil
+  end
   def self.check_wordpress_in_meta(html)
     meta_name = ['generator', 'Generator']
     meta_name.each do |name|
