@@ -215,20 +215,6 @@ class Scrape
     return ip  
   end
 
-=begin
-  def self.get_host_name(url)
-    options = Selenium::WebDriver::Chrome::Options.new
-    options.add_argument('--headless')
-    driver = Selenium::WebDriver.for :chrome, options: options
-    driver.navigate.to "https://check-host.net/?lang=en" 
-    driver.find_element(:id, 'hostip').send_keys url
-    driver.find_element(:name, 'info').click
-    host_info = driver.find_element(:class => "hostinfo")
-    isp = host_info.text.split("\n")[3].split(" ")[1].split(",")[0]
-    return isp
-  end
-=end
-
   def self.remove_common_words_from_line(url, key_words, logger)
     common_words = ['libs', 'js', 'cache', 'min', 'lib', 'https:', 'wp-content', 'wp-includes', 'www.'+ url, url, '1']
     key_words = key_words - common_words
