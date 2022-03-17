@@ -11,15 +11,15 @@ class JsInfo < ApplicationRecord
         if  _version != js[:version]
           _js.status = false
           _js.save
-          new_js = JsInfo.create(:first_seen => test_id, :last_seen => test_id, :js_lib => js[:js_lib], 
+          new_js = JsInfo.create(:first_test => test_id, :last_test => test_id, :js_lib => js[:js_lib], 
                                  :url_id => url_id, :status => true, :version => js[:version] )
           js_id << new_js.id
         else
-          _js.update(:last_seen => test_id)
+          _js.update(:last_test => test_id)
           js_id << _js.id
         end
       else
-        new_js = JsInfo.create(:first_seen => test_id, :last_seen => test_id, :js_lib => js[:js_lib], 
+        new_js = JsInfo.create(:first_test => test_id, :last_test => test_id, :js_lib => js[:js_lib], 
                                :url_id => url_id, :status => true, :version => js[:version] )
         js_id << new_js.id
       end

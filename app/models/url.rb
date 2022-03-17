@@ -31,25 +31,17 @@ class Url < ApplicationRecord
     end
   end
 
-  def compare_two_test(test1, test2)
-    test_id_1 = test1
-    test_id_2 = test2
-    url_id = self.id
-    data_1 = SiteDataInfo.where(:test_id => test_id_1, :url_id => url_id).first
-    data_2 = SiteDataInfo.where(:test_id => test_id_2, :url_id => url_id).first
+  def compare_test(source_test, final_test)
+    source_data = SiteDataInfo.where(:test_id => source_test, :url_id => self.id).first
+    final_data = SiteDataInfo.where(:test_id => final_test, :url_id => self.id).first
 
-    plugin_1 = data_1.plugins
-    plugin_2 = data_2.plugins
-
-    plugin_1 = Plugin.where(:id => plugin_1).pluck(:plugin_name)
-    plugin_2 = Plugin.where(:id => plugin_2).pluck(:plugin_name)
+    source_test_plugins = Plugin.where(:id => source_data.plugin_ids).pluck(:plugin_name)
+    final_test_plugins = Plugin.where(:id => final_data.plugin_ids).pluck(:plugin_name)
     plugins_common = plugin_1 & plugin_2
     plugin_1 = plugin_1 - plugins_common
     plugin_2 = plugin_2 - plugins_common
 
-    theme_1 = data_1.themes
-    theme_2 = data_2.themes
-    themes_common = theme_1 & theme_2
+    themes_common = source_data.themes & final_data.themes
 
     for i in 0..( theme_1.size - 1 )
       theme_1[i] = Theme.find(theme_1[i]).theme_name if Theme.find(theme_1[i]).theme_name
@@ -64,9 +56,7 @@ class Url < ApplicationRecord
     theme_1 = theme_1 - themes_common
     theme_2 = theme_2 - themes_common
 
-    js_1 = data_1.js
-    js_2 = data_2.js
-    js_common = js_1 & js_2
+    js_common = source_data.js & final_data.js
 
     for i in 0..( js_1.size - 1 )
       js_1[i] = JsInfo.find(js_1[i]).js_lib
@@ -82,17 +72,17 @@ class Url < ApplicationRecord
     js_2 = js_2 - js_common
 
     data_1 = {
-      :login_url => data_1.login_url, 
-      :cloudflare => data_1.cloudflare, 
-      :cms_version => data_1.cms_version, 
+      :login_url => source_data.login_url, 
+      :cloudflare => source_data.cloudflare, 
+      :cms_version => source_data.cms_version, 
       :plugin => plugin_1, 
       :theme => theme_1, 
       :js => js_1
     } 
     data_2 = {
-      :login_url => data_2.login_url, 
-      :cloudflare => data_2.cloudflare, 
-      :cms_version => data_2.cms_version, 
+      :login_url => final_data.login_url, 
+      :cloudflare => final_data.cloudflare, 
+      :cms_version => final_data.cms_version, 
       :plugin => plugin_2, 
       :theme => theme_2, 
       :js => js_2

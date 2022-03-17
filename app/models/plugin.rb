@@ -11,16 +11,16 @@ class Plugin < ApplicationRecord
           _plugin.status = false
           _plugin.save
           plugin_name = PluginSlug.where(:slug => slug).first&.name || slug
-          new_plugin = Plugin.create(:first_seen => test_id, :last_seen => test_id, :plugin_name => plugin_name, 
+          new_plugin = Plugin.create(:first_test => test_id, :last_test => test_id, :plugin_name => plugin_name, 
                                      plugin_slug: slug, url_id: url_id, status: true, version: '1.1')
           plugins_id << new_plugin.id
         else
-          _plugin.update(:last_seen => test_id)
+          _plugin.update(:last_test => test_id)
           plugins_id << _plugin.id
         end
       else
         plugin_name = PluginSlug.where(:slug => slug).first&.name || slug
-        new_plugin = Plugin.create(:first_seen => test_id, :last_seen => test_id, plugin_name: plugin_name, 
+        new_plugin = Plugin.create(:first_test => test_id, :last_test => test_id, plugin_name: plugin_name, 
                                    :plugin_slug => slug, url_id: url_id, status: true, version: '1.1')
         plugins_id << new_plugin.id
       end
