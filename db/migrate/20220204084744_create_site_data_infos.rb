@@ -5,13 +5,13 @@ class CreateSiteDataInfos < ActiveRecord::Migration[5.2]
       t.string :test_id
       t.string :cms_type
       t.string :cms_version
-      t.text :js
+      t.text :js_id
       t.boolean :cloudflare
       t.string :login_url
       t.string :host_name
       t.string :ip
-      t.text :plugins
-      t.text :themes
+      t.text :plugin_ids
+      t.text :theme_ids
       t.timestamps
     end
   end

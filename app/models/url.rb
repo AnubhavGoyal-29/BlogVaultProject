@@ -35,17 +35,9 @@ class Url < ApplicationRecord
     source_data = SiteDataInfo.where(:test_id => source_test, :url_id => self.id).first
     final_data = SiteDataInfo.where(:test_id => final_test, :url_id => self.id).first
 
-    plugins_common = source_data.plugins & final_data.plugins
-
-    for i in 0..( plugin_1.size - 1 )
-      plugin_1[i] = Plugin.find(plugin_1[i]).plugin_name if Plugin.find(plugin_1[i]).plugin_name
-    end
-    for i in 0..( plugin_2.size - 1 )
-      plugin_2[i] = Plugin.find(plugin_2[i]).plugin_name if Plugin.find(plugin_2[i]).plugin_name
-    end
-    for i in 0..( plugins_common.size - 1 )
-      plugins_common[i] = Plugin.find(plugins_common[i]).plugin_name
-    end
+    source_test_plugins = Plugin.where(:id => source_data.plugin_ids).pluck(:plugin_name)
+    final_test_plugins = Plugin.where(:id => final_data.plugin_ids).pluck(:plugin_name)
+    plugins_common = plugin_1 & plugin_2
     plugin_1 = plugin_1 - plugins_common
     plugin_2 = plugin_2 - plugins_common
 

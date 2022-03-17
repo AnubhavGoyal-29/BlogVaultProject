@@ -4,11 +4,12 @@ class Test < ApplicationRecord
 
   scope :running, -> { where(:status => Status::RUNNING)}
   scope :completed, -> { where(:status => Status::COMPLETED)}
+
   module Status
-    FAILED = 3
-    COMPLETED = 2
     INITIALIZED = 0
     RUNNING =1
+    COMPLETED = 2
+    FAILED = 3
   end
 
   STATUS = {}
