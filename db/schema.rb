@@ -86,13 +86,13 @@ ActiveRecord::Schema.define(version: 2022_02_28_100556) do
     t.string "test_id"
     t.string "cms_type"
     t.string "cms_version"
-    t.text "js"
+    t.text "js_ids"
     t.boolean "cloudflare"
     t.string "login_url"
     t.string "host_name"
     t.string "ip"
-    t.text "plugins"
-    t.text "themes"
+    t.text "plugin_ids"
+    t.text "theme_ids"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -136,7 +136,7 @@ ActiveRecord::Schema.define(version: 2022_02_28_100556) do
 
   create_table "urls", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "url"
-    t.string "first_seen"
+    t.integer "first_test"
     t.string "cms"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

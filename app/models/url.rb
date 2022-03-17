@@ -37,55 +37,37 @@ class Url < ApplicationRecord
 
     source_test_plugins = Plugin.where(:id => source_data.plugin_ids).pluck(:plugin_name)
     final_test_plugins = Plugin.where(:id => final_data.plugin_ids).pluck(:plugin_name)
-    plugins_common = plugin_1 & plugin_2
-    plugin_1 = plugin_1 - plugins_common
-    plugin_2 = plugin_2 - plugins_common
+    plugins_common = source_test_plugins & final_test_plugins
+    source_test_plugins = source_test_plugins - plugins_common
+    final_test_plugins = final_test_plugins - plugins_common
 
-    themes_common = source_data.themes & final_data.themes
+    source_test_themes = Theme.where(:id => source_data.theme_ids).pluck(:theme_name)
+    final_test_themes = Theme.where(:id => final_data.theme_ids).pluck(:theme_name)
+    themes_common = source_test_themes & final_test_themes
+    source_test_themes = source_test_themes - themes_common
+    final_test_themes = final_test_themes - themes_common
 
-    for i in 0..( theme_1.size - 1 )
-      theme_1[i] = Theme.find(theme_1[i]).theme_name if Theme.find(theme_1[i]).theme_name
-    end
-    for i in 0..( theme_2.size - 1 )
-      theme_2[i] = Theme.find(theme_2[i]).theme_name if Theme.find(theme_2[i]).theme_name
-    end
-    for i in 0..( themes_common.size - 1 )
-      themes_common[i] = Theme.find(themes_common[i]).theme_name
-    end
-
-    theme_1 = theme_1 - themes_common
-    theme_2 = theme_2 - themes_common
-
-    js_common = source_data.js & final_data.js
-
-    for i in 0..( js_1.size - 1 )
-      js_1[i] = JsInfo.find(js_1[i]).js_lib
-    end
-    for i in 0..( js_2.size - 1 )
-      js_2[i] = JsInfo.find(js_2[i]).js_lib
-    end
-    for i in 0..( js_common.size - 1 )
-      js_common[i] = JsInfo.find(js_common[i]).js_lib
-    end
-
-    js_1 = js_1 - js_common
-    js_2 = js_2 - js_common
+    source_test_js = Js.where(:id => source_data.js_ids).pluck(:js_name)
+    final_test_js = Js.where(:id => final_data.js_ids).pluck(:js_name)
+    js_common = source_test_js & final_test_js
+    source_test_js = source_test_js - js_common
+    final_test_js = final_test_js - js_common
 
     data_1 = {
       :login_url => source_data.login_url, 
       :cloudflare => source_data.cloudflare, 
       :cms_version => source_data.cms_version, 
-      :plugin => plugin_1, 
-      :theme => theme_1, 
-      :js => js_1
+      :plugin => source_test_plugins, 
+      :theme => source_test_themes, 
+      :js => source_test_js
     } 
     data_2 = {
       :login_url => final_data.login_url, 
       :cloudflare => final_data.cloudflare, 
       :cms_version => final_data.cms_version, 
-      :plugin => plugin_2, 
-      :theme => theme_2, 
-      :js => js_2
+      :plugin => final_test_plugins, 
+      :theme => final_test_themes, 
+      :js => final_test_js
     }
     data_common = {
       :plugin => plugins_common, 

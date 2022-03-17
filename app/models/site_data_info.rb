@@ -50,9 +50,9 @@ class SiteDataInfo < ApplicationRecord
         cloudflare: data[:cloudflare],
         cms_type: data[:cms_type],
         cms_version: data[:cms_version],
-        plugins: data[:plugins],
-        themes: data[:themes],
-        js: data[:js],
+        plugin_ids: data[:plugins],
+        themes_ids: data[:themes],
+        js_ids: data[:js],
         login_url: data[:login_url],
         ip: data[:ip]
       )
