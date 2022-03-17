@@ -13,16 +13,16 @@ class Theme < ApplicationRecord
           _theme.status = false
           _theme.save
           theme_name = ThemeSlug.where(:slug => slug).first&.name || slug
-          new_theme = Theme.create(:first_seen => test_id, :last_seen => test_id, :theme_name => theme_name,
+          new_theme = Theme.create(:first_test => test_id, :last_test => test_id, :theme_name => theme_name,
                                    :theme_slug => slug, :url_id => url_id, :status => true, :version => '1.1')
           themes_id << new_theme.id
         else
-          _theme.update(:last_seen => test_id)
+          _theme.update(:last_test => test_id)
           themes_id << _theme.id
         end
       else
         theme_name = ThemeSlug.where(:slug => slug).first&.name || slug
-        new_theme = Theme.create(:first_seen => test_id, :last_seen => test_id, :theme_name => theme_name,
+        new_theme = Theme.create(:first_test => test_id, :last_test => test_id, :theme_name => theme_name,
                                  :theme_slug => slug, :url_id => url_id, :status => true, :version => '1.1')
         themes_id << new_theme.id
       end

@@ -39,7 +39,7 @@ table.center {
       <% test1 = test2 %>
       <% test2 = temp %>
     <% end %>
-    <% data = Url.find(resource.id).compare_two_test(test1, test2) %>
+    <% data = Url.find(resource.id).compare_test(test1, test2) %>
     <h1><%= link_to resource.url, admin_url_path(resource.id)%></h1>
     <h2> General Info </h2>
     <table class="center", style="width:80%">

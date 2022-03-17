@@ -227,7 +227,7 @@ class Scrape
 =end
 
   def self.remove_common_words_from_line(url, key_words, logger)
-    common_words = ['libs', 'js', 'cache', 'min', 'lib', 'ajax', 'https:', 'wp-content', 'wp-includes', 'www.'+ url, url, '1']
+    common_words = ['libs', 'js', 'cache', 'min', 'lib', 'https:', 'wp-content', 'wp-includes', 'www.'+ url, url, '1']
     key_words = key_words - common_words
     return key_words
   end

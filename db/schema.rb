@@ -44,8 +44,8 @@ ActiveRecord::Schema.define(version: 2022_02_28_100556) do
     t.boolean "status"
     t.string "version"
     t.string "other_data"
-    t.integer "first_seen"
-    t.integer "last_seen"
+    t.integer "first_test"
+    t.integer "last_test"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -66,14 +66,17 @@ ActiveRecord::Schema.define(version: 2022_02_28_100556) do
     t.string "type"
     t.string "version"
     t.string "other_data"
-    t.integer "first_seen"
-    t.integer "last_seen"
+    t.integer "first_test"
+    t.integer "last_test"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "proxy_data", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "host"
+    t.string "port"
+    t.string "username"
+    t.string "password"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -125,8 +128,8 @@ ActiveRecord::Schema.define(version: 2022_02_28_100556) do
     t.boolean "status"
     t.string "version"
     t.string "other_data"
-    t.integer "first_seen"
-    t.integer "last_seen"
+    t.integer "first_test"
+    t.integer "last_test"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

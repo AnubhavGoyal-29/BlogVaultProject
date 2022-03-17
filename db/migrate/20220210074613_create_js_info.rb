@@ -6,8 +6,8 @@ class CreateJsInfo < ActiveRecord::Migration[5.2]
       t.boolean :status
       t.string :version
       t.string :other_data
-      t.integer :first_seen
-      t.integer :last_seen
+      t.integer :first_test
+      t.integer :last_test
       t.timestamps
     end
   end

@@ -1,2 +1,0 @@
-class ProxyDatum < ApplicationRecord
-end
