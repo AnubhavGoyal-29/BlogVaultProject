@@ -41,8 +41,7 @@ class Scrape
       url = Url.find(url_id)
       html = Nokogiri::HTML.parse(RestClient.get (url.url + "?x=#{rand(999999)}"))
       #File.write("/tmp/#{url.url}", html)
-      cms_and_version_hash = cms_and_version(html, logger)  # fetching both cms type and its version together 
-
+      cms_and_version_hash = cms_and_version(html)  # fetching both cms type and its version together 
       if cms_and_version_hash.present?
         url.cms || url.update(:cms => cms_and_version_hash[:cms])
         url_html_version_map[url_id] = {:html => html, :cms_version => cms_and_version_hash[:cms_version]}
@@ -52,20 +51,11 @@ class Scrape
     end
   end
 
-  def self.cms_and_version(html, logger)
-    functions = ["is_wordpress", "is_joomla", "is_drupal", "is_shopify"]
-    functions.each do |function|
-      begin
-        cms_and_version_hash = Scrape.send(function, html)
-        return cms_and_version_hash if cms_and_version_hash.present?
-      rescue => e
-        logger.info e
-      end
-    end
+  def self.cms_and_version(html)
+    is_wordpress(html) || is_drupal(html) || is_shopify(html) || is_joomla(html)
   end
-
+  
   def self.is_wordpress(html)
-
     wordpress_and_version_hash = check_wordpress_in_meta(html) || Hash.new
     if !wordpress_and_version_hash.present? and check_wordpress_in_html(html)
       wordpress_and_version_hash[:cms] = "wordpress"
@@ -73,9 +63,22 @@ class Scrape
       wordpress_and_version_hash[:cms_version] = version_from_resource
     end
     return wordpress_and_version_hash 
-
   end
 
+  def self.is_drupal(html)
+    # some code here
+    return nil
+  end
+
+  def self.is_shopify(html)
+    # some code here
+    return nil
+  end
+
+  def self.is_joomla(html)
+    # some code here
+    return nil
+  end
   def self.check_wordpress_in_meta(html)
     meta_name = ['generator', 'Generator']
     meta_name.each do |name|
@@ -95,7 +98,7 @@ class Scrape
       wordpress_and_version_arr = cms.split(' ')
       return {:cms => "wordpress", :cms_version => wordpress_and_version_arr[1]}
     end
-    return nil;
+    return nil
   end
 
   def self.check_wordpress_in_html(html)
@@ -194,7 +197,7 @@ class Scrape
   end
 
   def self.get_login_url(url, logger)
-    login_suffix = ['/login', '/wp-admin', '/wp-config']
+    login_suffix = ['/login']
     login_suffix.each do |suffix|
       _url = url + suffix
       begin

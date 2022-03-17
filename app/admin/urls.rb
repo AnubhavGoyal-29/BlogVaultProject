@@ -116,6 +116,9 @@ ActiveAdmin.register Url do
       row 'Changes' do |url|
         link_to 'check', test_comparison_admin_url_path(url)
       end
+      row 'Run New Test' do |url|
+        link_to "run test", run_test_admin_url_path(url)
+      end
     end
   end
   member_action :test_comparison, :method => [:get, :post]

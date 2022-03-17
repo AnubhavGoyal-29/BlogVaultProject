@@ -8,10 +8,10 @@ ActiveAdmin.register Test do
 
   index do
     id_column
-    column 'Urls' do |test|
+    column 'Wordpress Sites' do |test|
       url_ids = SiteDataInfo.where(test_id: test.id).pluck(:url_id)
       if url_ids.size > 0
-        link_to 'urls', admin_urls_path('q[id_in]' => url_ids)
+        link_to "#{url_ids.count} urls", admin_urls_path('q[id_in]' => url_ids)
       else
         div ('no urls found')
       end

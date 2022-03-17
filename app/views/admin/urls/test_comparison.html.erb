@@ -32,8 +32,8 @@ table.center {
 
 <%= form_for "test_comparison", builder: ActiveAdmin::FormBuilder, :url => "", :method => :post  do |f| %>
   <% if params["test_comparison"] and params["test_comparison"]["test1"] != "" and params["test_comparison"]["test2"] != "" %>
-    <% test1 = params["test_comparison"]["test1"] %>
-    <% test2 = params["test_comparison"]["test2"] %>
+    <% test1 = params["test_comparison"]["test1"].to_i %>
+    <% test2 = params["test_comparison"]["test2"].to_i %>
     <% if test1 > test2 %>
       <% temp = test1 %>
       <% test1 = test2 %>
@@ -41,6 +41,7 @@ table.center {
     <% end %>
     <% data = Url.find(resource.id).compare_test(test1, test2) %>
     <h1><%= link_to resource.url, admin_url_path(resource.id)%></h1>
+    <h1><%= data[:is_data_changed]? "No changes recorded" : "" %></h1>
     <h2> General Info </h2>
     <table class="center", style="width:80%">
       <thead>
