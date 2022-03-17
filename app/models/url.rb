@@ -40,17 +40,10 @@ class Url < ApplicationRecord
 
     plugin_1 = data_1.plugins
     plugin_2 = data_2.plugins
-    plugins_common = plugin_1 & plugin_2
 
-    for i in 0..( plugin_1.size - 1 )
-      plugin_1[i] = Plugin.find(plugin_1[i]).plugin_name if Plugin.find(plugin_1[i]).plugin_name
-    end
-    for i in 0..( plugin_2.size - 1 )
-      plugin_2[i] = Plugin.find(plugin_2[i]).plugin_name if Plugin.find(plugin_2[i]).plugin_name
-    end
-    for i in 0..( plugins_common.size - 1 )
-      plugins_common[i] = Plugin.find(plugins_common[i]).plugin_name
-    end
+    plugin_1 = Plugin.where(:id => plugin_1).pluck(:plugin_name)
+    plugin_2 = Plugin.where(:id => plugin_2).pluck(:plugin_name)
+    plugins_common = plugin_1 & plugin_2
     plugin_1 = plugin_1 - plugins_common
     plugin_2 = plugin_2 - plugins_common
 

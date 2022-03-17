@@ -84,11 +84,8 @@ ActiveAdmin.register_page "Dashboard" do
   # first it will add new wordpress site to database 
   # then run the test for all urls
   page_action :start_test, :method => [:post, :get] do
-    urls = []
     if params[:start_test] && params[:start_test][:file]
-      File.readlines(params[:start_test][:file].tempfile, chomp: true).each do |line|
-        urls.append(line)
-      end
+      urls = File.readlines(params[:start_test][:file].tempfile, chomp: true)
       test = Test.create!(:number_of_urls => urls.size, :status => Test::Status::INITIALIZED)
       TestInitializeJob.perform_later(urls, test.id)
       flash[:notice] = "test #{test.id} has been started"
