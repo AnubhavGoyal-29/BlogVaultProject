@@ -2,28 +2,38 @@ class JsInfo < ApplicationRecord
 
   belongs_to :url , default: nil
 
-  def self.import_js(all_js, _url)
+  def self.import_js(all_js, url_id, test_id)
     js_id = []
     all_js.each do |js|
-      _js = JsInfo.where(js_name: js, url_id: _url, status: 1).first
+      _js = JsInfo.where(:js_lib => js[:js_lib], :url_id => url_id, :status => true).first
       if _js
         _version = _js.version
-        # version 1.1 is used for testing only
-        # finding better way to find js version
-        if  _version != '1.1'
-          _js.status = 0
+        if  _version != js[:version]
+          _js.status = false
           _js.save
-          new_js = JsInfo.create(js_name: js, url_id: _url, status: 1, version: '1.1')
+          new_js = JsInfo.create(:first_test => test_id, :last_test => test_id, :js_lib => js[:js_lib], 
+                                 :url_id => url_id, :status => true, :version => js[:version] )
           js_id << new_js.id
         else
+          _js.update(:last_test => test_id)
           js_id << _js.id
         end
       else
-        new_js = JsInfo.create(js_name: js, url_id: _url,status: 1,version: '1.1')
+        new_js = JsInfo.create(:first_test => test_id, :last_test => test_id, :js_lib => js[:js_lib], 
+                               :url_id => url_id, :status => true, :version => js[:version] )
         js_id << new_js.id
       end
     end
+    last_js = Url.find(url_id)&.site_data_infos.last&.js
+    done = inactive_removed_js(last_js, js_id) if last_js.present?
     return js_id
   end
 
+  def self.inactive_removed_js(last_js, js_id)
+    removed_js = last_js - js_id
+    removed_js.each do |id|
+      JsInfo.find(id).update(:status => false)
+    end
+    return true
+  end
 end

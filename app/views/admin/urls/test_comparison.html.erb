@@ -1,0 +1,168 @@
+<style>
+table, th, td {
+  border: 2px solid black;
+  border-collapse: collapse;
+  background-color: #F6F6F6;
+}
+th, td {
+  padding: 13px;
+}
+h1{
+  text-align: center;
+}
+h2 {
+  margin-left: 11rem;
+  margin-top: 60px;
+}
+table.center {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: auto;
+}
+</style>
+
+<%= form_for :test_comparison, builder: ActiveAdmin::FormBuilder,
+  :url => test_comparison_admin_url_path, :method => :post  do |f| %>
+  <%= f.inputs "Select two tests" do %>
+    <%= f.input :test1, as: :select, required: true, collection: SiteDataInfo.where(:url_id => resource.id).pluck(:test_id) %>
+    <%= f.input :test2, as: :select, required: true, collection: SiteDataInfo.where(:url_id => resource.id).pluck(:test_id) %>
+  <%end%>
+  <%= submit_tag "Start Process"%>
+<%end%>
+
+<%= form_for "test_comparison", builder: ActiveAdmin::FormBuilder, :url => "", :method => :post  do |f| %>
+  <% if params["test_comparison"] and params["test_comparison"]["test1"] != "" and params["test_comparison"]["test2"] != "" %>
+    <% test1 = params["test_comparison"]["test1"].to_i %>
+    <% test2 = params["test_comparison"]["test2"].to_i %>
+    <% if test1 > test2 %>
+      <% temp = test1 %>
+      <% test1 = test2 %>
+      <% test2 = temp %>
+    <% end %>
+    <% data = Url.find(resource.id).compare_test(test1, test2) %>
+    <h1><%= link_to resource.url, admin_url_path(resource.id)%></h1>
+    <h1><%= data[:is_data_changed]? "No changes recorded" : "" %></h1>
+    <h2> General Info </h2>
+    <table class="center", style="width:80%">
+      <thead>
+        <th>Field</th>
+        <th>Test <%= test1 %></th>
+        <th>Test <%= test2 %></th>
+      </thead>
+      <tbody>
+        <tr>
+          <td> Cloudflare </td>
+          <td><%= data[:data_1][:cloudflare] %></td>
+          <td><%= data[:data_2][:cloudflare] %></td>
+        </tr>
+        <tr>
+          <td> Wp Version </td>
+          <td><%= data[:data_1][:cms_version] || "not found" %></td>
+          <td><%= data[:data_2][:cms_version] || "not found" %></td>
+        </tr>
+        <tr>
+          <td> LoginUrl </td>
+          <td><%= data[:data_1][:login_url] || "not found" %></td>
+          <td><%= data[:data_2][:login_url] || "not found" %></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2><%= link_to "Plugins", admin_plugins_path %></h2>
+    <table class="center", style="width : 80%">
+      <thead>
+        <th>Test <%= test1 %></th>
+        <th>Test <%= test2 %></th>
+      </thead>
+      <tbody>
+        <% for index in 0..data[:data_common][:plugin].count-1 %>
+          <tr>
+            <td><%= link_to data[:data_common][:plugin][index], 
+              admin_plugins_path("q[plugin_slug_equals]" => data[:data_common][:plugin][index]) %></td>
+            <td><%= link_to data[:data_common][:plugin][index], 
+              admin_plugins_path("q[plugin_slug_equals]" => data[:data_common][:plugin][index]) %></td>
+          </tr>
+        <%end%>
+        <%total_count = (data[:data_1][:plugin].count > data[:data_2][:plugin].count) ? data[:data_1][:plugin].count : data[:data_2][:plugin].count%>
+        <% for index in 0..total_count-1 %>
+          <tr>
+            <% if data[:data_1][:plugin][index] %>
+              <td style="background-color : #FFCCCB"><%= link_to data[:data_1][:plugin][index], 
+                admin_plugins_path("q[plugin_slug_equals]" => data[:data_1][:plugin][index]) %></td>
+            <% else %>
+              <td>
+              </td>
+            <% end %>
+            <% if data[:data_2][:plugin][index]%>
+              <td style="background-color : #D0F0C0"><%= link_to data[:data_2][:plugin][index], 
+                admin_plugins_path("q[plugin_slug_equals]" => data[:data_2][:plugin][index]) %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <h2><%= link_to "Themes", admin_themes_path %></h2>
+    <table class="center", style="width:80%">
+      <thead><th>Test <%= test1%></th><th>Test <%= test2%></th></thead>
+      <tbody>
+        <% for index in 0..data[:data_common][:theme].count-1 %>
+          <tr>
+            <td><%= link_to data[:data_common][:theme][index], admin_themes_path("q[theme_name_equals]" => data[:data_common][:theme][index]) %></td>
+            <td><%= link_to data[:data_common][:theme][index], admin_themes_path("q[theme_name_equals]" => data[:data_common][:theme][index]) %></td>
+          </tr>
+        <%end%>
+        <%total_count = (data[:data_1][:theme].count > data[:data_2][:theme].count) ? data[:data_1][:theme].count : data[:data_2][:theme].count%>
+        <% for index in 0..total_count-1 %>
+          <tr>
+            <% if data[:data_1][:theme][index] %>
+              <td style="background-color : #FFCCCB"><%= link_to data[:data_1][:theme][index],
+                admin_themes_path("q[theme_slug_equals]" => data[:data_1][:theme][index]) %></td>
+            <% else %>
+              <td>
+              </td>
+            <% end %>
+            <% if data[:data_2][:theme][index]%>
+              <td style="background-color : #D0F0C0"><%= link_to data[:data_2][:theme][index],
+                admin_themes_path("q[theme_slug_equals]" => data[:data_2][:theme][index]) %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <h2><%= link_to "Js", admin_js_info_path, :method => :post %></h2>
+    <table class="center", style=" width: 80% ">
+      <thead>
+        <th>Test <%= test1 %></th>
+        <th>Test <%= test2 %></th>
+      </thead>
+      <tbody>
+        <% for index in 0..data[:data_common][:js].count-1 %>
+          <tr>
+            <td><%= link_to data[:data_common][:js][index],admin_js_infos_path("q[js_lib_equals]" => data[:data_common][:js][index]) %></td>
+            <td><%= link_to data[:data_common][:js][index],admin_js_infos_path("q[js_lib_equals]" => data[:data_common][:js][index]) %></td>
+
+          </tr>
+        <% end %>
+        <% total_count = (data[:data_1][:js].count > data[:data_2][:js].count) ? data[:data_1][:js].count : data[:data_2][:js].count %>
+        <% for index in 0..total_count-1 %>
+          <tr>
+            <% if data[:data_1][:js][index] %>
+              <td style="background-color : #FFCCCB"><%= link_to data[:data_1][:js][index],
+                admin_js_infos_path("q[js_lib_equals]" => data[:data_1][:js][index]) %></td>
+            <% else %>
+              <td>
+              </td>
+            <% end %>
+            <% if data[:data_2][:js][index]%>
+              <td style="background-color : #D0F0C0"><%= link_to data[:data_2][:js][index],
+                admin_js_infos_path("q[js_lib_equals]" => data[:data_2][:js][index]) %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+  </div>
+<% end %>
