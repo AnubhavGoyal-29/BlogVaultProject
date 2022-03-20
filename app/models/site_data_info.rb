@@ -61,4 +61,16 @@ class SiteDataInfo < ApplicationRecord
       logger.info "Test Id: #{test_id} \nError: #{e}"
     end
   end
+
+  def plugins
+    return Plugin.where(:id => self.plugin_ids)
+  end
+
+  def themes
+    return Theme.where(:id => self.theme_ids)
+  end
+
+  def js
+    return Js.where(:id => self.js_ids)
+  end
 end

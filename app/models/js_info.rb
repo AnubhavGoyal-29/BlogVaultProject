@@ -24,7 +24,7 @@ class JsInfo < ApplicationRecord
         js_id << new_js.id
       end
     end
-    last_js = Url.find(url_id)&.site_data_infos.last&.js
+    last_js = Website.find(url_id)&.site_data_infos.last&.js
     done = inactive_removed_js(last_js, js_id) if last_js.present?
     return js_id
   end

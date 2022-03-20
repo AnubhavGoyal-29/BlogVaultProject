@@ -27,7 +27,7 @@ class Theme < ApplicationRecord
         themes_id << new_theme.id
       end
     end
-    last_themes = Url.find(url_id).site_data_infos.last&.themes
+    last_themes = Website.find(url_id).site_data_infos.last&.themes
     done = inactive_removed_themes(last_themes, themes_id) if last_themes
     return themes_id
   end

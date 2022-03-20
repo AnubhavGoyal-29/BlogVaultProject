@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 2022_02_28_100556) do
 
   create_table "js_infos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "js_lib"
-    t.string "url_id"
+    t.string "website_id"
     t.boolean "status"
     t.string "version"
     t.string "other_data"
@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 2022_02_28_100556) do
   create_table "plugins", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "plugin_name"
     t.string "plugin_slug"
-    t.string "url_id"
+    t.string "website_id"
     t.boolean "status"
     t.string "type"
     t.string "version"
@@ -82,7 +82,7 @@ ActiveRecord::Schema.define(version: 2022_02_28_100556) do
   end
 
   create_table "site_data_infos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "url_id"
+    t.string "website_id"
     t.string "test_id"
     t.string "cms_type"
     t.string "cms_version"
@@ -107,7 +107,7 @@ ActiveRecord::Schema.define(version: 2022_02_28_100556) do
 
   create_table "tests", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "status"
-    t.integer "number_of_urls"
+    t.integer "number_of_websites"
     t.timestamp "started_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -124,7 +124,7 @@ ActiveRecord::Schema.define(version: 2022_02_28_100556) do
   create_table "themes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "theme_name"
     t.string "theme_slug"
-    t.string "url_id"
+    t.string "website_id"
     t.boolean "status"
     t.string "version"
     t.string "other_data"
@@ -134,13 +134,13 @@ ActiveRecord::Schema.define(version: 2022_02_28_100556) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "urls", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "websites", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "url"
     t.integer "first_test"
     t.string "cms"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["url"], name: "index_urls_on_url"
+    t.index ["url"], name: "index_websites_on_url"
   end
 
 end

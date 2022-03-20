@@ -25,7 +25,7 @@ class Plugin < ApplicationRecord
         plugins_id << new_plugin.id
       end
     end
-    last_plugins = Url.find(url_id).site_data_infos.last&.plugins
+    last_plugins = Website.find(url_id).site_data_infos.last&.plugins
     done = inactive_removed_plugins(last_plugins, plugins_id) if last_plugins.present?
     return plugins_id
   rescue => e

@@ -1,7 +1,6 @@
 class Scrape
 
   require'resolv'
-  # require 'selenium-webdriver'
 
   module Tags
     SCRIPT = 'script'
@@ -38,7 +37,7 @@ class Scrape
 
   def self.thread_block(url_id, url_html_version_map, logger, test_id)
     begin
-      url = Url.find(url_id)
+      url = Website.find(url_id)
       html = Nokogiri::HTML.parse(RestClient.get (url.url + "?x=#{rand(999999)}"))
       #File.write("/tmp/#{url.url}", html)
       cms_and_version_hash = cms_and_version(html)  # fetching both cms type and its version together 
@@ -136,11 +135,11 @@ class Scrape
   end
 
   def self.scrape_html(urls_data, logger)
-    data = Hash.new{|h,k| h[k] = Hash.new }
+    data = {}
     urls_data.each do |key, value|
       html = value[:html]
       maped_data = Hash.new
-      url = Url.find(key).url 
+      url = Website.find(key).url 
       DataTypes.constants.each do |data_type|
         Tags.constants.each do |tag|
           get_data_from_resource(url, html, Tags.class_eval(tag.to_s), DataTypes.class_eval(data_type.to_s), maped_data, logger)
