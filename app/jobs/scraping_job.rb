@@ -1,4 +1,4 @@
-class BlogvaultScrapingJob < ApplicationJob
+class ScrapingJob < ApplicationJob
   queue_as = :default
 
   def logger
@@ -20,7 +20,7 @@ class BlogvaultScrapingJob < ApplicationJob
     @step_id = step_id
 
     logger.info "Test Id: #{test.id} Blogvault Scraping Job : #{step.id} Message: Started"
-    step.update(:status => Step::Status::RUNNING)
+    step.update!(:status => Step::Status::RUNNING)
     data = Scrape::filter_wp_urls(@url_ids, logger, test.id)     # here data will be maped agains url id from our database tables
     logger.info "Test Id: #{test.id} Step Id : #{step.id} Message: Filter completed"
     data = Scrape::scrape_html(data, logger)

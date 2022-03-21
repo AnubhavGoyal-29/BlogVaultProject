@@ -21,13 +21,13 @@ class Scrape
     CLOUDFLARE = 'cloudflare'
   end
 
-  def self.filter_wp_urls(urls, logger, test_id)
+  def self.filter_wp_urls(url_ids, logger, test_id)
     url_html_version_map = Hash.new{ |h,k| h[k] = Hash.new }
     threads = []
     # _proxy = ProxyDatum.order('RANDOM()').first
-    urls.each do |url_id|
+    Url.where(:id => url_ids).each do |url|
       threads << Thread.new(){
-        thread_block(url_id, url_html_version_map, logger, test_id)
+        thread_block(url, url_html_version_map, logger, test_id)
       }
     end
     threads.each do |thread|
@@ -36,13 +36,10 @@ class Scrape
     return url_html_version_map
   end
 
-  def self.thread_block(url_id, url_html_version_map, logger, test_id)
+  def self.thread_block(url, url_html_version_map, logger, test_id)
     begin
-      url = Url.find(url_id)
       html = Nokogiri::HTML.parse(RestClient.get (url.url + "?x=#{rand(999999)}"))
-      #File.write("/tmp/#{url.url}", html)
-      cms_and_version_hash = cms_and_version(html)  # fetching both cms type and its version together 
-      if cms_and_version_hash.present?
+      if cms_and_version(html).present?         # fetching both cms type and its version together 
         url.cms || url.update(:cms => cms_and_version_hash[:cms])
         url_html_version_map[url_id] = {:html => html, :cms_version => cms_and_version_hash[:cms_version]}
       end
@@ -54,7 +51,7 @@ class Scrape
   def self.cms_and_version(html)
     is_wordpress(html) || is_drupal(html) || is_shopify(html) || is_joomla(html)
   end
-  
+
   def self.is_wordpress(html)
     wordpress_and_version_hash = check_wordpress_in_meta(html) || Hash.new
     if !wordpress_and_version_hash.present? and check_wordpress_in_html(html)
