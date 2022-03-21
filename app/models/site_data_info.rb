@@ -5,6 +5,15 @@ class SiteDataInfo < ApplicationRecord
   serialize :themes, Array
   serialize :js, Array
 
+  module BasicInfo
+    LOGINURL = "login_url"
+    PLUGINS = "plugins"
+    THEMES = "themes"
+    JS = "js"
+    CLOUDFLARE = "cloudflare"
+    CMS_VERSION = "cms_version"
+  end
+
   def self.import_data(test_id, urls_data, logger)
     site_data_objects = []
     #new_site_data_info_id = SiteDataInfo.last ? SiteDataInfo.last.id : 1 ;
@@ -60,6 +69,17 @@ class SiteDataInfo < ApplicationRecord
     rescue => e
       logger.info "Test Id: #{test_id} \nError: #{e}"
     end
+  end
+
+  def basic_info
+    basic_data = Hash.new
+    basic_data[BasicInfo::PLUGINS] = Plugin.where(:id => source_data.plugin_ids).pluck(:plugin_name)
+    basic_data[BasicInfo::THEMES] = Theme.where(:id => source_data.theme_ids).pluck(:theme_name)
+    basic_data[BasicInfo::JS] = JsInfo.where(:id => source_data.js_ids).pluck(:js_lib)
+    basic_data[BasicInfo::CLOUDFLARE] = self.cloudflare
+    basic_data[BasicInfo::LOGINURL] = self.login_url
+    basic_data[BasicInfo::CMSVERSION] = self.cms_version
+    return basic_data
   end
 
   def plugins

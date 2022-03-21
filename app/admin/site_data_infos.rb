@@ -10,13 +10,13 @@ ActiveAdmin.register SiteDataInfo do
 
   scope :all, :default => true
   scope :Plugins_found, :default => true do |site_data_infos|
-    site_data_infos.where.not(:plugins => nil)    
+    site_data_infos.where.not(:plugin_ids => nil)    
   end
   scope :Themes_found, :default => true do |site_data_infos|
-    site_data_infos.where.not(:themes => nil)
+    site_data_infos.where.not(:theme_ids => nil)
   end
   scope :Js_found, :default => true do |site_data_infos|
-    site_data_infos.where.not(:js => nil)
+    site_data_infos.where.not(:js_ids => nil)
   end
   scope :login_url_found, :default => true do |site_data_infos|
     site_data_infos.where.not(:login_url => '0')

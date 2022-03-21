@@ -35,36 +35,36 @@ class Website < ApplicationRecord
     source_data = SiteDataInfo.where(:test_id => source_test, :url_id => self.id).first
     final_data = SiteDataInfo.where(:test_id => final_test, :url_id => self.id).first
 
-    source_test_plugins = Plugin.where(:id => source_data.plugin_ids).pluck(:plugin_name)
-    final_test_plugins = Plugin.where(:id => final_data.plugin_ids).pluck(:plugin_name)
+    source_test_plugins = source_data.basic_info[SiteDataInfo::BasicInfo::PLUGINS]
+    final_test_plugins = final_data.basic_info[SiteDataInfo::BasicInfo::PLUGINS]
     plugins_common = source_test_plugins & final_test_plugins
     source_test_plugins = source_test_plugins - plugins_common
     final_test_plugins = final_test_plugins - plugins_common
 
-    source_test_themes = Theme.where(:id => source_data.theme_ids).pluck(:theme_name)
-    final_test_themes = Theme.where(:id => final_data.theme_ids).pluck(:theme_name)
+    source_test_themes = source_data.basic_info[SiteDataInfo::BasicInfo::PLUGINS]
+    final_test_themes = final_data.basic_info[SiteDataInfo::BasicInfo::THEMES]
     themes_common = source_test_themes & final_test_themes
     source_test_themes = source_test_themes - themes_common
     final_test_themes = final_test_themes - themes_common
 
-    source_test_js = Js.where(:id => source_data.js_ids).pluck(:js_name)
-    final_test_js = Js.where(:id => final_data.js_ids).pluck(:js_name)
+    source_test_js = source_data.basic_info[SiteDataInfo::BasicInfo::JS]
+    final_test_js = final_data.basic_info[SiteDataInfo::BasicInfo::JS]
     js_common = source_test_js & final_test_js
     source_test_js = source_test_js - js_common
     final_test_js = final_test_js - js_common
 
     data_1 = {
-      :login_url => source_data.login_url, 
-      :cloudflare => source_data.cloudflare, 
-      :cms_version => source_data.cms_version, 
+      :login_url => source_data.basic_info[SiteDataInfo::BasicInfo::LOGINURL],
+      :cloudflare => source_data.basic_info[SiteDataInfo::BasicInfo::CLOUDFLARE],
+      :cms_version => source_data.basic_info[SiteDataInfo::BasicInfo::CMSVERSION],
       :plugin => source_test_plugins, 
       :theme => source_test_themes, 
       :js => source_test_js
     } 
     data_2 = {
-      :login_url => final_data.login_url, 
-      :cloudflare => final_data.cloudflare, 
-      :cms_version => final_data.cms_version, 
+      :login_url => final_data.basic_info[SiteDataInfo::BasicInfo::LOGINURL],
+      :cloudflare => final_data.basic_info[SiteDataInfo::BasicInfo::CLOUDFLARE],
+      :cms_version => final_data.basic_info[SiteDataInfo::BasicInfo::CMSVERSION],
       :plugin => final_test_plugins, 
       :theme => final_test_themes, 
       :js => final_test_js
