@@ -1,18 +1,17 @@
 class JsInfo < ApplicationRecord
+  belongs_to :website, default: nil
 
-  belongs_to :url , default: nil
-
-  def self.import_js(all_js, url_id, test_id)
+  def self.import_js(all_js, website_id, test_id, logger)
     js_id = []
     all_js.each do |js|
-      _js = JsInfo.where(:js_lib => js[:js_lib], :url_id => url_id, :status => true).first
+      _js = JsInfo.where(:js_lib => js[:js_lib], :website_id => website_id, :status => true).first
       if _js
         _version = _js.version
         if  _version != js[:version]
           _js.status = false
           _js.save
           new_js = JsInfo.create(:first_test => test_id, :last_test => test_id, :js_lib => js[:js_lib], 
-                                 :url_id => url_id, :status => true, :version => js[:version] )
+                                 :website_id => website_id, :status => true, :version => js[:version] )
           js_id << new_js.id
         else
           _js.update(:last_test => test_id)
@@ -20,13 +19,15 @@ class JsInfo < ApplicationRecord
         end
       else
         new_js = JsInfo.create(:first_test => test_id, :last_test => test_id, :js_lib => js[:js_lib], 
-                               :url_id => url_id, :status => true, :version => js[:version] )
+                               :website_id => website_id, :status => true, :version => js[:version] )
         js_id << new_js.id
       end
     end
-    last_js = Website.find(url_id)&.site_data_infos.last&.js
-    done = inactive_removed_js(last_js, js_id) if last_js.present?
+    last_js = Website.find(website_id)&.site_data_infos.last&.js_ids
+    inactive_removed_js(last_js, js_id) if last_js.present?
     return js_id
+  rescue => e
+    logger.info e
   end
 
   def self.inactive_removed_js(last_js, js_id)
@@ -34,6 +35,5 @@ class JsInfo < ApplicationRecord
     removed_js.each do |id|
       JsInfo.find(id).update(:status => false)
     end
-    return true
   end
 end

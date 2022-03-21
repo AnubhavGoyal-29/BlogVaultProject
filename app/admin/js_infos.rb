@@ -2,7 +2,7 @@ ActiveAdmin.register JsInfo do
 
   actions :index, :show
   filter :js_lib
-  filter :url_id
+  filter :website_id
   filter :status, as: :select, collection: [["ACTIVE", true], ["INACTIVE", false]]
   filter :first_test
   filter :last_test
@@ -32,8 +32,8 @@ ActiveAdmin.register JsInfo do
         args[:last_test] = params['test_id'].to_i..Float::INFINITY
         args.delete(:status)
       end
-      url_ids = JsInfo.where(args).pluck(:url_id)
-      link_to "#{url_ids.count} :: urls", admin_urls_path("q[id_in]" => url_ids)
+      website_ids = JsInfo.where(args).pluck(:website_id)
+      link_to "#{website_ids.count} :: urls", admin_websites_path("q[id_in]" => website_ids)
     end
     column 'First Test' do |js|
       "Test #{js.first_test}"
@@ -41,7 +41,7 @@ ActiveAdmin.register JsInfo do
     column 'Last Test' do |js|
       "Test #{js.last_test}"
     end
-    if params[:q] and params[:q][:url_id_equals]
+    if params[:q] and params[:q][:website_id_equals]
       column 'Status' do |js|
         status = js.status ? "ACTIVE" : "INACTIVE"
         color = js.status ? "green" : "red"
@@ -62,8 +62,8 @@ ActiveAdmin.register JsInfo do
         end
       end
       row "Usage" do |js|
-        url_ids = JsInfo.where(:js_lib => js.js_lib, :status => true).pluck(:url_id)
-        link_to "#{url_ids.count} :: urls", admin_urls_path('q[id_in]' => url_ids)
+        website_ids = JsInfo.where(:js_lib => js.js_lib, :status => true).pluck(:website_id)
+        link_to "#{website_ids.count} :: urls", admin_websites_path('q[id_in]' => website_ids)
       end
       row :first_test
       row :last_test

@@ -2,7 +2,7 @@ ActiveAdmin.register SiteDataInfo do
 
   actions :index, :show
   filter :test_id
-  filter :url_id
+  filter :website_id
   filter :cloudflare, as: :select, collection: [["ACTIVE", true], ["INACTIVE", false]]
   filter :id
   filter :created_at
@@ -18,7 +18,7 @@ ActiveAdmin.register SiteDataInfo do
   scope :Js_found, :default => true do |site_data_infos|
     site_data_infos.where.not(:js_ids => nil)
   end
-  scope :login_url_found, :default => true do |site_data_infos|
+  scope :login_website_found, :default => true do |site_data_infos|
     site_data_infos.where.not(:login_url => '0')
   end
   scope :WP_version_found, :default => true do |site_data_infos|
@@ -30,29 +30,29 @@ ActiveAdmin.register SiteDataInfo do
     column "Test" do |site_data|
       link_to site_data.test.id, admin_test_path(site_data.test)
     end
-    column "Url" do |site_data|
-      link_to "#{site_data.url.id}:: #{site_data.url.url}", admin_url_path(site_data.url)
+    column "website" do |site_data|
+      link_to "#{site_data.website.id}:: #{site_data.website.url}", admin_website_path(site_data.website)
     end 
     column 'Plugins' do |site_data|
-      plugins = site_data.plugins
+      plugins = site_data.plugin_ids
       if plugins.present?
-        link_to 'Plugins', admin_plugins_path("q[url_id_equals]" => site_data.url_id)
+        link_to 'Plugins', admin_plugins_path("q[website_id_equals]" => site_data.website_id)
       else
         div("Not found", style: "color: red")
       end
     end
     column 'Themes' do |site_data|
-      themes = site_data.themes
+      themes = site_data.theme_ids
       if themes.present?
-        link_to 'Themes', admin_themes_path("q[url_id_equals]" => site_data.url_id)
+        link_to 'Themes', admin_themes_path("q[website_id_equals]" => site_data.website_id)
       else
         div("Not found", style: "color: red")
       end
     end
     column 'JS' do |site_data|
-      js = site_data.js
+      js = site_data.js_ids
       if js.present?
-        link_to 'JS', admin_js_infos_path('q[url_id_equals]' => site_data.url_id)
+        link_to 'JS', admin_js_infos_path('q[website_id_equals]' => site_data.website_id)
       else
         div("Not found", style: "color: red")
       end
@@ -70,7 +70,7 @@ ActiveAdmin.register SiteDataInfo do
       color = site.cloudflare ? "green" : "red"
       div status, :style => "color : #{color}"
     end
-    column 'Login Url' do |site_data|
+    column ' Login Url' do |site_data|
       if site_data.login_url == nil
         div ('Not found'), :style => "color : red"
       else
@@ -83,18 +83,18 @@ ActiveAdmin.register SiteDataInfo do
   show do
     attributes_table do
       row :id
-      row 'url' do |site|
-        link_to "#{site.url.id}:: #{site.url.url}", admin_url_path(site.url) 
+      row 'website' do |site|
+        link_to "#{site.website.id}:: #{site.website.url}", admin_website_path(site.website) 
       end
       row :test
       row :cms_type
       row 'Versions' do |site_data|
-        link_to 'Versions', admin_site_data_infos_path('q[url_id_equals]' => site_data.url_id)
+        link_to 'Versions', admin_site_data_infos_path('q[website_id_equals]' => site_data.website_id)
       end
       row 'Plugins' do |site_data|
         plugins = site_data.plugins
         if plugins.present?
-          link_to 'Plugins', admin_plugins_path("q[url_id_equals]" => site_data.url_id)
+          link_to 'Plugins', admin_plugins_path("q[website_id_equals]" => site_data.website_id)
         else
           div("Not found", style: "color: red")
         end
@@ -102,7 +102,7 @@ ActiveAdmin.register SiteDataInfo do
       row 'Themes' do |site_data|
         themes = site_data.themes
         if themes.present?
-          link_to 'Themes', admin_themes_path("q[url_id_equals]" => site_data.url_id)
+          link_to 'Themes', admin_themes_path("q[website_id_equals]" => site_data.website_id)
         else
           div("Not found", style: "color: red")
         end
@@ -110,7 +110,7 @@ ActiveAdmin.register SiteDataInfo do
       row 'JS' do |site_data|
         js = site_data.js
         if js.present?
-          link_to 'JS', admin_js_infos_path('q[url_id_equals]' => site_data.url_id)
+          link_to 'JS', admin_js_infos_path('q[website_id_equals]' => site_data.website_id)
         else
           div("Not found", style: "color: red")
         end
@@ -129,7 +129,7 @@ ActiveAdmin.register SiteDataInfo do
         div status, :style => "color : #{color}"
       end
 
-      row 'Login Url' do |site_data|
+      row 'Login website' do |site_data|
         if site_data.login_url == nil
           div ('Not found'), :style => "color : red"
         elsif site_data.login_url
@@ -137,7 +137,7 @@ ActiveAdmin.register SiteDataInfo do
         end
       end
       row 'IP' do |site_data|
-        link_to "#{ site_data.ip }", "http://#{site_data.ip}" , :target => 'blank'
+        link_to "#{ site_data.ip }", "#{site_data.ip}" , :target => 'blank'
       end
     end
   end

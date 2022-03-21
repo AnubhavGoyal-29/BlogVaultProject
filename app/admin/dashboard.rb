@@ -63,7 +63,7 @@ ActiveAdmin.register_page "Dashboard" do
                 div :class => 'completed_tests' do
                   a "Test #{test.id}",href: admin_tests_path('q[id_equals]' => test.id), 
                     :class => 'active_admin_test_completed_content'
-                  div test.number_of_urls, :class => 'active_admin_test_completed_content'
+                  div test.number_of_websites, :class => 'active_admin_test_completed_content'
                   div succeed, :class => 'active_admin_test_completed_content'
                   div failed, :class => 'active_admin_test_completed_content'
                   div test.started_at, :class => 'active_admin_test_completed_content'
@@ -86,7 +86,7 @@ ActiveAdmin.register_page "Dashboard" do
   page_action :start_test, :method => [:post, :get] do
     if params[:start_test] && params[:start_test][:file]
       urls = File.readlines(params[:start_test][:file].tempfile, chomp: true)
-      test = Test.create!(:number_of_urls => urls.size, :status => Test::Status::INITIALIZED)
+      test = Test.create!(:number_of_websites => urls.size, :status => Test::Status::INITIALIZED)
       TestInitializeJob.perform_later(urls, test.id)
       flash[:notice] = "test #{test.id} has been started"
       redirect_to admin_dashboard_path

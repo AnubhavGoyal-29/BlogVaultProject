@@ -20,13 +20,13 @@ class Scrape
     CLOUDFLARE = 'cloudflare'
   end
 
-  def self.filter_wp_urls(urls, logger, test_id)
+  def self.filter_wp_urls(website_ids, logger, test_id)
     url_html_version_map = Hash.new{ |h,k| h[k] = Hash.new }
     threads = []
     # _proxy = ProxyDatum.order('RANDOM()').first
-    urls.each do |url_id|
+    Website.where(:id => website_ids).each do |website|
       threads << Thread.new(){
-        thread_block(url_id, url_html_version_map, logger, test_id)
+        thread_block(website, url_html_version_map, logger, test_id)
       }
     end
     threads.each do |thread|
@@ -35,46 +35,38 @@ class Scrape
     return url_html_version_map
   end
 
-  def self.thread_block(url_id, url_html_version_map, logger, test_id)
+  def self.thread_block(website, url_html_version_map, logger, test_id)
     begin
-      url = Website.find(url_id)
-      html = Nokogiri::HTML.parse(RestClient.get (url.url + "?x=#{rand(999999)}"))
-      #File.write("/tmp/#{url.url}", html)
-      cms_and_version_hash = cms_and_version(html)  # fetching both cms type and its version together 
-      if cms_and_version_hash.present?
-        url.cms || url.update(:cms => cms_and_version_hash[:cms])
-        url_html_version_map[url_id] = {:html => html, :cms_version => cms_and_version_hash[:cms_version]}
+      html = Nokogiri::HTML.parse(RestClient.get (website.url + "?x=#{rand(999999)}"))
+      cms_and_version_hash = cms_and_version(html)
+      if cms_and_version_hash.present?         # fetching both cms type and its version together 
+        website.cms || website.update(:cms => cms_and_version_hash[:cms])
+        url_html_version_map[website.id] = {:html => html, :cms_version => cms_and_version_hash[:cms_version]}
       end
     rescue => e
-      logger.info "Test Id : #{test_id} Url: #{url.url} Error: #{e}"
+      logger.info "Test Id : #{test_id} Url: #{website.url} Error: #{e}"
     end
   end
 
   def self.cms_and_version(html)
-    is_wordpress(html) || is_drupal(html) || is_shopify(html) || is_joomla(html)
-  end
-  
-  def self.is_wordpress(html)
-    wordpress_and_version_hash = check_wordpress_in_meta(html) || Hash.new
-    if !wordpress_and_version_hash.present? and check_wordpress_in_html(html)
-      wordpress_and_version_hash[:cms] = "wordpress"
-      version_from_resource = find_wordpress_version(html)
-      wordpress_and_version_hash[:cms_version] = version_from_resource
-    end
-    return wordpress_and_version_hash 
+    check_is_wordpress(html) || check_is_drupal(html) || check_is_shopify(html) || check_is_joomla(html)
   end
 
-  def self.is_drupal(html)
+  def self.check_is_wordpress(html)
+    return check_wordpress_in_meta(html) 
+  end
+
+  def self.check_is_drupal(html)
     # some code here
     return nil
   end
 
-  def self.is_shopify(html)
+  def self.check_is_shopify(html)
     # some code here
     return nil
   end
 
-  def self.is_joomla(html)
+  def self.check_is_joomla(html)
     # some code here
     return nil
   end

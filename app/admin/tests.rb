@@ -9,15 +9,15 @@ ActiveAdmin.register Test do
   index do
     id_column
     column 'Wordpress Sites' do |test|
-      url_ids = SiteDataInfo.where(test_id: test.id).pluck(:url_id)
-      if url_ids.size > 0
-        link_to "#{url_ids.count} urls", admin_urls_path('q[id_in]' => url_ids)
+      website_ids = SiteDataInfo.where(test_id: test.id).pluck(:website_id)
+      if website_ids.size > 0
+        link_to "#{website_ids.count} urls", admin_websites_path('q[id_in]' => website_ids)
       else
         div ('no urls found')
       end
     end
     column 'Data Infos' do |test|
-      url_ids = SiteDataInfo.where(test_id: 2).pluck(:url_id).to_s
+      website_ids = SiteDataInfo.where(test_id: 2).pluck(:website_id).to_s
       link_to 'data info', admin_site_data_infos_path("q[test_id_equals]" => test.id )
     end
     column 'Plugins' do |test|
@@ -51,15 +51,15 @@ ActiveAdmin.register Test do
     attributes_table do
       row :id
       row 'Urls' do |test|
-        url_ids = SiteDataInfo.where(test_id: test.id).pluck(:url_id)
-        if url_ids.size > 0
-          link_to 'urls', admin_urls_path('q[id_in]' => url_ids)
+        website_ids = SiteDataInfo.where(test_id: test.id).pluck(:website_id)
+        if website_ids.size > 0
+          link_to 'urls', admin_websites_path('q[id_in]' => website_ids)
         else
           div ('no urls found')
         end
       end
       row 'Data Infos' do |test|
-        url_ids = SiteDataInfo.where(test_id: 2).pluck(:url_id).to_s
+        website_ids = SiteDataInfo.where(test_id: 2).pluck(:website_id).to_s
         link_to 'data info', admin_site_data_infos_path("q[test_id_equals]" => test.id )
       end
       row 'Status' do |test|

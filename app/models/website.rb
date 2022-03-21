@@ -9,7 +9,7 @@ class Website < ApplicationRecord
     urls.each do |url|
       _url = self.where(url: url).first
       if _url
-        urls_id << url_id
+        urls_id << website_id
       else
         _url = self.create(url: url, site_data_info_id: nil)
         urls_id << _url.id
@@ -22,7 +22,7 @@ class Website < ApplicationRecord
     logger.info "Test Id : #{test_id} Message : Url last_site_data  updated started"
     self.all.each do |url|
       begin
-        site_data_info = SiteDataInfo.where(test_id: test_id, url_id: url.id).first
+        site_data_info = SiteDataInfo.where(test_id: test_id, website_id: url.id).first
         url.site_data_info_id = site_data_info ? site_data_info.id : url.site_data_info_id
         url.save!
       rescue => e
@@ -32,26 +32,26 @@ class Website < ApplicationRecord
   end
 
   def compare_test(source_test, final_test)
-    source_data = SiteDataInfo.where(:test_id => source_test, :url_id => self.id).first
-    final_data = SiteDataInfo.where(:test_id => final_test, :url_id => self.id).first
+    source_data = SiteDataInfo.where(:test_id => source_test, :website_id => self.id).first
+    final_data = SiteDataInfo.where(:test_id => final_test, :website_id => self.id).first
 
     source_test_plugins = source_data.basic_info[SiteDataInfo::BasicInfo::PLUGINS]
     final_test_plugins = final_data.basic_info[SiteDataInfo::BasicInfo::PLUGINS]
     plugins_common = source_test_plugins & final_test_plugins
-    source_test_plugins = source_test_plugins - plugins_common
-    final_test_plugins = final_test_plugins - plugins_common
+    source_test_plugins -= plugins_common
+    final_test_plugins -= plugins_common
 
-    source_test_themes = source_data.basic_info[SiteDataInfo::BasicInfo::PLUGINS]
+    source_test_themes = source_data.basic_info[SiteDataInfo::BasicInfo::THEMES]
     final_test_themes = final_data.basic_info[SiteDataInfo::BasicInfo::THEMES]
     themes_common = source_test_themes & final_test_themes
-    source_test_themes = source_test_themes - themes_common
-    final_test_themes = final_test_themes - themes_common
+    source_test_themes -= themes_common
+    final_test_themes -= themes_common
 
     source_test_js = source_data.basic_info[SiteDataInfo::BasicInfo::JS]
     final_test_js = final_data.basic_info[SiteDataInfo::BasicInfo::JS]
     js_common = source_test_js & final_test_js
-    source_test_js = source_test_js - js_common
-    final_test_js = final_test_js - js_common
+    source_test_js -= js_common
+    final_test_js -= js_common
 
     data_1 = {
       :login_url => source_data.basic_info[SiteDataInfo::BasicInfo::LOGINURL],

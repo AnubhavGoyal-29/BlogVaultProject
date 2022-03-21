@@ -2,7 +2,7 @@ ActiveAdmin.register Plugin do
 
   actions :index, :show  
   filter :plugin_name
-  filter :url_id
+  filter :website_id
   filter :status, as: :select, collection: [["ACTIVE", true], ["INACTIVE", false]]
   filter :first_test
   filter :last_test
@@ -23,8 +23,8 @@ ActiveAdmin.register Plugin do
         args[:first_test] = -Float::INFINITY..params['test_id'].to_i
         args[:last_test] = params['test_id'].to_i..Float::INFINITY
       end
-      url_ids = Plugin.where(args).pluck(:url_id)
-      link_to "#{url_ids.count} :: urls", admin_urls_path("q[id_in]" => url_ids)
+      website_ids = Plugin.where(args).pluck(:website_id)
+      link_to "#{website_ids.count} :: urls", admin_websites_path("q[id_in]" => website_ids)
     end
     column 'First Test' do |plugin|
       "Test #{plugin.first_test}"
@@ -47,8 +47,8 @@ ActiveAdmin.register Plugin do
       row :id
       row :plugin_name
       row "Usage" do |plugin|
-        url_ids = Plugin.where(:plugin_name => plugin.plugin_name, :status => true).pluck(:url_id)
-        link_to "#{url_ids.count} :: urls", admin_urls_path('q[id_in]' => url_ids)
+        website_ids = Plugin.where(:plugin_name => plugin.plugin_name, :status => true).pluck(:website_id)
+        link_to "#{website_ids.count} :: urls", admin_websites_path('q[id_in]' => website_ids)
       end
       row :first_test
       row :last_test

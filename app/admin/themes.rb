@@ -2,7 +2,7 @@ ActiveAdmin.register Theme do
 
   actions :index, :show  
   filter :theme_name
-  filter :url_id
+  filter :website_id
   filter :status, as: :select, collection: [["ACTIVE", true], ["INACTIVE", false]]
   filter :first_test
   filter :last_test
@@ -23,8 +23,8 @@ ActiveAdmin.register Theme do
         args[:first_test] = -Float::INFINITY..params['test_id'].to_i
         args[:last_test] = params['test_id'].to_i..Float::INFINITY
       end
-      url_ids = Theme.where(args).pluck(:url_id)
-      link_to "#{url_ids.count} :: urls", admin_urls_path("q[id_in]" => url_ids)
+      website_ids = Theme.where(args).pluck(:website_id)
+      link_to "#{website_ids.count} :: urls", admin_websites_path("q[id_in]" => website_ids)
     end
     column 'First Test' do |js|
       "Test #{js.first_test}"
@@ -47,8 +47,8 @@ ActiveAdmin.register Theme do
       row :id
       row :theme_name
       row "Usage" do |theme|
-        url_ids = Theme.where(:theme_name => theme.theme_name, :status => true).pluck(:url_id)
-        link_to "#{url_ids.count} :: urls", admin_urls_path('q[id_in]' => url_ids)
+        website_ids = Theme.where(:theme_name => theme.theme_name, :status => true).pluck(:website_id)
+        link_to "#{website_ids.count} :: urls", admin_websites_path('q[id_in]' => website_ids)
       end
       row :first_test
       row :last_test

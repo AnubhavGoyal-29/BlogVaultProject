@@ -22,10 +22,10 @@ table.center {
 </style>
 
 <%= form_for :test_comparison, builder: ActiveAdmin::FormBuilder,
-  :url => test_comparison_admin_url_path, :method => :post  do |f| %>
+  :url => test_comparison_admin_website_path, :method => :post  do |f| %>
   <%= f.inputs "Select two tests" do %>
-    <%= f.input :test1, as: :select, required: true, collection: SiteDataInfo.where(:url_id => resource.id).pluck(:test_id) %>
-    <%= f.input :test2, as: :select, required: true, collection: SiteDataInfo.where(:url_id => resource.id).pluck(:test_id) %>
+    <%= f.input :test1, as: :select, required: true, collection: SiteDataInfo.where(:website_id => resource.id).pluck(:test_id) %>
+    <%= f.input :test2, as: :select, required: true, collection: SiteDataInfo.where(:website_id => resource.id).pluck(:test_id) %>
   <%end%>
   <%= submit_tag "Start Process"%>
 <%end%>
@@ -40,7 +40,7 @@ table.center {
       <% test2 = temp %>
     <% end %>
     <% data = Website.find(resource.id).compare_test(test1, test2) %>
-    <h1><%= link_to resource.url, admin_url_path(resource.id)%></h1>
+    <h1><%= link_to resource.url, admin_website_path(resource.id)%></h1>
     <h1><%= data[:is_data_changed]? "No changes recorded" : "" %></h1>
     <h2> General Info </h2>
     <table class="center", style="width:80%">

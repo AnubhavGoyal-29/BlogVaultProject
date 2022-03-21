@@ -11,8 +11,8 @@ ActiveAdmin.register Step do
     id_column
     column :test_id
     column "Urls" do |step|
-      url_ids = JSON.parse(step.urls)
-      link_to 'urls', admin_urls_path('q[id_in]' => url_ids)
+      website_ids = JSON.parse(step.urls)
+      link_to 'urls', admin_websites_path('q[id_in]' => website_ids)
     end
     column 'Status' do |step|
       status = step.status
