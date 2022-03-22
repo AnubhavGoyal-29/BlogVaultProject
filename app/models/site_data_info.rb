@@ -30,6 +30,7 @@ class SiteDataInfo < ApplicationRecord
       logger.info "themes"
       _js = JsInfo.import_js(maped_data["js"].uniq, website_id, test_id, logger) if maped_data["js"].present?
       logger.info "js"
+      debugger
       _login_url = maped_data[:login_url]
       _ip = maped_data[:ip]
       data_map = Hash.new

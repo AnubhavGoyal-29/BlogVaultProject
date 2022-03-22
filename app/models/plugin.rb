@@ -27,7 +27,6 @@ class Plugin < ApplicationRecord
     end
     last_plugins = Website.find(website_id).site_data_infos.last&.plugin_ids
     inactive_removed_plugins(last_plugins, plugins_id) if last_plugins.present?
-    return plugins_id
   rescue => e
     logger.info "error #{e} from plugin"
   end
@@ -37,5 +36,6 @@ class Plugin < ApplicationRecord
     removed_plugins.each do |id|
       Plugin.find(id).update(:is_active => false)
     end
+    return plugins_id
   end
 end
