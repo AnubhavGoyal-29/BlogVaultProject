@@ -47,7 +47,7 @@ ActiveAdmin.register Plugin do
       row :id
       row :plugin_name
       row "Usage" do |plugin|
-        website_ids = Plugin.where(:plugin_name => plugin.plugin_name, :status => true).pluck(:website_id)
+        website_ids = Plugin.where(:plugin_name => plugin.plugin_name, :is_active => true).pluck(:website_id)
         link_to "#{website_ids.count} :: urls", admin_websites_path('q[id_in]' => website_ids)
       end
       row :first_test

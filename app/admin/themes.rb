@@ -47,7 +47,7 @@ ActiveAdmin.register Theme do
       row :id
       row :theme_name
       row "Usage" do |theme|
-        website_ids = Theme.where(:theme_name => theme.theme_name, :status => true).pluck(:website_id)
+        website_ids = Theme.where(:theme_name => theme.theme_name, :is_active => true).pluck(:website_id)
         link_to "#{website_ids.count} :: urls", admin_websites_path('q[id_in]' => website_ids)
       end
       row :first_test
