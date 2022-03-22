@@ -4,7 +4,7 @@ class CreatePlugins < ActiveRecord::Migration[5.2]
       t.string :plugin_name
       t.string :plugin_slug
       t.string :website_id
-      t.boolean :status
+      t.boolean :is_active
       t.string :type
       t.string :version
       t.string :other_data

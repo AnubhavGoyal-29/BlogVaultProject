@@ -3,7 +3,7 @@ ActiveAdmin.register Theme do
   actions :index, :show  
   filter :theme_name
   filter :website_id
-  filter :status, as: :select, collection: [["ACTIVE", true], ["INACTIVE", false]]
+  filter :is_active, as: :select, collection: [["ACTIVE", true], ["INACTIVE", false]]
   filter :first_test
   filter :last_test
   filter :created_at
@@ -35,8 +35,8 @@ ActiveAdmin.register Theme do
 
     if params[:q]
       column 'Status' do |theme|
-        status = theme.status ? "ACTIVE" : "INACTIVE"
-        color = theme.status ? "green" : "red"
+        status = theme.is_active ? "ACTIVE" : "INACTIVE"
+        color = theme.is_active ? "green" : "red"
         div status, style: "color: #{color}"
       end
     end
@@ -54,8 +54,8 @@ ActiveAdmin.register Theme do
       row :last_test
       if params[:q]
         row 'Status' do |theme|
-          status = theme.status ? "ACTIVE" : "INACTIVE"
-          color = theme.status ? "green" : "red"
+          status = theme.is_active ? "ACTIVE" : "INACTIVE"
+          color = theme.is_active ? "green" : "red"
           div status, style: "color: #{color}"
         end
       end

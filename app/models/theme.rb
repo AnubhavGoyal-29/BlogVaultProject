@@ -4,17 +4,17 @@ class Theme < ApplicationRecord
   def self.import_themes(themes, website_id, test_id )
     themes_id = []
     themes.each do |slug|
-      _theme = Theme.where(:theme_slug => slug, :website_id => website_id, :status => true).first
+      _theme = Theme.where(:theme_slug => slug, :website_id => website_id, :is_active => true).first
       if _theme
         _version = _theme.version
         # passing 1.1 for testing only
         # finding ways to find version effectively
         if  _version != '1.1'
-          _theme.status = false
+          _theme.is_active = false
           _theme.save
           theme_name = ThemeSlug.where(:slug => slug).first&.name || slug
           new_theme = Theme.create(:first_test => test_id, :last_test => test_id, :theme_name => theme_name,
-                                   :theme_slug => slug, :website_id => website_id, :status => true, :version => '1.1')
+                                   :theme_slug => slug, :website_id => website_id, :is_active => true, :version => '1.1')
           themes_id << new_theme.id
         else
           _theme.update(:last_test => test_id)
@@ -23,7 +23,7 @@ class Theme < ApplicationRecord
       else
         theme_name = ThemeSlug.where(:slug => slug).first&.name || slug
         new_theme = Theme.create(:first_test => test_id, :last_test => test_id, :theme_name => theme_name,
-                                 :theme_slug => slug, :website_id => website_id, :status => true, :version => '1.1')
+                                 :theme_slug => slug, :website_id => website_id, :is_active => true, :version => '1.1')
         themes_id << new_theme.id
       end
     end
@@ -35,7 +35,7 @@ class Theme < ApplicationRecord
   def self.inactive_removed_themes(last_themes, themes_id)
     removed_themes = last_themes - themes_id
     removed_themes.each do |id|
-      Theme.find(id).update(:status => false)
+      Theme.find(id).update(:is_active => false)
     end
   end
 end
