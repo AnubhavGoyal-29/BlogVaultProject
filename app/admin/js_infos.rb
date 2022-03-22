@@ -26,11 +26,11 @@ ActiveAdmin.register JsInfo do
     column "Usage" do |js|
       args = Hash.new
       args[:js_lib] = js.js_lib
-      args[:status] = true
+      args[:id_active] = true
       if params["test_id"]
         args[:first_test] = -Float::INFINITY..params['test_id'].to_i
         args[:last_test] = params['test_id'].to_i..Float::INFINITY
-        args.delete(:status)
+        args.delete(:is_active)
       end
       website_ids = JsInfo.where(args).pluck(:website_id)
       link_to "#{website_ids.count} :: urls", admin_websites_path("q[id_in]" => website_ids)
@@ -62,7 +62,7 @@ ActiveAdmin.register JsInfo do
         end
       end
       row "Usage" do |js|
-        website_ids = JsInfo.where(:js_lib => js.js_lib, :status => true).pluck(:website_id)
+        website_ids = JsInfo.where(:js_lib => js.js_lib, :is_active => true).pluck(:website_id)
         link_to "#{website_ids.count} :: urls", admin_websites_path('q[id_in]' => website_ids)
       end
       row :first_test
