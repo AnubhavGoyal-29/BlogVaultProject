@@ -3,8 +3,8 @@ class Step < ApplicationRecord
 
   module Status
     INITIALIZED = 0
-    RUNNING =1
-    COMPLETED = 2
+    RUNNING = 1
+    SUCCEED = 2
     FAILED = 3
   end
 
