@@ -3,7 +3,7 @@ ActiveAdmin.register Plugin do
   actions :index, :show  
   filter :plugin_name
   filter :website_id
-  filter :status, as: :select, collection: [["ACTIVE", true], ["INACTIVE", false]]
+  filter :is_active, as: :select, collection: [["ACTIVE", true], ["INACTIVE", false]]
   filter :first_test
   filter :last_test
   filter :created_at
@@ -35,8 +35,8 @@ ActiveAdmin.register Plugin do
 
     if params[:q]
       column 'Status' do |plugin|
-        status = plugin.status ? "ACTIVE" : "INACTIVE"
-        color = plugin.status ? "green" : "red"
+        status = plugin.is_active ? "ACTIVE" : "INACTIVE"
+        color = plugin.is_active ? "green" : "red"
         div status, style: "color: #{color}"
       end
     end
@@ -54,8 +54,8 @@ ActiveAdmin.register Plugin do
       row :last_test
       if params[:q]
         row 'Status' do |plugin|
-          status = plugin.status ? "ACTIVE" : "INACTIVE"
-          color = plugin.status ? "green" : "red"
+          status = plugin.is_active ? "ACTIVE" : "INACTIVE"
+          color = plugin.is_active ? "green" : "red"
           div status, style: "color: #{color}"
         end
       end

@@ -4,7 +4,7 @@ class CreateThemes < ActiveRecord::Migration[5.2]
       t.string :theme_name
       t.string :theme_slug
       t.string :website_id
-      t.boolean :status
+      t.boolean :is_active
       t.string :version
       t.string :other_data
       t.integer :first_test

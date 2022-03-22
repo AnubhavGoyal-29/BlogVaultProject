@@ -8,11 +8,11 @@ class Plugin < ApplicationRecord
       if _plugin 
         _version = _plugin.version
         if  _version != '1.1'      #for testing purpose
-          _plugin.status = false
+          _plugin.is_active = false
           _plugin.save
           plugin_name = PluginSlug.where(:slug => slug).first&.name || slug
           new_plugin = Plugin.create(:first_test => test_id, :last_test => test_id, :plugin_name => plugin_name, 
-                                     plugin_slug: slug, website_id: website_id, status: true, version: '1.1')
+                                     plugin_slug: slug, website_id: website_id, is_active: true, version: '1.1')
           plugins_id << new_plugin.id
         else
           _plugin.update(:last_test => test_id)
@@ -21,7 +21,7 @@ class Plugin < ApplicationRecord
       else
         plugin_name = PluginSlug.where(:slug => slug).first&.name || slug
         new_plugin = Plugin.create(:first_test => test_id, :last_test => test_id, plugin_name: plugin_name, 
-                                   :plugin_slug => slug, website_id: website_id, status: true, version: '1.1')
+                                   :plugin_slug => slug, website_id: website_id, is_active: true, version: '1.1')
         plugins_id << new_plugin.id
       end
     end
@@ -35,7 +35,7 @@ class Plugin < ApplicationRecord
   def self.inactive_removed_plugins(last_plugins, plugins_id)
     removed_plugins = last_plugins - plugins_id
     removed_plugins.each do |id|
-      Plugin.find(id).update(:status => false)
+      Plugin.find(id).update(:is_active => false)
     end
   end
 end
