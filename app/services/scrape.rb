@@ -53,7 +53,7 @@ class Scrape
   end
 
   def self.check_is_wordpress(html)
-    return check_wordpress_in_meta(html) 
+    return check_wordpress_in_meta(html) || check_wordpress_in_html(html)
   end
 
   def self.check_is_drupal(html)
@@ -93,12 +93,10 @@ class Scrape
   end
 
   def self.check_wordpress_in_html(html)
-    if html.inner_text.match(/wp-content/)
-      return true
-    end
+    find_wordpress_from_version
   end
 
-  def self.find_wordpress_version(html)
+  def self.find_wordpress_from_version(html)
     return find_version_in_resource(Tags::LINK, html) || find_version_in_resource(Tags::SCRIPT, html)
   end
 
@@ -117,8 +115,8 @@ class Scrape
       checks.each do |check|
         if line[sub_resource][check]
           version = line[sub_resource].split('ver=')[1]
-          if version.size < 7 # version be like 5.14 or 12344232321212 so to take only actual version check is < 7
-            return version
+          if version.size < 9 # version be like 5.14 or 12344232321212 so to take only actual version check is < 7
+            return {:cms => "wordpress", :cms_version => version}
           end
         end
       end
