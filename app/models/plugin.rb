@@ -4,7 +4,7 @@ class Plugin < ApplicationRecord
   def self.import_plugins(plugins, website_id, test_id)
     plugins_id = []
     plugins.each do |slug|
-      _plugin = Plugin.where(:plugin_slug => slug, :website_id => website_id, :status => true).first
+      _plugin = Plugin.where(:plugin_slug => slug, :website_id => website_id, :is_active => true).first
       if _plugin 
         _version = _plugin.version
         if  _version != '1.1'      #for testing purpose
@@ -27,6 +27,7 @@ class Plugin < ApplicationRecord
     end
     last_plugins = Website.find(website_id).site_data_infos.last&.plugin_ids
     inactive_removed_plugins(last_plugins, plugins_id) if last_plugins.present?
+    return plugins_id
   rescue => e
     logger.info "error #{e} from plugin"
   end
@@ -36,6 +37,5 @@ class Plugin < ApplicationRecord
     removed_plugins.each do |id|
       Plugin.find(id).update(:is_active => false)
     end
-    return plugins_id
   end
 end
