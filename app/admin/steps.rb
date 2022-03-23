@@ -8,6 +8,7 @@ ActiveAdmin.register_page "Steps" do
     if params["sidebar_filters"]
     args[:test_id] = params["sidebar_filters"]["test_id"] if params["sidebar_filters"]["test_id"].present?
     args[:id] = params["sidebar_filters"]["step_id"] if params["sidebar_filters"]["step_id"].present?
+    args[:status] = params["sidebar_filters"]["status"] if params["sidebar_filters"]["status"].present?
     end
     table_for Step.where(args) do
       column :id

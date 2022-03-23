@@ -2,24 +2,28 @@
   :url => admin_steps_path, :method => :get  do |f| %>
   <% sidebar_params = params["sidebar_filters"] || nil %>
   <%= f.label "Test Id"%>
-  <% if sidebar_params[:test_id]%>
+  <% if sidebar_params and sidebar_params[:test_id]%>
     <%= f.text_field :test_id, :value => sidebar_params[:test_id] %>
   <% else %>
-      <%= f.text_field :test_id %>
+    <%= f.text_field :test_id %>
   <% end %>
   <%= f.label "Step Id"%>
-  <% if sidebar_params[:step_id]%>
+  <% if sidebar_params and sidebar_params[:step_id]%>
     <%= f.text_field :step_id, :value => sidebar_params[:step_id] %>
   <% else %>
-      <%= f.text_field :step_id %>
+    <%= f.text_field :step_id %>
   <% end %>
-  <%= f.input :status, as: :select, required: true, collection: Step::STATUS.invert %>
-
+  <% if sidebar_params and sidebar_params[:status]%>
+    <%= f.input :status, as: :select, required: true, collection: Step::STATUS.invert, :selected => sidebar_params[:status] %>
+  <% else %>
+    <%= f.input :status, as: :select, required: true, collection: Step::STATUS.invert %>
+  <% end %>
   <% if sidebar_params %>
-    <% sidebar_params.each do |key, value|%>
-      <% if sidebar_params[key].present?%>
-        <%= key + " : " + value %>
-      <%end%>
+    <% if sidebar_params[:test_id].present? %>
+      <%= "Test Id : " + sidebar_params[:test_id]%>
+    <% end %>
+    <% if sidebar_params[:step_id].present? %>
+      <%= "Step Id : " + sidebar_params[:step_id]%>
     <% end %>
   <% end %>
   <%= f.submit "Apply Filters" %>
