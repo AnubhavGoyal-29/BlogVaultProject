@@ -1,5 +1,5 @@
 <%= form_for :sidebar_filters, builder: ActiveAdmin::FormBuilder,
-  :url => admin_tests_path, :method => :get  do |f| %>
+  :url => admin_steps_path, :method => :get  do |f| %>
   <% sidebar_params = params["sidebar_filters"] || nil %>
   <%= f.label "Test Id"%>
   <% if sidebar_params and sidebar_params[:test_id]%>
@@ -7,6 +7,13 @@
   <% else %>
     <%= f.text_field :test_id %>
   <% end %>
+  <% if sidebar_params %>
+    <% if sidebar_params[:test_id].present? %>
+      <%= "Test Id : " + sidebar_params[:test_id]%>
+    <% end %>
+    <% if sidebar_params[:step_id].present? %>
+      <%= "Step Id : " + sidebar_params[:step_id]%>
+    <% end %>
+  <% end %>
   <%= f.submit "Apply Filters", :class => "button-primary"%>
-<%end%>
 

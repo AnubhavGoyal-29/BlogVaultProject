@@ -15,7 +15,7 @@
 // For example, to change the default status-tag color:
 //
 
-//   .status_tag { background: #6090DB; }
+   .status_tag { background: #6090DB; }
 
 .active_admin_test_completed_label {
 	color: #5E6469;
@@ -51,4 +51,11 @@
         display : grid;
         grid-template-columns : auto auto auto auto auto
 }
+.active_admin_table_css_dark {
+	background-color : #ecedee
+}
+.active_admin_table_css_light {
+        background-color : #f9fafa
+}
+
 
