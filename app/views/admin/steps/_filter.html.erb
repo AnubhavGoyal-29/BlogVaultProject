@@ -1,11 +1,80 @@
 <%= form_for :sidebar_filters, builder: ActiveAdmin::FormBuilder,
-  :url => admin_tests_path, :method => :get  do |f| %>
+  :url => admin_steps_path, :method => :get  do |f| %>
   <% sidebar_params = params["sidebar_filters"] || nil %>
   <%= f.label "Test Id"%>
   <% if sidebar_params and sidebar_params[:test_id]%>
     <%= f.text_field :test_id, :value => sidebar_params[:test_id] %>
   <% else %>
     <%= f.text_field :test_id %>
+  <% end %>
+
+  <%= f.label "Step Id"%>
+  <% if sidebar_params and sidebar_params[:step_id]%>
+    <%= f.text_field :step_id, :value => sidebar_params[:step_id] %>
+  <% else %>
+    <%= f.text_field :step_id %>
+  <% end %>
+
+  <%= f.label "Status"%>
+  <% if sidebar_params and sidebar_params[:status]%>
+    <%= f.select :status, Step::STATUS.invert, :selected => sidebar_params[:status], include_blank: "Any" %>
+  <% else %>
+    <%= f.select :status, Step::STATUS.invert, include_blank: true %>
+  <% end %>
+
+  <% if sidebar_params and sidebar_params[:created_at]%>
+    <%= f.inputs "created_at" do %>
+      <%= f.label "From"%>
+      <%= f.date_select :created_from %>
+      <%= f.label "To"%>
+      <%= f.date_field :created_to %>
+    <% end %>
+  <% else %>
+    <%= f.inputs "created_at" do %>
+      <%= f.label "From"%>
+      <%= f.date_field :created_from %>
+      <%= f.label "To"%>
+      <%= f.date_field :created_to %>
+    <% end %>
+  <% end %>
+
+  <% if sidebar_params and sidebar_params[:updated_at]%>
+    <%= f.inputs "updated_at" do %>
+      <%= f.label "From"%>
+      <%= f.date_field :updated_from %>
+      <%= f.label "To"%>
+      <%= f.date_field :updated_to %>
+    <% end %>
+  <% else %>
+    <%= f.inputs "updated_at" do %>
+      <%= f.label "From"%>
+      <%= f.date_field :updated_from %>
+      <%= f.label "To"%>
+      <%= f.date_field :updated_to %>
+    <% end %>
+  <% end %>
+
+  <% if sidebar_params %>
+    <% if sidebar_params[:test_id].present? %>
+      <%= "Test Id : " + sidebar_params[:test_id]%>
+    <% end %>
+    <% if sidebar_params[:step_id].present? %>
+      <%= "Step Id : " + sidebar_params[:step_id]%>
+    <% end %>
+
+    <% if sidebar_params[:created_from].present? %>
+      <%= " Created From : " + sidebar_params[:created_from]%>
+    <% end %>
+
+    <% if sidebar_params[:created_to].present? %>
+      <%= "Created To : " + sidebar_params[:created_to]%>
+    <% end %>
+    <% if sidebar_params[:updated_from].present? %>
+      <%= "Updated From : " + sidebar_params[:updated_from]%>
+    <% end %>
+    <% if sidebar_params[:updated_from].present? %>
+      <%= "Updated To : " + sidebar_params[:updated_from]%>
+    <% end %>
   <% end %>
   <%= f.submit "Apply Filters", :class => "button-primary"%>
 <%end%>

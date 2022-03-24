@@ -28,7 +28,7 @@ ActiveAdmin.register SiteDataInfo do
   index do 
     id_column
     column "Test" do |site_data|
-      link_to site_data.test.id, admin_test_path(site_data.test)
+      link_to site_data.test.id, admin_tests_path(site_data.test)
     end
     column "website" do |site_data|
       link_to "#{site_data.website.id}:: #{site_data.website.url}", admin_website_path(site_data.website)

@@ -26,7 +26,7 @@ ActiveAdmin.register JsInfo do
     column "Usage" do |js|
       args = Hash.new
       args[:js_lib] = js.js_lib
-      args[:id_active] = true
+      args[:is_active] = true
       if params["test_id"]
         args[:first_test] = -Float::INFINITY..params['test_id'].to_i
         args[:last_test] = params['test_id'].to_i..Float::INFINITY

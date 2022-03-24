@@ -41,7 +41,7 @@ ActiveAdmin.register Website do
     end
     column 'Last Test' do |website|
       if website.site_data_infos.last
-        link_to "Test #{website.site_data_infos.last.test_id}", admin_test_path(website.site_data_infos.last.test_id)
+        link_to "Test #{website.site_data_infos.last.test_id}", admin_tests_path(website.site_data_infos.last.test_id)
       end
     end
     column 'Last Test Data' do |website|
@@ -110,7 +110,7 @@ ActiveAdmin.register Website do
       end
       row 'Last Test' do |website|
         if website.site_data_infos.last
-          link_to "Test #{website.site_data_infos.last.test_id}", admin_test_path(website.site_data_infos.last.test_id)
+          link_to "Test #{website.site_data_infos.last.test_id}", admin_tests_path(website.site_data_infos.last.test_id)
         end
       end
       row 'Changes' do |website|
