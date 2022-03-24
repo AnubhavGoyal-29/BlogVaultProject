@@ -1,86 +1,54 @@
 <%= form_for :sidebar_filters, builder: ActiveAdmin::FormBuilder,
   :url => admin_steps_path, :method => :get  do |f| %>
   <% sidebar_params = params["sidebar_filters"] || nil %>
+
   <%= f.label "Test Id"%>
-  <% if sidebar_params and sidebar_params[:test_id]%>
-    <%= f.text_field :test_id, :value => sidebar_params[:test_id] %>
-  <% else %>
-    <%= f.text_field :test_id %>
-  <% end %>
+  <%= f.text_field :test_id, :value => sidebar_params ? sidebar_params[:test_id] ? sidebar_params[:test_id] : nil : nil %>
 
   <%= f.label "Step Id", :style => "margin-top : 10px"%>
-  <% if sidebar_params and sidebar_params[:step_id]%>
-    <%= f.text_field :step_id, :value => sidebar_params[:step_id] %>
-  <% else %>
-    <%= f.text_field :step_id %>
-  <% end %>
-
+  <%= f.text_field :step_id, :value => sidebar_params ? sidebar_params[:step_id] ? sidebar_params[:step_id] : nil : nil %>
+  
   <%= f.label "Status", :style => "margin-top : 10px" %>
-  <% if sidebar_params and sidebar_params[:status]%>
-    <%= f.select :status, Step::STATUS.invert, :selected => sidebar_params[:status], include_blank: "Any" %>
-  <% else %>
-    <%= f.select :status, Step::STATUS.invert, include_blank: true %>
-  <% end %>
+  <%= f.select :status, Step::STATUS.invert, 
+    :selected => sidebar_params ? sidebar_params[:status]? sidebar_params[:status] : nil : nil, include_blank: "Any" %>
 
-  <% if sidebar_params and sidebar_params[:created_at]%>
-    <%= f.label "Created",:style => "margin-top : 10px" %>
-      <p style="margin-top : 5px; display : grid; grid-template-column : auto auto">
-      <%= f.label "From"%>
-      <%= f.text_field :created_from, :class => "datepicker", :placeholder => "from date" %>
-      <%= f.label "To"%>
-      <%= f.text_field :created_to, :class => "datepicker", :placeholder => "to date" %>
-      </p>
-  <% else %>
-    <%= f.label "Created", :style => "margin-top : 10px" %>
-    <p style="margin-top : 5px; display : grid; grid-template-column : auto auto">
-      <%= f.label "From" %>
-      <%= f.text_field :created_from, :class => "datepicker", :placeholder => "from date" %>
-      <%= f.label "To" %>
-      <%= f.text_field :created_from, :class => "datepicker", :placeholder => "to date" %>
-    </p>
-  <% end %>
+  <%= f.label "Created", :style => "margin-top : 10px" %>
+  <%= f.label "From" %>
+  <%= f.text_field :created_from, :class => "datepicker", :placeholder => "from date", 
+    :value => sidebar_params ? sidebar_params[:created_from] ? sidebar_params[:created_from] : nil : nil %>
+  <%= f.label "To" %>
+  <%= f.text_field :created_to, :class => "datepicker", :placeholder => "to date",
+    :value => sidebar_params ? sidebar_params[:created_to] ? sidebar_params[:created_to] : nil : nil %>
 
-  <% if sidebar_params and sidebar_params[:updated_at]%>
-    <%= f.label "Updated" %>
-      <p>
-      <%= f.label "From"%>
-      <%= f.text_field :updated_from, :class => "datepicker", :placeholder => "from date", :style => "width : 50vw" %>
-      <%= f.label "To"%>
-      <%= f.text_field :updated_to, :class => "datepicker", :placeholder => "to date", :style => "width : 50vw" %>
-      </p>
-  <% else %>
-    <%= f.label "Updated"%>
-    <p>
-      <%= f.label "From" %>
-      <%= f.text_field :updated_from, :class => "datepicker", :placeholder => "from date" %>
-      <%= f.label "To" %>
-      <%= f.text_field :updated_from, :class => "datepicker", :placeholder => "to date" %>
-    </p>
-  <% end %>
+  <%= f.label "Updated", :style => "margin-top : 10px" %>
+  <%= f.label "From" %>
+  <%= f.text_field :updated_from, :class => "datepicker", :placeholder => "from date",
+    :value => sidebar_params ? sidebar_params[:updated_from] ? sidebar_params[:updated_from] : nil : nil %>
+  <%= f.label "To" %>
+  <%= f.text_field :updated_to, :class => "datepicker", :placeholder => "to date",
+    :value => sidebar_params ? sidebar_params[:updated_to] ? sidebar_params[:updated_to] : nil : nil %>
 
   <% if sidebar_params %>
     <% if sidebar_params[:test_id].present? %>
-      <%= "Test Id : " + sidebar_params[:test_id]%>
+      <h4 style="font-weight : bold"><%= "Test Id : " + sidebar_params[:test_id] %></h4>
     <% end %>
     <% if sidebar_params[:step_id].present? %>
-      <%= "Step Id : " + sidebar_params[:step_id]%>
+      <h4 style="font-weight : bold"><%= "Step Id : " + sidebar_params[:step_id]%></h4>
     <% end %>
-
     <% if sidebar_params[:created_from].present? %>
-      <%= " Created From : " + sidebar_params[:created_from]%>
+      <h4 style="font-weight : bold"><%= " Created From : " + sidebar_params[:created_from]%></h4>
     <% end %>
-
     <% if sidebar_params[:created_to].present? %>
-      <%= "Created To : " + sidebar_params[:created_to]%>
+      <h4 style="font-weight : bold"><%= "Created To : " + sidebar_params[:created_to]%></h4>
     <% end %>
     <% if sidebar_params[:updated_from].present? %>
-      <%= "Updated From : " + sidebar_params[:updated_from]%>
+      <h4 style="font-weight : bold"><%= "Updated From : " + sidebar_params[:updated_from]%></h4>
     <% end %>
     <% if sidebar_params[:updated_from].present? %>
-      <%= "Updated To : " + sidebar_params[:updated_from]%>
+      <h4 style="font-weight : bold"><%= "Updated To : " + sidebar_params[:updated_from]%></h4>
     <% end %>
   <% end %>
-
+  <br>
   <%= f.submit "Apply Filters", :class => "button-primary"%>
 <%end%>
 
