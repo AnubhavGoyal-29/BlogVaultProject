@@ -5,11 +5,21 @@ ActiveAdmin.register_page "Steps" do
   end
   content do
     args = {}
+    puts params
     if params["sidebar_filters"]
     args[:test_id] = params["sidebar_filters"]["test_id"] if params["sidebar_filters"]["test_id"].present?
     args[:id] = params["sidebar_filters"]["step_id"] if params["sidebar_filters"]["step_id"].present?
     args[:status] = params["sidebar_filters"]["status"] if params["sidebar_filters"]["status"].present?
+
+    created_from = params["sidebar_filters"]["created_from"].present? ? params["sidebar_filters"]["created_from"] : Test.first.created_at
+    created_to = params["sidebar_filters"]["created_to"].present? ? params["sidebar_filters"]["created_to"] : Time.now
+    args[:created_at] = created_from..created_to
+
+    updated_from = params["sidebar_filters"]["updated_from"].present? ? params["sidebar_filters"]["updated_from"] : Test.first.created_at
+    updated_to = params["sidebar_filters"]["updated_to"].present? ? params["sidebar_filters"]["updated_to"] : Time.now
+    args[:updated_at] = updated_from..updated_to
     end
+    puts args
     table_for Step.where(args) do
       column :id
       column :test_id
