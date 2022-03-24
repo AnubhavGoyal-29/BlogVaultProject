@@ -7,17 +7,20 @@
   <% else %>
     <%= f.text_field :test_id %>
   <% end %>
+
   <%= f.label "Step Id"%>
   <% if sidebar_params and sidebar_params[:step_id]%>
     <%= f.text_field :step_id, :value => sidebar_params[:step_id] %>
   <% else %>
     <%= f.text_field :step_id %>
   <% end %>
+  <%= f.label "Running"%>
   <% if sidebar_params and sidebar_params[:status]%>
-    <%= f.input :status, as: :select, required: true, collection: Step::STATUS.invert, :selected => sidebar_params[:status] %>
+    <%= f.select :status, Step::STATUS.invert, :selected => sidebar_params[:status], include_blank: "Any" %>
   <% else %>
-    <%= f.input :status, as: :select, required: true, collection: Step::STATUS.invert %>
+    <%= f.select :status, Step::STATUS.invert, include_blank: true %>
   <% end %>
+
   <% if sidebar_params %>
     <% if sidebar_params[:test_id].present? %>
       <%= "Test Id : " + sidebar_params[:test_id]%>
@@ -26,6 +29,6 @@
       <%= "Step Id : " + sidebar_params[:step_id]%>
     <% end %>
   <% end %>
-  <%= f.submit "Apply Filters" %>
+  <%= f.submit "Apply Filters", :class => "button-primary"%>
 <%end%>
 
