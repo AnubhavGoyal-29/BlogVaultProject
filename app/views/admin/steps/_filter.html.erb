@@ -8,14 +8,14 @@
     <%= f.text_field :test_id %>
   <% end %>
 
-  <%= f.label "Step Id"%>
+  <%= f.label "Step Id", :style => "margin-top : 10px"%>
   <% if sidebar_params and sidebar_params[:step_id]%>
     <%= f.text_field :step_id, :value => sidebar_params[:step_id] %>
   <% else %>
     <%= f.text_field :step_id %>
   <% end %>
 
-  <%= f.label "Status"%>
+  <%= f.label "Status", :style => "margin-top : 10px" %>
   <% if sidebar_params and sidebar_params[:status]%>
     <%= f.select :status, Step::STATUS.invert, :selected => sidebar_params[:status], include_blank: "Any" %>
   <% else %>
@@ -23,57 +23,67 @@
   <% end %>
 
   <% if sidebar_params and sidebar_params[:created_at]%>
-    <%= f.inputs "created_at" do %>
+    <%= f.label "Created",:style => "margin-top : 10px" %>
+      <p style="margin-top : 5px; display : grid; grid-template-column : auto auto">
       <%= f.label "From"%>
-      <%= f.date_select :created_from %>
+      <%= f.text_field :created_from, :class => "datepicker", :placeholder => "from date" %>
       <%= f.label "To"%>
-      <%= f.date_field :created_to %>
-    <% end %>
+      <%= f.text_field :created_to, :class => "datepicker", :placeholder => "to date" %>
+      </p>
   <% else %>
-    <%= f.inputs "created_at" do %>
-      <%= f.label "From"%>
-      <%= f.date_field :created_from %>
-      <%= f.label "To"%>
-      <%= f.date_field :created_to %>
-    <% end %>
+    <%= f.label "Created", :style => "margin-top : 10px" %>
+    <p style="margin-top : 5px; display : grid; grid-template-column : auto auto">
+      <%= f.label "From" %>
+      <%= f.text_field :created_from, :class => "datepicker", :placeholder => "from date" %>
+      <%= f.label "To" %>
+      <%= f.text_field :created_from, :class => "datepicker", :placeholder => "to date" %>
+    </p>
   <% end %>
 
   <% if sidebar_params and sidebar_params[:updated_at]%>
-    <%= f.inputs "updated_at" do %>
+    <%= f.label "Updated" %>
+      <p>
       <%= f.label "From"%>
-      <%= f.date_field :updated_from %>
+      <%= f.text_field :updated_from, :class => "datepicker", :placeholder => "from date", :style => "width : 50vw" %>
       <%= f.label "To"%>
-      <%= f.date_field :updated_to %>
-    <% end %>
+      <%= f.text_field :updated_to, :class => "datepicker", :placeholder => "to date", :style => "width : 50vw" %>
+      </p>
   <% else %>
-    <%= f.inputs "updated_at" do %>
-      <%= f.label "From"%>
-      <%= f.date_field :updated_from %>
-      <%= f.label "To"%>
-      <%= f.date_field :updated_to %>
-    <% end %>
+    <%= f.label "Updated"%>
+    <p>
+      <%= f.label "From" %>
+      <%= f.text_field :updated_from, :class => "datepicker", :placeholder => "from date" %>
+      <%= f.label "To" %>
+      <%= f.text_field :updated_from, :class => "datepicker", :placeholder => "to date" %>
+    </p>
   <% end %>
 
   <% if sidebar_params %>
     <% if sidebar_params[:test_id].present? %>
       <%= "Test Id : " + sidebar_params[:test_id]%>
+      <br>
     <% end %>
     <% if sidebar_params[:step_id].present? %>
       <%= "Step Id : " + sidebar_params[:step_id]%>
+      <br>
     <% end %>
 
     <% if sidebar_params[:created_from].present? %>
       <%= " Created From : " + sidebar_params[:created_from]%>
+      <br>
     <% end %>
 
     <% if sidebar_params[:created_to].present? %>
       <%= "Created To : " + sidebar_params[:created_to]%>
+      <br>
     <% end %>
     <% if sidebar_params[:updated_from].present? %>
       <%= "Updated From : " + sidebar_params[:updated_from]%>
+      <br>
     <% end %>
     <% if sidebar_params[:updated_from].present? %>
       <%= "Updated To : " + sidebar_params[:updated_from]%>
+      <br>
     <% end %>
   <% end %>
   <%= f.submit "Apply Filters", :class => "button-primary"%>
