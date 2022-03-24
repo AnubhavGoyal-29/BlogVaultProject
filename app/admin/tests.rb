@@ -7,7 +7,7 @@ ActiveAdmin.register_page "Tests" do
   content do
     args = {}
     if params["sidebar_filters"]
-      args[:id] = params["sidebar_filters"]["id"] if params["sidebar_filters"]["id"].present?
+      args[:id] = params["sidebar_filters"]["test_id"] if params["sidebar_filters"]["test_id"].present?
       args[:status] = params["sidebar_filters"]["status"] if params["sidebar_filters"]["status"].present?
       created_from = params["sidebar_filters"]["created_from"].present? ? params["sidebar_filters"]["created_from"] : Test.first.created_at
       created_to = params["sidebar_filters"]["created_to"].present? ? params["sidebar_filters"]["created_to"] : Time.now
