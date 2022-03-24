@@ -25,11 +25,8 @@ class SiteDataInfo < ApplicationRecord
       plugins_arr = maped_data["plugins"] || []
       plugins_arr += maped_data["mu-plugins"] if maped_data["mu-plugins"].present?
       _plugins = Plugin.import_plugins(plugins_arr.uniq, website_id, test_id) if plugins_arr.present?
-      logger.info "plugins"
       _themes = Theme.import_themes(maped_data["themes"].uniq, website_id, test_id) if maped_data["themes"].present?
-      logger.info "themes"
       _js = JsInfo.import_js(maped_data["js"].uniq, website_id, test_id, logger) if maped_data["js"].present?
-      logger.info "js"
       _login_url = maped_data[:login_url]
       _ip = maped_data[:ip]
       data_map = Hash.new

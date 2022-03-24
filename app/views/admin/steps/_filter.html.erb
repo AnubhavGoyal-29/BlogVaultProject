@@ -1,0 +1,24 @@
+<%= form_for :sidebar_filters, builder: ActiveAdmin::FormBuilder,
+  :url => admin_steps_path, :method => :get  do |f| %>
+  <% sidebar_params = params["sidebar_filters"] || nil %>
+  <%= f.label "Test Id"%>
+  <% if sidebar_params and sidebar_params[:test_id]%>
+    <%= f.text_field :test_id, :value => sidebar_params[:test_id] %>
+  <% else %>
+    <%= f.text_field :test_id %>
+  <% end %>
+  <%= f.label "Step Id"%>
+  <% if sidebar_params and sidebar_params[:step_id]%>
+    <%= f.text_field :step_id, :value => sidebar_params[:step_id] %>
+  <% else %>
+    <%= f.text_field :step_id %>
+  <% end %>
+  <%= f.label "Status"%>
+  <% if sidebar_params and sidebar_params[:status] %>
+    <%= f.select :status, Step::STATUS.invert %>
+  <%else%>
+    <%= f.select :status, Step::STATUS.invert %>
+  <%end%>
+  <%= f.submit "Apply Filters" %>
+<%end%>
+

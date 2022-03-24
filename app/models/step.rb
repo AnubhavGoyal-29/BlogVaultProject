@@ -1,11 +1,13 @@
 class Step < ApplicationRecord
   belongs_to :test
+
   module Status
-    FAILED = 3
-    SUCCEED = 2
-    RUNNING = 1
     INITIALIZED = 0
+    RUNNING = 1
+    SUCCEED = 2
+    FAILED = 3
   end
+
   COMPLETED_STATUS = [Status::SUCCEED, Status::FAILED]
 
 

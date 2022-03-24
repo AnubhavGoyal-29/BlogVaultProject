@@ -93,7 +93,7 @@ class Scrape
   end
 
   def self.check_wordpress_in_html(html)
-    find_wordpress_from_version
+    find_wordpress_from_version(html)
   end
 
   def self.find_wordpress_from_version(html)
