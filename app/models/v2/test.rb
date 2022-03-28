@@ -1,5 +1,8 @@
 class V2::Test
   include Mongoid::Document
   include Mongoid::Timestamps
-  has_many :steps
+
+  field :status, type: Integer
+  field :number_of_websites, type: Integer
+  field :started_at, type: Date
 end
