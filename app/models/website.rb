@@ -22,7 +22,7 @@ class Website < ApplicationRecord
     logger.info "Test Id : #{test_id} Message : Url last_site_data  updated started"
     self.all.each do |url|
       begin
-        site_data_info = SiteDataInfo.where(test_id: test_id, website_id: url.id).first
+        site_data_info = V2::SiteDataInfo.where(test_id: test_id, website_id: url.id).first
         url.site_data_info_id = site_data_info ? site_data_info.id : url.site_data_info_id
         url.save!
       rescue => e
@@ -32,39 +32,39 @@ class Website < ApplicationRecord
   end
 
   def compare_test(source_test, final_test)
-    source_data = SiteDataInfo.where(:test_id => source_test, :website_id => self.id).first
-    final_data = SiteDataInfo.where(:test_id => final_test, :website_id => self.id).first
+    source_data = V2::SiteDataInfo.where(:test_id => source_test, :website_id => self.id).first
+    final_data = V2::SiteDataInfo.where(:test_id => final_test, :website_id => self.id).first
 
-    source_test_plugins = source_data.basic_info[SiteDataInfo::BasicInfo::PLUGINS]
-    final_test_plugins = final_data.basic_info[SiteDataInfo::BasicInfo::PLUGINS]
+    source_test_plugins = source_data.basic_info[V2::SiteDataInfo::BasicInfo::PLUGINS]
+    final_test_plugins = final_data.basic_info[V2::SiteDataInfo::BasicInfo::PLUGINS]
     plugins_common = source_test_plugins & final_test_plugins
     source_test_plugins -= plugins_common
     final_test_plugins -= plugins_common
 
-    source_test_themes = source_data.basic_info[SiteDataInfo::BasicInfo::THEMES]
-    final_test_themes = final_data.basic_info[SiteDataInfo::BasicInfo::THEMES]
+    source_test_themes = source_data.basic_info[V2::SiteDataInfo::BasicInfo::THEMES]
+    final_test_themes = final_data.basic_info[V2::SiteDataInfo::BasicInfo::THEMES]
     themes_common = source_test_themes & final_test_themes
     source_test_themes -= themes_common
     final_test_themes -= themes_common
 
-    source_test_js = source_data.basic_info[SiteDataInfo::BasicInfo::JS]
-    final_test_js = final_data.basic_info[SiteDataInfo::BasicInfo::JS]
+    source_test_js = source_data.basic_info[V2::SiteDataInfo::BasicInfo::JS]
+    final_test_js = final_data.basic_info[V2::SiteDataInfo::BasicInfo::JS]
     js_common = source_test_js & final_test_js
     source_test_js -= js_common
     final_test_js -= js_common
 
     data_1 = {
-      :login_url => source_data.basic_info[SiteDataInfo::BasicInfo::LOGINURL],
-      :cloudflare => source_data.basic_info[SiteDataInfo::BasicInfo::CLOUDFLARE],
-      :cms_version => source_data.basic_info[SiteDataInfo::BasicInfo::CMSVERSION],
+      :login_url => source_data.basic_info[V2::SiteDataInfo::BasicInfo::LOGINURL],
+      :cloudflare => source_data.basic_info[V2::SiteDataInfo::BasicInfo::CLOUDFLARE],
+      :cms_version => source_data.basic_info[V2::SiteDataInfo::BasicInfo::CMSVERSION],
       :plugin => source_test_plugins, 
       :theme => source_test_themes, 
       :js => source_test_js
     } 
     data_2 = {
-      :login_url => final_data.basic_info[SiteDataInfo::BasicInfo::LOGINURL],
-      :cloudflare => final_data.basic_info[SiteDataInfo::BasicInfo::CLOUDFLARE],
-      :cms_version => final_data.basic_info[SiteDataInfo::BasicInfo::CMSVERSION],
+      :login_url => final_data.basic_info[V2::SiteDataInfo::BasicInfo::LOGINURL],
+      :cloudflare => final_data.basic_info[V2::SiteDataInfo::BasicInfo::CLOUDFLARE],
+      :cms_version => final_data.basic_info[V2::SiteDataInfo::BasicInfo::CMSVERSION],
       :plugin => final_test_plugins, 
       :theme => final_test_themes, 
       :js => final_test_js

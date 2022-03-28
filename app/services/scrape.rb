@@ -24,7 +24,7 @@ class Scrape
     url_html_version_map = Hash.new{ |h,k| h[k] = Hash.new }
     threads = []
     # _proxy = ProxyDatum.order('RANDOM()').first
-    Website.where(:id => website_ids).each do |website|
+    V2::Website.where(:id => website_ids).each do |website|
       threads << Thread.new(){
         thread_block(website, url_html_version_map, logger, test_id)
       }
@@ -129,7 +129,7 @@ class Scrape
     urls_data.each do |key, value|
       html = value[:html]
       maped_data = Hash.new
-      url = Website.find(key).url 
+      url = V2::Website.find(key).url 
       DataTypes.constants.each do |data_type|
         Tags.constants.each do |tag|
           get_data_from_resource(url, html, Tags.class_eval(tag.to_s), DataTypes.class_eval(data_type.to_s), maped_data, logger)
