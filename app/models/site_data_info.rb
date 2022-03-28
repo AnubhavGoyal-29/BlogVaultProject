@@ -24,9 +24,9 @@ class SiteDataInfo < ApplicationRecord
       cloudflare =  maped_data["cloudflare"].present?
       plugins_arr = maped_data["plugins"] || []
       plugins_arr += maped_data["mu-plugins"] if maped_data["mu-plugins"].present?
-      _plugins = Plugin.import_plugins(plugins_arr.uniq, website_id, test_id) if plugins_arr.present?
-      _themes = Theme.import_themes(maped_data["themes"].uniq, website_id, test_id) if maped_data["themes"].present?
-      _js = JsInfo.import_js(maped_data["js"].uniq, website_id, test_id, logger) if maped_data["js"].present?
+      _plugins = V2::Plugin.import_plugins(plugins_arr.uniq, website_id, test_id) if plugins_arr.present?
+      _themes = V2::Theme.import_themes(maped_data["themes"].uniq, website_id, test_id) if maped_data["themes"].present?
+      _js = V2::JsInfo.import_js(maped_data["js"].uniq, website_id, test_id, logger) if maped_data["js"].present?
       _login_url = maped_data[:login_url]
       _ip = maped_data[:ip]
       data_map = Hash.new
@@ -46,7 +46,7 @@ class SiteDataInfo < ApplicationRecord
       #new_site_data_info_id += 1
       site_data_objects << create_from_maped_data(data_map, test_id, logger)
     end
-    SiteDataInfo.import site_data_objects
+    V2::SiteDataInfo.import site_data_objects
     return 
   rescue => e
     logger.info "Test Id: #{test_id} Error: #{e}"
@@ -84,14 +84,14 @@ class SiteDataInfo < ApplicationRecord
   end
 
   def plugins
-    return Plugin.where(:id => self.plugin_ids)
+    return V2::Plugin.where(:id => self.plugin_ids)
   end
 
   def themes
-    return Theme.where(:id => self.theme_ids)
+    return V2::Theme.where(:id => self.theme_ids)
   end
 
   def js
-    return JsInfo.where(:id => self.js_ids)
+    return V2::JsInfo.where(:id => self.js_ids)
   end
 end
