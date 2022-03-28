@@ -1,5 +1,5 @@
-class V2::Test
+class V2::Step
   include Mongoid::Document
   include Mongoid::Timestamps
-  has_many :steps
+  belongs_to :test
 end
