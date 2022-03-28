@@ -9,20 +9,20 @@ ActiveAdmin.register_page "Tests" do
     if params["sidebar_filters"]
       args[:id] = params["sidebar_filters"]["test_id"] if params["sidebar_filters"]["test_id"].present?
       args[:status] = params["sidebar_filters"]["status"] if params["sidebar_filters"]["status"].present?
-      created_from = params["sidebar_filters"]["created_from"].present? ? params["sidebar_filters"]["created_from"] : Test.first.created_at
+      created_from = params["sidebar_filters"]["created_from"].present? ? params["sidebar_filters"]["created_from"] : V2::Test.first.created_at
       created_to = params["sidebar_filters"]["created_to"].present? ? params["sidebar_filters"]["created_to"] : Time.now
       args[:created_at] = created_from..created_to
 
-      updated_from = params["sidebar_filters"]["updated_from"].present? ? params["sidebar_filters"]["updated_from"] : Test.first.created_at
+      updated_from = params["sidebar_filters"]["updated_from"].present? ? params["sidebar_filters"]["updated_from"] : V2::Test.first.created_at
       updated_to = params["sidebar_filters"]["updated_to"].present? ? params["sidebar_filters"]["updated_to"] : Time.now
       args[:updated_at] = updated_from..updated_to
     end
 
     panel "Tests" do
-      table_for Test.where(args) do
+      table_for V2::Test.where(args) do
         column :id
         column 'Wordpress Sites' do |test|
-          website_ids = SiteDataInfo.where(test_id: test.id).pluck(:website_id)
+          website_ids = V2::SiteDataInfo.where(test_id: test.id).pluck(:website_id)
           if website_ids.size > 0
             link_to "#{website_ids.count} urls", admin_websites_path('q[id_in]' => website_ids)
           else
@@ -30,7 +30,7 @@ ActiveAdmin.register_page "Tests" do
           end
         end
         column 'Data Infos' do |test|
-          website_ids = SiteDataInfo.where(test_id: 2).pluck(:website_id).to_s
+          website_ids = V2::SiteDataInfo.where(test_id: 2).pluck(:website_id).to_s
           link_to 'data info', admin_site_data_infos_path("q[test_id_equals]" => test.id )
         end
         column 'Plugins' do |test|
@@ -48,11 +48,11 @@ ActiveAdmin.register_page "Tests" do
         column 'Status' do |test|
           status = test.status
           case status
-          when Test::Status::FAILED
+          when V2::Test::Status::FAILED
             div ("FAILED"), style: "color : red"
-          when Test::Status::INITIALIZED
+          when V2::Test::Status::INITIALIZED
             div ("INITIALIZED"), style: "color : orange"
-          when Test::Status::COMPLETED
+          when V2::Test::Status::COMPLETED
             div ("COMPLETED"),style: "color : green"
           else
             div ("RUNNING"), style: "color : blue"
