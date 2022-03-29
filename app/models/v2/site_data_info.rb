@@ -27,7 +27,6 @@ class V2::SiteDataInfo
     site_data_objects = []
     #new_site_data_info_id = SiteDataInfo.last ? SiteDataInfo.last.id : 1 ;
     urls_data.each do |website_id, data|
-      logger.info "#{website_id}"
       maped_data = data[:maped_data]
       cms_version = data[:cms_version]
       cloudflare =  maped_data["cloudflare"].present?
@@ -63,7 +62,7 @@ class V2::SiteDataInfo
 
   def self.create_from_maped_data(data, test_id, logger)
     begin
-      site_data_info = self.new(
+      site_data_info = self.create(
         website_id: data[:website_id], 
         test_id: data[:test_id],
         cloudflare: data[:cloudflare],
@@ -93,15 +92,15 @@ class V2::SiteDataInfo
   end
 
   def plugins
-    return V2::Plugin.where(:id => self.plugin_ids)
+    return V2::Plugin.in(:id => self.plugin_ids)
   end
 
   def themes
-    return V2::Theme.where(:id => self.theme_ids)
+    return V2::Theme.in(:id => self.theme_ids)
   end
 
   def js
-    return V2::JsInfo.where(:id => self.js_ids)
+    return V2::JsInfo.in(:id => self.js_ids)
   end
 
 end

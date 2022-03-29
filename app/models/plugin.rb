@@ -25,7 +25,7 @@ class Plugin < ApplicationRecord
         plugins_id << new_plugin.id
       end
     end
-    last_plugins = V2::Website.find(website_id).site_data_infos.last&.plugin_ids
+    last_plugins = V2::SiteDataInfo.where(:website => website_id).last&.plugin_ids
     inactive_removed_plugins(last_plugins, plugins_id) if last_plugins.present?
     return plugins_id
   rescue => e

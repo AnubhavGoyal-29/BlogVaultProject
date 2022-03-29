@@ -26,7 +26,7 @@ class ScrapingJob < ApplicationJob
     data = Scrape::scrape_html(data, logger)
     logger.info "Test Id: #{test.id.to_s} Step Id : #{step.id.to_s} Message: Scraping completed"
     site_data_objects = V2::SiteDataInfo.import_data(test.id.to_s, data, logger)
-    TestCompletionJob.perform_now(logger, test.id.to_s step.id.to_s)
+    TestCompletionJob.perform_now(logger, test.id.to_s, step.id.to_s)
   rescue => e
     step.update(:status => V2::Step::Status::FAILED)
     logger.info "Test Id: #{test.id.to_s} Step Id : #{step.id.to_s} Error: #{e}"

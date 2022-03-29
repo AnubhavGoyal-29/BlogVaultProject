@@ -27,7 +27,7 @@ class Theme < ApplicationRecord
         themes_id << new_theme.id
       end
     end
-    last_themes = V2::Website.find(website_id).site_data_infos.last&.theme_ids
+    last_themes = V2::SiteDataInfo.where(:website => website_id).last&.theme_ids
     inactive_removed_themes(last_themes, themes_id) if last_themes
     return themes_id
   end
