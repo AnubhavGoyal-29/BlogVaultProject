@@ -8,4 +8,43 @@ class V2::Plugin
   field :is_active, type: Boolean
   field :first_test, type: Integer
   field :last_test, type: Integer
+
+  def self.import_plugins(plugins, website_id, test_id)
+    plugins_id = []
+    plugins.each do |slug|
+      _plugin = V2::Plugin.where(:plugin_slug => slug, :website_id => website_id, :is_active => true).first
+      if _plugin
+        _version = _plugin.version
+        if  _version != '1.1'      #for testing purpose
+          _plugin.is_active = false
+          _plugin.save
+          plugin_name = V2::PluginSlug.where(:slug => slug).first&.name || slug
+          new_plugin = V2::Plugin.create(:first_test => test_id, :last_test => test_id, :plugin_name => plugin_name,
+                                         plugin_slug: slug, website_id: website_id, is_active: true, version: '1.1')
+          plugins_id << new_plugin.id
+        else
+          _plugin.update(:last_test => test_id)
+          plugins_id << _plugin.id
+        end
+      else
+        plugin_name = V2::PluginSlug.where(:slug => slug).first&.name || slug
+        new_plugin = V2::Plugin.create(:first_test => test_id, :last_test => test_id, plugin_name: plugin_name,
+                                       :plugin_slug => slug, website_id: website_id, is_active: true, version: '1.1')
+        plugins_id << new_plugin.id
+      end
+    end
+    last_plugins = V2::Website.find(website_id).site_data_infos.last&.plugin_ids
+    inactive_removed_plugins(last_plugins, plugins_id) if last_plugins.present?
+    return plugins_id
+  rescue => e
+    logger.info "error #{e} from plugin"
+  end
+
+  def self.inactive_removed_plugins(last_plugins, plugins_id)
+    removed_plugins = last_plugins - plugins_id
+    removed_plugins.each do |id|
+      V2::Plugin.find(id).update(:is_active => false)
+    end
+  end
+
 end
