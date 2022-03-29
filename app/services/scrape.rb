@@ -44,7 +44,7 @@ class Scrape
         url_html_version_map[website.id] = {:html => html, :cms_version => cms_and_version_hash[:cms_version]}
       end
     rescue => e
-      logger.info "Test Id : #{test_id} Url: #{website.url} Error: #{e}"
+      logger.info "Test Id : #{test_id.to_s} Url: #{website.url} Error: #{e}"
     end
   end
 

@@ -87,8 +87,8 @@ ActiveAdmin.register_page "Dashboard" do
     if params[:start_test] && params[:start_test][:file]
       urls = File.readlines(params[:start_test][:file].tempfile, chomp: true)
       test = V2::Test.create!(:number_of_websites => urls.size, :status => V2::Test::Status::INITIALIZED)
-      TestInitializeJob.perform_later(urls, test.id)
-      flash[:notice] = "test #{test.id} has been started"
+      TestInitializeJob.perform_later(urls, test.id.to_s)
+      flash[:notice] = "test #{test.id.to_s} has been started"
       redirect_to admin_dashboard_path
     else
       flash[:alert] = "please input a csv file to get started"

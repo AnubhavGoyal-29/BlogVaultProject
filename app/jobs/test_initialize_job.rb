@@ -12,34 +12,32 @@ class TestInitializeJob < ApplicationJob
 
   def perform(urls, test_id)
     logger.info "Test Id: #{test_id} Message: started test_intitialize_job"
-    @urls = urls
+    @urls = urls - ['', nil]
     @test_id = test_id
-    @urls = @urls - ['']
     test.update(:status => V2::Test::Status::RUNNING, :started_at => Time.now)
     website_ids = []
-    new_urls = []
     @urls.each_slice(1024) do |_urls|
-      urls_hash = V2::Website.where(:url => _urls).pluck(:url, :id).to_h
+      urls_hash = V2::Website.in(:url => _urls).pluck(:url, :id).to_h
       _urls.each do |url|
         if !urls_hash[url].present?
-          new_urls << V2::Website.new(:url => url, :first_test => test.id)
-          logger.info "Test Id: #{test.id} Url: #{url} Message: Created"
+          V2::Website.create(:url => url, :first_test => test.id.to_s)
+          logger.info "Test Id: #{test.id.to_s} Url: #{url} Message: Created"
         else
-          logger.info "Test Id: #{test.id} Url: #{url} Message: Present"
-          website_ids << urls_hash[url]
+          logger.info "Test Id: #{test.id.to_s} Url: #{url} Message: Present"
+          website_ids << urls_hash[url].to_s
         end
       end
     end
-    V2::Website.import new_urls
-    website_ids += V2::Website.where(:first_test => test.id).pluck(:id)
+    website_ids += V2::Website.where(:first_test => test.id.to_s).pluck(:id)
     website_ids.each_slice(10) do |_website_ids|
-      step = V2::Step.create!(:status => V2::Step::Status::INITIALIZED, :urls => _website_ids, :test_id => test.id)
-      ScrapingJob.perform_later(_website_ids, test.id, step.id)
+      step = V2::Step.create!(:status => V2::Step::Status::INITIALIZED, :website_ids => _website_ids, :test => test )
+      ScrapingJob.perform_later(_website_ids, test.id.to_s, step.id.to_s)
     end
-    logger.info "Test Id: #{test.id} Message: completed test_intitialize_job"
+    logger.info "steps created"
+    logger.info "Test Id: #{test.id.to_s} Message: completed test_intitialize_job"
   rescue => e
     test.update(:status => V2::Test::Status::FAILED)
-    logger.info "Test Id: #{test.id} Error: #{e}"
+    logger.info "Test Id: #{test.id.to_s} Error: #{e}"
   end
 
 end
