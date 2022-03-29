@@ -24,7 +24,7 @@ class Scrape
     url_html_version_map = Hash.new{ |h,k| h[k] = Hash.new }
     threads = []
     # _proxy = ProxyDatum.order('RANDOM()').first
-    V2::Website.where(:id => website_ids).each do |website|
+    V2::Website.in(:id => website_ids).each do |website|
       threads << Thread.new(){
         thread_block(website, url_html_version_map, logger, test_id)
       }
