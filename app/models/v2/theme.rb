@@ -1,20 +1,20 @@
 class V2::Theme
-  include Mongoid::Timestamps
   include Mongoid::Document
+  include Mongoid::Timestamps
 
   belongs_to :website
   field :theme_name, type: String
   field :theme_slug, type: String
   field :is_active, type: Boolean
-  field :first_test, type: Integer
-  field :last_test, type: Integer
+  field :first_test, type: String
+  field :last_test, type: String
 
   def self.import_themes(themes, website_id, test_id )
     themes_id = []
     themes.each do |slug|
       _theme = V2::Theme.where(:theme_slug => slug, :website_id => website_id, :is_active => true).first
       if _theme
-        _version = _theme.version
+        _version = '1.1'
         # passing 1.1 for testing only
         # finding ways to find version effectively
         if  _version != '1.1'
@@ -22,7 +22,7 @@ class V2::Theme
           _theme.save
           theme_name = V2::ThemeSlug.where(:slug => slug).first&.name || slug
           new_theme = V2::Theme.create(:first_test => test_id, :last_test => test_id, :theme_name => theme_name,
-                                       :theme_slug => slug, :website_id => website_id, :is_active => true, :version => '1.1')
+                                       :theme_slug => slug, :website_id => website_id, :is_active => true)
           themes_id << new_theme.id
         else
           _theme.update(:last_test => test_id)
@@ -31,11 +31,11 @@ class V2::Theme
       else
         theme_name = V2::ThemeSlug.where(:slug => slug).first&.name || slug
         new_theme = V2::Theme.create(:first_test => test_id, :last_test => test_id, :theme_name => theme_name,
-                                     :theme_slug => slug, :website_id => website_id, :is_active => true, :version => '1.1')
+                                     :theme_slug => slug, :website_id => website_id, :is_active => true)
         themes_id << new_theme.id
       end
     end
-    last_themes = V2::Website.find(website_id).site_data_infos.last&.theme_ids
+    last_themes = V2::SiteDataInfo.where(:website => website_id).last&.theme_ids
     inactive_removed_themes(last_themes, themes_id) if last_themes
     return themes_id
   end

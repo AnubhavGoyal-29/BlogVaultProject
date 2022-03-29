@@ -52,12 +52,12 @@ class V2::SiteDataInfo
       }
       #Url.find(website_id).update(:site_data_info_id => new_site_data_info_id)
       #new_site_data_info_id += 1
-      site_data_objects << create_from_maped_data(data_map, test_id, logger)
+      logger.info "everything is okay"
+      create_from_maped_data(data_map, test_id, logger)
     end
-    V2::SiteDataInfo.import site_data_objects
     return 
   rescue => e
-    logger.info "Test Id: #{test_id} Error: #{e}"
+    logger.info "Test Id: #{test_id} Site Data Info Error: #{e}"
   end
 
   def self.create_from_maped_data(data, test_id, logger)

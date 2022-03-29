@@ -28,16 +28,16 @@ class TestInitializeJob < ApplicationJob
         end
       end
     end
-    website_ids += V2::Website.where(:first_test => test.id.to_s).pluck(:id)
+    website_ids += V2::Website.where(:first_test => test.id.to_s).pluck(:id).map(&:to_s)
     website_ids.each_slice(10) do |_website_ids|
       step = V2::Step.create!(:status => V2::Step::Status::INITIALIZED, :website_ids => _website_ids, :test => test)
       ScrapingJob.perform_later(_website_ids, test.id.to_s, step.id.to_s)
     end
     logger.info "steps created"
     logger.info "Test Id: #{test.id.to_s} Message: completed test_intitialize_job"
-    #rescue => e
-    #test.update(:status => V2::Test::Status::FAILED)
-    #logger.info "Test Id: #{test.id.to_s} Error: #{e}"
+    rescue => e
+    test.update(:status => V2::Test::Status::FAILED)
+    logger.info "Test Id: #{test.id.to_s} Error: #{e}"
   end
 
 end

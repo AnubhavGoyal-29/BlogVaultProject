@@ -6,8 +6,8 @@ class V2::JsInfo
   field :js_lib, type: String
   field :is_active, type: Boolean
   field :version, type: String
-  field :first_test, type: Integer
-  field :last_test, type: Integer
+  field :first_test, type: String
+  field :last_test, type: String
 
   def self.import_js(all_js, website_id, test_id, logger)
     js_id = []
@@ -31,7 +31,7 @@ class V2::JsInfo
         js_id << new_js.id
       end
     end
-    last_js = V2::Website.find(website_id)&.site_data_infos.last&.js_ids
+    last_js = V2::SiteDataInfo.where(:website => website_id).last&.js_ids
     inactive_removed_js(last_js, js_id) if last_js.present?
     return js_id
   rescue => e
