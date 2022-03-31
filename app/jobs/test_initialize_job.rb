@@ -33,7 +33,6 @@ class TestInitializeJob < ApplicationJob
       step = V2::Step.create!(:status => V2::Step::Status::INITIALIZED, :website_ids => _website_ids, :test => test)
       ScrapingJob.perform_later(_website_ids, test.id.to_s, step.id.to_s)
     end
-    logger.info "steps created"
     logger.info "Test Id: #{test.id.to_s} Message: completed test_intitialize_job"
     rescue => e
     test.update(:status => V2::Test::Status::FAILED)

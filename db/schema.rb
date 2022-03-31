@@ -99,7 +99,7 @@ ActiveRecord::Schema.define(version: 2022_02_28_100556) do
 
   create_table "steps", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "status"
-    t.string "urls"
+    t.string "url_ids"
     t.string "test_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

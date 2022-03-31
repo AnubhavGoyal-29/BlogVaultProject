@@ -52,7 +52,6 @@ class V2::SiteDataInfo
       }
       #Url.find(website_id).update(:site_data_info_id => new_site_data_info_id)
       #new_site_data_info_id += 1
-      logger.info "everything is okay"
       create_from_maped_data(data_map, test_id, logger)
     end
     return 
