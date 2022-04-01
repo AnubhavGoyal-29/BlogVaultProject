@@ -1,0 +1,57 @@
+<%= form_for :sidebar_filters, builder: ActiveAdmin::FormBuilder,
+  :url => admin_themes_path, :method => :get  do |f| %>
+  <% sidebar_params = params["sidebar_filters"] || nil %>
+
+  <%= f.label "Theme Id"%>
+  <%= f.text_field :id, :value => sidebar_params ? sidebar_params[:id] ? sidebar_params[:id] : nil : nil %>
+
+  <%= f.label "Theme Name", :style => "margin-top : 10px"%>
+  <%= f.text_field :theme_name, :value => sidebar_params ? sidebar_params[:theme_name] ? sidebar_params[:theme_name] : nil : nil %>
+
+   <%= f.label "Theme Slug", :style => "margin-top : 10px"%>
+   <%= f.text_field :theme_slug, :value => sidebar_params ? sidebar_params[:theme_slug] ? sidebar_params[:theme_slug] : nil : nil %>
+
+  <%= f.label "Status", :style => "margin-top : 10px" %>
+  <%= f.select :is_active, {:ACTIVE => 1, :INACTIVE => 0},
+    :selected => sidebar_params ? sidebar_params[:is_active]? sidebar_params[:is_active] : nil : nil, include_blank: "Any" %>
+
+  <%= f.label "Created", :style => "margin-top : 10px" %>
+  <%= f.label "From" %>
+  <%= f.text_field :created_from, :class => "datepicker", :placeholder => "from date", 
+    :value => sidebar_params ? sidebar_params[:created_from] ? sidebar_params[:created_from] : nil : nil %>
+  <%= f.label "To" %>
+  <%= f.text_field :created_to, :class => "datepicker", :placeholder => "to date",
+    :value => sidebar_params ? sidebar_params[:created_to] ? sidebar_params[:created_to] : nil : nil %>
+
+  <%= f.label "Updated", :style => "margin-top : 10px" %>
+  <%= f.label "From" %>
+  <%= f.text_field :updated_from, :class => "datepicker", :placeholder => "from date",
+    :value => sidebar_params ? sidebar_params[:updated_from] ? sidebar_params[:updated_from] : nil : nil %>
+  <%= f.label "To" %>
+  <%= f.text_field :updated_to, :class => "datepicker", :placeholder => "to date",
+    :value => sidebar_params ? sidebar_params[:updated_to] ? sidebar_params[:updated_to] : nil : nil %>
+
+  <% if sidebar_params %>
+    <% if sidebar_params[:test_id].present? %>
+      <h4 style="font-weight : bold"><%= "Test Id : " + sidebar_params[:test_id] %></h4>
+    <% end %>
+    <% if sidebar_params[:step_id].present? %>
+      <h4 style="font-weight : bold"><%= "Step Id : " + sidebar_params[:step_id]%></h4>
+    <% end %>
+    <% if sidebar_params[:created_from].present? %>
+      <h4 style="font-weight : bold"><%= " Created From : " + sidebar_params[:created_from]%></h4>
+    <% end %>
+    <% if sidebar_params[:created_to].present? %>
+      <h4 style="font-weight : bold"><%= "Created To : " + sidebar_params[:created_to]%></h4>
+    <% end %>
+    <% if sidebar_params[:updated_from].present? %>
+      <h4 style="font-weight : bold"><%= "Updated From : " + sidebar_params[:updated_from]%></h4>
+    <% end %>
+    <% if sidebar_params[:updated_from].present? %>
+      <h4 style="font-weight : bold"><%= "Updated To : " + sidebar_params[:updated_from]%></h4>
+    <% end %>
+  <% end %>
+  <br>
+  <%= f.submit "Apply Filters", :class => "button-primary"%>
+<%end%>
+

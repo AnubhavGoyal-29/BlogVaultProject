@@ -1,133 +1,96 @@
-ActiveAdmin.register Website do
+ActiveAdmin.register_page "Websites" do
 
-  batch_action :run_test do |ids|
-    redirect_to run_test_admin_website_path(ids)
+  #action_item :run_test do |ids|
+  #redirect_to run_test_admin_website_path(ids)
+  #end
+  #
+  sidebar :filters do
+    render partial: 'filter'
   end
 
-  actions :index, :show
-
-  filter :id
-  filter :website
-  filter :created_at
-  filter :updated_at
-  filter :first_seen 
-  scope :all
-  scope :wordpress_sites, :default => true do |websites|
-    websites.where.not(:cms => nil) 
+  sidebar :scopes do
+    render partial: 'filter'
   end
 
-  index do |website|
-    selectable_column
-    id_column
-    column 'Url' do |website|
-      link_to website.url, "http://www.#{website.url}", :target => '_blank'
+  content do
+    args = {}
+    args[:cms.in] = V2::Website::cms
+    if params["q"] and params["q"]["id_in"].present?
+      args[:id.in] = params["q"]["id_in"]
     end
-    column 'All Versions' do |website|
-      if website.site_data_infos.last
-        link_to 'Versions', admin_site_data_infos_path('q[website_id_equals]' => website.id)
-      end
-    end
-    column 'WP Version' do |website|
-      version = website.site_data_infos.last.cms_version if website.site_data_infos.last.present?
-      if version
-        div (version)
-      else
-        if website.cms.present?
-          div 'not found', :style => "color : red"
-        else
-          div 'not a wordpress site'
+    manual_checks = ["created_from", "created_to", "updated_from", "updated_to"]
+    time_frame = {:created_at => ["created_from", "created_to"], :updated_at => ["updated_from", "updated_to"]}
+    sidebar_filters = params["sidebar_filters"]
+    if sidebar_filters.present?
+      sidebar_filters.each do |key, value|
+        if !manual_checks.include?key and value.present?
+          if key == "url"
+            args[key] = /.*#{value}.*/
+          else
+            args[key] = value
+          end
         end
       end
-    end
-    column 'Last Test' do |website|
-      if website.site_data_infos.last
-        link_to "Test #{website.site_data_infos.last.test_id}", admin_tests_path(website.site_data_infos.last.test_id)
+      time_frame.each do |key, value|
+        from = sidebar_filters[value[0]].present? ? sidebar_filters[value[0]] : V2::Test.first.created_at
+        to = sidebar_filters[value[1]].present? ? sidebar_filters[value[1]] : Time.now
+        args[key] = from..to
       end
     end
-    column 'Last Test Data' do |website|
-      if website.site_data_infos.last
-        link_to "last test data info", admin_site_data_infos_path("q[test_id_equals]" => website.site_data_infos.last.test_id, 
-                                                                  "q[website_id_equals]" => website.site_data_infos.last.website_id)
-      end
-    end
-    column 'Run New Test' do |website|
-      link_to "run test", run_test_admin_website_path(website)
-    end
-  end
 
-  show do 
-    attributes_table do
-      row :id
-      row 'Url' do |website|
-        link_to website.url, "http://www.#{website.url}", :target => '_blank'
-      end
-      if website.site_data_infos.last
-        link_to 'Versions', admin_site_data_infos_path('q[website_id_equals]' => website.id)
-      end
-      row 'WP Version' do |website|
-        version = website.site_data_infos.last.cms_version
-        if version == nil
-          div ("Not found"), :style => "color : red"
-        else
-          version
+    panel "Websites" do
+      table_for V2::Website.where(args).to_a do
+        latest_site_data_info = {}
+        column "Id" do |website|
+          latest_site_data_info[website.id.to_s] = V2::SiteDataInfo.where(:website => website).last
+          website.id
         end
-      end
-      row 'Plugins' do |website|
-        plugins = website.site_data_infos.last.plugin_ids
-        if plugins.present?
-          link_to 'Plugins', admin_plugins_path("q[website_id_equals]" => website.id, "q[status_equals]" => 1)
-        else
-          div("Not found", style: "color: red")
+        column 'Url' do |website|
+          link_to website.url, "http://www.#{website.url}", :target => '_blank'
         end
-      end
-      row 'Themes' do |website|
-        themes = website.site_data_infos.last.theme_ids
-        if themes.present?
-          link_to 'Themes', admin_themes_path("q[website_id_equals]" => website.id, "q[status_equals]" => 1)
-        else
-          div("Not found", style: "color: red")
+        column 'All Versions' do |website|
+          if latest_site_data_info[website.id.to_s].present?
+            link_to 'Versions', admin_site_data_infos_path('q[website_id_equals]' => website.id.to_s)
+          end
         end
-      end
-      row 'Js' do |website|
-        js = website.site_data_infos.last.js_ids
-        if js.present?
-          link_to 'Js', admin_js_infos_path("q[website_id_equals]" => website.id, "q[status_equals]" => 1)
-        else
-          div("Not found", style: "color: red")
+        column 'WP Version' do |website|
+          version = latest_site_data_info[website.id.to_s].cms_version if latest_site_data_info[website.id.to_s].present?
+          if version
+            div (version)
+          else
+            if website.cms.present?
+              div 'not found', :style => "color : red"
+            else
+              div 'not a wordpress site'
+            end
+          end
         end
-      end
-      row 'Cloudflare' do |website|
-        site_data = website.site_data_infos.last
-        status = site_data.cloudflare ? "ACTIVE" : "INACTIVE"
-        color = site_data.cloudflare ? "green" : "red"
-        div status, :style => "color : #{color}"
-      end
-      row 'Last Test Data' do |website|
-        if website.site_data_infos.last
-          link_to "last test data info", admin_site_data_infos_path("q[test_id_equals]" => website.site_data_infos.last.test_id,
-                                                                    "q[website_id_equals]" => website.site_data_infos.last.website_id)
+        column 'Last Test' do |website|
+          if latest_site_data_info[website.id.to_s].present?
+            link_to "Test #{latest_site_data_info[website.id.to_s].test.number}", 
+              admin_tests_path(latest_site_data_info[website.id.to_s].test.number)
+          end
         end
-      end
-      row 'Last Test' do |website|
-        if website.site_data_infos.last
-          link_to "Test #{website.site_data_infos.last.test_id}", admin_tests_path(website.site_data_infos.last.test_id)
+        column 'Last Test Data' do |website|
+          if latest_site_data_info[website.id.to_s].present?
+            link_to "last test data info", admin_site_data_infos_path("q[test_id_equals]" => latest_site_data_info[website.id.to_s].test_id.to_s, 
+              "q[website_id_equals]" => latest_site_data_info[website.id.to_s].website_id.to_s)
+          end
         end
-      end
-      row 'Changes' do |website|
-        link_to 'check', test_comparison_admin_website_path(website)
-      end
-      row 'Run New Test' do |website|
-        link_to "run test", run_test_admin_website_path(website)
+        column 'Run New Test' do |website|
+          link_to "run test", admin_websites_run_test_path(:id => website.id.to_s)
+        end
       end
     end
   end
-  member_action :test_comparison, :method => [:get, :post]
-  member_action :run_test, :method => :get do 
+  page_action :test_comparison, :method => [:get, :post]
+  page_action :run_test, :method => :get do
     ids = params["id"].split('/')
     raise "please select at least one website" if ids.count == 0
-    websites = Website.where(:id => ids).pluck(:url)
-    test = Test.create!(:number_of_websites => websites.size, :status => Test::Status::INITIALIZED)
-    TestInitializeJob.perform_later(websites, test.id)
+    websites = V2::Website.in(:id => ids).pluck(:url)
+    test = V2::Test.create!(:number_of_websites => websites.size, :status => Test::Status::INITIALIZED,
+                            :number => V2::Test.last.present? ? V2::Test.last.number + 1 : 1)
+    TestInitializeJob.perform_later(websites, test.id.to_s)
     flash[:notice] = "Test has been started"
     redirect_to admin_websites_path
   rescue => e

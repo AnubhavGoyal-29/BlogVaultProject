@@ -8,8 +8,12 @@ class V2::Plugin
   field :is_active, type: Boolean
   field :first_test, type: String
   field :last_test, type: String
-
+  
+  def test
+    @test ||= V2::Test.find(@test_id)
+  end
   def self.import_plugins(plugins, website_id, test_id)
+    @test_id = test_id
     plugins_id = []
     plugins.each do |slug|
       _plugin = V2::Plugin.where(:plugin_slug => slug, :website => website_id, :is_active => true).first
@@ -19,11 +23,11 @@ class V2::Plugin
           _plugin.is_active = false
           _plugin.save
           plugin_name = V2::PluginSlug.where(:slug => slug).first&.name || slug
-          new_plugin = V2::Plugin.create(:first_test => test_id, :last_test => test_id, :plugin_name => plugin_name,
+          new_plugin = V2::Plugin.create(:first_test => test.number, :last_test => test.number, :plugin_name => plugin_name,
                                          plugin_slug: slug, website: website_id, is_active: true)
           plugins_id << new_plugin.id.to_s
         else
-          _plugin.update(:last_test => test_id)
+          _plugin.update(:last_test => test.number)
           plugins_id << _plugin.id.to_s
         end
       else

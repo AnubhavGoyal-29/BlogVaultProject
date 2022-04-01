@@ -81,4 +81,8 @@ class V2::Website
     return data
   end
 
+  def self.cms
+    return ["wordpress", "joomla", "drupal", "shopify", "woocommerce"]
+  end
+
 end
