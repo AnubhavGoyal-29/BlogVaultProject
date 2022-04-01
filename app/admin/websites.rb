@@ -3,12 +3,12 @@ ActiveAdmin.register_page "Websites" do
   #action_item :run_test do |ids|
   #redirect_to run_test_admin_website_path(ids)
   #end
-  #
-  sidebar :filters do
+
+  sidebar :filters, if: proc{ !params["show_page"].present? } do
     render partial: 'filter'
   end
 
-  sidebar :scopes do
+  sidebar :scopes, if: proc{ !params["show_page"].present? } do
     render partial: 'filter'
   end
 
@@ -28,7 +28,7 @@ ActiveAdmin.register_page "Websites" do
             args[key] = /.*#{value}.*/
           else
             args[key] = value
-          end
+            end
         end
       end
       time_frame.each do |key, value|
@@ -37,50 +37,100 @@ ActiveAdmin.register_page "Websites" do
         args[key] = from..to
       end
     end
-
-    panel "Websites" do
-      table_for V2::Website.where(args).to_a do
-        latest_site_data_info = {}
-        column "Id" do |website|
-          latest_site_data_info[website.id.to_s] = V2::SiteDataInfo.where(:website => website).last
-          website.id
-        end
-        column 'Url' do |website|
-          link_to website.url, "http://www.#{website.url}", :target => '_blank'
-        end
-        column 'All Versions' do |website|
-          if latest_site_data_info[website.id.to_s].present?
-            link_to 'Versions', admin_site_data_infos_path('q[website_id_equals]' => website.id.to_s)
+    if !params["show_page"].present?
+      panel "Websites" do
+        table_for V2::Website.where(args).to_a do
+          latest_site_data_info = {}
+          column "Id" do |website|
+            latest_site_data_info[website.id.to_s] = V2::SiteDataInfo.where(:website => website).last
+            link_to website.id, admin_websites_path(:id => website.id, :show_page => true)
           end
-        end
-        column 'WP Version' do |website|
-          version = latest_site_data_info[website.id.to_s].cms_version if latest_site_data_info[website.id.to_s].present?
-          if version
-            div (version)
-          else
-            if website.cms.present?
-              div 'not found', :style => "color : red"
-            else
-              div 'not a wordpress site'
+          column 'Url' do |website|
+            link_to website.url, "http://www.#{website.url}", :target => '_blank'
+          end
+          column 'All Versions' do |website|
+            if latest_site_data_info[website.id.to_s].present?
+              link_to 'Versions', admin_site_data_infos_path('q[website_id_equals]' => website.id.to_s)
             end
           end
-        end
-        column 'Last Test' do |website|
-          if latest_site_data_info[website.id.to_s].present?
-            link_to "Test #{latest_site_data_info[website.id.to_s].test.number}", 
-              admin_tests_path(latest_site_data_info[website.id.to_s].test.number)
+          column 'WP Version' do |website|
+            version = latest_site_data_info[website.id.to_s].cms_version if latest_site_data_info[website.id.to_s].present?
+            if version
+              div (version)
+            else
+              if website.cms.present?
+                div 'not found', :style => "color : red"
+              else
+                div 'not a wordpress site'
+              end
+            end
           end
-        end
-        column 'Last Test Data' do |website|
-          if latest_site_data_info[website.id.to_s].present?
-            link_to "last test data info", admin_site_data_infos_path("q[test_id_equals]" => latest_site_data_info[website.id.to_s].test_id.to_s, 
-              "q[website_id_equals]" => latest_site_data_info[website.id.to_s].website_id.to_s)
+          column 'Last Test' do |website|
+            if latest_site_data_info[website.id.to_s].present?
+              link_to "Test #{latest_site_data_info[website.id.to_s].test.number}", 
+                admin_tests_path(latest_site_data_info[website.id.to_s].test.number)
+            end
           end
-        end
-        column 'Run New Test' do |website|
-          link_to "run test", admin_websites_run_test_path(:id => website.id.to_s)
+          column 'Last Test Data' do |website|
+            if latest_site_data_info[website.id.to_s].present?
+              link_to "last test data info", admin_site_data_infos_path("q[test_id_equals]" => latest_site_data_info[website.id.to_s].test_id.to_s, 
+                                                                        "q[website_id_equals]" => latest_site_data_info[website.id.to_s].website_id.to_s)
+            end
+          end
+          column 'Run New Test' do |website|
+            link_to "run test", admin_websites_run_test_path(:id => website.id.to_s)
+          end
         end
       end
+    else
+      website = V2::Website.find(params[:id])
+      latest_site_data = V2::SiteDataInfo.where(:website => website).last
+      panel website.url do
+        attributes_table_for website do
+
+          row 'Url' do 
+            link_to website.url, "http://www.#{website.url}", :target => '_blank'
+          end
+          row 'All Versions' do 
+            if latest_site_data.present?
+              link_to 'Versions', admin_site_data_infos_path('q[website_id_equals]' => website.id.to_s)
+            end
+          end
+          row 'WP Version' do 
+            version = latest_site_data.cms_version if latest_site_data.present?
+            if version
+              div (version)
+            else
+              if website.cms.present?
+                div 'not found', :style => "color : red"
+              else
+                div 'not a wordpress site'
+              end
+            end
+          end
+          row 'Last Test' do |website|
+            if latest_site_data.present?
+              link_to "Test #{latest_site_data.test.number}", 
+                admin_tests_path(latest_site_data.test.number)
+            end
+          end
+          row 'Last Test Data' do |website|
+            if latest_site_data.present?
+              link_to "last test data info", admin_site_data_infos_path("q[test_id_equals]" => latest_site_data.test_id.to_s, 
+                                                                        "q[website_id_equals]" => latest_site_data.website_id.to_s)
+            end
+          end
+          row 'Run New Test' do |website|
+            link_to "run test", admin_websites_run_test_path(:id => website.id.to_s)
+          end
+
+          row 'Compare Test' do |website|
+            link_to "compare now", admin_websites_test_comparison_path(:id => website.id)
+          end
+
+        end
+      end
+ 
     end
   end
   page_action :test_comparison, :method => [:get, :post]

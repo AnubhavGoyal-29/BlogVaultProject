@@ -22,10 +22,10 @@ table.center {
 </style>
 
 <%= form_for :test_comparison, builder: ActiveAdmin::FormBuilder,
-  :url => test_comparison_admin_website_path, :method => :post  do |f| %>
+  :url => admin_websites_test_comparison_path, :method => :post  do |f| %>
   <%= f.inputs "Select two tests" do %>
-    <%= f.input :test1, as: :select, required: true, collection: SiteDataInfo.where(:website_id => resource.id).pluck(:test_id) %>
-    <%= f.input :test2, as: :select, required: true, collection: SiteDataInfo.where(:website_id => resource.id).pluck(:test_id) %>
+    <%= f.input :test1, as: :select, required: true, collection: V2::SiteDataInfo.where(:website_id => resource.id).pluck(:test_id) %>
+    <%= f.input :test2, as: :select, required: true, collection: V2::SiteDataInfo.where(:website_id => resource.id).pluck(:test_id) %>
   <%end%>
   <%= submit_tag "Start Process"%>
 <%end%>
