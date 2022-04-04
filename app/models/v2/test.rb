@@ -22,4 +22,9 @@ class V2::Test
     STATUS[Status.class_eval(type.to_s)] = type
   }
 
+  def self.history_of_tests
+    key -> test numbers 
+    hashes = [{:name => 'total sites', :data => {}},{:name => 'wordpress sites', :data => }]
+  end
+
 end

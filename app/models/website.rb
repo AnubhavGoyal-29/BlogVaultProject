@@ -27,6 +27,7 @@ class Website < ApplicationRecord
         url.save!
       rescue => e
         logger.info e
+        logger.info "Test Id: #{test_id} File : website.rb Error: #{e}"
       end
     end
   end

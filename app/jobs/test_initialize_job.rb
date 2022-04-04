@@ -36,7 +36,7 @@ class TestInitializeJob < ApplicationJob
     logger.info "Test Id: #{test.id.to_s} Message: completed test_intitialize_job"
     rescue => e
     test.update(:status => V2::Test::Status::FAILED)
-    logger.info "Test Id: #{test.id.to_s} Error: #{e}"
+    logger.info "Test Id: #{test.id.to_s} File : test_initialize_job.rb Error: #{e}"
   end
 
 end

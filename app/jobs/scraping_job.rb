@@ -27,9 +27,9 @@ class ScrapingJob < ApplicationJob
     logger.info "Test Id: #{test.id.to_s} Step Id : #{step.id.to_s} Message: Scraping completed"
     site_data_objects = V2::SiteDataInfo.import_data(test.id.to_s, data, logger)
     TestCompletionJob.perform_now(logger, test.id.to_s, step.id.to_s)
-  #rescue => e
-    #step.update(:status => V2::Step::Status::FAILED)
-    #logger.info "Test Id: #{test.id.to_s} Step Id : #{step.id.to_s} Error: #{e}"
+  rescue => e
+    step.update(:status => V2::Step::Status::FAILED)
+    logger.info "Test Id: #{test.id.to_s} Step Id : #{step.id.to_s} File : scraping_job.rb Error: #{e}"
   end
 
 end
