@@ -23,7 +23,7 @@ class TestCompletionJob < ApplicationJob
     end
   rescue => e
     step.update(:status => V2::Step::Status::FAILED)
-    logger.info "Test Id : #{test_id} Step Id : #{step_id} File : test_completion_job.rb Error : #{e}"
+    logger.info "Test Id : #{test_id} Step Id : #{step_id} Error : #{e.message} Backtrace : #{e.backtrace}"
   end
 
 end

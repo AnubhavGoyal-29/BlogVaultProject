@@ -55,7 +55,7 @@ class V2::SiteDataInfo
       create_from_maped_data(data_map, test_id, logger)
     end
   rescue => e
-    logger.info "Test Id: #{test_id} File : site_data_info.rb Error: #{e}"
+    logger.info "Test Id: #{test_id} Error: #{e.message} Backtrace : #{e.backtrace}"
   end
 
   def self.create_from_maped_data(data, test_id, logger)
@@ -73,7 +73,7 @@ class V2::SiteDataInfo
         ip: data[:ip]
       )
     rescue => e
-      logger.info "Test Id: #{test_id} File : site_data_info.rb Error: #{e}"
+      logger.info "Test Id: #{test_id} Error: #{e.message} Backtrace : #{e.backtrace}"
     end
   end
 
