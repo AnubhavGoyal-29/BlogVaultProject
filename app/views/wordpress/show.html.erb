@@ -3,7 +3,10 @@
   <!-- Line Chart - Single Series -->
   <div class="col-xs-6">
     <h3>Visits By Day</h3>
-    <%= line_chart @websites.group(:created_at).count%>
+    <% hashes =[{:name => :cms, :data => {:wordpress => 5, :shopify => 10, :woo_commerce => 2, :drupal => 25}}, {:name => :cms, :data => {:wordpress => 9, :shopify => 15, :woo_commerce => 20, :drupal => 10}}] %>
+    <%= line_chart hashes.map { |hash|
+      {name: hash[:name], data: hash[:data]}
+      }%>
   </div>
 
 </div>

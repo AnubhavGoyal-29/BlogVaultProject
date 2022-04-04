@@ -8,9 +8,13 @@ class V2::Theme
   field :is_active, type: Boolean
   field :first_test, type: String
   field :last_test, type: String
+  def self.test
+    @test ||= V2::Test.find(@test_id)
+  end
 
   def self.import_themes(themes, website_id, test_id )
     themes_id = []
+    @test_id = test_id
     themes.each do |slug|
       _theme = V2::Theme.where(:theme_slug => slug, :website_id => website_id, :is_active => true).first
       if _theme
@@ -21,16 +25,16 @@ class V2::Theme
           _theme.is_active = false
           _theme.save
           theme_name = V2::ThemeSlug.where(:slug => slug).first&.name || slug
-          new_theme = V2::Theme.create(:first_test => test_id, :last_test => test_id, :theme_name => theme_name,
+          new_theme = V2::Theme.create(:first_test => test.number, :last_test => test.number, :theme_name => theme_name,
                                        :theme_slug => slug, :website_id => website_id, :is_active => true)
           themes_id << new_theme.id
         else
-          _theme.update(:last_test => test_id)
+          _theme.update(:last_test => test.number)
           themes_id << _theme.id
         end
       else
         theme_name = V2::ThemeSlug.where(:slug => slug).first&.name || slug
-        new_theme = V2::Theme.create(:first_test => test_id, :last_test => test_id, :theme_name => theme_name,
+        new_theme = V2::Theme.create(:first_test => test.number, :last_test => test.number, :theme_name => theme_name,
                                      :theme_slug => slug, :website_id => website_id, :is_active => true)
         themes_id << new_theme.id
       end

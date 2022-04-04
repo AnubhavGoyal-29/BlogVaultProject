@@ -8,9 +8,13 @@ class V2::JsInfo
   field :version, type: String
   field :first_test, type: String
   field :last_test, type: String
+  def self.test
+    @test ||= V2::Test.find(@test_id)
+  end
 
   def self.import_js(all_js, website_id, test_id, logger)
     js_id = []
+    @test_id = test_id
     all_js.each do |js|
       _js = V2::JsInfo.where(:js_lib => js[:js_lib], :website_id => website_id, :is_active => true).first
       if _js
@@ -18,15 +22,15 @@ class V2::JsInfo
         if  _version != js[:version]
           _js.is_active = false
           _js.save
-          new_js = V2::JsInfo.create(:first_test => test_id, :last_test => test_id, :js_lib => js[:js_lib],
+          new_js = V2::JsInfo.create(:first_test => test.number, :last_test => test.number, :js_lib => js[:js_lib],
                                      :website_id => website_id, :is_active => true, :version => js[:version] )
           js_id << new_js.id
         else
-          _js.update(:last_test => test_id)
+          _js.update(:last_test => test.number)
           js_id << _js.id
         end
       else
-        new_js = V2::JsInfo.create(:first_test => test_id, :last_test => test_id, :js_lib => js[:js_lib],
+        new_js = V2::JsInfo.create(:first_test => test.number, :last_test => test.number, :js_lib => js[:js_lib],
                                    :website_id => website_id, :is_active => true, :version => js[:version] )
         js_id << new_js.id
       end
