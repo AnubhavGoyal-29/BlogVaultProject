@@ -22,7 +22,7 @@ class V2::Website
   end
 
   def self.url_site_data_info_update(test_id, logger)
-    logger.info "Test Id : #{test_id} Message : Url last_site_data  updated started"
+    logger.info "Test Id : #{test_id} File : website.rb  Message : Url last_site_data  updated started"
     self.all.each do |url|
       begin
         site_data_info = V2::SiteDataInfo.where(test_id: test_id, website_id: url.id).first

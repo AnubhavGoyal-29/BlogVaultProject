@@ -56,7 +56,7 @@ class V2::SiteDataInfo
     end
     return 
   rescue => e
-    logger.info "Test Id: #{test_id} Site Data Info Error: #{e}"
+    logger.info "Test Id: #{test_id} File : site_data_info.rb Error: #{e}"
   end
 
   def self.create_from_maped_data(data, test_id, logger)
@@ -75,7 +75,7 @@ class V2::SiteDataInfo
       )
       return site_data_info
     rescue => e
-      logger.info "Test Id: #{test_id} Error: #{e}"
+      logger.info "Test Id: #{test_id} File : site_data_info.rb Error: #{e}"
     end
   end
 
