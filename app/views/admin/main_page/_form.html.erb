@@ -15,7 +15,6 @@
       <% test2 = temp %>
     <% end %>
     <h1> hi </h1>
-    <%= pie_chart {:one => 12, :two => 24, :three => 36} %>
   <% end %>
-  <%= line_chart User.group_by_day(:created_at).count %>
+  <%= line_chart Website.all.group(:created_at).count%>
 <%end%>
