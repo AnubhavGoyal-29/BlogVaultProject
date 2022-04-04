@@ -22,10 +22,10 @@ table.center {
 </style>
 
 <%= form_for :test_comparison, builder: ActiveAdmin::FormBuilder,
-  :url => admin_websites_test_comparison_path, :method => :post  do |f| %>
+  :url => admin_websites_run_test_path, :method => :post  do |f| %>
   <%= f.inputs "Select two tests" do %>
-    <%= f.input :test1, as: :select, required: true, collection: V2::SiteDataInfo.where(:website_id => resource.id).pluck(:test_id) %>
-    <%= f.input :test2, as: :select, required: true, collection: V2::SiteDataInfo.where(:website_id => resource.id).pluck(:test_id) %>
+    <%= f.input :test1, as: :select, required: true, collection: V2::SiteDataInfo.where(:website_id => resource.id).pluck(:test) %>
+    <%= f.input :test2, as: :select, required: true, collection: V2::SiteDataInfo.where(:website_id => resource.id).pluck(:test) %>
   <%end%>
   <%= submit_tag "Start Process"%>
 <%end%>
@@ -39,7 +39,7 @@ table.center {
       <% test1 = test2 %>
       <% test2 = temp %>
     <% end %>
-    <% data = Website.find(resource.id).compare_test(test1, test2) %>
+    <% data = V2::Website.find(resource.id).compare_test(test1, test2) %>
     <h1><%= link_to resource.url, admin_website_path(resource.id)%></h1>
     <h1><%= data[:is_data_changed]? "No changes recorded" : "" %></h1>
     <h2> General Info </h2>

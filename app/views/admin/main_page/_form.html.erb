@@ -1,0 +1,21 @@
+<%= form_for :compare_test, builder: ActiveAdmin::FormBuilder,
+  :url => admin_main_page_compare_test_path, :method => :post  do |f| %>
+  <%= f.inputs "Select two tests" do %>
+    <%= f.input :test1, as: :select, required: true, collection: V2::Test.all.pluck(:number) %>
+    <%= f.input :test2, as: :select, required: true, collection: V2::Test.all.pluck(:number) %>
+  <%end%>
+  <%= submit_tag "Compare Now"%>
+
+  <% if params["compare_test"] and params["compare_test"]["test1"] != "" and params["compare_test"]["test2"] != "" %>
+    <% test1 = params["compare_test"]["test1"].to_i %>
+    <% test2 = params["compare_test"]["test2"].to_i %>
+    <% if test1 > test2 %>
+      <% temp = test1 %>
+      <% test1 = test2 %>
+      <% test2 = temp %>
+    <% end %>
+    <h1> hi </h1>
+    <%= pie_chart {:one => 12, :two => 24, :three => 36} %>
+  <% end %>
+  <%= line_chart User.group_by_day(:created_at).count %>
+<%end%>
