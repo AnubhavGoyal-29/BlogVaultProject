@@ -22,7 +22,7 @@ class V2::Test
     STATUS[Status.class_eval(type.to_s)] = type
   }
 
-  def history_of_tests(time1, time2)
+  def self.history_of_tests(time1, time2)
     total_urls = {}
     wordpress_urls = {}
     ratio = {}

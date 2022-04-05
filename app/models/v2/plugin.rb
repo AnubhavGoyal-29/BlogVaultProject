@@ -50,9 +50,9 @@ class V2::Plugin
     end
   end
 
-  def history
+  def history(start_date, end_date)
     hash = {}
-    V2::Test.all.each do |test|
+    V2::Test.where({:created_at.gte => start_date, :updated_at.lte => end_date}).all.each do |test|
       args = {}
       args[:plugin_slug] = self.plugin_slug
       args[:first_test] = -Float::INFINITY..test.number.to_i

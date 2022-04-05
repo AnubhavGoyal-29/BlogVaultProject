@@ -1,10 +1,11 @@
-
+<%= params%>
+<% start_date = params["history"]["start_date"].present? ? params["history"]["start_date"] : V2::Test.first.created_at %>
+<% end_date = params["history"]["end_date"].present? ? params["history"]["end_date"] : V2::Test.last.updated_at %>
 <%if params["history"]["Plugin"] %>
-  <% V2::Plugin.where(name => params["history"]["Plugin"]).first.history %>
+  <%= line_chart V2::Plugin.where(:plugin_slug => params["history"]["Plugin"]).first.history(start_date, end_date) %>
 <%elsif params["history"]["Theme"]%>
-    <% V2::Theme.where(name => params["history"]["Theme"]).first.history %>
+  <%= line_chart V2::Theme.where(:theme_name => params["history"]["Theme"]).first.history(start_date, end_date) %>
 <%else %>
-  <% hash = V2::Test::history_of_test(params["history"]["start_date"], params["history"]["end_date"]) %>
-  <%= hash%>
+  <%= line_chart V2::Test::history_of_tests(start_date, end_date) %>
 <%end%>
 
