@@ -50,7 +50,7 @@ class V2::Plugin
     end
   end
 
-  def self.history
+  def history
     hash = {}
     V2::Test.all.each do |test|
       args = {}
