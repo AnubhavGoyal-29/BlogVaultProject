@@ -51,4 +51,17 @@ class V2::Theme
     end
   end
 
+  def history
+    hash = {}
+    V2::Test.all.each do |test|
+      args = {}
+      args[:theme_slug] = self.theme_slug
+      args[:first_test] = -Float::INFINITY..test.number.to_i
+      args[:last_test] = test.number.to_i..Float::INFINITY
+      count = V2::Theme.where(args).count
+      hash[test.number] = count
+    end
+    return hash
+  end
+
 end
