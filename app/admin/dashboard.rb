@@ -82,7 +82,7 @@ ActiveAdmin.register_page "Dashboard" do
   end
 
   action_item :history do
-    link_to 'History', admin_main_page_history_path
+    link_to 'History', admin_main_page_history_path(:status => true)
   end
   # first it will add new wordpress site to database 
   # then run the test for all urls

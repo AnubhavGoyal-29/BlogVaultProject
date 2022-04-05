@@ -1,9 +1,17 @@
 <%= form_for :history, builder: ActiveAdmin::FormBuilder,
   :url => admin_main_page_history_path, :method => :post  do |f| %>
-  <%= f.inputs "Select option" do %>
-    <%= f.input :type, :as => :select, :collection => {:Tests => 1, :Plugins => 2, :Themes => 3}, include_blank: false %>
+  <%= params%>
+  <% if params["status"] == "true"  %>
+    <%= f.inputs "Select option" do %>
+      <%= f.input :type, :as => :select, :collection => {:Tests => 1, :Plugins => 2, :Themes => 3}, include_blank: false %>
+    <%end%>
+    <%= submit_tag "Submit"%>
   <%end%>
-  <%= submit_tag "Submit"%>
+<%end%>
+
+<%= form_for :history, builder: ActiveAdmin::FormBuilder,
+  :url => "root_path", :method => :post  do |f| %>
+
   <% if params["history"] and params["history"]["type"] == "1" %>
     <%= f.inputs "Select dates" do %>
       <%= f.label "From" %>
@@ -35,4 +43,3 @@
     <%= submit_tag "Submit"%>
   <% end %>
 <%end%>
-<%= params%>
