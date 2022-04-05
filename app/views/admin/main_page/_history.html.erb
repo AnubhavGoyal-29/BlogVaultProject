@@ -4,12 +4,5 @@
     <%= f.input :type, :as => :select, :collection => {:Tests => 1, :Plugins => 2, :Themes => 3}, include_blank: false %>
   <%end%>
   <%= submit_tag "Submit"%>
-  <%=  params %>
-  <% if params["history"] and params["history"]["type"] == "1" %>
-    <h1> "1" </h1>
-  <% elsif params["history"] and params["history"]["type"] == "2" %>
-    <h1> "2" </h1>
-  <% elsif params["history"] and params["history"]["type"] == "3" %>
-    <h1> "3" </h1>
-  <% end %>
 <%end%>
+<%= %>

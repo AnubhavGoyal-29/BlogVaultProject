@@ -1,15 +1,1 @@
-<div class="row">
-
-  <!-- Line Chart - Single Series -->
-  <div class="col-xs-6">
-    <h3>Visits By Day</h3>
-    <% hashes =[{:name => :cms, :data => {:wordpress => 5, :shopify => 10, :woo_commerce => 2, :drupal => 25}}, {:name => :cms, :data => {:wordpress => 9, :shopify => 15, :woo_commerce => 20, :drupal => 10}}] %>
-    <%= line_chart hashes.map { |hash|
-      {name: hash[:name], data: hash[:data]}
-      }%>
-    <h3>ye dekh aise chal rha hai</h3>
-    <%= line_chart V2::Test::history_of_tests(7.days.ago, 0.days.ago) %>
-  </div>
-
-</div>
-
+<%= line_chart V2::Plugin.where(:plugin_slug => "tablepress").first.history, width: "500px", height: "500px" %>
