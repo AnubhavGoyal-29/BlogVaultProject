@@ -81,6 +81,9 @@ ActiveAdmin.register_page "Dashboard" do
     end
   end
 
+  action_item :history do
+    link_to 'History', admin_main_page_history_path
+  end
   # first it will add new wordpress site to database 
   # then run the test for all urls
   page_action :start_test, :method => [:post, :get] do
