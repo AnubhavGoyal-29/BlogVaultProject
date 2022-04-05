@@ -29,7 +29,7 @@ class ScrapingJob < ApplicationJob
     TestCompletionJob.perform_now(logger, test.id.to_s, step.id.to_s)
   rescue => e
     step.update(:status => V2::Step::Status::FAILED)
-    logger.info "Test Id: #{test.id.to_s} Step Id : #{step.id.to_s} File : scraping_job.rb Error: #{e}"
+    logger.info "Test Id : #{test.id.to_s} Step Id : #{step.id.to_s} Error : #{e.message} Backtrace : #{e.backtrace}"
   end
 
 end

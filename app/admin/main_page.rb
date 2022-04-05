@@ -6,7 +6,7 @@ ActiveAdmin.register_page "main_page" do
     end
   end
 
-  page_action :compare_test, :method => [:post, :get] do
+  page_action :history, :method => [:post, :get] do
     flash[:notice] = params
     redirect_to admin_main_page_path
   end

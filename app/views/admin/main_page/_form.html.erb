@@ -1,30 +1,15 @@
-<%= form_for :compare_test, builder: ActiveAdmin::FormBuilder,
-  :url => admin_main_page_compare_test_path, :method => :post  do |f| %>
-  <%= f.input :type, :as => :select, :collection => {:one => 1, :two => 2}, include_blank: false %>
-  <%= %>
-  <%= submit_tag "Compare Now"%>
-<<<<<<< HEAD
-=======
-
-  <% if params["compare_test"] and params["compare_test"]["test1"] != "" and params["compare_test"]["test2"] != "" %>
-    <% test1 = params["compare_test"]["test1"].to_i %>
-    <% test2 = params["compare_test"]["test2"].to_i %>
-    <% if test1 > test2 %>
-      <% temp = test1 %>
-      <% test1 = test2 %>
-      <% test2 = temp %>
-    <% end %>
-    <h1> hi </h1>
+<%= form_for :history, builder: ActiveAdmin::FormBuilder,
+  :url => admin_main_page_history_path, :method => :post  do |f| %>
+  <%= f.inputs "Select option" do %>
+    <%= f.input :type, :as => :select, :collection => {:Tests => 1, :Plugins => 2, :Themes => 3}, include_blank: false %>
+  <%end%>
+  <%= submit_tag "Submit"%>
+  <%=  params %>
+  <% if params["history"] and params["history"]["type"] == "1" %>
+    <h1> "1" </h1>
+  <% elsif params["history"] and params["history"]["type"] == "2" %>
+    <h1> "2" </h1>
+  <% elsif params["history"] and params["history"]["type"] == "3" %>
+    <h1> "3" </h1>
   <% end %>
-  <%= line_chart Website.all.group(:created_at).count%>
->>>>>>> 9b695b8d7cb2f8f024f8df7badc72c7779f67b14
 <%end%>
-<% if params["compare_test"] and params["compare_test"]["test1"] != "" and params["compare_test"]["test2"] != "" %>
-  <% test1 = params["compare_test"]["test1"].to_i %>
-  <% test2 = params["compare_test"]["test2"].to_i %>
-  <% if test1 > test2 %>
-    <% temp = test1 %>
-    <% test1 = test2 %>
-    <% test2 = temp %>
-  <% end %>
-<% end %>
