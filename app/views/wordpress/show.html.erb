@@ -8,7 +8,7 @@
       {name: hash[:name], data: hash[:data]}
       }%>
     <h3>ye dekh aise chal rha hai</h3>
-    <%= pie_chart Website.all.group(:created_at).count%>
+    <%= line_chart V2::Test::history_of_tests(7.days.ago, 0.days.ago) %>
   </div>
 
 </div>
