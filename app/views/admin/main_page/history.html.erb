@@ -1,6 +1,5 @@
 <%= form_for :history, builder: ActiveAdmin::FormBuilder,
   :url => admin_main_page_history_path, :method => :post  do |f| %>
-  <%= params%>
   <% if params["status"] == "true"  %>
     <%= f.inputs "Select option" do %>
       <%= f.input :type, :as => :select, :collection => {:Tests => 1, :Plugins => 2, :Themes => 3}, include_blank: false %>
@@ -23,7 +22,7 @@
     <%= submit_tag "Submit"%>
   <% elsif params["history"] and params["history"]["type"] == "2" %>
     <%= f.inputs "Select Plugin" do %>
-      <%= f.input :Plugin, :as => :select, :collection => V2::Plugin.all.pluck(:plugin_name), include_blank: false %>
+      <%= f.input :Plugin, :as => :searchable_select, :collection => V2::Plugin.all.pluck(:plugin_name), include_blank: true %>
       <%= f.label "From" %>
       <%= f.date_field :start_date, :class => "datepicker", :placeholder => "date" %>
       <br>
@@ -33,7 +32,7 @@
     <%= submit_tag "Submit"%>
   <% elsif params["history"] and params["history"]["type"] == "3" %>
     <%= f.inputs "Select Theme" do %>
-      <%= f.input :Theme, :as => :select, :collection => V2::Theme.all.pluck(:theme_name), include_blank: false %>
+      <%= f.input :Theme, :as => :searchable_select, :collection => V2::Theme.all.pluck(:theme_name), include_blank: true %>
       <%= f.label "From" %>
       <%= f.date_field :start_date, :class => "datepicker", :placeholder => "date" %>
       <br>
@@ -43,4 +42,3 @@
     <%= submit_tag "Submit"%>
   <% end %>
 <%end%>
-<% params %>

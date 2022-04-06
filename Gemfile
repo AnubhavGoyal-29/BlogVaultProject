@@ -8,6 +8,7 @@ gem 'rails', '~> 5.2.6'
 gem 'chartkick'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
+gem 'activeadmin-searchable_select'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets
