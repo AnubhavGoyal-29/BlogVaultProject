@@ -1,4 +1,3 @@
-<%= params%>
 <% start_date = params["history"]["start_date"].present? ? params["history"]["start_date"] : V2::Test.first.created_at %>
 <% end_date = params["history"]["end_date"].present? ? params["history"]["end_date"] : V2::Test.last.updated_at %>
 <%if params["history"]["Plugin"] %>
