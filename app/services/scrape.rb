@@ -46,9 +46,7 @@ class Scrape
       cms_and_version_hash = cms_and_version(response, html)
       if cms_and_version_hash.present?         # fetching both cms type and its version together 
         website.update(:cms => cms_and_version_hash[:cms])
-        if website.cms == "wordpress"
-          url_html_version_map[website.id] = {:html => html, :cms_version => cms_and_version_hash[:cms_version]}
-        end
+        url_html_version_map[website.id] = {:html => html, :cms_and_version_hash => cms_and_version_hash}
       end
     rescue => e
       logger.info "Test Id : #{test_id.to_s} Url: #{website.url} Error: #{e.message} Backtrace : #{e.backtrace}"
@@ -151,7 +149,7 @@ class Scrape
       end
       maped_data[:login_url] = get_login_url(url, logger)
       maped_data[:ip] = get_ip(url)
-      data[key] = {:maped_data => maped_data, :cms_version => value[:cms_version]}
+      data[key] = {:maped_data => maped_data, :cms_and_version_hash => value[:cms_and_version_hash]}
     end
     return data
   end

@@ -27,8 +27,23 @@ class V2::SiteDataInfo
     site_data_objects = []
     #new_site_data_info_id = SiteDataInfo.last ? SiteDataInfo.last.id : 1 ;
     urls_data.each do |website_id, data|
+      logger.info "***************************"
+      logger.info "^^^^^^^^^^^^^^^^^^^^^^^^^^^"
+      logger.info "from site data info"
+      logger.info data[:cms_and_version_hash]
+      logger.info "&&&&&&&&&&&&&&&&&&&&&&&&&&&"
+      logger.info "###########################"
       maped_data = data[:maped_data]
-      cms_version = data[:cms_version]
+      cms_type = data[:cms_and_version_hash].present? ? data[:cms_and_version_hash][:cms] : nil
+      cms_version = data[:cms_and_version_hash].present? ? data[:cms_and_version_hash][:cms_version] : nil
+      logger.info "***************************"
+      logger.info "^^^^^^^^^^^^^^^^^^^^^^^^^^^"
+      logger.info "from site data info"
+      logger.info cms_type
+      logger.info cms_version
+      logger.info "&&&&&&&&&&&&&&&&&&&&&&&&&&&"
+      logger.info "###########################"
+
       cloudflare =  maped_data["cloudflare"].present?
       plugins_arr = maped_data["plugins"] || []
       plugins_arr += maped_data["mu-plugins"] if maped_data["mu-plugins"].present?
@@ -42,7 +57,7 @@ class V2::SiteDataInfo
         :website_id => website_id,
         :test_id => test_id,
         :cloudflare => cloudflare,
-        :cms_type => 'wordpress',
+        :cms_type => cms_type,
         :cms_version => cms_version,
         :js => _js,
         :plugins => _plugins,
@@ -101,6 +116,16 @@ class V2::SiteDataInfo
 
   def js
     return V2::JsInfo.in(:id => self.js_ids)
+  end
+
+  def self.cms_data
+    cms_type = self.where(:test => V2::Test.last).pluck(:cms_type)
+    uniq = cms_type.uniq - ['', nil]
+    cms_distribution = {}
+    uniq.each do |cms|
+      cms_distribution[cms] = cms_type.count(cms)
+    end
+    return cms_distribution
   end
 
 end

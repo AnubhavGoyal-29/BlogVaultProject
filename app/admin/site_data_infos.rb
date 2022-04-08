@@ -40,7 +40,8 @@ ActiveAdmin.register_page "Site_Data_Infos" do
         div("Not found", style: "color: red")
       end
     end
-    column 'WP Version' do |site_data|
+    column :cms_type
+    column 'Cms Version' do |site_data|
       version = site_data.cms_version
       if version == nil
         div ('Not found'), :style => "color : red"
