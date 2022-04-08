@@ -20,6 +20,10 @@ class Scrape
     CLOUDFLARE = 'cloudflare'
   end
 
+  def logger
+    @logger ||= Logger.new("log/testing.log")
+  end
+
   def self.filter_wp_urls(website_ids, logger, test_id)
     url_html_version_map = Hash.new{ |h,k| h[k] = Hash.new }
     threads = []
@@ -37,32 +41,42 @@ class Scrape
 
   def self.thread_block(website, url_html_version_map, logger, test_id)
     begin
-      html = Nokogiri::HTML.parse(RestClient.get (website.url + "?x=#{rand(999999)}"))
-      cms_and_version_hash = cms_and_version(html)
+      response = RestClient.get (website.url + "?x=#{rand(999999)}")
+      html = Nokogiri::HTML.parse(response.body)
+      cms_and_version_hash = cms_and_version(response, html)
       if cms_and_version_hash.present?         # fetching both cms type and its version together 
-        website.cms || website.update(:cms => cms_and_version_hash[:cms])
-        url_html_version_map[website.id] = {:html => html, :cms_version => cms_and_version_hash[:cms_version]}
+        website.update(:cms => cms_and_version_hash[:cms])
+        if website.cms == "wordpress"
+          url_html_version_map[website.id] = {:html => html, :cms_version => cms_and_version_hash[:cms_version]}
+        end
       end
     rescue => e
       logger.info "Test Id : #{test_id.to_s} Url: #{website.url} Error: #{e.message} Backtrace : #{e.backtrace}"
     end
   end
 
-  def self.cms_and_version(html)
-    check_is_wordpress(html) || check_is_drupal(html) || check_is_shopify(html) || check_is_joomla(html)
+  def self.cms_and_version(response, html)
+    check_is_wordpress(response, html) || check_is_drupal(response, html) || check_is_shopify(response, html) || check_is_joomla(html)
   end
 
-  def self.check_is_wordpress(html)
+  def self.check_is_wordpress(response, html)
     return check_wordpress_in_meta(html) || check_wordpress_in_html(html)
   end
 
-  def self.check_is_drupal(html)
-    # some code here
+  def self.check_is_drupal(response, html)
+    if response.headers[:x_drupal_cache].present?
+      return {:cms => "drupal", :cms_version => nil}
+    end
     return nil
   end
 
-  def self.check_is_shopify(html)
-    # some code here
+  def self.check_is_shopify(response, html)
+    cookie_keys = ["_shopify_m", "_shopify_tw", "_shopify_tm", "_shopify_y", "_shopify_s"]
+    cookie_keys.each do |key|
+      if response.cookies[key].present?
+        return {:cms => "shopify", :cms_version => nil}
+      end
+    end
     return nil
   end
 

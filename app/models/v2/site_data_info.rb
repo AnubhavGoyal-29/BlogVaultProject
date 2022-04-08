@@ -52,7 +52,9 @@ class V2::SiteDataInfo
       }
       #Url.find(website_id).update(:site_data_info_id => new_site_data_info_id)
       #new_site_data_info_id += 1
-      create_from_maped_data(data_map, test_id, logger)
+      site_data_info_objects = []
+      site_data_info_objects << create_from_maped_data(data_map, test_id, logger)
+      V2::SiteDataInfo.create(site_data_info_objects)
     end
   rescue => e
     logger.info "Test Id: #{test_id} Error: #{e.message} Backtrace : #{e.backtrace}"
@@ -60,7 +62,7 @@ class V2::SiteDataInfo
 
   def self.create_from_maped_data(data, test_id, logger)
     begin
-      site_data_info = self.create(
+      site_data_info = {
         website_id: data[:website_id], 
         test_id: data[:test_id],
         cloudflare: data[:cloudflare],
@@ -71,7 +73,8 @@ class V2::SiteDataInfo
         js_ids: data[:js],
         login_url: data[:login_url],
         ip: data[:ip]
-      )
+      }
+      return site_data_info
     rescue => e
       logger.info "Test Id: #{test_id} Error: #{e.message} Backtrace : #{e.backtrace}"
     end
