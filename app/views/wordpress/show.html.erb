@@ -2,7 +2,7 @@
 <% end_date = params["history"]["end_date"].present? ? params["history"]["end_date"] : V2::Test.last.updated_at %>
 <%if params["history"]["Plugin"] %>
   <%= line_chart V2::Plugin.where(:plugin_slug => params["history"]["Plugin"]).first.history(start_date, end_date), 
-    :xtitle => "Test Number", :ytitle => "Number of Websites using" %>
+    :xtitle => "Test Number", :title => "Number of Websites using" %>
 <%elsif params["history"]["Theme"]%>
   <%= line_chart V2::Theme.where(:theme_name => params["history"]["Theme"]).first.history(start_date, end_date) %>
 <%else %>
