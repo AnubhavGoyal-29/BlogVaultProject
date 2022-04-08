@@ -135,6 +135,6 @@
 
 <% data =  V2::Website.where(:cms => "wordpress").first.timeline(7.days.ago, 0.days.ago) %>
 <% data.each do |key, value| %>
-  <h1> <% puts "#{key} = #{value}" %> </h1>
+  <h1> <%= "#{key} = #{value}" %> </h1>
 <% end %>
 

@@ -134,7 +134,9 @@ ActiveAdmin.register_page "Websites" do
     end
   end
   page_action :test_comparison, :method => [:get, :post]
+
   page_action :timeline
+
   page_action :run_test, :method => :get do
     ids = params["id"].split('/')
     raise "please select at least one website" if ids.count == 0
