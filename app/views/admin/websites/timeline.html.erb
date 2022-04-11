@@ -2,77 +2,39 @@
 .Timeline {
   display: flex;
   align-items: center;
-  height: 500px;
 }
 
 .event1,
 .event2 {
   position: relative;
+  display: none;
 }
 
+.event1:hover {
+  display: block;
+}  
 .event1Bubble {
   position: absolute;
   background-color: rgba(158, 158, 158, 0.1);
   width: 139px;
   height: 60px;
-  top: -70px;
-  left: -15px;
+  top: 10px;
+  right: -45px;
   border-radius: 5px;
   box-shadow: inset 0 0 5px rgba(158, 158, 158, 0.64)
 }
-
+.event1Bubble:hover {
+  display: block
+}
 .event2Bubble {
   position: absolute;
   background-color: rgba(158, 158, 158, 0.1);
   width: 139px;
   height: 60px;
   top: -70px;
-  left: -15px;
   border-radius: 5px;
   box-shadow: inset 0 0 5px rgba(158, 158, 158, 0.64)
 }
-
-.event1Bubble:after,
-.event1Bubble:before,
-.event2Bubble:after,
-.event2Bubble:before {
-  content: "";
-  position: absolute;
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-color: transparent;
-  border-bottom: 0;
-}
-
-.event1Bubble:before {
-  bottom: -10px;
-  left: 13px;
-  border-top-color: #00FF00;
-  border-width: 12px;
-}
-
-.event1Bubble:after {
-  bottom: -8px;
-  left: 13px;
-  border-top-color: #00FF00;
-  border-width: 12px;
-}
-
-.event2Bubble:before {
-  bottom: -10px;
-  left: 13px;
-  border-top-color: #FF0000;
-  border-width: 12px;
-}
-
-.event2Bubble:after {
-  bottom: -8px;
-  left: 13px;
-  border-top-color: #FF0000;
-  border-width: 12px;
-}
-
 .eventTime {
   display: flex;
 }
@@ -135,51 +97,38 @@
 
 <% data =  V2::Website.where(:cms => "wordpress").first.timeline(7.days.ago, 0.days.ago) %>
 <% data.each do |key, value| %>
-  <h1> <%= "#{key}" %> </h1>
+  <h3 style="margin-top : 100px"> <%= "#{key}" %> </h3>
 
   <div class="Timeline">
     <% test = 1%>
     <% value.each do |status| %>
 
-      <svg height="5" width="200">
+      <svg height="3" width="200">
         <line x1="0" y1="0" x2="200" y2="0" style="stroke:#004165;stroke-width:5" />
         Sorry, your browser does not support inline SVG.
       </svg>
 
       <% if status == true  %>
-        <div class="event1">    
-          <div class="event1Bubble">
-            <div class="eventTime">
-              <div class="DayDigit">02</div>
-              <div class="Day">
-                wednesday
-                <div class="MonthYear">february 2016</div>
-              </div>
-            </div>
-            <div class="eventTitle">Test <%= test %></div>
-          </div>
-          <svg height="20" width="20">
-            <circle cx="10" cy="11" r="5" fill="#004165" />
-          </svg>    
-        </div>
-
+        <svg height="20" width="20">
+          <circle cx="10" cy="11" r="5" fill="#228B22" />
+        </svg>    
       <% else %>
-        <div class="event1">    
-          <div class="event2Bubble">
-            <div class="eventTime">
-              <div class="DayDigit">02</div>
-              <div class="Day">
-                wednesday
-                <div class="MonthYear">february 2016</div>
-              </div>
-            </div>
-            <div class="eventTitle">Test <%= test %> </div>
-          </div>
-          <svg height="20" width="20">
-            <circle cx="10" cy="11" r="5" fill="#004165" />
-          </svg>    
-        </div>
+        <svg height="20" width="20">
+          <circle cx="10" cy="11" r="5" fill="#FF0000" />
+        </svg>    
       <% end %>
+      <div class="event1">
+        <div class="event1Bubble">
+          <div class="eventTime">
+            <div class="DayDigit">02</div>
+            <div class="Day">
+              wednesday
+              <div class="MonthYear">february 2016</div>
+            </div>
+          </div>
+          <div class="eventTitle">Test <%= test %></div>
+        </div>
+      </div>
       <% test += 1 %>
     <% end %>
     <svg height="5" width="200">

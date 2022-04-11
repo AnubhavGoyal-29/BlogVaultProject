@@ -91,7 +91,7 @@ class V2::Website
     puts "^&*^*&^&*^&"
     plugin_timeline = {}
     plugin_ids.each do |key, value|
-      plugin_timeline[value] = []
+      plugin_timeline[value] = [false]
     end
     puts plugin_timeline
     V2::Test.where({:created_at.gte => from, :updated_at.lte => to}).each do |test|
