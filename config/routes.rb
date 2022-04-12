@@ -1,7 +1,8 @@
 require 'resque/server'
 Rails.application.routes.draw do
-  root to: "wordpress#show", via: [:get, :post]
-  post 'wordpress/show'
+  root to: "frontend#cms_distribution", via: [:get, :post]
+  post 'frontend/site_timeline'
+  post 'frontend/source_timeline'
   devise_for :admin_users, ActiveAdmin::Devise.config
   mount Resque::Server.new, at: '/jobs'
   ActiveAdmin.routes(self)

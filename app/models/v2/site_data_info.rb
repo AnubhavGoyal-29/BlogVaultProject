@@ -118,14 +118,67 @@ class V2::SiteDataInfo
     return V2::JsInfo.in(:id => self.js_ids)
   end
 
-  def self.cms_data
-    cms_type = self.where(:test => V2::Test.last).pluck(:cms_type)
-    uniq = cms_type.uniq - ['', nil]
-    cms_distribution = {}
-    uniq.each do |cms|
-      cms_distribution[cms] = cms_type.count(cms)
+  def self.cms_data(from_time, to_time)
+
+    if from_time > to_time
+      return {}
     end
-    return cms_distribution
+    data_hash = {}
+    cms_distribution = {}
+    total_cms_hash = {}
+    total_cms_hash["wordpress"] = 0
+    total_cms_hash["shopify"] = 0
+    total_cms_hash["drupal"] = 0
+    count = 0
+    V2::Test.where({:created_at.gte => from_time, :updated_at.lte => to_time}).each do |test|
+      cms_type = self.where(:test => test).pluck(:cms_type)
+      uniq = cms_type.uniq - ['', nil]
+      uniq.each do |cms|
+        cms_distribution[cms] ||= {}
+        cms_distribution[cms][test.number] = cms_type.count(cms)
+        total_cms_hash[cms] += cms_distribution[cms][test.number]
+      end
+      count += 1
+    end
+    if count == 0
+      return {}
+    end
+    total_cms_hash.each do |key, value|
+      total_cms_hash[key] = value / count
+    end
+
+    first_pie = {}
+    avg_pie = {}
+    end_pie = {}
+
+    first_pie["wordpress"] ||= 0
+    first_pie["shopify"] ||= 0
+    first_pie["drupal"] ||= 0
+
+    first_test = V2::Test.where({:created_at.gte => from_time, :updated_at.lte => to_time}).first
+    cms_type = self.where(:test => first_test).pluck(:cms_type)
+    uniq = cms_type.uniq - ['', nil]
+    uniq.each do |cms|
+      first_pie[cms] = cms_type.count(cms)
+    end
+    end_pie["wordpress"] ||= 0
+    end_pie["shopify"] ||= 0
+    end_pie["drupal"] ||= 0
+
+    last_test = V2::Test.where({:created_at.gte => from_time, :updated_at.lte => to_time}).last
+    cms_type = self.where(:test => last_test).pluck(:cms_type)
+    uniq = cms_type.uniq - ['', nil]
+    uniq.each do |cms|
+      end_pie[cms] = cms_type.count(cms)
+    end
+    data_hash[:first_pie] = first_pie
+    data_hash[:avg_pie] = total_cms_hash
+    data_hash[:end_pie] = end_pie
+    data_hash[:line_chart] = []
+    cms_distribution.each do |key, value|
+      data_hash[:line_chart] << {:name => key, :data => value}
+    end
+    return data_hash
   end
 
 end
