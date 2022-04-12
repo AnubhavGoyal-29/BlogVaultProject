@@ -6,37 +6,24 @@
 
 .tooltip .tooltiptext {
   visibility: hidden;
-  width: 120px;
-  background-color: #ECECEC;
-  color: #555;
+  width: 80px;
+  background-color: #E2E5DE;
+  color: black;
   text-align: center;
   border-radius: 6px;
   padding: 5px 0;
+  
+  /* Position the tooltip */
   position: absolute;
   z-index: 1;
-  bottom: 125%;
-  left: 50%;
-  margin-left: -60px;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.tooltip .tooltiptext::after {
-  content: "";
-  position: absolute;
   top: 100%;
   left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #555 transparent transparent transparent;
+  margin-left: -60px;
 }
 
 .tooltip:hover .tooltiptext {
   visibility: visible;
-  opacity: 1;
 }
-
 .Timeline {
   display: flex;
   align-items: center;
@@ -106,7 +93,7 @@
 
 <% data =  V2::Website.where(:cms => "wordpress").first.timeline(7.days.ago, 0.days.ago) %>
 <% data.each do |key, value| %>
-  <ul><h2 style="margin-top : 100px"> <%= "#{key}" %> </h2></ul>
+  <ul><h2 style="margin-top : 30px"> <%= "#{key}" %> </h2></ul>
 
   <div class="Timeline">
     <% test = 1%>
