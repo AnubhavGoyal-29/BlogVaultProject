@@ -1,9 +1,7 @@
 class FrontendController < ApplicationController
 
   def site_timeline
-    if !params["history"]
-      redirect_to admin_dashboard_path
-    end
+    
   end
 
   def cms_distribution
