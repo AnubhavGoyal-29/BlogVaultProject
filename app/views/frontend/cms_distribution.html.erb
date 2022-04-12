@@ -1,0 +1,116 @@
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+body{
+  background-color: #678983;
+}
+
+.top-pad{
+  padding-top: 15px;
+}
+
+.top-container{
+  background-color: #fff;
+  overflow: hidden;
+  overflow-x: hidden;
+  height:75vh;
+  border-radius: 7px;
+  box-shadow:
+  1.1px 1.1px 19.3px rgba(0, 0, 0, 0.12),
+  2.7px 2.7px 23.2px rgba(0, 0, 0, 0.095),
+  5px 5px 25.2px rgba(0, 0, 0, 0.077),
+  8.9px 8.9px 28.5px rgba(0, 0, 0, 0.065),
+  16.7px 16.7px 36.3px rgba(0, 0, 0, 0.053),
+  40px 40px 57px rgba(0, 0, 0, 0.036)
+;
+
+}
+
+.bottom-container{
+  background-color:#fff;
+  height: 17vh;
+  border-radius : 7px;
+  box-shadow:
+  1.1px 1.1px 19.3px rgba(0, 0, 0, 0.12),
+  2.7px 2.7px 23.2px rgba(0, 0, 0, 0.095),
+  5px 5px 25.2px rgba(0, 0, 0, 0.077),
+  8.9px 8.9px 28.5px rgba(0, 0, 0, 0.065),
+  16.7px 16.7px 36.3px rgba(0, 0, 0, 0.053),
+  40px 40px 57px rgba(0, 0, 0, 0.036)
+;
+
+}
+
+#piechart{
+  transform: scale(0.8);
+}
+
+</style>
+<%start_date = (params[:cms_distribution].present? and params[:cms_distribution][:start_date].present?) ? params[:cms_distribution][:start_date] : V2::Test.first.created_at%>
+<%end_date = (params[:cms_distribution].present? and params[:cms_distribution][:end_date].present?) ? params[:cms_distribution][:end_date] : V2::Test.last.updated_at%>
+<%data = V2::SiteDataInfo::cms_data(start_date, end_date)%>
+
+<div class="w3-row" style="padding-top : 30px">
+  <div class="w3-col s2">.</div>
+  <div class="w3-col s8 top-container">
+    <div style="padding-top : 20px; transform : scale(0.8)">
+      <h2 class="w3-center" style="font-family: 'Roboto', sans-serif;" >
+        CMS Distribution over the period
+      </h2>
+        <h3 class="w3-center" style="font-family: 'Roboto', sans-serif;"> <%=start_date.to_date %> to <%=end_date.to_date %> </h3>
+        <div style="padding-top : 20px"><%= line_chart data[:line_chart], :xtitle => "Test Number", :ytitle => "number of cms", :colors => ["green", "blue", "red"] %></div>
+    </div>
+    <div class="w3-row top-pad w3-center" id="piechart">
+      <div class="w3-col s4">
+        <%= pie_chart data[:first_pie], :colors => ["green", "blue", "red"] %>
+        <h4 style="font-family: 'Roboto', sans-serif;" >
+          Distribution at beginning
+        </h4>
+      </div>
+      <div class="w3-col s4">
+        <%= pie_chart data[:avg_pie], :colors => ["green", "blue", "red"] %>
+        <h4 style="font-family: 'Roboto', sans-serif;" >
+          Average distribution
+        </h4>
+      </div>
+      <div class="w3-col s4">
+        <%= pie_chart data[:end_pie], :colors => ["green", "blue", "red"] %>
+        <h4 style="font-family: 'Roboto', sans-serif;" >
+          Distribution at end
+        </h3>
+      </div>
+    </div>
+  </div>
+  <div class="w3-col s2">.</div>
+</div>
+<div class="w3-row top-pad">
+  <div class="w3-col s2">.</div>
+  <div class="w3-col s8 bottom-container">
+  <%= form_for :cms_distribution, :url => root_path, :method => :post  do |f| %>
+  <div class="w3-row w3-center" style="padding-top:30px;font-size:1.5rem">
+    <div class="w3-col">
+      Select Dates
+    </div>
+  </div>
+  <div class="w3-row w3-center top-pad">
+    <div class="w3-col s4">
+      From : <%= f.text_field :start_date, :class => "datepicker", :placeholder => "start date", :value => (params[:cms_distribution].present? and params[:cms_distribution][:start_date].present?) ? params[:cms_distribution][:start_date] : nil %>
+    <% if notice %>
+      <p><%= notice%></p>
+    <%end%>
+    </div>
+    <div class="w3-col s4">
+      To: <%= f.text_field :end_date, :class => "datepicker", :placeholder => "end date", :value => (params[:cms_distribution].present? and params[:cms_distribution][:end_date].present?) ? params[:cms_distribution][:end_date] : nil %>
+    </div>
+    <div class="w3-col s4">
+      <button type="submit" class="w3-button w3-teal">Submit</button>
+    </div>
+  </div>
+<%end%>
+
+  </div>
+  <div class="w3-col s2">.</div>
+</div>
