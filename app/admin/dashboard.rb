@@ -85,6 +85,14 @@ ActiveAdmin.register_page "Dashboard" do
     link_to 'History', admin_main_page_history_path(:status => true)
   end
 
+  action_item :cms do
+    link_to 'CMS', admin_main_page_cms_path(:status => true)
+  end
+
+  action_item :site_timeline do
+    link_to 'Site', admin_main_page_site_timeline_path(:status => true)
+  end
+
   action_item :timeline do
     link_to 'Timeline', admin_websites_timeline_path
   end

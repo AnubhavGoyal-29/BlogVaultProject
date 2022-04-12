@@ -85,10 +85,6 @@ class V2::Website
     # doing only for plugin
     plugin_ids = V2::Plugin.where(:website => self).pluck(:id, :plugin_name).to_h
     plugin_ids = Hash[plugin_ids.collect{|k,v| [k.to_s, v]}]
-
-    puts "%^%^%*&^%*%*&^%*&^*&^*&"
-    puts plugin_ids
-    puts "^&*^*&^&*^&"
     plugin_timeline = {}
     plugin_ids.each do |key, value|
       plugin_timeline[value] = [false]
@@ -96,7 +92,6 @@ class V2::Website
     puts plugin_timeline
     V2::Test.where({:created_at.gte => from, :updated_at.lte => to}).each do |test|
       test_plugin_ids = V2::SiteDataInfo.where(:test => test, :website => self).first&.plugin_ids
-      puts "***", test_plugin_ids, "###"
       test_plugin_ids ||= []
       test_plugin_ids&.each do |id|
         plugin_timeline[plugin_ids[id]] << true
@@ -105,7 +100,7 @@ class V2::Website
         plugin_timeline[plugin_ids[id]] << false
       end
     end
-    
+
     return plugin_timeline
   end
 
