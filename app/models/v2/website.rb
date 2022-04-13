@@ -81,8 +81,8 @@ class V2::Website
     return data
   end
 
-  def timeline(from, to)
-    # doing only for plugin
+  def timeline_for_plugins(from, to)
+    # doing for plugin
     plugin_ids = V2::Plugin.where(:website => self).pluck(:id, :plugin_name).to_h
     plugin_ids = Hash[plugin_ids.collect{|k,v| [k.to_s, v]}]
     plugin_timeline = {}
@@ -103,6 +103,29 @@ class V2::Website
 
     return plugin_timeline
   end
+
+  def timeline_for_themes(from, to)
+    # doing for themes
+    theme_ids = V2::Theme.where(:website => self).pluck(:id, :theme_name).to_h
+    theme_ids = Hash[theme_ids.collect{|k,v| [k.to_s, v]}]
+    theme_timeline = {}
+    theme_ids.each do |key, value|
+      theme_timeline[value] = []
+    end
+    V2::Test.where({:created_at.gte => from, :updated_at.lte => to}).each do |test|
+      test_theme_ids = V2::SiteDataInfo.where(:test => test, :website => self).first&.theme_ids
+      test_theme_ids ||= []
+      test_theme_ids&.each do |id|
+        theme_timeline[theme_ids[id]] << true if theme_ids[id].present?
+      end
+      (theme_ids&.keys - test_theme_ids)&.each do |id|
+        theme_timeline[theme_ids[id]] << false
+      end
+    end
+
+    return theme_timeline
+  end
+
 
   def self.cms
     return ["wordpress", "joomla", "drupal", "shopify", "woocommerce"]
