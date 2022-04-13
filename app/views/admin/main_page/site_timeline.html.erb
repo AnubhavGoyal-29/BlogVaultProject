@@ -1,0 +1,17 @@
+<% if params["status"] == "true"  %>
+  <%= form_for :site_timeline, builder: ActiveAdmin::FormBuilder,
+    :url => root_path, :method => :post  do |f| %>
+    <%= f.inputs "Select option" do %>
+      <%= f.input :Website, :as => :searchable_select, :collection => V2::Website.all.pluck(:url), include_blank: true %>
+    <%end%>
+    <%= f.inputs "Select dates" do %>
+      <%= f.label "From" %>
+      <%= f.date_field :start_date, :class => "datepicker", :placeholder => "date" %>
+      <br>
+      <%= f.label "To" %>
+      <%= f.date_field :end_date, :class => "datepicker", :placeholder => "date" %>
+    <%end%>
+    <%= submit_tag "Submit"%>
+  <%end%>
+<%end%>
+

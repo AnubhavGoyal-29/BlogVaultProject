@@ -1,6 +1,6 @@
 require 'resque/server'
 Rails.application.routes.draw do
-  root to: "frontend#cms_distribution", via: [:get, :post]
+  root to: "frontend#site_timeline", via: [:get, :post]
   get 'frontend/site_timeline'
   post 'frontend/site_timeline'
   get 'frontend/source_timeline'

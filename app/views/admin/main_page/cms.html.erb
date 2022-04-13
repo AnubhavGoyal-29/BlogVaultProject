@@ -1,0 +1,14 @@
+<% if params["status"] == "true"  %>
+  <%= form_for :cms, builder: ActiveAdmin::FormBuilder,
+    :url => admin_main_page_cms_path, :method => :post  do |f| %>
+    <%= f.inputs "Select dates" do %>
+      <%= f.label "From" %>
+      <%= f.date_field :start_date, :class => "datepicker", :placeholder => "date" %>
+      <br>
+      <%= f.label "To" %>
+      <%= f.date_field :end_date, :class => "datepicker", :placeholder => "date" %>
+    <%end%>
+    <%= submit_tag "Submit"%>
+  <%end%>
+<%end%>
+
