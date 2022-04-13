@@ -28,6 +28,7 @@ ActiveAdmin.register_page "Plugins" do
     end
 
     panel "Plugins" do
+      puts params
       table_for V2::Plugin.where(args) do
         column :id
         column :plugin_name

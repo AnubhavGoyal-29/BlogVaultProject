@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   post 'frontend/site_timeline'
   get 'frontend/source_timeline'
   post 'frontend/source_timeline'
+  post 'admin/websites'
   devise_for :admin_users, ActiveAdmin::Devise.config
   mount Resque::Server.new, at: '/jobs'
   ActiveAdmin.routes(self)
