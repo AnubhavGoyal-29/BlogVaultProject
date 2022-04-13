@@ -96,7 +96,7 @@ box-shadow:
           <ul><h2 style="margin-top : 30px"> <%= "#{key}" %> </h2></ul>
           <div class="Timeline">
             <% test = 1%>
-            <% size = 800 / (value.count*value.count) %>
+            <% size = 1000 / (value.count*value.count) %>
             <% value.each do |status| %>
 
               <svg height="3" width=<%= size%>>
@@ -130,6 +130,43 @@ box-shadow:
 
         <%= data =  V2::Website.where(:url => params[:site_timeline][:url]).first.timeline_for_themes(start_date, end_date.to_date + 1.day) %>
         <h1 style="padding-right : 150px"> Themes </h1>
+          <ul><h2 style="margin-top : 30px"> <%= "#{key}" %> </h2></ul>
+          <div class="Timeline">
+            <% test = 1%>
+            <% size = 800 / (value.count*value.count) %>
+            <% value.each do |status| %>
+
+              <svg height="3" width=<%= size%>>
+                <line x1="0" y1="0" x2="200" y2="0" style="stroke:#004165;stroke-width:5" />
+              </svg>
+
+              <% if status == true  %>
+                <div class="tooltip">
+                  <svg height="20" width="20">
+                    <circle cx="10" cy="11" r="5" fill="#228B22" />
+                  </svg>
+                  <span class="tooltiptext">Test  <%= test%></span>
+                </div>
+              <% else %>
+                <div class="tooltip">
+                  <svg height="20" width="20">
+                    <circle cx="10" cy="11" r="5" fill="#FF0000" />
+                  </svg>
+                  <span class="tooltiptext">Test <%= test%></span>
+                </div>
+              <% end %>
+              <% test += 1 %>
+            <% end %>
+
+            <svg height="3" width="20">
+              <line x1="0" y1="0" x2="200" y2="0" style="stroke:#004165;stroke-width:5" />
+            </svg>
+          </div>
+        <% end %>
+
+        <% data =  V2::Website.where(:url => url).first.timeline_for_js(start_date, end_date) %>
+        <h1 style="padding-top : 100px"> Js </h1>
+>>>>>>> 37784f39ccc5efdea9afd3409a3669b009d40ec7
         <% data.each do |key, value| %>
           <ul><h2 style="margin-top : 30px"> <%= "#{key}" %> </h2></ul>
           <div class="Timeline">
@@ -164,12 +201,12 @@ box-shadow:
             </svg>
           </div>
         <% end %>
-      </div>
-      </div>
 
+
+      </div>
+      </div>
 </div>
 <div class="w3-col s2">.</div>
-</div>
 <% end %>
 <% end %>
 
@@ -189,16 +226,14 @@ box-shadow:
         </div>
         <div class="w3-col s4">
           From : <%= f.text_field :start_date, :class => "datepicker", :placeholder => "start date", 
-            :value => (params[:cms_distribution].present? and params[:cms_distribution][:start_date].present?) ? 
-            params[:cms_distribution][:start_date] : nil %>
+            :value => (params[:site_timeline].present? and start_date.present?) ? start_date : nil %>
           <% if notice %>
             <p><%= notice%></p>
           <%end%>
         </div>
         <div class="w3-col s4">
           To: <%= f.text_field :end_date, :class => "datepicker", :placeholder => "end date", 
-            :value => (params[:cms_distribution].present? and params[:cms_distribution][:end_date].present?) ? 
-            params[:cms_distribution][:end_date] : nil %>
+            :value => (params[:site_timeline].present? and end_date.present?) ? end_date : nil %>
         </div>
         <div class="w3-col s4" style="padding-top : 10px">
           <button type="submit" class="w3-button w3-teal">Submit</button>

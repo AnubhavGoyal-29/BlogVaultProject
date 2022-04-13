@@ -82,7 +82,6 @@ class V2::Website
   end
 
   def timeline_for_plugins(from, to)
-    # doing for plugin
     plugin_ids = V2::Plugin.where(:website => self).pluck(:id, :plugin_name).to_h
     plugin_timeline = {}
     plugin_ids.each do |key, value|
@@ -104,7 +103,6 @@ class V2::Website
   end
 
   def timeline_for_themes(from, to)
-    # doing for themes
     theme_ids = V2::Theme.where(:website => self).pluck(:id, :theme_name).to_h
     theme_timeline = {}
     theme_ids.each do |key, value|
@@ -123,6 +121,27 @@ class V2::Website
 
     return theme_timeline
   end
+  
+  def timeline_for_js(from, to)
+    js_ids = V2::JsInfo.where(:website => self).pluck(:id, :js_lib).to_h
+    js_timeline = {}
+    js_ids.each do |key, value|
+      js_timeline[value] = []
+    end
+    V2::Test.where({:created_at.gte => from, :updated_at.lte => to}).each do |test|
+      test_js_ids = V2::SiteDataInfo.where(:test => test, :website => self).first&.js_ids
+      test_js_ids ||= []
+      test_js_ids&.each do |id|
+        js_timeline[js_ids[id]] << true if js_ids[id].present?
+      end
+      (js_ids&.keys - test_js_ids)&.each do |id|
+        js_timeline[js_ids[id]] << false
+      end
+    end
+
+    return js_timeline
+  end
+
 
 
   def self.cms
