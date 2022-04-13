@@ -26,16 +26,16 @@ class V2::Plugin
           plugin_name = V2::PluginSlug.where(:slug => slug).first&.name || slug
           new_plugin = V2::Plugin.create(:first_test => test.number.to_s, :last_test => test.number.to_s, :plugin_name => plugin_name,
                                          plugin_slug: slug, website: website_id, is_active: true)
-          plugins_id << new_plugin.id.to_s
+          plugins_id << new_plugin.id
         else
           _plugin.update(:last_test => test.number)
-          plugins_id << _plugin.id.to_s
+          plugins_id << _plugin.id
         end
       else
         plugin_name = V2::PluginSlug.where(:slug => slug).first&.name || slug
         new_plugin = V2::Plugin.create(:first_test => test.number.to_s, :last_test => test.number.to_s, plugin_name: plugin_name,
                                        :plugin_slug => slug, website: website_id, is_active: true)
-        plugins_id << new_plugin.id.to_s
+        plugins_id << new_plugin.id
       end
     end
     last_plugins = V2::SiteDataInfo.where(:website => website_id).last&.plugin_ids

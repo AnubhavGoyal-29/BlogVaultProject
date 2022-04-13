@@ -84,7 +84,6 @@ class V2::Website
   def timeline_for_plugins(from, to)
     # doing for plugin
     plugin_ids = V2::Plugin.where(:website => self).pluck(:id, :plugin_name).to_h
-    plugin_ids = Hash[plugin_ids.collect{|k,v| [k.to_s, v]}]
     plugin_timeline = {}
     plugin_ids.each do |key, value|
       plugin_timeline[value] = [false]
@@ -107,7 +106,6 @@ class V2::Website
   def timeline_for_themes(from, to)
     # doing for themes
     theme_ids = V2::Theme.where(:website => self).pluck(:id, :theme_name).to_h
-    theme_ids = Hash[theme_ids.collect{|k,v| [k.to_s, v]}]
     theme_timeline = {}
     theme_ids.each do |key, value|
       theme_timeline[value] = []
