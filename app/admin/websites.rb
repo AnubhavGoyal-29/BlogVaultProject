@@ -4,6 +4,7 @@ ActiveAdmin.register_page "Websites" do
   #redirect_to run_test_admin_website_path(ids)
   #end
 
+
   sidebar :filters, if: proc{ !params["show_page"].present? } do
     render partial: 'filter'
   end
@@ -13,6 +14,7 @@ ActiveAdmin.register_page "Websites" do
   end
 
   content do
+    puts params
     args = {}
     args[:cms.in] = V2::Website::cms
     if params["q"] and params["q"]["id_in"].present?

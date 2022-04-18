@@ -166,7 +166,6 @@ box-shadow:
 
         <% data =  V2::Website.where(:url => url).first.timeline_for_js(start_date, end_date) %>
         <h1 style="padding-top : 100px"> Js </h1>
->>>>>>> 37784f39ccc5efdea9afd3409a3669b009d40ec7
         <% data.each do |key, value| %>
           <ul><h2 style="margin-top : 30px"> <%= "#{key}" %> </h2></ul>
           <div class="Timeline">
@@ -207,7 +206,6 @@ box-shadow:
       </div>
 </div>
 <div class="w3-col s2">.</div>
-<% end %>
 <% end %>
 
 <div class="w3-row top-pad">

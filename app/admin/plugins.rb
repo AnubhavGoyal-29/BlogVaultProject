@@ -40,7 +40,7 @@ ActiveAdmin.register_page "Plugins" do
             args[:last_test] = params['test_id'].to_i..Float::INFINITY
           end
           website_ids = V2::Plugin.where(args).pluck(:website_id)
-          link_to "#{website_ids.count} :: urls", admin_websites_path("q[id_in]" => website_ids)
+          link_to "#{website_ids.count} :: urls", admin_websites_path("q[id_in]" => website_ids), :method => :post
         end
         column 'First Test' do |plugin|
           "Test #{plugin.first_test}"
