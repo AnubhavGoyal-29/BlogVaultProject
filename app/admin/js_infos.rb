@@ -3,7 +3,6 @@ ActiveAdmin.register_page "Js_Infos" do
     render partial: 'filter'
   end
 
-
   content do 
     args = {}
     if params["q"]

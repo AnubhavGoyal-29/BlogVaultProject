@@ -3,7 +3,6 @@ ActiveAdmin.register_page "Plugins" do
     render partial: 'filter'
   end
 
-
   content do 
     args = {}
 
