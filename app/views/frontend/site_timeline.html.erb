@@ -130,6 +130,7 @@ box-shadow:
 
         <%= data =  V2::Website.where(:url => params[:site_timeline][:url]).first.timeline_for_themes(start_date, end_date.to_date + 1.day) %>
         <h1 style="padding-right : 150px"> Themes </h1>
+        <% data.each do |key, value| %>
           <ul><h2 style="margin-top : 30px"> <%= "#{key}" %> </h2></ul>
           <div class="Timeline">
             <% test = 1%>
@@ -204,6 +205,7 @@ box-shadow:
 
       </div>
       </div>
+    <%end%>
 </div>
 <div class="w3-col s2">.</div>
 <% end %>
