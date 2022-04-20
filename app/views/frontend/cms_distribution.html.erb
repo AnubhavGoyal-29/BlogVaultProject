@@ -14,7 +14,7 @@ body{
 
 .top-container{
   background-color: #fff;
-  overflow: hidden;
+  overflow: scroll;
   overflow-x: hidden;
   height:75vh;
   border-radius: 7px;
@@ -52,7 +52,7 @@ body{
 <%start_date = (params[:cms_distribution].present? and params[:cms_distribution][:start_date].present?) ? params[:cms_distribution][:start_date] : V2::Test.first.created_at%>
 <%end_date = (params[:cms_distribution].present? and params[:cms_distribution][:end_date].present?) ? params[:cms_distribution][:end_date] : V2::Test.last.updated_at%>
 <%data = V2::SiteDataInfo::cms_data(start_date, end_date)%>
-
+<% colors = ["#74c365", "blue", "red"] %>
 <div class="w3-row" style="padding-top : 30px">
   <div class="w3-col s2">.</div>
   <div class="w3-col s8 top-container">
@@ -61,23 +61,24 @@ body{
         CMS Distribution over the period
       </h2>
         <h3 class="w3-center" style="font-family: 'Roboto', sans-serif;"> <%=start_date.to_date %> to <%=end_date.to_date %> </h3>
-        <div style="padding-top : 20px"><%= line_chart data[:line_chart], :xtitle => "Test Number", :ytitle => "number of cms", :colors => ["green", "blue", "red"] %></div>
+      <div style="padding-top : 20px"><%= line_chart data[:line_chart], :xtitle => "Test Number", 
+        :ytitle => "number of cms", :colors => colors %></div>
     </div>
     <div class="w3-row top-pad w3-center" id="piechart">
       <div class="w3-col s4">
-        <%= pie_chart data[:first_pie], :colors => ["green", "blue", "red"] %>
+        <%= pie_chart data[:first_pie], :colors => colors %>
         <h4 style="font-family: 'Roboto', sans-serif;" >
           Distribution at beginning
         </h4>
       </div>
       <div class="w3-col s4">
-        <%= pie_chart data[:avg_pie], :colors => ["green", "blue", "red"] %>
+        <%= pie_chart data[:avg_pie], :colors => colors %>
         <h4 style="font-family: 'Roboto', sans-serif;" >
           Average distribution
         </h4>
       </div>
       <div class="w3-col s4">
-        <%= pie_chart data[:end_pie], :colors => ["green", "blue", "red"] %>
+        <%= pie_chart data[:end_pie], :colors => colors %>
         <h4 style="font-family: 'Roboto', sans-serif;" >
           Distribution at end
         </h3>

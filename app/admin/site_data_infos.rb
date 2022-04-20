@@ -6,7 +6,10 @@ ActiveAdmin.register_page "Site_Data_Infos" do
 
   content do
     args = {} 
-    panel "Test Data Info" do
+    if params["q"] and params["q"]["test_id_equals"].present?
+      args[:test_id] = params["q"]["test_id_equals"]
+    end
+    panel "Test Data Info"do
       table_for V2::SiteDataInfo.where(args) do
         column :id
         column "Test" do |site_data|
@@ -53,7 +56,7 @@ ActiveAdmin.register_page "Site_Data_Infos" do
           color = site.cloudflare ? "green" : "red"
           div status, :style => "color : #{color}"
         end
-        column 'Login Url' do |site_data|i
+        column 'Login Url' do |site_data|
           if site_data.login_url == nil
             div ('Not found'), :style => "color : red"
           else

@@ -6,8 +6,9 @@ ActiveAdmin.register_page "Tests" do
 
   content do
     args = {}
+    args[:id] =  params["q"]["id_equals"] if (params["q"].present? and params["q"]["id_equals"].present?)
     if params["sidebar_filters"]
-      args[:id] = params["sidebar_filters"]["test_id"] if params["sidebar_filters"]["test_id"].present?
+      args[:id] ||= params["sidebar_filters"]["test_id"] if params["sidebar_filters"]["test_id"].present?
       args[:status] = params["sidebar_filters"]["status"] if params["sidebar_filters"]["status"].present?
       created_from = params["sidebar_filters"]["created_from"].present? ? params["sidebar_filters"]["created_from"] : V2::Test.first.created_at
       created_to = params["sidebar_filters"]["created_to"].present? ? params["sidebar_filters"]["created_to"] : Time.now
@@ -35,15 +36,15 @@ ActiveAdmin.register_page "Tests" do
         end
         column 'Plugins' do |test|
           link_to 'plugins', admin_plugins_path('q[first_seen_less_than]' => test.number + 1,
-                                                'q[last_seen_greater_than]' => test.number - 1, :test_id => test.id)
+                                                'q[last_seen_greater_than]' => test.number - 1, :test_id => test.number)
         end
         column 'Themes' do |test|
           link_to 'themes', admin_themes_path('q[first_seen_less_than]' => test.number + 1,
-                                              'q[last_seen_greater_than]' => test.number - 1, :test_id => test.id)
+                                              'q[last_seen_greater_than]' => test.number - 1, :test_id => test.number)
         end
         column 'JS' do |test|
           link_to 'js', admin_js_infos_path('q[first_seen_less_than]' => test.number + 1,
-                                            'q[last_seen_greater_than]' => test.number - 1, :test_id => test.id)
+                                            'q[last_seen_greater_than]' => test.number - 1, :test_id => test.number)
         end
         column 'Status' do |test|
           status = test.status

@@ -49,4 +49,17 @@ class V2::JsInfo
     end
   end
 
+  def history(start_date, end_date)
+    hash = {}
+    V2::Test.where({:created_at.gte => start_date, :updated_at.lte => end_date}).all.each do |test|
+      args = {}
+      args[:js_lib] = self.js_lib
+      args[:first_test] = -Float::INFINITY..test.number.to_i
+      args[:last_test] = test.number.to_i..Float::INFINITY
+      count = V2::JsInfo.where(args).count
+      hash[test.number] = count
+    end
+    return hash
+  end
+
 end

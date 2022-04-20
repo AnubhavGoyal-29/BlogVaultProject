@@ -26,10 +26,10 @@ ActiveAdmin.register_page "Js_Infos" do
     end
 
     panel "Js Info" do
-      table_for V2::JsInfo.where(args) do
+      table_for V2::JsInfo.where(args).limit(50) do
 
         column :id
-        column :js_lib
+        column :js_lib, :style => "width : 300px"
         column 'Version' do |js_info|
           if js_info.version == nil
             div ("Not found"), :style => 'color : red'
@@ -47,7 +47,7 @@ ActiveAdmin.register_page "Js_Infos" do
             args.delete(:is_active)
           end
           website_ids = V2::JsInfo.where(args).pluck(:website_id)
-          link_to "#{website_ids.count} :: urls", admin_websites_path("q[id_in]" => website_ids)
+          link_to "#{website_ids.count} :: urls", admin_websites_path("q[id_in]" => website_ids), "data-method" => :post
         end
         column 'First Test' do |js|
           "Test #{js.first_test}"
