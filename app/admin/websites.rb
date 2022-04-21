@@ -127,7 +127,7 @@ ActiveAdmin.register_page "Websites" do
           end
 
           row 'Compare Test' do |website|
-            link_to "compare now", admin_websites_test_comparison_path(website)
+            link_to "compare now", admin_websites_test_comparison_path(:resource => website)
           end
 
         end

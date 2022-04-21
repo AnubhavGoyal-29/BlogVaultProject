@@ -34,9 +34,9 @@ class V2::Website
     end
   end
 
-  def compare_test(source_test, final_test)
-    source_data = V2::SiteDataInfo.where(:test_id => source_test, :website_id => self.id).first
-    final_data = V2::SiteDataInfo.where(:test_id => final_test, :website_id => self.id).first
+  def compare_test(source_test, final_test, id)
+    source_data = V2::SiteDataInfo.where(:test_id => source_test, :website_id => id).first
+    final_data = V2::SiteDataInfo.where(:test_id => final_test, :website_id => id).first
 
     source_test_plugins = source_data.basic_info[V2::SiteDataInfo::BasicInfo::PLUGINS]
     final_test_plugins = final_data.basic_info[V2::SiteDataInfo::BasicInfo::PLUGINS]
