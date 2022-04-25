@@ -63,7 +63,6 @@ ActiveAdmin.register_page "Js_Infos" do
           end
         end
       end
-
     end
   end
 end

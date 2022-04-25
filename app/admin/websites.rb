@@ -76,7 +76,7 @@ ActiveAdmin.register_page "Websites" do
           column 'Last Test Data' do |website|
             if latest_site_data_info[website.id.to_s].present?
               link_to "last test data info", admin_site_data_infos_path("q[test_id_equals]" => latest_site_data_info[website.id.to_s].test_id.to_s, 
-                                                                        "q[website_id_equals]" => latest_site_data_info[website.id.to_s].website_id.to_s)
+                                                                     "q[website_id_equals]" => latest_site_data_info[website.id.to_s].website_id.to_s)
             end
           end
           column 'Run New Test' do |website|
@@ -136,8 +136,6 @@ ActiveAdmin.register_page "Websites" do
     end
   end
   page_action :test_comparison, :method => [:get, :post]
-
-  page_action :timeline
 
   page_action :run_test, :method => :get do
     ids = params["id"].split('/')

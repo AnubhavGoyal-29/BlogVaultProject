@@ -82,15 +82,15 @@ ActiveAdmin.register_page "Dashboard" do
   end
 
   action_item :history do
-    link_to 'History', admin_main_page_history_path(:status => true)
+    link_to 'History', frontend_source_timeline_path(:status => true)
   end
 
   action_item :cms do
-    link_to 'CMS', admin_main_page_cms_path(:status => true)
+    link_to 'CMS', frontend_cms_distribution_path(:status => true)
   end
 
   action_item :site_timeline do
-    link_to 'Site', admin_main_page_site_timeline_path(:status => true)
+    link_to 'Site', frontend_site_timeline_path(:status => true)
   end
 
   # first it will add new wordpress site to database 

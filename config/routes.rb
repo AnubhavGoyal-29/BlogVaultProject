@@ -1,6 +1,7 @@
 require 'resque/server'
 Rails.application.routes.draw do
-  root to: "frontend#site_timeline", via: [:get, :post]
+  root to: "admin/dashboard#index", via: [:get, :post]
+  get 'admin/dashboard/index'
   get 'frontend/site_timeline'
   post 'frontend/site_timeline'
   get 'frontend/source_timeline'
