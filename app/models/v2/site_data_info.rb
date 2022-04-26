@@ -27,23 +27,9 @@ class V2::SiteDataInfo
     site_data_objects = []
     #new_site_data_info_id = SiteDataInfo.last ? SiteDataInfo.last.id : 1 ;
     urls_data.each do |website_id, data|
-      logger.info "***************************"
-      logger.info "^^^^^^^^^^^^^^^^^^^^^^^^^^^"
-      logger.info "from site data info"
-      logger.info data[:cms_and_version_hash]
-      logger.info "&&&&&&&&&&&&&&&&&&&&&&&&&&&"
-      logger.info "###########################"
       maped_data = data[:maped_data]
       cms_type = data[:cms_and_version_hash].present? ? data[:cms_and_version_hash][:cms] : nil
       cms_version = data[:cms_and_version_hash].present? ? data[:cms_and_version_hash][:cms_version] : nil
-      logger.info "***************************"
-      logger.info "^^^^^^^^^^^^^^^^^^^^^^^^^^^"
-      logger.info "from site data info"
-      logger.info cms_type
-      logger.info cms_version
-      logger.info "&&&&&&&&&&&&&&&&&&&&&&&&&&&"
-      logger.info "###########################"
-
       cloudflare =  maped_data["cloudflare"].present?
       plugins_arr = maped_data["plugins"] || []
       plugins_arr += maped_data["mu-plugins"] if maped_data["mu-plugins"].present?
