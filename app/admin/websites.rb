@@ -5,11 +5,11 @@ ActiveAdmin.register_page "Websites" do
   #end
 
 
-  sidebar :filters, if: proc{ !params["show_page"].present? } do
+  sidebar :filters, if: proc{ (!params["show_page"].present? and !params["resource"].present?) } do
     render partial: 'filter'
   end
 
-  sidebar :scopes, if: proc{ !params["show_page"].present? } do
+  sidebar :scopes, if: proc{ (!params["show_page"].present? and !params["resource"].present?) } do
     render partial: 'filter'
   end
 
