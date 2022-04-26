@@ -11,9 +11,9 @@ class TestInitializeJob < ApplicationJob
   end
 
   def perform(urls, test_id)
-    logger.info "Test Id: #{test_id} Message: started test_intitialize_job"
     @urls = urls - ['', nil]
     @test_id = test_id
+    logger.info "Test Id: #{test_id} Message: started test_intitialize_job"
     test.update(:status => V2::Test::Status::RUNNING, :started_at => Time.now)
     website_ids = []
     new_websites = []

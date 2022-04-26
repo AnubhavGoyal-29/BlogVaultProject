@@ -23,6 +23,7 @@ class V2::Test
   }
 
   def self.history_of_tests(time1, time2)
+    # not in use right now
     total_urls = {}
     wordpress_urls = {}
     ratio = {}
