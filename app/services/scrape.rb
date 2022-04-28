@@ -49,12 +49,12 @@ class Scrape
         url_html_version_map[website.id] = {:html => html, :cms_and_version_hash => cms_and_version_hash}
       end
     rescue => e
-      logger.info "Test Id : #{test_id.to_s} Url: #{website.url} Error: #{e.message} Backtrace : #{e.backtrace}"
+      logger.info "Test Id : #{test_id.to_s} Url : #{website.url} Error : #{e.message} Backtrace : #{e.backtrace}"
     end
   end
 
   def self.cms_and_version(response, html)
-    check_is_wordpress(response, html) || check_is_drupal(response, html) || check_is_shopify(response, html) || check_is_joomla(html)
+    check_is_wordpress(response, html) || check_is_drupal(response, html) || check_is_shopify(response, html)
   end
 
   def self.check_is_wordpress(response, html)
@@ -78,10 +78,6 @@ class Scrape
     return nil
   end
 
-  def self.check_is_joomla(html)
-    # some code here
-    return nil
-  end
   def self.check_wordpress_in_meta(html)
     meta_name = ['generator', 'Generator']
     meta_name.each do |name|
