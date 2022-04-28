@@ -1,0 +1,65 @@
+class V2::Plugin
+  include Mongoid::Document
+  include Mongoid::Timestamps
+
+  belongs_to :website
+  field :plugin_name, type: String
+  field :plugin_slug, type: String
+  field :is_active, type: Boolean
+  field :first_test, type: String
+  field :last_test, type: String
+
+  def self.test
+    @test ||= V2::Test.find(@test_id)
+  end
+
+  def self.import_plugins(plugins, website_id, test_id)
+    @test_id = test_id
+    plugins_id = []
+    plugins.each do |slug|
+      _plugin = V2::Plugin.where(:plugin_slug => slug, :website => website_id, :is_active => true).first
+      if _plugin
+        _version = '1.1'
+        if  _version != '1.1'      #for testing purpose
+          _plugin.is_active = false
+          _plugin.save
+          plugin_name = V2::PluginSlug.where(:slug => slug).first&.name || slug
+          new_plugin = V2::Plugin.create(:first_test => test.number.to_s, :last_test => test.number.to_s, :plugin_name => plugin_name,
+                                         plugin_slug: slug, website: website_id, is_active: true)
+          plugins_id << new_plugin.id
+        else
+          _plugin.update(:last_test => test.number)
+          plugins_id << _plugin.id
+        end
+      else
+        plugin_name = V2::PluginSlug.where(:slug => slug).first&.name || slug
+        new_plugin = V2::Plugin.create(:first_test => test.number.to_s, :last_test => test.number.to_s, plugin_name: plugin_name,
+                                       :plugin_slug => slug, website: website_id, is_active: true)
+        plugins_id << new_plugin.id
+      end
+    end
+    last_plugins = V2::SiteDataInfo.where(:website => website_id).last&.plugin_ids
+    inactive_removed_plugins(last_plugins, plugins_id) if last_plugins.present?
+    return plugins_id
+  end
+
+  def self.inactive_removed_plugins(last_plugins, plugins_id)
+    removed_plugins = last_plugins - plugins_id
+    removed_plugins.each do |id|
+      V2::Plugin.find(id).update(:is_active => false)
+    end
+  end
+
+  def history(start_date, end_date)
+    hash = {}
+    V2::Test.where({:created_at.gte => start_date, :updated_at.lte => end_date}).all.each do |test|
+      args = {}
+      args[:plugin_slug] = self.plugin_slug
+      args[:first_test] = -Float::INFINITY..test.number.to_i
+      args[:last_test] = test.number.to_i..Float::INFINITY
+      count = V2::Plugin.where(args).count
+      hash[test.number] = count
+    end
+    return hash
+  end
+end

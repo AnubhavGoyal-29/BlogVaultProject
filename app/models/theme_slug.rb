@@ -1,0 +1,2 @@
+class ThemeSlug < ApplicationRecord
+end
